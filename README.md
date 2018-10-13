@@ -23,7 +23,7 @@ __Note__: the HAPI.html document is a large document and may take a few seconds 
 
 # Examples
 
-Example messages can be found in the [Transaction-Query-Examples.md](https://github.com/hashgraph/hedera-protobuf/blob/master/Transaction-Query-Examples.md) file. These were generated with the Hedera Hashgraph Java SDK and may serve as a useful reference when checking if your own messages are correct.
+Example messages can be found in the [Transaction-Query-Examples.md](https://github.com/hashgraph/hedera-protobuf/blob/master/Transaction-Query-Examples.md) file. These were generated with the [Hedera Hashgraph Java SDK](https://github.com/hashgraph/hedera-sdk-java) and may serve as a useful reference when checking if your own messages are correct.
 
 __Note__: The examples show keys and signatures. Keys shown in the examples are not the keys that were used to generate the signatures.
 
