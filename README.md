@@ -1,4 +1,4 @@
-# hedera-protobuf
+# Hedera Hashgraph Protocol Buffer API Message Definitions
 
 The Hedera Hashgraph API is implemented with protocol buffers, Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data. This repository contains the current version of the files used to define the API.
 
