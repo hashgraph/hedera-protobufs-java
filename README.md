@@ -21,6 +21,12 @@ Also available is a HAPI.html document which is a HTML version of the protocol b
 
 __Note__: the HAPI.html document is a large document and may take a few seconds to load in a browser.
 
+# Examples
+
+Example messages can be found in the "Transactions and Queries.md" file. These were generated with the Hedera Hashgraph Java SDK and may serve as a useful reference when checking if your own messages are correct.
+
+__Note__: The examples show keys and signatures. Keys shown in the examples are not the keys that were used to generate the signatures.
+
 # Additional resources
 
 If you are new to protocol buffers, we strongly recommend you consult the following web resources:
