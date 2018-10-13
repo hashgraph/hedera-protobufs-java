@@ -17,7 +17,7 @@ The protobuf files are organised in folders representing the domain they pertain
 
 The protobuf files themselves contain detailed comments which help understand not only the message itself but also some of the features and capabilities of the Hedera Hashgraph network.
 
-Also available is a [HAPI.html](https://github.com/hashgraph/hedera-protobuf/blob/master/HAPI.html) document which is a HTML version of the protocol buffers file with hyperlinks to help navigate through the message definitions. It is also nested such that you can easily follow a complete message structure.
+Also available is a [HAPI.html](https://github.com/hashgraph/hedera-protobuf/blob/master/HAPI.html) document which is a HTML version of the protocol buffers file with hyperlinks to help navigate through the message definitions. It is also nested such that you can follow a complete message structure.
 
 __Note__: the HAPI.html document is a large document and may take a few seconds to load in a browser.
 
