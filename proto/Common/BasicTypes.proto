@@ -105,73 +105,80 @@ message SignatureList {
     repeated Signature sigs = 2; // each signature corresponds to a Key in the KeyList
 }
 
-
+/* The functionality provided by hedera hashgraph */
 enum HederaFunctionality {
-    CryptoCreate = 0;
-    CryptoTransfer = 1;
-    CryptoUpdate = 2;
-    CryptoDelete = 3;
-    CryptoAddClaim = 4;
-    CryptoDeletClaim = 5;
-    ContractCall = 6;
-    ContractCreate = 7;
-    ContractUpdate = 8;
-    FileCreate = 9;
-    FileAppend = 10;
-    FileUpdate = 11;
-    FileDelete = 12;
-    CryptoGetAccountBalance = 13;
-    CryptoGetAccountRecords = 14;
-    CryptoGetInfo = 15;
-    ContractCallLocal = 16;
-    ContractGetInfo = 17;
-    ContractGetBytecode = 18;
-    GetBySolidityID = 19;
-    GetByKey = 20;
-    CryptoGetClaim = 21;
-    CryptoGetStakers = 22;
-    FileGetContents = 23;
-    FileGetInfo = 24;
-    TransactionGetRecord = 25;
-
+    CryptoCreate = 0; // crypto create account
+    CryptoTransfer = 1; // crypto transfer
+    CryptoUpdate = 2; // crypto update account
+    CryptoDelete = 3; // crypto delete account
+    CryptoAddClaim = 4; // crypto add claim to the account
+    CryptoDeleteClaim = 5; // crypto delete claim to the account
+    ContractCall = 6; // Smart Contract Call
+    ContractCreate = 7; // Smart Contract Create Contract
+    ContractUpdate = 8; // Smart Contract update contract
+    FileCreate = 9; // File Operation create file
+    FileAppend = 10; // File Operation append file
+    FileUpdate = 11; // File Operation update file
+    FileDelete = 12; // File Operation delete file
+    CryptoGetAccountBalance = 13; // crypto get account balance
+    CryptoGetAccountRecords = 14; // crypto get account record
+    CryptoGetInfo = 15; // Crypto get info
+    ContractCallLocal = 16; // Smart Contract Call
+    ContractGetInfo = 17; // Smart Contract get info
+    ContractGetBytecode = 18; // Smart Contract, get the byte code
+    GetBySolidityID = 19; // Smart Contract, get by solidity ID
+    GetByKey = 20; // Smart Contract, get by key
+    CryptoGetClaim = 21; // Crypto get the claim
+    CryptoGetStakers = 22; // Crypto, get the stakers for the node
+    FileGetContents = 23; // File Operations get file contents
+    FileGetInfo = 24; // File Operations get the info of the file
+    TransactionGetRecord = 25; // Crypto get the transaction records
+    ContractGetRecords = 26; // Contract get the transaction records
 }
+
+/* The different components used for fee calculation */
 
 message FeeComponents {
-    int64 min = 1;
-    int64 max = 2;
-    int64 constant = 3;
-    int64 bpt = 4;
-    int64 vpt = 5;
-    int64 rbs = 6;
-    int64 sbs = 7;
-    int64 gas = 8;
-    int64 tv = 9;
-    int64 bpr = 10;
-    int64 sbpr = 11;
+    int64 min = 1; // the minimum fees that needs to be paid
+    int64 max = 2; // the maximum fees that can be submitted
+    int64 constant = 3; // a constant determined by the business to calculate the fees
+    int64 bpt = 4; // bytes per transaction
+    int64 vpt = 5; // verifications per transaction
+    int64 rbs = 6; // ram byte seconds
+    int64 sbs = 7; // storage byte seconds
+    int64 gas = 8; // ethereum gas
+    int64 tv = 9; // transaction value (crypto transfers amount, tv is in tiny bars divided by 1000, rounded down)
+    int64 bpr = 10; // bytes per response
+    int64 sbpr = 11; // storage bytes per response
 }
 
+/* The fees for a specific transaction or query based on the fee data. */
 message TransactionFeeSchedule {
     HederaFunctionality hederaFunctionality = 1; // Specific Transaction or Query
-    FeeData feeData = 2;
+    FeeData feeData = 2; // the fee information about the query/data
 }
 
+/* The total fees charged for a transaction. It contains three parts namely node data, network data and service data */
 message FeeData {
     FeeComponents nodedata = 1; // Fee charged by Node for this functionality
     FeeComponents networkdata = 2; // Fee charged for network operations by Hedera
-    FeeComponents servicedata = 3; // Fee charged for provding service by Hedera
+    FeeComponents servicedata = 3; // Fee charged for providing service by Hedera
 }
 
+/* The fee schedule for a specific hedera functionality and the time period this fee will be valid for the transaction */
 message FeeSchedule {
     repeated TransactionFeeSchedule transactionFeeSchedule = 1;
-    Duration feeScheduleValidityDuration = 2;
+    Duration feeScheduleValidityDuration = 2; // the valid duration for the fee schedule
 }
 
+/* The information about a node */
 message NodeAddress {
-    bytes ipAddress = 1;
-    int32 portno = 2;
-    bytes memo = 3;
+    bytes ipAddress = 1; // the ip address of the Node
+    int32 portno = 2; // the port number of the grpc server for the node
+    bytes memo = 3; // the memo field of the node
 }
 
+/* Gives the node addresses in the address book */
 message NodeAddressBook {
     repeated NodeAddress nodeAddress = 1;
 }
