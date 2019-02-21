@@ -26,8 +26,7 @@ message CryptoGetInfoResponse {
         AccountID accountID = 1; // the account for which this information applies
         string contractAccountID = 2; // ID of both the contract instance and the cryptocurrency account owned by the contract instance, in the format used by Solidity
         bool deleted = 3; // if true, then this account has been deleted, it will disappear when it expires, and all transactions for it will fail except the transaction to extend its expiration date
-        AccountID proxyAccountID = 4; // ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking at the given fraction, or if it is not currently running a node, then it will behave as if both proxyAccountID and proxyFraction were null.
-        int32 proxyFraction = 5; // payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account
+        AccountID proxyAccountID = 4; // ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null.
         int64 proxyReceived = 6; // total number of tinybars proxy staked to this account
         Key key = 7; // the key for the account, which must sign in order to transfer out, or to modify the account in any way other than extending its expiration date.
         uint64 balance = 8; // the current number of tinybars in the account

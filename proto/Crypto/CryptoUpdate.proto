@@ -13,8 +13,7 @@ import "Timestamp.proto";
 message CryptoUpdateTransactionBody {
     AccountID accountIDToUpdate = 2; // the account to modify
     Key key = 3; // the new key
-    AccountID proxyAccountID = 4; // ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking at the given fraction, or if it is not currently running a node, then it will behave as if both proxyAccountID and proxyFraction were null.
-    int32 proxyFraction = 5; // payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account
+    AccountID proxyAccountID = 4; // ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null.
     uint64 sendRecordThreshold = 6; // the new threshold for generating records for sending
     uint64 receiveRecordThreshold = 7; // the new threshold for generating records for receiving
     Duration autoRenewPeriod = 8; // the new frequency with which it will automatically extend the expiration period
