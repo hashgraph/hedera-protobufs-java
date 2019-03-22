@@ -46,6 +46,10 @@
 <li>
 <a href="#SignatureList"><span class="badge">M</span>SignatureList</a></li>
 <li>
+<a href="#SignatureMap"><span class="badge">M</span>SignatureMap</a></li>
+<li>
+<a href="#SignaturePair"><span class="badge">M</span>SignaturePair</a></li>
+<li>
 <a href="#ThresholdKey"><span class="badge">M</span>ThresholdKey</a></li>
 <li>
 <a href="#ThresholdSignature"><span class="badge">M</span>ThresholdSignature</a></li>
@@ -192,6 +196,13 @@
 <ul>
 <li>
 <a href="#Duration"><span class="badge">M</span>Duration</a></li>
+</ul>
+<a href=#ExchangeRate.proto>ExchangeRate.proto</a>
+<ul>
+<li>
+<a href="#ExchangeRate"><span class="badge">M</span>ExchangeRate</a></li>
+<li>
+<a href="#ExchangeRateSet"><span class="badge">M</span>ExchangeRateSet</a></li>
 </ul>
 <a href=#FileAppend.proto>FileAppend.proto</a>
 <ul>
@@ -1129,6 +1140,13 @@
 </thead>
 <tbody>
 <TR>
+<TD>deprecated</TD>
+<TD><a href="#option">option</a></TD>
+<TD>&nbsp;</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD>signature</TD>
 <TD>oneof</TD>
 <TD>&nbsp;</TD>
@@ -1196,7 +1214,7 @@
 </TABLE>
 
 <H3 id="SignatureList"><span class="BigBadge">Message</span>SignatureList</H3>
-<P> The signatures corresponding to a KeyList of the same length  </P>
+<P> The signatures corresponding to a KeyList of the same length.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1208,12 +1226,113 @@
 </thead>
 <tbody>
 <TR>
+<TD>deprecated</TD>
+<TD><a href="#option">option</a></TD>
+<TD>&nbsp;</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD>sigs</TD>
 <TD><a href="#Signature">Signature</a></TD>
 <TD>repeated</TD>
 <TD><P>each signature corresponds to a Key in the KeyList</P></TD>
 </TR>
 
+<tbody>
+</TABLE>
+
+<H3 id="SignatureMap"><span class="BigBadge">Message</span>SignatureMap</H3>
+<P> A set of signatures corresponding to every unique public key used to sign a given transaction.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>sigPair</TD>
+<TD><a href="#SignaturePair">SignaturePair</a></TD>
+<TD>repeated</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="SignaturePair"><span class="BigBadge">Message</span>SignaturePair</H3>
+<P> The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>pubKeyPrefix</TD>
+<TD>bytes</TD>
+<TD>&nbsp;</TD>
+<TD><P>First few bytes of the public key</P></TD>
+</TR>
+
+<TR>
+<TD>signature</TD>
+<TD>oneof</TD>
+<TD>&nbsp;</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=3>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>contract</TD>
+<TD>bytes</TD>
+<TD>&nbsp;</TD>
+<TD><P>smart contract virtual signature (always length zero)</P></TD>
+</TR>
+
+<TR>
+<TD>ed25519</TD>
+<TD>bytes</TD>
+<TD>&nbsp;</TD>
+<TD><P>ed25519 signature</P></TD>
+</TR>
+
+<TR>
+<TD>RSA_3072</TD>
+<TD>bytes</TD>
+<TD>&nbsp;</TD>
+<TD><P>RSA-3072 signature</P></TD>
+</TR>
+
+<TR>
+<TD>ECDSA_384</TD>
+<TD>bytes</TD>
+<TD>&nbsp;</TD>
+<TD><P>ECDSA p-384 signature</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
 <tbody>
 </TABLE>
 
@@ -1247,7 +1366,7 @@
 </TABLE>
 
 <H3 id="ThresholdSignature"><span class="BigBadge">Message</span>ThresholdSignature</H3>
-<P> A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null. </P>
+<P> A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1258,6 +1377,13 @@
 </TR>
 </thead>
 <tbody>
+<TR>
+<TD>deprecated</TD>
+<TD><a href="#option">option</a></TD>
+<TD>&nbsp;</TD>
+<TD><P></P></TD>
+</TR>
+
 <TR>
 <TD>sigs</TD>
 <TD><a href="#SignatureList">SignatureList</a></TD>
@@ -2077,13 +2203,6 @@
 </thead>
 <tbody>
 <TR>
-<TD>accountID</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD>&nbsp;</TD>
-<TD><P>The account ID that the claim should be attached to</P></TD>
-</TR>
-
-<TR>
 <TD>claim</TD>
 <TD><a href="#Claim">Claim</a></TD>
 <TD>&nbsp;</TD>
@@ -2413,7 +2532,7 @@
 <TD>accountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
 <TD>&nbsp;</TD>
-<TD><P>The account ID to which the claim may be attached</P></TD>
+<TD><P>The account ID to which the claim was attached</P></TD>
 </TR>
 
 <TR>
@@ -2863,14 +2982,14 @@
 
 <TR>
 <TD>sendRecordThreshold</TD>
-<TD>uint64</TD>
+<TD><a href="#google.protobuf.UInt64Value">google.protobuf.UInt64Value</a></TD>
 <TD>&nbsp;</TD>
 <TD><P>The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction</P></TD>
 </TR>
 
 <TR>
 <TD>receiveRecordThreshold</TD>
-<TD>uint64</TD>
+<TD><a href="#google.protobuf.UInt64Value">google.protobuf.UInt64Value</a></TD>
 <TD>&nbsp;</TD>
 <TD><P>The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction.</P></TD>
 </TR>
@@ -2891,7 +3010,7 @@
 
 <TR>
 <TD>receiverSigRequired</TD>
-<TD>bool</TD>
+<TD><a href="#google.protobuf.BoolValue">google.protobuf.BoolValue</a></TD>
 <TD>&nbsp;</TD>
 <TD><P>If true, this account's key must sign any transaction depositing into this account (in addition to all withdrawals)</P></TD>
 </TR>
@@ -2920,6 +3039,75 @@
 <TD>int64</TD>
 <TD>&nbsp;</TD>
 <TD><P>number of seconds</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="ExchangeRate.proto">ExchangeRate.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="ExchangeRate"><span class="BigBadge">Message</span>ExchangeRate</H3>
+<P>  Values from these proto denotes habr and cents(USD) conversion </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>hbarEquiv</TD>
+<TD>int32</TD>
+<TD>&nbsp;</TD>
+<TD><P>value which denote habar equivalent to cent</P></TD>
+</TR>
+
+<TR>
+<TD>centEquiv</TD>
+<TD>int32</TD>
+<TD>&nbsp;</TD>
+<TD><P>value which denote cents (USD) equivalent to Hbar}</P></TD>
+</TR>
+
+<TR>
+<TD>expirationTime</TD>
+<TD><a href="#TimestampSeconds">TimestampSeconds</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>expired time in seconds for this exchange rate</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ExchangeRateSet"><span class="BigBadge">Message</span>ExchangeRateSet</H3>
+<P> Two sets of exchange rate </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>currentRate</TD>
+<TD><a href="#ExchangeRate">ExchangeRate</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>Current rate of Exchange of Hbar to cents</P></TD>
+</TR>
+
+<TR>
+<TD>nextRate</TD>
+<TD><a href="#ExchangeRate">ExchangeRate</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>Next rate exchange of Hbar to cents</P></TD>
 </TR>
 
 <tbody>
@@ -3913,7 +4101,7 @@
 </TR>
 
 <TR>
-<TD>INVALID_NODE_ACCOUNT=3;</TD>
+<TD>INVALID_NODE_ACCOUNT</TD>
 <TD></TD>
 <TD><P>Node Account provided does not match the node account of the node the transaction was submitted to.</P></TD>
 </TR>
@@ -3931,9 +4119,9 @@
 </TR>
 
 <TR>
-<TD>INVALID_TRANSACTION_DURATION=6;//valid</TD>
+<TD>INVALID_TRANSACTION_DURATION</TD>
 <TD></TD>
-<TD><P></P></TD>
+<TD><P>valid transaction duration is a positive non zero number that does not exceed 120 seconds</P></TD>
 </TR>
 
 <TR>
@@ -4015,7 +4203,7 @@
 </TR>
 
 <TR>
-<TD>INVALID_SOLIDITY_ID=20;</TD>
+<TD>INVALID_SOLIDITY_ID</TD>
 <TD></TD>
 <TD><P>The solidity id is invalid or entity with this solidity id does not exist</P></TD>
 </TR>
@@ -4063,13 +4251,13 @@
 </TR>
 
 <TR>
-<TD>INSUFFICIENT_ACCOUNT_BALANCE=28;</TD>
+<TD>INSUFFICIENT_ACCOUNT_BALANCE</TD>
 <TD></TD>
 <TD><P>When the account balance is not sufficient for the transfer</P></TD>
 </TR>
 
 <TR>
-<TD>INVALID_SOLIDITY_ADDRESS=29;</TD>
+<TD>INVALID_SOLIDITY_ADDRESS</TD>
 <TD></TD>
 <TD><P>During an update transaction when the system is not able to find the Users Solidity address</P></TD>
 </TR>
@@ -4087,21 +4275,21 @@
 </TR>
 
 <TR>
-<TD>LOCAL_CALL_MODIFICATION_EXCEPTION=32;//local</TD>
+<TD>LOCAL_CALL_MODIFICATION_EXCEPTION</TD>
 <TD></TD>
-<TD><P></P></TD>
+<TD><P>local execution (query) is requested for a function which changes state</P></TD>
 </TR>
 
 <TR>
-<TD>CONTRACT_REVERT_EXECUTED=33;</TD>
+<TD>CONTRACT_REVERT_EXECUTED</TD>
 <TD></TD>
 <TD><P>Contract REVERT OPCODE executed</P></TD>
 </TR>
 
 <TR>
-<TD>CONTRACT_EXECUTION_EXCEPTION=34;//For</TD>
+<TD>CONTRACT_EXECUTION_EXCEPTION</TD>
 <TD></TD>
-<TD><P></P></TD>
+<TD><P>For any contract execution related error not handled by specific error codes listed above.</P></TD>
 </TR>
 
 <TR>
@@ -4296,6 +4484,30 @@
 <TD><P>Contract is marked as deleted</P></TD>
 </TR>
 
+<TR>
+<TD>PLATFORM_NOT_ACTIVE</TD>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>KEY_PREFIX_MISMATCH</TD>
+<TD></TD>
+<TD><P>one public key matches more than one prefixes on the signature map</P></TD>
+</TR>
+
+<TR>
+<TD>PLATFORM_TRANSACTION_NOT_CREATED</TD>
+<TD></TD>
+<TD><P>transaction not created by platform due to either large backlog or message size exceeded transactionMaxBytes</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_RENEWAL_PERIOD</TD>
+<TD></TD>
+<TD><P>auto renewal period is not a positive number of seconds</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -4410,7 +4622,7 @@
 <a href="#title">Top</a>
 </div>
 <H3 id="Transaction"><span class="BigBadge">Message</span>Transaction</H3>
-<P> A single signed transaction, including all its signatures. The SignatureList will have a Signature for each Key in the transaction, either explicit or implicit, in the order that they appear in the transaction. For example, a CryptoTransfer will first have a Signature corresponding to the Key for the paying account, followed by a Signature corresponding to the Key for each account that is sending or receiving cryptocurrency in the transfer. Each Transaction should not have more than 50 levels. </P>
+<P> A single signed transaction, including all its signatures. The SignatureList will have a Signature for each Key in the transaction, either explicit or implicit, in the order that they appear in the transaction. For example, a CryptoTransfer will first have a Signature corresponding to the Key for the paying account, followed by a Signature corresponding to the Key for each account that is sending or receiving cryptocurrency in the transfer. Each Transaction should not have more than 50 levels.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -4422,17 +4634,53 @@
 </thead>
 <tbody>
 <TR>
+<TD>bodyData</TD>
+<TD>oneof</TD>
+<TD>&nbsp;</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=3>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Label</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>body</TD>
+<TD><a href="#TransactionBody">TransactionBody</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>the body of the transaction, which needs to be signed</P></TD>
+</TR>
+
+<TR>
 <TD>bodyBytes</TD>
 <TD>bytes</TD>
 <TD>&nbsp;</TD>
 <TD><P>TransactionBody serialized into bytes , which needs to be signed</P></TD>
 </TR>
 
+<tbody>
+</TABLE>
 <TR>
 <TD>sigs</TD>
 <TD><a href="#SignatureList">SignatureList</a></TD>
 <TD>&nbsp;</TD>
-<TD><P>The signatures on the body, to authorize the transaction</P></TD>
+<TD><P>The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field</P></TD>
+</TR>
+
+<TR>
+<TD>sigMap</TD>
+<TD><a href="#SignatureMap">SignatureMap</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>The signatures on the body with the new format, to authorize the transaction</P></TD>
 </TR>
 
 <tbody>
@@ -4854,6 +5102,13 @@
 <TD><a href="#ContractID">ContractID</a></TD>
 <TD>&nbsp;</TD>
 <TD><P>The contract ID, if a new smart contract instance was created</P></TD>
+</TR>
+
+<TR>
+<TD>exchangeRate</TD>
+<TD><a href="#ExchangeRateSet">ExchangeRateSet</a></TD>
+<TD>&nbsp;</TD>
+<TD><P>exchange rate set of Hbar to cents (USD)</P></TD>
 </TR>
 
 <tbody>
