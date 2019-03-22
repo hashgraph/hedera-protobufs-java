@@ -13,7 +13,7 @@ import "CryptoAddClaim.proto";
 /* Get a single claim attached to an account, or return null if it does not exist. */
 message CryptoGetClaimQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
-    AccountID accountID = 2; // The account ID to which the claim may be attached
+    AccountID accountID = 2; // The account ID to which the claim was attached
     bytes hash = 3; // The hash of the claim
 }
 
