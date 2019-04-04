@@ -195,10 +195,17 @@ message FeeData {
     FeeComponents servicedata = 3; // Fee charged for providing service by Hedera
 }
 
-/* The fee schedule for a specific hedera functionality and the time period this fee will be valid for the transaction */
+/* The fee schedule for a specific hedera functionality and the time period this fee schedule will expire  */
 message FeeSchedule {
     repeated TransactionFeeSchedule transactionFeeSchedule = 1; // Contains multiple functionality specific fee schedule.
-    Duration feeScheduleValidityDuration = 2; // the valid duration for the fee schedule
+    TimestampSeconds expiryTime = 2; // FeeSchedule expiry time
+}
+
+
+/* This contains two Fee Schedules with expiry timestamp. */
+message CurrentAndNextFeeSchedule {
+    FeeSchedule currentFeeSchedule = 1; // Contains current Fee Schedule
+    FeeSchedule nextFeeSchedule = 2; // Contains next Fee Schedule
 }
 
 /* The information about a node */

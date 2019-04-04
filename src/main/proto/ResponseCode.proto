@@ -95,8 +95,10 @@ enum ResponseCodeEnum {
   TRANSACTION_TOO_MANY_LAYERS = 65; // The Transaction has more than 50 levels
   CONTRACT_DELETED = 66; //Contract is marked as deleted
 
-  PLATFORM_NOT_ACTIVE = 67;
+  PLATFORM_NOT_ACTIVE = 67; // the platform node is either disconnected or lagging behind.
   KEY_PREFIX_MISMATCH = 68; // one public key matches more than one prefixes on the signature map
   PLATFORM_TRANSACTION_NOT_CREATED = 69; // transaction not created by platform due to either large backlog or message size exceeded transactionMaxBytes
   INVALID_RENEWAL_PERIOD = 70; // auto renewal period is not a positive number of seconds
+  INVALID_PAYER_ACCOUNT_ID = 71; // the response code when a smart contract id is passed for a crypto API request
+  ACCOUNT_REPEATED_IN_ACCOUNT_AMOUNTS = 72; // do not allow accounts to repeat in the transfer account list
 }
