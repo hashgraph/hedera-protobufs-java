@@ -100,5 +100,14 @@ enum ResponseCodeEnum {
   PLATFORM_TRANSACTION_NOT_CREATED = 69; // transaction not created by platform due to either large backlog or message size exceeded transactionMaxBytes
   INVALID_RENEWAL_PERIOD = 70; // auto renewal period is not a positive number of seconds
   INVALID_PAYER_ACCOUNT_ID = 71; // the response code when a smart contract id is passed for a crypto API request
-  ACCOUNT_REPEATED_IN_ACCOUNT_AMOUNTS = 72; // do not allow accounts to repeat in the transfer account list
+  ACCOUNT_DELETED = 72; // the account has been marked as deleted
+  FILE_DELETED = 73; // the file has been marked as deleted
+  ACCOUNT_REPEATED_IN_ACCOUNT_AMOUNTS = 74; // same accounts repeated in the transfer account list
+  SETTING_NEGATIVE_ACCOUNT_BALANCE = 75; // attempting to set negative balance value for crypto account
+  OBTAINER_REQUIRED =76; // when deleting smart contract that has crypto balance either transfer account or transfer smart contract is required
+  OBTAINER_SAME_CONTRACT_ID =77;//when deleting smart contract that has crypto balance you can not use the same contract id as transferContractId as the one being deleted
+  OBTAINER_DOES_NOT_EXIST = 78;//transferAccountId or transferContractId specified for contract delete does not exist
+  MODIFYING_IMMUTABLE_CONTRACT = 79; //attempting to modify (update or delete a immutable smart contract, i.e. one created without a admin key)
+
+  AUTORENEW_DURATION_NOT_IN_RANGE = 80; // the duration is not a subset of [MINIMUM_AUTORENEW_DURATION,MAXIMUM_AUTORENEW_DURATION]
 }
