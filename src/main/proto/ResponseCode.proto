@@ -108,6 +108,9 @@ enum ResponseCodeEnum {
   OBTAINER_SAME_CONTRACT_ID =77;//when deleting smart contract that has crypto balance you can not use the same contract id as transferContractId as the one being deleted
   OBTAINER_DOES_NOT_EXIST = 78;//transferAccountId or transferContractId specified for contract delete does not exist
   MODIFYING_IMMUTABLE_CONTRACT = 79; //attempting to modify (update or delete a immutable smart contract, i.e. one created without a admin key)
-
-  AUTORENEW_DURATION_NOT_IN_RANGE = 80; // the duration is not a subset of [MINIMUM_AUTORENEW_DURATION,MAXIMUM_AUTORENEW_DURATION]
+  FILE_SYSTEM_EXCEPTION = 80; //Unexpected exception thrown by file system functions
+  AUTORENEW_DURATION_NOT_IN_RANGE = 81; // the duration is not a subset of [MINIMUM_AUTORENEW_DURATION,MAXIMUM_AUTORENEW_DURATION]
+  ERROR_DECODING_BYTESTRING = 82; // Decoding the smart contract binary to a byte array failed. Check that the input is a valid hex string.
+  CONTRACT_FILE_EMPTY = 83; // File to create a smart contract was of length zero
+  CONTRACT_BYTECODE_EMPTY = 84; // Bytecode for smart contract is of length zero
 }
