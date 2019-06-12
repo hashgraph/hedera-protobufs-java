@@ -166,7 +166,8 @@ enum HederaFunctionality {
     CryptoCreate = 27; // crypto create account
     SystemDelete = 28; // system delete file
     SystemUndelete = 29; // system undelete file
-    ContractDelete =30; // delete contract
+    ContractDelete = 30; // delete contract
+    Freeze = 31; // freeze
 }
 
 /* The different components used for fee calculation */
@@ -216,6 +217,7 @@ message NodeAddress {
     bytes ipAddress = 1; // The ip address of the Node with separator & octets
     int32 portno = 2; // The port number of the grpc server for the node
     bytes memo = 3; // The memo field of the node
+    string RSA_PubKey = 4; // The RSA public key of the node.
 }
 
 /* Gives the node addresses in the address book */
