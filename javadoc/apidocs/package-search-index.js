@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"com.hederahashgraph.api.proto.java"},{"l":"com.hederahashgraph.service.proto.java"}]
