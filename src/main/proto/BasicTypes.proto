@@ -168,6 +168,11 @@ enum HederaFunctionality {
     SystemUndelete = 29; // system undelete file
     ContractDelete = 30; // delete contract
     Freeze = 31; // freeze
+    CreateTransactionRecord = 32; // Create Tx Record
+    CryptoAccountAutoRenew = 33; // Crypto Auto Renew
+    ContractAutoRenew = 34; // Contract Auto Renew
+    getVersion = 35; //Get Version
+    TransactionGetReceipt = 36; // Transaction Get Receipt
 }
 
 /* The different components used for fee calculation */
@@ -178,8 +183,8 @@ message FeeComponents {
     int64 constant = 3; // A constant determined by the business to calculate the fees
     int64 bpt = 4; // Bytes per transaction
     int64 vpt = 5; // Verifications per transaction
-    int64 rbs = 6; // Ram byte seconds
-    int64 sbs = 7; // Storage byte seconds
+    int64 rbh = 6; // Ram byte seconds
+    int64 sbh = 7; // Storage byte seconds
     int64 gas = 8; // Gas for the contract execution
     int64 tv = 9; // Transaction value (crypto transfers amount, tv is in tiny bars divided by 1000, rounded down)
     int64 bpr = 10; // Bytes per response

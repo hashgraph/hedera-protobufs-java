@@ -104,11 +104,6 @@
 <li>
 <a href="#ContractUpdateTransactionBody"><span class="badge">M</span>ContractUpdateTransactionBody</a></li>
 </ul>
-<a href=#CreateFeeSchedule.proto>CreateFeeSchedule.proto</a>
-<ul>
-<li>
-<a href="#CreateFeeScheduleTransactionBody"><span class="badge">M</span>CreateFeeScheduleTransactionBody</a></li>
-</ul>
 <a href=#CryptoAddClaim.proto>CryptoAddClaim.proto</a>
 <ul>
 <li>
@@ -245,6 +240,16 @@
 <ul>
 <li>
 <a href="#FileUpdateTransactionBody"><span class="badge">M</span>FileUpdateTransactionBody</a></li>
+</ul>
+<a href=#Freeze.proto>Freeze.proto</a>
+<ul>
+<li>
+<a href="#FreezeTransactionBody"><span class="badge">M</span>FreezeTransactionBody</a></li>
+</ul>
+<a href=#FreezeService.proto>FreezeService.proto</a>
+<ul>
+<li>
+<a href="#FreezeService"><span class="badge">S</span>FreezeService</a></li>
 </ul>
 <a href=#GetByKey.proto>GetByKey.proto</a>
 <ul>
@@ -498,13 +503,13 @@
 </TR>
 
 <TR>
-<TD>rbs</TD>
+<TD>rbh</TD>
 <TD>int64</TD>
 <TD><P>Ram byte seconds</P></TD>
 </TR>
 
 <TR>
-<TD>sbs</TD>
+<TD>sbh</TD>
 <TD>int64</TD>
 <TD><P>Storage byte seconds</P></TD>
 </TR>
@@ -791,6 +796,36 @@
 <TD><P>delete contract</P></TD>
 </TR>
 
+<TR>
+<TD>Freeze</TD>
+<TD><P>freeze</P></TD>
+</TR>
+
+<TR>
+<TD>CreateTransactionRecord</TD>
+<TD><P>Create Tx Record</P></TD>
+</TR>
+
+<TR>
+<TD>CryptoAccountAutoRenew</TD>
+<TD><P>Crypto Auto Renew</P></TD>
+</TR>
+
+<TR>
+<TD>ContractAutoRenew</TD>
+<TD><P>Contract Auto Renew</P></TD>
+</TR>
+
+<TR>
+<TD>getVersion</TD>
+<TD><P>Get Version</P></TD>
+</TR>
+
+<TR>
+<TD>TransactionGetReceipt</TD>
+<TD><P>Transaction Get Receipt</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -911,6 +946,12 @@
 <TD>memo</TD>
 <TD>bytes</TD>
 <TD><P>The memo field of the node</P></TD>
+</TR>
+
+<TR>
+<TD>RSA_PubKey</TD>
+<TD>string</TD>
+<TD><P>The RSA public key of the node.</P></TD>
 </TR>
 
 <tbody>
@@ -1907,36 +1948,6 @@
 <TD>memo</TD>
 <TD>string</TD>
 <TD><P>The memo associated with the contract (max 100 bytes)</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="CreateFeeSchedule.proto">CreateFeeSchedule.proto</H2>
-<a href="#title">Top</a>
-</div>
-<H3 id="CreateFeeScheduleTransactionBody"><span class="BigBadge">Message</span>CreateFeeScheduleTransactionBody</H3>
-<P> The transaction body to update the fee schedule. </P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>key</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key that must sign to update the Fee Schedule</P></TD>
-</TR>
-
-<TR>
-<TD>transactionFeeSchedule</TD>
-<TD><a href="#TransactionFeeSchedule">TransactionFeeSchedule</a> (repeated)</TD>
-<TD><P>The fee schedule for a specific hedera functionality and the time period this fee will be valid for the transaction</P></TD>
 </TR>
 
 <tbody>
@@ -3349,6 +3360,71 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="Freeze.proto">Freeze.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="FreezeTransactionBody"><span class="BigBadge">Message</span>FreezeTransactionBody</H3>
+<P> Set the freezing period in which the platform will stop creating events and accepting transactions. This is used before safely shut down the platform for maintenance. </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>startHour</TD>
+<TD>int32</TD>
+<TD><P>The start hour (in UTC time), a value between 0 and 23</P></TD>
+</TR>
+
+<TR>
+<TD>startMin</TD>
+<TD>int32</TD>
+<TD><P>The start minute (in UTC time), a value between 0 and 59</P></TD>
+</TR>
+
+<TR>
+<TD>endHour</TD>
+<TD>int32</TD>
+<TD><P>The end hour (in UTC time), a value between 0 and 23</P></TD>
+</TR>
+
+<TR>
+<TD>endMin</TD>
+<TD>int32</TD>
+<TD><P>The end minute (in UTC time), a value between 0 and 59</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="FreezeService.proto">FreezeService.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="FreezeService"><span class="BigBadge">Service</span>FreezeService</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>RPC</TD>
+<TD>Request</TD>
+<TD>Response</TD>
+<TD>Comments</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>freeze </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P>Freezes the nodes by submitting the transaction. The grpc server returns the TransactionResponse</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="GetByKey.proto">GetByKey.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -4300,6 +4376,66 @@
 <TD><P>Bytecode for smart contract is of length zero</P></TD>
 </TR>
 
+<TR>
+<TD>INVALID_INITIAL_BALANCE</TD>
+<TD><P>Attempt to set negative initial balance</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_RECEIVE_RECORD_THRESHOLD</TD>
+<TD><P>attempt to set negative receive record threshold</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_SEND_RECORD_THRESHOLD</TD>
+<TD><P>attempt to set negative send record threshold</P></TD>
+</TR>
+
+<TR>
+<TD>ACCOUNT_IS_NOT_GENESIS_ACCOUNT</TD>
+<TD><P>Special Account Operations should be performed by only Genesis account, return this code if it is not Genesis Account</P></TD>
+</TR>
+
+<TR>
+<TD>PAYER_ACCOUNT_UNAUTHORIZED</TD>
+<TD><P>The fee payer account doesn't have permission to submit such Transaction</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_FREEZE_TRANSACTION_BODY</TD>
+<TD><P>FreezeTransactionBody is invalid</P></TD>
+</TR>
+
+<TR>
+<TD>FREEZE_TRANSACTION_BODY_NOT_FOUND</TD>
+<TD><P>FreezeTransactionBody does not exist</P></TD>
+</TR>
+
+<TR>
+<TD>TRANSFER_LIST_SIZE_LIMIT_EXCEEDED</TD>
+<TD><P>Exceeded the number of accounts (both from and to) allowed for crypto transfer list</P></TD>
+</TR>
+
+<TR>
+<TD>RESULT_SIZE_LIMIT_EXCEEDED</TD>
+<TD><P>Smart contract result size greater than specified maxResultSize</P></TD>
+</TR>
+
+<TR>
+<TD>NOT_SPECIAL_ACCOUNT</TD>
+<TD><P>The payer account is not a special account(account 0.0.55)</P></TD>
+</TR>
+
+<TR>
+<TD>CONTRACT_NEGATIVE_GAS</TD>
+<TD><P>Negative gas was offered in smart contract call</P></TD>
+</TR>
+
+<TR>
+<TD>CONTRACT_NEGATIVE_VALUE</TD>
+<TD><P>Negative value / initial balance was specified in a smart contract call / create</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -4333,7 +4469,7 @@
 <TR>
 <TD>cost</TD>
 <TD>uint64</TD>
-<TD><P>The fee that would be charged to get the requested information (if a cost was requested)</P></TD>
+<TD><P>The fee that would be charged to get the requested information (if a cost was requested). Note: This cost only includes the query fee and does not include the transfer fee(which is required to execute the transfer transaction to debit the payer account and credit the node account with query fee)</P></TD>
 </TR>
 
 <TR>
@@ -4395,6 +4531,14 @@
 
 <TR>
 <TD>deleteContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P>Delete a contract instance(mark as deleted until it expires), and transfer hbars to the specified account. The grpc server returns the TransactionResponse</P></TD>
+</TR>
+
+<TR>
+<TD>systemDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P>Deletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse</P></TD>
+</TR>
+
+<TR>
+<TD>systemUndelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P>UnDeletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse</P></TD>
 </TR>
 
 <tbody>
@@ -4648,7 +4792,7 @@
 <TR>
 <TD>transactionFee</TD>
 <TD>uint64</TD>
-<TD><P>The fee the client pays, which is split between the network and the node</P></TD>
+<TD><P>The maximum transaction fee the client is willing to pay, which is split between the network and the node</P></TD>
 </TR>
 
 <TR>
@@ -4781,6 +4925,12 @@
 <TD>systemUndelete</TD>
 <TD><a href="#SystemUndeleteTransactionBody">SystemUndeleteTransactionBody</a></TD>
 <TD><P>To undelete an entity deleted by SystemDelete</P></TD>
+</TR>
+
+<TR>
+<TD>freeze</TD>
+<TD><a href="#FreezeTransactionBody">FreezeTransactionBody</a></TD>
+<TD><P>Freeze the nodes</P></TD>
 </TR>
 
 <tbody>
@@ -5052,7 +5202,7 @@
 <TR>
 <TD>transactionFee</TD>
 <TD>uint64</TD>
-<TD><P>The transaction fee in the transaction</P></TD>
+<TD><P>The actual transaction fee charged, not the original transactionFee value from TransactionBody</P></TD>
 </TR>
 
 <TR>
@@ -5085,14 +5235,14 @@
 <TD><P>Record of the value returned by the smart contract constructor (if it completed and didn't fail) from ContractCreateTransaction</P></TD>
 </TR>
 
+<tbody>
+</TABLE>
 <TR>
 <TD>transferList</TD>
 <TD><a href="#TransferList">TransferList</a></TD>
-<TD><P>Record of results of a CryptoTransferTransaction</P></TD>
+<TD><P>All hbar transfers as a result of this transaction, such as fees, or transfers performed by the transaction, or by a smart contract it calls, or by the creation of threshold records that it triggers.</P></TD>
 </TR>
 
-<tbody>
-</TABLE>
 <tbody>
 </TABLE>
 
