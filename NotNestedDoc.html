@@ -1360,7 +1360,7 @@
 <a href="#title">Top</a>
 </div>
 <H3 id="ContractCallLocalQuery"><span class="BigBadge">Message</span>ContractCallLocalQuery</H3>
-<P> Call a function of the given smart contract instance, giving it functionParameters as its inputs. It can use the given amount of gas, and any unspent gas will be refunded to the paying account.</P>
+<P> Call a function of the given smart contract instance, giving it functionParameters as its inputs. It will consume the entire given amount of gas.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1373,7 +1373,7 @@
 <TR>
 <TD>header</TD>
 <TD><a href="#QueryHeader">QueryHeader</a></TD>
-<TD><P>standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).</P></TD>
+<TD><P>standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). The payment must cover the fees and all of the gas offered.</P></TD>
 </TR>
 
 <TR>
@@ -1385,7 +1385,7 @@
 <TR>
 <TD>gas</TD>
 <TD>int64</TD>
-<TD><P>the amount of gas to use for the call</P></TD>
+<TD><P>the amount of gas to use for the call. All of the gas offered will be charged for.</P></TD>
 </TR>
 
 <TR>
@@ -4434,6 +4434,51 @@
 <TR>
 <TD>CONTRACT_NEGATIVE_VALUE</TD>
 <TD><P>Negative value / initial balance was specified in a smart contract call / create</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_FEE_FILE</TD>
+<TD><P>Failed to update fee file</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_EXCHANGE_RATE_FILE</TD>
+<TD><P>Failed to update exchange rate file</P></TD>
+</TR>
+
+<TR>
+<TD>INSUFFICIENT_LOCAL_CALL_GAS</TD>
+<TD><P>Payment tendered for contract local call cannot cover both the fee and the gas</P></TD>
+</TR>
+
+<TR>
+<TD>ENTITY_NOT_ALLOWED_TO_DELETE</TD>
+<TD><P>Entities with Entity ID below 1000 are not allowed to be deleted</P></TD>
+</TR>
+
+<TR>
+<TD>AUTHORIZATION_FAILED</TD>
+<TD><P>Violating one of these rules: 1) treasury account can update all entities below 0.0.1000, 2) account 0.0.50 can update all entities from 0.0.51 - 0.0.80, 3) Network Function Master Account A/c 0.0.50 - Update all Network Function accounts & perform all the Network Functions listed below, 4) Network Function Accounts: i) A/c 0.0.55 - Update Address Book files (0.0.101/102), ii) A/c 0.0.56 - Update Fee schedule (0.0.111), iii) A/c 0.0.57 - Update Exchange Rate (0.0.112).</P></TD>
+</TR>
+
+<TR>
+<TD>FILE_UPLOADED_PROTO_INVALID</TD>
+<TD><P>Fee Schedule Proto uploaded but not valid (append or update is required)</P></TD>
+</TR>
+
+<TR>
+<TD>FILE_UPLOADED_PROTO_NOT_SAVED_TO_DISK</TD>
+<TD><P>Fee Schedule Proto uploaded but not valid (append or update is required)</P></TD>
+</TR>
+
+<TR>
+<TD>FEE_SCHEDULE_FILE_PART_UPLOADED</TD>
+<TD><P>Fee Schedule Proto File Part uploaded</P></TD>
+</TR>
+
+<TR>
+<TD>EXCHANGE_RATE_CHANGE_LIMIT_EXCEEDED</TD>
+<TD><P>The change on Exchange Rate exceeds Exchange_Rate_Allowed_Percentage</P></TD>
 </TR>
 
 <tbody>
