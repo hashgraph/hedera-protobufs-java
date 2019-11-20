@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "com.hederahashgraph.api.proto.java";
+option java_multiple_files = true;
+
+import "BasicTypes.proto";
+import "Timestamp.proto";
+
+// Parameters of the topic relating to create/update/delete transactions.
+message ConsensusTopicDefinition {
+    string memo = 1; // Short publicly visible memo about the topic. No guarantee of uniqueness.
+
+    // When the topic should become available to receive messages via ConsensusService.submitMessage().
+    // The topic will not accept submitMessage() requests that reach consensus _before_ this timestamp.
+    // If unspecified, no validStartTime is used.
+    Timestamp validStartTime = 2;
+
+    // When the topic should cease availability to receive messages via ConsensusService.submitMessage().
+    // The topic will not accept submitMessage() transactions that reach consensus from this timestamp forward.
+    Timestamp expirationTime = 3;
+
+    Key adminKey = 4; // Access control for update/delete of the topic.
+
+    // Access control for ConsensusService.submitMessage.
+    // If unspecified, no access control is performed on ConsensusService.submitMessage (all submissions are allowed).
+    Key submitKey = 5;
+
+    Timestamp lastUpdateTime = 6; // Last consensus timestamp of a create/update on this topic.
+
+    Timestamp creationTime = 7; // Consensus timestamp of the the topic's creation.
+}
