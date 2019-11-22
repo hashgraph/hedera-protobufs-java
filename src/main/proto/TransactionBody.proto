@@ -65,9 +65,9 @@ message TransactionBody {
 
     // New functionality in the HCS release below here
 
-    ConsensusCreateTopicTransactionBody consensusCreateTopic = 150;
-    ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 151;
-    ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 152;
-    ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 153;
+    ConsensusCreateTopicTransactionBody consensusCreateTopic = 24;
+    ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 25;
+    ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 26;
+    ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 27;
   }
 }

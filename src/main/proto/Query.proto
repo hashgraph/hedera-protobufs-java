@@ -53,6 +53,6 @@ message Query {
 
         // New functionality in the HCS release below here
 
-        ConsensusGetTopicInfoQuery consensusGetTopicInfo = 150; // Get the parameters of and state of a consensus topic.
+        ConsensusGetTopicInfoQuery consensusGetTopicInfo = 50; // Get the parameters of and state of a consensus topic.
     }
 }

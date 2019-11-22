@@ -182,11 +182,11 @@ enum HederaFunctionality {
 
     // New functionality in the HCS release below here
 
-    ConsensusCreateTopic = 150;
-    ConsensusUpdateTopic = 151;
-    ConsensusDeleteTopic = 152;
-    ConsensusGetTopicInfo = 153;
-    ConsensusSubmitMessage = 154;
+    ConsensusCreateTopic = 50;
+    ConsensusUpdateTopic = 51;
+    ConsensusDeleteTopic = 52;
+    ConsensusGetTopicInfo = 53;
+    ConsensusSubmitMessage = 54;
 }
 
 /* The different components used for fee calculation */
