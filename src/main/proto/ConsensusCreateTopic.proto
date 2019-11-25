@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto;
+
+option java_package = "com.hederahashgraph.api.proto.java";
+option java_multiple_files = true;
+
+import "BasicTypes.proto";
+import "Timestamp.proto";
+
+// See [ConsensusService.createTopic()](#proto.ConsensusService)
+message ConsensusCreateTopicTransactionBody {
+    string memo = 1; // Short publicly visible memo about the topic. No guarantee of uniqueness.
+
+    Key adminKey = 2; // Access control for update/delete of the topic.
+
+    // Access control for ConsensusService.submitMessage.
+    // If unspecified, no access control is performed on ConsensusService.submitMessage (all submissions are allowed).
+    Key submitKey = 3;
+
+    // Effective consensus timestamp at which submitMessage calls will begin to succeed on the topic.
+    // If unspecified, the consensus timestamp of this transaction will be the effective validStartTime.
+    Timestamp validStartTime = 4;
+
+    // Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic.
+    // If unspecified, the consensus timestamp + 90 days will become the effective expirationTime.
+    // The expirationTime may be no longer than 90 days from the consensus timestamp of this transaction.
+    Timestamp expirationTime = 5;
+}
