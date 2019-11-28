@@ -2,18 +2,18 @@
 
 The Hedera Hashgraph API is implemented with protocol buffers, Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data. This repository contains the current version of the files used to define the API.
 
-# Structure
+## Structure
 
 The protobuf files are organised in folders representing the domain they pertain to, the folders are:
 
-* Common - messages that form part of the core API and are used within other messages
-* Contract - messages related to the Hedera Hashgraph Smart Contract service
-* Crypto - messages related to the Hedera Hashgraph Crypto Currency service
-* File - messages related to the Hedera Hashgraph File service
-* Query - messages related to querying the Hedera Hashgraph network
-* Services - the gRPC definitions which detail which responses should be expected as a result of a request
+- Common - messages that form part of the core API and are used within other messages
+- Contract - messages related to the Hedera Hashgraph Smart Contract service
+- Crypto - messages related to the Hedera Hashgraph Crypto Currency service
+- File - messages related to the Hedera Hashgraph File service
+- Query - messages related to querying the Hedera Hashgraph network
+- Services - the gRPC definitions which detail which responses should be expected as a result of a request
 
-# Documentation
+## Documentation
 
 The protobuf files themselves contain detailed comments which help understand not only the message itself but also some of the features and capabilities of the Hedera Hashgraph network.
 
@@ -21,15 +21,39 @@ Also available is a [HAPI.html](https://github.com/hashgraph/hedera-protobuf/blo
 
 __Note__: the HAPI.html document is a large document and may take a few seconds to load in a browser.
 
-# Examples
+## Examples
 
 Example messages can be found in the [Transaction-Query-Examples.md](https://github.com/hashgraph/hedera-protobuf/blob/master/Transaction-Query-Examples.md) file. These were generated with the [Hedera Hashgraph Java SDK](https://github.com/hashgraph/hedera-sdk-java) and may serve as a useful reference when checking if your own messages are correct.
 
 __Note__: The examples show keys and signatures. Keys shown in the examples are not the keys that were used to generate the signatures.
 
-# Additional resources
+## Additional resources
 
 If you are unfamiliar with protocol buffers (or need a refresher), you may consult the following web resources:
 
-* Protocol Buffers : https://developers.google.com/protocol-buffers/
-* gRPC : https://grpc.io
+- Protocol Buffers : https://developers.google.com/protocol-buffers/
+- gRPC : https://grpc.io
+
+## Deploy to Maven
+
+*You will need the appropriate credentials to do so*
+
+- Update the version number in the `pom.xml`
+- Build the project with `mvn install`
+- Re-generate the documentation
+
+```shell
+cd docgenerator
+java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs/NotNestedDoc N
+java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs/NestedDoc Y
+```
+
+- Commit to GitHub and tag release
+
+- Deploy to maven
+
+`mvn clean deploy -Pdeploy`
+
+*Note: this command may fail due to the javadocs not being signed by the deploy process, in this event you need to sign the hedera-java-sdk-x.x.x-javadoc.jar file manually and then manually upload to the staging repository*
+
+for example: `gpg2 -ab hedera-java-sdk-0.2.1-javadoc.jar`
