@@ -38,7 +38,7 @@ If you are unfamiliar with protocol buffers (or need a refresher), you may consu
 
 *You will need the appropriate credentials to do so*
 
-- Update the version number in the `pom.xml`
+- Update the version number in the `pom.xml` (ensure pom.xml has x.x.x-SNAPSHOT for version)
 - Build the project with `mvn install`
 - Re-generate the documentation
 
@@ -48,16 +48,10 @@ java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs/NotNest
 java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs/NestedDoc Y
 ```
 
-- Commit to GitHub and tag release
+Commit all changes to github
 
-- Deploy to maven
+`mvn release:clean release:prepare` (you will be prompted for github user and password (or access token if 2FA) and version numbers)
 
-`mvn clean deploy -Pdeploy`
+`mvn release:perform`
 
-*Note: may fail with an error such as `gpg: signing failed: Inappropriate ioctl for device`*
-
-run this command `export GPG_TTY=$(tty)` and try again.
-
-*Note: may fail due to the javadocs not being signed by the deploy process, in this event you need to sign the hedera-java-sdk-x.x.x-javadoc.jar file manually and then manually upload to the staging repository*
-
-for example: `gpg2 -ab hedera-java-sdk-0.2.1-javadoc.jar`
+navigate to Nexus Repository Manager https://oss.sonatype.org/index.html#stagingRepositories and release the newly created repository.
