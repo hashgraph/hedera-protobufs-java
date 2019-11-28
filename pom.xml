@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.3.6-SNAPSHOT</version>
+    <version>0.3.6</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -32,7 +30,8 @@
   		<connection>scm:git:git://github.com/hashgraph/hedera-protobuf.git</connection>
   		<developerConnection>scm:git:git://github.com/hashgraph/hedera-protobuf.git</developerConnection>
   		<url>https://github.com/hashgraph/hedera-protobuf</url>
-  	</scm>
+  	  <tag>0.3.6</tag>
+  </scm>
 
   	<distributionManagement>
   		<snapshotRepository>
