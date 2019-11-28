@@ -254,7 +254,7 @@
 		</plugins>
 	</reporting>
     <profiles>
-        <!-- Depploy profile which adds the possibility to distribute the .jar to a remote repository
+        <!-- Deploy profile which adds the possibility to distribute the .jar to a remote repository
         Call "mvn clean deploy -Pdeploy" to invoke this additional plugin in the maven build
         this may fail because the javadocs jar isn't being signed automatically, in which case from the
         target folder, run  gpg2 -ab hedera-java-sdk-0.2.1-javadoc.jar
