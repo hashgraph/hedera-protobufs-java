@@ -5,7 +5,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.3.7-SNAPSHOT</version>
+    <version>0.3.6-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -257,6 +257,12 @@
                       <goals>
                           <goal>sign</goal>
                       </goals>
+                      <configuration>
+                          <gpgArguments>
+                              <arg>--pinentry-mode</arg>
+                              <arg>loopback</arg>
+                          </gpgArguments>
+                      </configuration>
                   </execution>
               </executions>
           </plugin>
