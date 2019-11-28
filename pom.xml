@@ -5,7 +5,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.3.7-SNAPSHOT</version>
+    <version>0.3.6-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -245,7 +245,21 @@
     <profile>
       <id>release</id>
       <build>
-         <plugins>
+        <plugins>
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-gpg-plugin</artifactId>
+              <version>1.6</version>
+              <executions>
+                  <execution>
+                      <id>sign-artifacts</id>
+                      <phase>verify</phase>
+                      <goals>
+                          <goal>sign</goal>
+                      </goals>
+                  </execution>
+              </executions>
+          </plugin>
             <plugin>
                <groupId>org.sonatype.plugins</groupId>
                <artifactId>nexus-staging-maven-plugin</artifactId>
