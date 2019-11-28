@@ -54,6 +54,10 @@ java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs/NestedD
 
 `mvn clean deploy -Pdeploy`
 
-*Note: this command may fail due to the javadocs not being signed by the deploy process, in this event you need to sign the hedera-java-sdk-x.x.x-javadoc.jar file manually and then manually upload to the staging repository*
+*Note: may fail with an error such as `gpg: signing failed: Inappropriate ioctl for device`*
+
+run this command `export GPG_TTY=$(tty)` and try again.
+
+*Note: may fail due to the javadocs not being signed by the deploy process, in this event you need to sign the hedera-java-sdk-x.x.x-javadoc.jar file manually and then manually upload to the staging repository*
 
 for example: `gpg2 -ab hedera-java-sdk-0.2.1-javadoc.jar`
