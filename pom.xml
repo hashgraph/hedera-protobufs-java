@@ -7,7 +7,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.3.6</version>
+    <version>0.3.6-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -139,18 +139,6 @@
 
       <!-- applying plugins to the maven build -->
 <plugins>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-source-plugin</artifactId>
-            <executions>
-                <execution>
-                    <id>attach-sources</id>
-                    <goals>
-                        <goal>jar</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
@@ -193,22 +181,6 @@
       			</plugin>
 
             <plugin>
-      				<artifactId>maven-deploy-plugin</artifactId>
-      				<configuration>
-      					<altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-      				</configuration>
-      				<executions>
-      					<execution>
-      						<id>default-deploy</id>
-      						<phase>deploy</phase>
-      						<goals>
-      							<goal>deploy</goal>
-      						</goals>
-      					</execution>
-      				</executions>
-      			</plugin>
-
-            <plugin>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
                 <version>${os.plugin.version}</version>
@@ -233,7 +205,18 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+            <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <version>2.5.3</version>
+              <configuration>
+                <autoVersionSubmodules>true</autoVersionSubmodules>
+                <useReleaseProfile>false</useReleaseProfile>
+                <releaseProfiles>release</releaseProfiles>
+                <goals>deploy</goals>
+              </configuration>
+            </plugin>
+                  </plugins>
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -253,69 +236,5 @@
 			</plugin>
 		</plugins>
 	</reporting>
-    <profiles>
-        <!-- Deploy profile which adds the possibility to distribute the .jar to a remote repository
-        Call "mvn clean deploy -Pdeploy" to invoke this additional plugin in the maven build
-        this may fail because the javadocs jar isn't being signed automatically, in which case from the
-        target folder, run  gpg2 -ab hedera-java-sdk-0.2.1-javadoc.jar
-        Then manually upload to staging repository-->
-        <profile>
-            <id>deploy</id>
-			<properties>
-				<gpg.executable>gpg2</gpg.executable>
-			</properties>
-			<build>
-				<plugins>
-					<!--  JAVADOC JAR -->
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<configuration>
-							<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-							<additionalOptions>-html5</additionalOptions>
-							<reportOutputDirectory>${project.build.directory}</reportOutputDirectory>
-						</configuration>
-						<executions>
-							<execution>
-							<phase>deploy</phase>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
- 					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.6</version>
-						<configuration>
-							<skip>false</skip>
-						</configuration>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<version>1.6.8</version>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<autoReleaseAfterClose>false</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-				</plugins>
-			</build>
-        </profile>
-    </profiles>
 
 </project>
