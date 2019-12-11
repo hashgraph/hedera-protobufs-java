@@ -9,6 +9,7 @@ import "BasicTypes.proto";
 import "QueryHeader.proto";
 import "ResponseHeader.proto";
 import "ConsensusTopicDefinition.proto";
+import "ConsensusTopicInfo.proto";
 import "ConsensusTopicState.proto";
 
 // See [ConsensusService.getTopicInfo()](#proto.ConsensusService)
@@ -27,7 +28,8 @@ message ConsensusGetTopicInfoResponse {
 
     TopicID topicID = 2; // Topic identifier.
 
-    ConsensusTopicDefinition topicDefinition = 3; // Topic definition, modified by createTopic/updateTopic/deleteTopic
+    ConsensusTopicDefinition topicDefinition = 3 [deprecated = true];  // Deprecated and to be removed before HCS release.
+    ConsensusTopicState topicState = 4 [deprecated = true];  // Deprecated and to be removed before HCS release.
 
-    ConsensusTopicState topicState = 4; // Topic's state as last modified by a submitMessage.
+    ConsensusTopicInfo topicInfo = 5; // Current state of the topic
 }

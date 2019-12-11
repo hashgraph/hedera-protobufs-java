@@ -143,19 +143,27 @@ enum ResponseCodeEnum {
 
   INVALID_TOPIC_ID = 150; // The Topic ID specified is not in the system.
 
-  // The Topic referenced is in a deleted state for a period of time pending removal from the system.
-  // No ConsensusService transactions on this topic will succeed once the topic is deleted.
-  TOPIC_DELETED = 151;
+  TOPIC_DELETED = 151 [deprecated = true]; // Deprecated and to be removed before HCS release.
+  TOPIC_NOT_ENABLED = 152 [deprecated = true]; // Deprecated and to be removed before HCS release.
+  INVALID_TOPIC_VALID_START_TIME = 153 [deprecated = true]; // Deprecated and to be removed before HCS release.
 
-  // An attempted ConsensusService.submitMessage failed due to being called outside the valid time period for the
-  // topic, defined by the topic's creationTimestamp and expirationTimestamp. All other operations on the topic
-  // will succeed.
-  TOPIC_NOT_ENABLED = 152;
-
-  INVALID_TOPIC_VALID_START_TIME = 153;
   INVALID_TOPIC_EXPIRATION_TIME = 154;
   INVALID_TOPIC_ADMIN_KEY = 155;
   INVALID_TOPIC_SUBMIT_KEY = 156;
-  UNAUTHORIZED = 157; // An attempted ConsensusService operation failed due to missing/insufficient signatures.
+  UNAUTHORIZED = 157; // An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey).
   INVALID_TOPIC_MESSAGE = 158; // A ConsensusService message is empty.
+
+  // The autoRenewAccount specified is not a valid, active account.
+  INVALID_AUTORENEW_ACCOUNT = 159;
+
+  // An admin key was not specified on the topic, so there must not be an autorenew account.
+  AUTORENEW_ACCOUNT_NOT_ALLOWED = 160;
+
+  // The autoRenewAccount didn't sign the transaction.
+  AUTORENEW_ACCOUNT_SIGNATURE_MISSING = 161;
+
+  // The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be
+  // deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported
+  // by HAPI.
+  TOPIC_EXPIRED = 162;
 }
