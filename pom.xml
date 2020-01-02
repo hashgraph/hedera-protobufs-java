@@ -7,10 +7,10 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api-hcs</artifactId>
     <packaging>jar</packaging>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.2.0-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
-  	<description>Protobuf Java API for Hedera Hashgraph</description>
+  	<description>Protobuf Java API for Hedera Hashgraph (HCS preview)</description>
   	<url>http://www.hedera.com</url>
 
   	<licenses>

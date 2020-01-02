@@ -7,19 +7,9 @@ option java_multiple_files = true;
 
 import "Timestamp.proto";
 
-// The consensus state of a topic.
+// Deprecated
 message ConsensusTopicState {
-    uint64 sequenceNumber = 1; // Starts at 1 for first submitted message. Incremented on each submitted message.
-
-    /*
-     * Running hash (SHA384) of every message.
-     * Initially the runningHash is empty.
-     * Subsequent messages update the running hash to SHA384(previousRunningHash, topicID, consensusTimestamp,
-     * sequenceNumber, message)
-     */
+    uint64 sequenceNumber = 1;
     bytes runningHash = 2;
-
-    // Consensus timestamp of the latest submitMessage transaction which resulted in the sequenceNumber and
-    // runningHash above.
     Timestamp lastSubmitTime = 3;
 }
