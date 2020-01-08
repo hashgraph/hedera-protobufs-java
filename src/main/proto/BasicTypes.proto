@@ -68,7 +68,7 @@ message TopicID {
  */
 message Key {
     oneof key {
-        ContractID contractID = 1; // smart contract instance that is authorized as if it had signed with a key
+        ContractID contractID = 1 [deprecated = true]; // smart contract instance that is authorized as if it had signed with a key
         bytes ed25519 = 2; // ed25519 public key bytes
         bytes RSA_3072 = 3; //RSA-3072 public key bytes
         bytes ECDSA_384 = 4; //ECDSA with the p-384 curve public key bytes
@@ -95,7 +95,7 @@ message KeyList {
 message Signature {
     option deprecated = true;
     oneof signature {
-        bytes contract = 1; // smart contract virtual signature (always length zero)
+        bytes contract = 1 [deprecated = true]; // smart contract virtual signature (always length zero)
         bytes ed25519 = 2; // ed25519 signature bytes
         bytes RSA_3072 = 3; //RSA-3072 signature bytes
         bytes ECDSA_384 = 4; //ECDSA p-384 signature bytes
@@ -179,9 +179,6 @@ enum HederaFunctionality {
     ContractAutoRenew = 34; // Contract Auto Renew
     getVersion = 35; //Get Version
     TransactionGetReceipt = 36; // Transaction Get Receipt
-
-    // New functionality in the HCS release below here
-
     ConsensusCreateTopic = 50;
     ConsensusUpdateTopic = 51;
     ConsensusDeleteTopic = 52;
@@ -242,4 +239,14 @@ message NodeAddress {
 /* Gives the node addresses in the address book */
 message NodeAddressBook {
     repeated NodeAddress nodeAddress = 1; // Contains multiple Node Address for the network
+}
+
+message Setting {
+    string name = 1;  // name of the property
+    string value = 2; // value of the property
+    bytes data = 3; // any data associated with property
+}
+
+message ServicesConfigurationList{
+    repeated Setting nameValue = 1; // list of name value pairs of the application properties
 }
