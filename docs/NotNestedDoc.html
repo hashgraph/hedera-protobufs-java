@@ -32,6 +32,10 @@
 <li>
 <a href="#RealmID"><span class="badge">M</span>RealmID</a></li>
 <li>
+<a href="#ServicesConfigurationLis"><span class="badge">M</span>ServicesConfigurationLis</a></li>
+<li>
+<a href="#Setting"><span class="badge">M</span>Setting</a></li>
+<li>
 <a href="#ShardID"><span class="badge">M</span>ShardID</a></li>
 <li>
 <a href="#Signature"><span class="badge">M</span>Signature</a></li>
@@ -46,9 +50,36 @@
 <li>
 <a href="#ThresholdSignature"><span class="badge">M</span>ThresholdSignature</a></li>
 <li>
+<a href="#TopicID"><span class="badge">M</span>TopicID</a></li>
+<li>
 <a href="#TransactionFeeSchedule"><span class="badge">M</span>TransactionFeeSchedule</a></li>
 <li>
 <a href="#TransactionID"><span class="badge">M</span>TransactionID</a></li>
+</ul>
+<a href=#ConsensusCreateTopic.proto>ConsensusCreateTopic.proto</a>
+<ul>
+</ul>
+<a href=#ConsensusDeleteTopic.proto>ConsensusDeleteTopic.proto</a>
+<ul>
+</ul>
+<a href=#ConsensusGetTopicInfo.proto>ConsensusGetTopicInfo.proto</a>
+<ul>
+</ul>
+<a href=#ConsensusService.proto>ConsensusService.proto</a>
+<ul>
+<li>
+<a href="#ConsensusService"><span class="badge">S</span>ConsensusService</a></li>
+</ul>
+<a href=#ConsensusSubmitMessage.proto>ConsensusSubmitMessage.proto</a>
+<ul>
+<li>
+<a href="#ConsensusSubmitMessageTransactionBody"><span class="badge">M</span>ConsensusSubmitMessageTransactionBody</a></li>
+</ul>
+<a href=#ConsensusTopicInfo.proto>ConsensusTopicInfo.proto</a>
+<ul>
+</ul>
+<a href=#ConsensusUpdateTopic.proto>ConsensusUpdateTopic.proto</a>
+<ul>
 </ul>
 <a href=#ContractCall.proto>ContractCall.proto</a>
 <ul>
@@ -826,6 +857,31 @@
 <TD><P>Transaction Get Receipt</P></TD>
 </TR>
 
+<TR>
+<TD>ConsensusCreateTopic</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ConsensusUpdateTopic</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ConsensusDeleteTopic</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ConsensusGetTopicInfo</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ConsensusSubmitMessage</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -998,6 +1054,58 @@
 <TD>realmNum</TD>
 <TD>int64</TD>
 <TD><P>The realm number (nonnegative)</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ServicesConfigurationLis"><span class="BigBadge">Message</span>ServicesConfigurationLis</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>nameValue</TD>
+<TD><a href="#Setting">Setting</a> (repeated)</TD>
+<TD><P>list of name value pairs of the application properties</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="Setting"><span class="BigBadge">Message</span>Setting</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>name</TD>
+<TD>string</TD>
+<TD><P>name of the property</P></TD>
+</TR>
+
+<TR>
+<TD>value</TD>
+<TD>string</TD>
+<TD><P>value of the property</P></TD>
+</TR>
+
+<TR>
+<TD>data</TD>
+<TD>bytes</TD>
+<TD><P>any data associated with property</P></TD>
 </TR>
 
 <tbody>
@@ -1261,6 +1369,38 @@
 <tbody>
 </TABLE>
 
+<H3 id="TopicID"><span class="BigBadge">Message</span>TopicID</H3>
+<P> Unique identifier for a topic (used by the consensus service) </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>shardNum</TD>
+<TD>int64</TD>
+<TD><P>The shard number (nonnegative)</P></TD>
+</TR>
+
+<TR>
+<TD>realmNum</TD>
+<TD>int64</TD>
+<TD><P>The realm number (nonnegative)</P></TD>
+</TR>
+
+<TR>
+<TD>topicNum</TD>
+<TD>int64</TD>
+<TD><P>Unique topic identifier within a realm (nonnegative).</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
 <H3 id="TransactionFeeSchedule"><span class="BigBadge">Message</span>TransactionFeeSchedule</H3>
 <P> The fees for a specific transaction or query based on the fee data. </P>
 <table class="field-table">
@@ -1313,6 +1453,95 @@
 <tbody>
 </TABLE>
 
+<div class="file-heading">
+<H2 id="ConsensusCreateTopic.proto">ConsensusCreateTopic.proto</H2>
+<a href="#title">Top</a>
+</div>
+<div class="file-heading">
+<H2 id="ConsensusDeleteTopic.proto">ConsensusDeleteTopic.proto</H2>
+<a href="#title">Top</a>
+</div>
+<div class="file-heading">
+<H2 id="ConsensusGetTopicInfo.proto">ConsensusGetTopicInfo.proto</H2>
+<a href="#title">Top</a>
+</div>
+<div class="file-heading">
+<H2 id="ConsensusService.proto">ConsensusService.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="ConsensusService"><span class="BigBadge">Service</span>ConsensusService</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>RPC</TD>
+<TD>Request</TD>
+<TD>Response</TD>
+<TD>Comments</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>createTopic </TD><TD>Transaction</TD><TD>TransactionResponse);</P></TD>
+</TR>
+
+<TR>
+<TD>updateTopic </TD><TD>Transaction</TD><TD>TransactionResponse);</P></TD>
+</TR>
+
+<TR>
+<TD>deleteTopic </TD><TD>Transaction</TD><TD>TransactionResponse);</P></TD>
+</TR>
+
+<TR>
+<TD>getTopicInfo </TD><TD>Query</TD><TD>Response);</P></TD>
+</TR>
+
+<TR>
+<TD>submitMessage </TD><TD>Transaction</TD><TD>TransactionResponse);</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="ConsensusSubmitMessage.proto">ConsensusSubmitMessage.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="ConsensusSubmitMessageTransactionBody"><span class="BigBadge">Message</span>ConsensusSubmitMessageTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>topicID</TD>
+<TD><a href="#TopicID">TopicID</a></TD>
+<TD><P>Topic to submit message to.</P></TD>
+</TR>
+
+<TR>
+<TD>message</TD>
+<TD>bytes</TD>
+<TD><P>Message to be submitted. Max size of the Transaction (including signatures) is 4kB.</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="ConsensusTopicInfo.proto">ConsensusTopicInfo.proto</H2>
+<a href="#title">Top</a>
+</div>
+<div class="file-heading">
+<H2 id="ConsensusUpdateTopic.proto">ConsensusUpdateTopic.proto</H2>
+<a href="#title">Top</a>
+</div>
 <div class="file-heading">
 <H2 id="ContractCall.proto">ContractCall.proto</H2>
 <a href="#title">Top</a>
@@ -1828,6 +2057,12 @@
 <TD><P>the memo associated with the contract (max 100 bytes)</P></TD>
 </TR>
 
+<TR>
+<TD>balance</TD>
+<TD>uint64</TD>
+<TD><P>The current balance, in tinybars</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -2175,11 +2410,37 @@
 </TR>
 
 <TR>
+<TD>balanceSource</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
 <TD>accountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
 <TD><P>The account ID for which information is requested</P></TD>
 </TR>
 
+<TR>
+<TD>contractID</TD>
+<TD><a href="#ContractID">ContractID</a></TD>
+<TD><P>The account ID for which information is requested</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
 <tbody>
 </TABLE>
 
@@ -3735,6 +3996,12 @@
 <TD><P>Get a record for a transaction (lasts 180 seconds)</P></TD>
 </TR>
 
+<TR>
+<TD>consensusGetTopicInfo</TD>
+<TD><a href="#ConsensusGetTopicInfoQuery">ConsensusGetTopicInfoQuery</a></TD>
+<TD><P>Get the parameters of and state of a consensus topic.</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -3930,6 +4197,12 @@
 <TD>transactionGetFastRecord</TD>
 <TD><a href="#TransactionGetFastRecordResponse">TransactionGetFastRecordResponse</a></TD>
 <TD><P>Get a record for a transaction (lasts 180 seconds)</P></TD>
+</TR>
+
+<TR>
+<TD>consensusGetTopicInfo</TD>
+<TD><a href="#ConsensusGetTopicInfoResponse">ConsensusGetTopicInfoResponse</a></TD>
+<TD><P>Parameters of and state of a consensus topic..</P></TD>
 </TR>
 
 <tbody>
@@ -4487,6 +4760,21 @@
 </TR>
 
 <TR>
+<TD>TRANSFER_ACCOUNT_SAME_AS_DELETE_ACCOUNT</TD>
+<TD><P>Transfer Account should not be same as Account to be deleted</P></TD>
+</TR>
+
+<TR>
+<TD>TOTAL_LEDGER_BALANCE_INVALID</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>EXPIRATION_REDUCTION_NOT_ALLOWED</TD>
+<TD><P>The expiration date/time on a smart contract may not be reduced</P></TD>
+</TR>
+
+<TR>
 <TD>MAX_GAS_LIMIT_EXCEEDED</TD>
 <TD><P>Gas exceeded currently allowable gas limit per transaction</P></TD>
 </TR>
@@ -4494,6 +4782,46 @@
 <TR>
 <TD>MAX_FILE_SIZE_EXCEEDED</TD>
 <TD><P>File size exceeded the currently allowable limit</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOPIC_ID</TD>
+<TD><P>The Topic ID specified is not in the system.</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_ADMIN_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_SUBMIT_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>UNAUTHORIZED</TD>
+<TD><P>An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey).</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOPIC_MESSAGE</TD>
+<TD><P>A ConsensusService message is empty.</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_AUTORENEW_ACCOUNT</TD>
+<TD><P>The autoRenewAccount specified is not a valid, active account.</P></TD>
+</TR>
+
+<TR>
+<TD>AUTORENEW_ACCOUNT_NOT_ALLOWED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOPIC_EXPIRED</TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -4993,6 +5321,30 @@
 <TD><P>Freeze the nodes</P></TD>
 </TR>
 
+<TR>
+<TD>consensusCreateTopic</TD>
+<TD><a href="#ConsensusCreateTopicTransactionBody">ConsensusCreateTopicTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensusUpdateTopic</TD>
+<TD><a href="#ConsensusUpdateTopicTransactionBody">ConsensusUpdateTopicTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensusDeleteTopic</TD>
+<TD><a href="#ConsensusDeleteTopicTransactionBody">ConsensusDeleteTopicTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensusSubmitMessage</TD>
+<TD><a href="#ConsensusSubmitMessageTransactionBody">ConsensusSubmitMessageTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -5211,6 +5563,24 @@
 <TD><P>exchange rate set of Hbar to cents (USD)</P></TD>
 </TR>
 
+<TR>
+<TD>topicID</TD>
+<TD><a href="#TopicID">TopicID</a></TD>
+<TD><P>TopicID of a newly created consensus service topic</P></TD>
+</TR>
+
+<TR>
+<TD>topicSequenceNumber</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>topicRunningHash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -5311,7 +5681,7 @@
 <a href="#title">Top</a>
 </div>
 <H3 id="TransactionResponse"><span class="BigBadge">Message</span>TransactionResponse</H3>
-<P> When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). </P>
+<P> When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). If the fee offered was insufficient, this will also contain the amount of the required fee. To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -5325,6 +5695,12 @@
 <TD>nodeTransactionPrecheckCode</TD>
 <TD><a href="#ResponseCodeEnum">ResponseCodeEnum</a></TD>
 <TD><P>The response code that indicates the current status of the transaction.</P></TD>
+</TR>
+
+<TR>
+<TD>cost</TD>
+<TD>uint64</TD>
+<TD><P>If the response code was INSUFFICIENT_TX_FEE, the actual transaction fee that would be required to execute the transaction.</P></TD>
 </TR>
 
 <tbody>

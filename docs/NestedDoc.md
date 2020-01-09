@@ -18,6 +18,8 @@
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
   - [RealmID](#RealmID)
+  - [ServicesConfigurationLis](#ServicesConfigurationLis)
+  - [Setting](#Setting)
   - [ShardID](#ShardID)
   - [Signature](#Signature)
   - [SignatureList](#SignatureList)
@@ -25,8 +27,25 @@
   - [SignaturePair](#SignaturePair)
   - [ThresholdKey](#ThresholdKey)
   - [ThresholdSignature](#ThresholdSignature)
+  - [TopicID](#TopicID)
   - [TransactionFeeSchedule](#TransactionFeeSchedule)
   - [TransactionID](#TransactionID)
+
+- [ConsensusCreateTopic.proto](#ConsensusCreateTopic.proto)
+
+- [ConsensusDeleteTopic.proto](#ConsensusDeleteTopic.proto)
+
+- [ConsensusGetTopicInfo.proto](#ConsensusGetTopicInfo.proto)
+
+- [ConsensusService.proto](#ConsensusService.proto)
+  - [ConsensusService](#ConsensusService) (Service)
+
+- [ConsensusSubmitMessage.proto](#ConsensusSubmitMessage.proto)
+  - [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody)
+
+- [ConsensusTopicInfo.proto](#ConsensusTopicInfo.proto)
+
+- [ConsensusUpdateTopic.proto](#ConsensusUpdateTopic.proto)
 
 - [ContractCall.proto](#ContractCall.proto)
   - [ContractCallTransactionBody](#ContractCallTransactionBody)
@@ -348,6 +367,11 @@
 | ContractAutoRenew | Contract Auto Renew |
 | getVersion | Get Version |
 | TransactionGetReceipt | Transaction Get Receipt |
+| ConsensusCreateTopic |  |
+| ConsensusUpdateTopic |  |
+| ConsensusDeleteTopic |  |
+| ConsensusGetTopicInfo |  |
+| ConsensusSubmitMessage |  |
 
 
 <a name="Key"></a>
@@ -408,6 +432,28 @@
 | ----- | ---- | ----------- | - |
 | shardNum |  | The shard number (nonnegative) | |
 | realmNum |  | The realm number (nonnegative) | |
+
+
+<a name="ServicesConfigurationLis"></a>
+
+### ServicesConfigurationLis
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| nameValue | [Setting](#Setting) | list of name value pairs of the application properties | |
+
+
+<a name="Setting"></a>
+
+### Setting
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| name |  | name of the property | |
+| value |  | value of the property | |
+| data |  | any data associated with property | |
 
 
 <a name="ShardID"></a>
@@ -495,6 +541,18 @@
 | sigs | [SignatureList](#SignatureList) | for an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null | |
 
 
+<a name="TopicID"></a>
+
+### TopicID
+ Unique identifier for a topic (used by the consensus service) 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| shardNum |  | The shard number (nonnegative) | |
+| realmNum |  | The realm number (nonnegative) | |
+| topicNum |  | Unique topic identifier within a realm (nonnegative). | |
+
+
 <a name="TransactionFeeSchedule"></a>
 
 ### TransactionFeeSchedule
@@ -516,6 +574,66 @@
 | transactionValidStart | [Timestamp](#Timestamp) | The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid | |
 | accountID | [AccountID](#AccountID) | The Account ID that paid for this transaction | |
 
+
+<a name="ConsensusCreateTopic.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusCreateTopic.proto
+
+<a name="ConsensusDeleteTopic.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusDeleteTopic.proto
+
+<a name="ConsensusGetTopicInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusGetTopicInfo.proto
+
+<a name="ConsensusService.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusService.proto
+
+<a name="ConsensusService"></a>
+
+### ConsensusService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| createTopic  | Transaction | TransactionResponse); | 
+| updateTopic  | Transaction | TransactionResponse); | 
+| deleteTopic  | Transaction | TransactionResponse); | 
+| getTopicInfo  | Query | Response); | 
+| submitMessage  | Transaction | TransactionResponse); | 
+
+
+<a name="ConsensusSubmitMessage.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusSubmitMessage.proto
+
+<a name="ConsensusSubmitMessageTransactionBody"></a>
+
+### ConsensusSubmitMessageTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| topicID | [TopicID](#TopicID) | Topic to submit message to. | |
+| message |  | Message to be submitted. Max size of the Transaction (including signatures) is 4kB. | |
+
+
+<a name="ConsensusTopicInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusTopicInfo.proto
+
+<a name="ConsensusUpdateTopic.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ConsensusUpdateTopic.proto
 
 <a name="ContractCall.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
@@ -705,6 +823,7 @@
 | autoRenewPeriod | [Duration](#Duration) | the expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If the account is empty when it expires, then it is deleted. | |
 | storage |  | number of bytes of storage being used by this instance (which affects the cost to extend the expiration time) | |
 | memo |  | the memo associated with the contract (max 100 bytes) | |
+| balance |  | The current balance, in tinybars | |
 
 
 <a name="ContractGetRecords.proto"></a>
@@ -853,7 +972,9 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
-| accountID | [AccountID](#AccountID) | The account ID for which information is requested | |
+| balanceSource | oneof |  | |
+| | accountID | [AccountID](#AccountID) | The account ID for which information is requested | |
+| | contractID | [ContractID](#ContractID) | The account ID for which information is requested | |
 
 
 <a name="CryptoGetAccountBalanceResponse"></a>
@@ -1460,6 +1581,7 @@
 | | transactionGetReceipt | [TransactionGetReceiptQuery](#TransactionGetReceiptQuery) | Get a receipt for a transaction (lasts 180 seconds) | |
 | | transactionGetRecord | [TransactionGetRecordQuery](#TransactionGetRecordQuery) | Get a record for a transaction (lasts 1 hour) | |
 | | transactionGetFastRecord | [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery) | Get a record for a transaction (lasts 180 seconds) | |
+| | consensusGetTopicInfo | [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery) | Get the parameters of and state of a consensus topic. | |
 
 
 <a name="QueryHeader.proto"></a>
@@ -1520,6 +1642,7 @@
 | | transactionGetReceipt | [TransactionGetReceiptResponse](#TransactionGetReceiptResponse) | Get a receipt for a transaction (lasts 180 seconds) | |
 | | transactionGetRecord | [TransactionGetRecordResponse](#TransactionGetRecordResponse) | Get a record for a transaction (lasts 1 hour) | |
 | | transactionGetFastRecord | [TransactionGetFastRecordResponse](#TransactionGetFastRecordResponse) | Get a record for a transaction (lasts 180 seconds) | |
+| | consensusGetTopicInfo | [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse) | Parameters of and state of a consensus topic.. | |
 
 
 <a name="ResponseCode.proto"></a>
@@ -1641,8 +1764,19 @@
 | FEE_SCHEDULE_FILE_PART_UPLOADED | Fee Schedule Proto File Part uploaded |
 | EXCHANGE_RATE_CHANGE_LIMIT_EXCEEDED | The change on Exchange Rate exceeds Exchange_Rate_Allowed_Percentage |
 | MAX_CONTRACT_STORAGE_EXCEEDED | Contract permanent storage exceeded the currently allowable limit |
+| TRANSFER_ACCOUNT_SAME_AS_DELETE_ACCOUNT | Transfer Account should not be same as Account to be deleted |
+| TOTAL_LEDGER_BALANCE_INVALID |  |
+| EXPIRATION_REDUCTION_NOT_ALLOWED | The expiration date/time on a smart contract may not be reduced |
 | MAX_GAS_LIMIT_EXCEEDED | Gas exceeded currently allowable gas limit per transaction |
 | MAX_FILE_SIZE_EXCEEDED | File size exceeded the currently allowable limit |
+| INVALID_TOPIC_ID | The Topic ID specified is not in the system. |
+| INVALID_ADMIN_KEY |  |
+| INVALID_SUBMIT_KEY |  |
+| UNAUTHORIZED | An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey). |
+| INVALID_TOPIC_MESSAGE | A ConsensusService message is empty. |
+| INVALID_AUTORENEW_ACCOUNT | The autoRenewAccount specified is not a valid, active account. |
+| AUTORENEW_ACCOUNT_NOT_ALLOWED |  |
+| TOPIC_EXPIRED |  |
 
 
 <a name="ResponseHeader.proto"></a>
@@ -1804,6 +1938,10 @@
 | | systemDelete | [SystemDeleteTransactionBody](#SystemDeleteTransactionBody) | Hedera multisig system deletes a file or smart contract | |
 | | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) | To undelete an entity deleted by SystemDelete | |
 | | freeze | [FreezeTransactionBody](#FreezeTransactionBody) | Freeze the nodes | |
+| | consensusCreateTopic | [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody) |  | |
+| | consensusUpdateTopic | [ConsensusUpdateTopicTransactionBody](#ConsensusUpdateTopicTransactionBody) |  | |
+| | consensusDeleteTopic | [ConsensusDeleteTopicTransactionBody](#ConsensusDeleteTopicTransactionBody) |  | |
+| | consensusSubmitMessage | [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody) |  | |
 
 
 <a name="TransactionGetFastRecord.proto"></a>
@@ -1904,6 +2042,9 @@
 | fileID | [FileID](#FileID) | The file ID, if a new file was created | |
 | contractID | [ContractID](#ContractID) | The contract ID, if a new smart contract instance was created | |
 | exchangeRate | [ExchangeRateSet](#ExchangeRateSet) | exchange rate set of Hbar to cents (USD) | |
+| topicID | [TopicID](#TopicID) | TopicID of a newly created consensus service topic | |
+| topicSequenceNumber |  |  | |
+| topicRunningHash |  |  | |
 
 
 <a name="TransactionRecord.proto"></a>
@@ -1938,9 +2079,10 @@
 <a name="TransactionResponse"></a>
 
 ### TransactionResponse
- When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). 
+ When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). If the fee offered was insufficient, this will also contain the amount of the required fee. To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | nodeTransactionPrecheckCode | [ResponseCodeEnum](#ResponseCodeEnum) | The response code that indicates the current status of the transaction. | |
+| cost |  | If the response code was INSUFFICIENT_TX_FEE, the actual transaction fee that would be required to execute the transaction. | |
 
