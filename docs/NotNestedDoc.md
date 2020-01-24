@@ -18,7 +18,7 @@
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
   - [RealmID](#RealmID)
-  - [ServicesConfigurationLis](#ServicesConfigurationLis)
+  - [ServicesConfigurationList](#ServicesConfigurationList)
   - [Setting](#Setting)
   - [ShardID](#ShardID)
   - [Signature](#Signature)
@@ -32,10 +32,14 @@
   - [TransactionID](#TransactionID)
 
 - [ConsensusCreateTopic.proto](#ConsensusCreateTopic.proto)
+  - [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody)
 
 - [ConsensusDeleteTopic.proto](#ConsensusDeleteTopic.proto)
+  - [ConsensusDeleteTopicTransactionBody](#ConsensusDeleteTopicTransactionBody)
 
 - [ConsensusGetTopicInfo.proto](#ConsensusGetTopicInfo.proto)
+  - [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery)
+  - [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse)
 
 - [ConsensusService.proto](#ConsensusService.proto)
   - [ConsensusService](#ConsensusService) (Service)
@@ -44,8 +48,10 @@
   - [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody)
 
 - [ConsensusTopicInfo.proto](#ConsensusTopicInfo.proto)
+  - [ConsensusTopicInfo](#ConsensusTopicInfo)
 
 - [ConsensusUpdateTopic.proto](#ConsensusUpdateTopic.proto)
+  - [ConsensusUpdateTopicTransactionBody](#ConsensusUpdateTopicTransactionBody)
 
 - [ContractCall.proto](#ContractCall.proto)
   - [ContractCallTransactionBody](#ContractCallTransactionBody)
@@ -233,6 +239,8 @@
 
 ## BasicTypes.proto
 
+ Each shard has a nonnegative shard number. Each realm within a given shard has a nonnegative realm number (that number might be reused in other shards). And each account, file, and smart contract instance within a given realm has a nonnegative number (which might be reused in other realms). Every account, file, and smart contract instance is within exactly one realm. So a FileID is a triplet of numbers, like 0.1.2 for entity number 2 within realm 1  within shard 0.  Each realm maintains a single counter for assigning numbers,  so if there is a file with ID 0.1.2, then there won't be an account or smart  contract instance with ID 0.1.2.
+
 <a name="AccountID"></a>
 
 ### AccountID
@@ -377,7 +385,7 @@
 <a name="Key"></a>
 
 ### Key
- A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.
+ A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.<BR>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.<BR>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.<BR>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.<BR>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.<BR>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -434,9 +442,9 @@
 | realmNum |  | The realm number (nonnegative) | |
 
 
-<a name="ServicesConfigurationLis"></a>
+<a name="ServicesConfigurationList"></a>
 
-### ServicesConfigurationLis
+### ServicesConfigurationList
 
 
 | Field | Type | Description |   |
@@ -459,7 +467,7 @@
 <a name="ShardID"></a>
 
 ### ShardID
- Each shard has a nonnegative shard number. Each realm within a given shard has a nonnegative realm number (that number might be reused in other shards). And each account, file, and smart contract instance within a given realm has a nonnegative number (which might be reused in other realms). Every account, file, and smart contract instance is within exactly one realm. So a FileID is a triplet of numbers, like 0.1.2 for entity number 2 within realm 1  within shard 0.  Each realm maintains a single counter for assigning numbers,  so if there is a file with ID 0.1.2, then there won't be an account or smart  contract instance with ID 0.1.2.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -469,7 +477,7 @@
 <a name="Signature"></a>
 
 ### Signature
- A Signature corresponding to a Key. It is a sequence of bytes holding a public key signature from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be a list of signatures corresponding to a single threshold key. Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. If it has a smart contract ID associated with it, then that smart contract is allowed to transfer cryptocurrency out of it. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key. A key can also be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements (this nesting is not supported in the currently, but will be supported in a future version of API). If a Signature message is missing the "signature" field, then this is considered to be a null signature. That is useful in cases such as threshold signatures, where some of the signatures can be null.
+ A Signature corresponding to a Key. It is a sequence of bytes holding a public key signature from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be a list of signatures corresponding to a single threshold key. Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. If it has a smart contract ID associated with it, then that smart contract is allowed to transfer cryptocurrency out of it. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key. A key can also be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements (this nesting is not supported in the currently, but will be supported in a future version of API). If a Signature message is missing the "signature" field, then this is considered to be a null signature. That is useful in cases such as threshold signatures, where some of the signatures can be null.<BR>The definition of Key uses mutual recursion, so it allows nesting that is arbitrarily deep. But the current API only accepts Key messages up to 3 levels deep, such as a list of threshold keys, each of which is a list of primitive keys. Therefore, the matching Signature will have the same limitation. This restriction may be relaxed in future versions of the API, to allow deeper nesting.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -486,7 +494,7 @@
 <a name="SignatureList"></a>
 
 ### SignatureList
- The signatures corresponding to a KeyList of the same length.
+ The signatures corresponding to a KeyList of the same length.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -497,7 +505,7 @@
 <a name="SignatureMap"></a>
 
 ### SignatureMap
- A set of signatures corresponding to every unique public key used to sign a given transaction.
+ A set of signatures corresponding to every unique public key used to sign a given transaction.<BR>If one public key matches more than one prefixes on the signature map, the transaction containing the map will fail immediately with the response code KEY_PREFIX_MISMATCH.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -507,7 +515,7 @@
 <a name="SignaturePair"></a>
 
 ### SignaturePair
- The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.
+ The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.<BR>If 0 bytes is used, then it is assumed that only one public key is used to sign.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -533,7 +541,7 @@
 <a name="ThresholdSignature"></a>
 
 ### ThresholdSignature
- A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null.
+ A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -580,20 +588,75 @@
 
 ## ConsensusCreateTopic.proto
 
+ See [ConsensusService.createTopic()](#proto.ConsensusService)
+
+<a name="ConsensusCreateTopicTransactionBody"></a>
+
+### ConsensusCreateTopicTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| memo |  | Short publicly visible memo about the topic. No guarantee of uniqueness. | |
+| adminKey | [Key](#Key) |  Access control for updateTopic/deleteTopic.<BR>Anyone can increase the topic's expirationTime via ConsensusService.updateTopic(), regardless of the adminKey.<BR>If no adminKey is specified, updateTopic may only be used to extend the topic's expirationTime, and deleteTopic<BR>is disallowed. | |
+| submitKey | [Key](#Key) |  Access control for submitMessage.<BR>If unspecified, no access control is performed on ConsensusService.submitMessage (all submissions are allowed). | |
+| autoRenewPeriod | [Duration](#Duration) |  The initial lifetime of the topic and the amount of time to attempt to extend the topic's lifetime by<BR>automatically at the topic's expirationTime, if the autoRenewAccount is configured (once autoRenew functionality<BR>is supported by HAPI).<BR>Limited to MIN_AUTORENEW_PERIOD and MAX_AUTORENEW_PERIOD value by server-side configuration.<BR>Required. | |
+| autoRenewAccount | [AccountID](#AccountID) |  Optional account to be used at the topic's expirationTime to extend the life of the topic (once autoRenew<BR>functionality is supported by HAPI).<BR>The topic lifetime will be extended up to a maximum of the autoRenewPeriod or however long the topic<BR>can be extended using all funds on the account (whichever is the smaller duration/amount and if any extension<BR>is possible with the account's funds).<BR>If specified, there must be an adminKey and the autoRenewAccount must sign this transaction. | |
+
+
 <a name="ConsensusDeleteTopic.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ConsensusDeleteTopic.proto
+
+ See [ConsensusService.deleteTopic()](#proto.ConsensusService)
+
+<a name="ConsensusDeleteTopicTransactionBody"></a>
+
+### ConsensusDeleteTopicTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| topicID | [TopicID](#TopicID) | Topic identifier. | |
+
 
 <a name="ConsensusGetTopicInfo.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ConsensusGetTopicInfo.proto
 
+ See [ConsensusService.getTopicInfo()](#proto.ConsensusService)
+
+<a name="ConsensusGetTopicInfoQuery"></a>
+
+### ConsensusGetTopicInfoQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) |  Standard info sent from client to node, including the signed payment, and what kind of response is requested<BR>(cost, state proof, both, or neither). | |
+| topicID | [TopicID](#TopicID) | Topic to retrieve info about (the parameters and running state of). | |
+
+
+<a name="ConsensusGetTopicInfoResponse"></a>
+
+### ConsensusGetTopicInfoResponse
+ Retrieve the parameters of and state of a consensus topic.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) |  Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither. | |
+| topicID | [TopicID](#TopicID) | Topic identifier. | |
+| topicInfo | [ConsensusTopicInfo](#ConsensusTopicInfo) | Current state of the topic | |
+
+
 <a name="ConsensusService.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ConsensusService.proto
+
+ The Consensus Service provides the ability for Hedera Hashgraph to provide aBFT consensus as to the order and<BR>validity of messages submitted to a topic, as well as a consensus timestamp for those messages.<BR>Automatic renewal can be configured via an autoRenewAccount.<BR>Any time an autoRenewAccount is added to a topic, that createTopic/updateTopic transaction must be signed by<BR>the autoRenewAccount.<BR>The autoRenewPeriod on an account must currently be set a value in createTopic between MIN_AUTORENEW_PERIOD (6999999<BR>seconds) and MAX_AUTORENEW_PERIOD (8000001 seconds). During creation this sets the initial expirationTime of the<BR>topic (see more below).<BR>If no adminKey is on a topic, there may not be an autoRenewAccount on the topic, deleteTopic is not allowed,<BR>and the only change allowed via an updateTopic is to extend the expirationTime.<BR>If an adminKey is on a topic, every updateTopic and deleteTopic transaction must be signed by the adminKey, except<BR>for updateTopics which only extend the topic's expirationTime (no adminKey authorization required).<BR>If an updateTopic modifies the adminKey of a topic, the transaction signatures on the updateTopic must fulfill both<BR>the pre-update and post-update adminKey signature requirements.<BR>Mirrornet ConsensusService may be used to subscribe to changes on the topic, including changes to the topic<BR>definition and the consensus ordering and timestamp of submitted messages.<BR>Until autoRenew functionality is supported by HAPI, the topic will not expire, the autoRenewAccount will not be<BR>charged, and the topic will not automatically be deleted.<BR>Once autoRenew functionality is supported by HAPI:<BR>1. Once the expirationTime is encountered, if an autoRenewAccount is configured on the topic, the account will be<BR>charged automatically at the expirationTime, to extend the expirationTime of the topic up to the topic's<BR>autoRenewPeriod (or as much extension as the account's balance will supply).<BR>2. If the topic expires and is not automatically renewed, the topic will enter the EXPIRED state. All transactions<BR>on the topic will fail with TOPIC_EXPIRED, except an updateTopic() call that modifies only the expirationTime.<BR>getTopicInfo() will succeed. This state will be available for a AUTORENEW_GRACE_PERIOD grace period (7 days).<BR>3. After the grace period, if the topic's expirationTime is not extended, the topic will be automatically<BR>deleted and no transactions or queries on the topic will succeed after that point.
 
 <a name="ConsensusService"></a>
 
@@ -602,11 +665,11 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createTopic  | Transaction | TransactionResponse); | 
-| updateTopic  | Transaction | TransactionResponse); | 
-| deleteTopic  | Transaction | TransactionResponse); | 
-| getTopicInfo  | Query | Response); | 
-| submitMessage  | Transaction | TransactionResponse); | 
+| createTopic  | Transaction | TransactionResponse |  Create a topic to be used for consensus.<BR>If an autoRenewAccount is specified, that account must also sign this transaction.<BR>If an adminKey is specified, the adminKey must sign the transaction.<BR>On success, the resulting TransactionReceipt contains the newly created TopicId.<BR>Request is [ConsensusCreateTopicTransactionBody](#proto.ConsensusCreateTopicTransactionBody) |
+| updateTopic  | Transaction | TransactionResponse |  Update a topic.<BR>If there is no adminKey, the only authorized update (available to anyone) is to extend the expirationTime.<BR>Otherwise transaction must be signed by the adminKey.<BR>If an adminKey is updated, the transaction must be signed by the pre-update adminKey and post-update adminKey.<BR>If a new autoRenewAccount is specified (not just being removed), that account must also sign the transaction.<BR>Request is [ConsensusUpdateTopicTransactionBody](#proto.ConsensusUpdateTopicTransactionBody) |
+| deleteTopic  | Transaction | TransactionResponse |  Delete a topic. No more transactions or queries on the topic (via HAPI) will succeed.<BR>If an adminKey is set, this transaction must be signed by that key.<BR>If there is no adminKey, this transaction will fail UNAUTHORIZED.<BR>Request is [ConsensusDeleteTopicTransactionBody](#proto.ConsensusDeleteTopicTransactionBody) |
+| getTopicInfo  | Query | Response |  Retrieve the latest state of a topic. This method is unrestricted and allowed on any topic by any payer account.<BR>Deleted accounts will not be returned.<BR>Request is [ConsensusGetTopicInfoQuery](#proto.ConsensusGetTopicInfoQuery)<BR>Response is [ConsensusGetTopicInfoResponse](#proto.ConsensusGetTopicInfoResponse) |
+| submitMessage  | Transaction | TransactionResponse |  Submit a message for consensus.<BR>Valid and authorized messages on valid topics will be ordered by the consensus service, gossipped to the<BR>mirror net, and published (in order) to all subscribers (from the mirror net) on this topic.<BR>The submitKey (if any) must sign this transaction.<BR>On success, the resulting TransactionReceipt contains the topic's updated topicSequenceNumber and<BR>topicRunningHash.<BR>Request is [ConsensusSubmitMessageTransactionBody](#proto.ConsensusSubmitMessageTransactionBody) |
 
 
 <a name="ConsensusSubmitMessage.proto"></a>
@@ -630,20 +693,59 @@
 
 ## ConsensusTopicInfo.proto
 
+ Current state of a topic.
+
+<a name="ConsensusTopicInfo"></a>
+
+### ConsensusTopicInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| memo |  | Short publicly visible memo about the topic. No guarantee of uniqueness. | |
+| runningHash |  |  SHA-384 running hash <previousRunningHash, topicId, consensusTimestamp, sequenceNumber, message> | |
+| sequenceNumber |  |  Sequence number (starting at 1 for the first submitMessage) of messages on the topic. | |
+| expirationTime | [Timestamp](#Timestamp) |  Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic<BR>and the topic will expire and after AUTORENEW_GRACE_PERIOD be automatically deleted. | |
+| adminKey | [Key](#Key) | Access control for update/delete of the topic. Null if there is no key. | |
+| submitKey | [Key](#Key) | Access control for ConsensusService.submitMessage. Null if there is no key. | |
+| autoRenewPeriod | [Duration](#Duration) |  | |
+| autoRenewAccount | [AccountID](#AccountID) | Null if there is no autoRenewAccount. | |
+
+
 <a name="ConsensusUpdateTopic.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ConsensusUpdateTopic.proto
+
+ All fields left null will not be updated.<BR>See [ConsensusService.updateTopic()](#proto.ConsensusService)
+
+<a name="ConsensusUpdateTopicTransactionBody"></a>
+
+### ConsensusUpdateTopicTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| topicID | [TopicID](#TopicID) |  | |
+| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) |  Short publicly visible memo about the topic. No guarantee of uniqueness. Null for "do not update". | |
+| expirationTime | [Timestamp](#Timestamp) |  Effective consensus timestamp at (and after) which all consensus transactions and queries will fail.<BR>The expirationTime may be no longer than MAX_AUTORENEW_PERIOD (8000001 seconds) from the consensus timestamp of<BR>this transaction.<BR>On topics with no adminKey, extending the expirationTime is the only updateTopic option allowed on the topic.<BR>If unspecified, no change. | |
+| adminKey | [Key](#Key) |  Access control for update/delete of the topic.<BR>If unspecified, no change.<BR>If empty keyList - the adminKey is cleared. | |
+| submitKey | [Key](#Key) |  Access control for ConsensusService.submitMessage.<BR>If unspecified, no change.<BR>If empty keyList - the submitKey is cleared. | |
+| autoRenewPeriod | [Duration](#Duration) |  The amount of time to extend the topic's lifetime automatically at expirationTime if the autoRenewAccount is<BR>configured and has funds (once autoRenew functionality is supported by HAPI).<BR>Limited to between MIN_AUTORENEW_PERIOD (6999999 seconds) and MAX_AUTORENEW_PERIOD (8000001 seconds) by<BR>servers-side configuration (which may change).<BR>If unspecified, no change. | |
+| autoRenewAccount | [AccountID](#AccountID) |  Optional account to be used at the topic's expirationTime to extend the life of the topic.<BR>Once autoRenew functionality is supported by HAPI, the topic lifetime will be extended up to a maximum of the<BR>autoRenewPeriod or however long the topic can be extended using all funds on the account (whichever is the<BR>smaller duration/amount).<BR>If specified as the default value (0.0.0), the autoRenewAccount will be removed.<BR>If unspecified, no change. | |
+
 
 <a name="ContractCall.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ContractCall.proto
 
+ Call a function of the given smart contract instance, giving it functionParameters as its inputs. it can use the given amount of gas, and any unspent gas will be refunded to the paying account.<BR>If this function stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.
+
 <a name="ContractCallTransactionBody"></a>
 
 ### ContractCallTransactionBody
- Call a function of the given smart contract instance, giving it functionParameters as its inputs. it can use the given amount of gas, and any unspent gas will be refunded to the paying account.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -658,10 +760,12 @@
 
 ## ContractCallLocal.proto
 
+ The log information for an event returned by a smart contract function call. One function call may return several such events. 
+
 <a name="ContractCallLocalQuery"></a>
 
 ### ContractCallLocalQuery
- Call a function of the given smart contract instance, giving it functionParameters as its inputs. It will consume the entire given amount of gas.
+ Call a function of the given smart contract instance, giving it functionParameters as its inputs. It will consume the entire given amount of gas.<BR>This is performed locally on the particular node that the client is communicating with. It cannot change the state of the contract instance (and so, cannot spend anything from the instance's cryptocurrency account). It will not have a consensus timestamp. It cannot generate a record or a receipt. The response will contain the output returned by the function call.  This is useful for calling getter functions, which purely read the state and don't change it. It is faster and cheaper than a normal call, because it is purely local to a single  node.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -701,7 +805,7 @@
 <a name="ContractLoginfo"></a>
 
 ### ContractLoginfo
- The log information for an event returned by a smart contract function call. One function call may return several such events. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -716,10 +820,12 @@
 
 ## ContractCreate.proto
 
+ Start a new smart contract instance. After the instance is created, the ContractID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The instance will run the bytecode stored in the given file, referenced either by FileID or by the transaction ID of the transaction that created the file. The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs come from the given constructorParameters.<BR>The instance will exist for autoRenewPeriod seconds. When that is reached, it will renew itself for another autoRenewPeriod seconds by charging its associated cryptocurrency account (which it creates here). If it has insufficient cryptocurrency to extend that long, it will extend as long as it can. If its balance is zero, the instance will be deleted.<BR>A smart contract instance normally enforces rules, so "the code is law". For example, an ERC-20 contract prevents a transfer from being undone without a signature by the recipient of the transfer. This is always enforced if the contract instance was created with the adminKeys being null. But for some uses, it might be desirable to create something like an ERC-20 contract that has a specific group of trusted individuals who can act as a "supreme court" with the ability to override the normal operation, when a sufficient number of them agree to do so. If adminKeys is not null, then they can sign a transaction that can change the state of the smart contract in arbitrary ways, such as to reverse a transaction that violates some standard of behavior that is not covered by the code itself. The admin keys can also be used to change the autoRenewPeriod, and change the adminKeys field itself. The API currently does not implement this ability. But it does allow the adminKeys field to be set and queried, and will in the future implement such admin abilities for any instance that has a non-null adminKeys.<BR>If this constructor stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.<BR>The optional memo field can contain a string whose length is up to 100 bytes. That is the size after Unicode NFD then UTF-8 conversion. This field can be used to describe the smart contract. It could also be used for other purposes. One recommended purpose is to hold a hexadecimal string that is the SHA-384 hash of a PDF file containing a human-readable legal contract. Then, if the admin keys are the public keys of human arbitrators, they can use that legal document to guide their decisions during a binding arbitration tribunal, convened to consider any changes to the smart contract in the future. The memo field can only be changed using the admin keys. If there are no admin keys, then it cannot be changed after the smart contract is created.
+
 <a name="ContractCreateTransactionBody"></a>
 
 ### ContractCreateTransactionBody
- Start a new smart contract instance. After the instance is created, the ContractID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The instance will run the bytecode stored in the given file, referenced either by FileID or by the transaction ID of the transaction that created the file. The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs come from the given constructorParameters.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -741,10 +847,12 @@
 
 ## ContractDelete.proto
 
+ Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the mangement of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
+
 <a name="ContractDeleteTransactionBody"></a>
 
 ### ContractDeleteTransactionBody
- Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the mangement of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -759,10 +867,12 @@
 
 ## ContractGetBytecode.proto
 
+ Get the bytecode for a smart contract instance 
+
 <a name="ContractGetBytecodeQuery"></a>
 
 ### ContractGetBytecodeQuery
- Get the bytecode for a smart contract instance 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -786,10 +896,12 @@
 
 ## ContractGetInfo.proto
 
+ Get information about a smart contract instance. This includes the account that it uses, the file containing its bytecode, and the time when it will expire. 
+
 <a name="ContractGetInfoQuery"></a>
 
 ### ContractGetInfoQuery
- Get information about a smart contract instance. This includes the account that it uses, the file containing its bytecode, and the time when it will expire. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -811,7 +923,7 @@
 <a name="ContractGetInfoResponse.ContractInfo"></a>
 
 ### ContractGetInfoResponse.ContractInfo
- Response when the client sends the node ContractGetInfoQuery 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -831,10 +943,12 @@
 
 ## ContractGetRecords.proto
 
+ Get all the records for a smart contract instance, for any function call (or the constructor call) during the last 25 hours, for which a Record was requested. 
+
 <a name="ContractGetRecordsQuery"></a>
 
 ### ContractGetRecordsQuery
- Get all the records for a smart contract instance, for any function call (or the constructor call) during the last 25 hours, for which a Record was requested. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -859,10 +973,12 @@
 
 ## ContractUpdate.proto
 
+ Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the management of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
+
 <a name="ContractUpdateTransactionBody"></a>
 
 ### ContractUpdateTransactionBody
- Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the management of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -880,10 +996,12 @@
 
 ## CryptoAddClaim.proto
 
+ A hash (presumably of some kind of credential or certificate), along with a list of keys (each of which is either a primitive or a threshold key). Each of them must reach its threshold when signing the transaction, to attach this claim to this account. At least one of them must reach its threshold to delete this Claim from this account. This is intended to provide a revocation service: all the authorities agree to attach the hash, to attest to the fact that the credential or certificate is valid. Any one of the authorities can later delete the hash, to indicate that the credential has been revoked. In this way, any client can prove to a third party that any particular account has certain credentials, or to identity facts proved about it, and that none of them have been revoked yet. 
+
 <a name="Claim"></a>
 
 ### Claim
- A hash (presumably of some kind of credential or certificate), along with a list of keys (each of which is either a primitive or a threshold key). Each of them must reach its threshold when signing the transaction, to attach this claim to this account. At least one of them must reach its threshold to delete this Claim from this account. This is intended to provide a revocation service: all the authorities agree to attach the hash, to attest to the fact that the credential or certificate is valid. Any one of the authorities can later delete the hash, to indicate that the credential has been revoked. In this way, any client can prove to a third party that any particular account has certain credentials, or to identity facts proved about it, and that none of them have been revoked yet. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -896,7 +1014,7 @@
 <a name="CryptoAddClaimTransactionBody"></a>
 
 ### CryptoAddClaimTransactionBody
- Attach the given hash to the given account. The hash can be deleted by the keys used to transfer money from the account. The hash can also be deleted by any one of the deleteKeys (where that one may itself be a threshold key made up of multiple keys). Therefore, this acts as a revocation service for claims about the account. External authorities may issue certificates or credentials of some kind that make a claim about this account. The account owner can then attach a hash of that claim to the account. The transaction that adds the claim will be signed by the owner of the account, and also by all the authorities that are attesting to the truth of that claim. If the claim ever ceases to be true, such as when a certificate is revoked, then any one of the listed authorities has the ability to delete it. The account owner also has the ability to delete it at any time.
+ Attach the given hash to the given account. The hash can be deleted by the keys used to transfer money from the account. The hash can also be deleted by any one of the deleteKeys (where that one may itself be a threshold key made up of multiple keys). Therefore, this acts as a revocation service for claims about the account. External authorities may issue certificates or credentials of some kind that make a claim about this account. The account owner can then attach a hash of that claim to the account. The transaction that adds the claim will be signed by the owner of the account, and also by all the authorities that are attesting to the truth of that claim. If the claim ever ceases to be true, such as when a certificate is revoked, then any one of the listed authorities has the ability to delete it. The account owner also has the ability to delete it at any time.<BR>In this way, it acts as a revocation server, and the account owner can prove to any third party that the claim is still true for this account, by sending the third party the signed credential, and then having the third party query to discover whether the hash of that credential is still attached to the account.<BR>For a given account, each Claim must contain a different hash. To modify the list of keys in a Claim, the existing Claim should first be deleted, then the Claim with the new list of keys can be added.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -908,10 +1026,12 @@
 
 ## CryptoCreate.proto
 
+ Create a new account. After the account is created, the AccountID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The account can then automatically generate records for large transfers into it or out of it, which each last for 25 hours. Records are generated for any transfer that exceeds the thresholds given here. This account is charged cryptocurrency for each record generated, so the thresholds are useful for limiting Record generation to happen only for large transactions. The Key field is the key used to sign transactions for this account. If the account has receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this account's key, both for transfers in and out. If it is false, then only transfers out have to be signed by it. When the account is created, the payer account is charged enough hbars so that the new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration time, the new account will then be automatically charged to renew for another autoRenewPeriod seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are used to extend its expiration as long as possible. If it is has a zero balance when it expires, then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired is false, then the transaction does not have to be signed by the keys in the keys field. If it is true, then it must be signed by them, in addition to the keys of the payer account.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.
+
 <a name="CryptoCreateTransactionBody"></a>
 
 ### CryptoCreateTransactionBody
- Create a new account. After the account is created, the AccountID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The account can then automatically generate records for large transfers into it or out of it, which each last for 25 hours. Records are generated for any transfer that exceeds the thresholds given here. This account is charged cryptocurrency for each record generated, so the thresholds are useful for limiting Record generation to happen only for large transactions. The Key field is the key used to sign transactions for this account. If the account has receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this account's key, both for transfers in and out. If it is false, then only transfers out have to be signed by it. When the account is created, the payer account is charged enough hbars so that the new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration time, the new account will then be automatically charged to renew for another autoRenewPeriod seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are used to extend its expiration as long as possible. If it is has a zero balance when it expires, then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired is false, then the transaction does not have to be signed by the keys in the keys field. If it is true, then it must be signed by them, in addition to the keys of the payer account.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -932,10 +1052,12 @@
 
 ## CryptoDelete.proto
 
+ Mark an account as deleted, moving all its current hbars to another account. It will remain in the ledger, marked as deleted, until it expires. Transfers into it a deleted account fail. But a deleted account can still have its expiration extended in the normal way. 
+
 <a name="CryptoDeleteTransactionBody"></a>
 
 ### CryptoDeleteTransactionBody
- Mark an account as deleted, moving all its current hbars to another account. It will remain in the ledger, marked as deleted, until it expires. Transfers into it a deleted account fail. But a deleted account can still have its expiration extended in the normal way. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -948,10 +1070,12 @@
 
 ## CryptoDeleteClaim.proto
 
+ Delete a claim hash that was attached to the given account. This transaction is valid if signed by all the keys used for transfers out of the account. It is also valid if signed by any single ThresholdKeys in the deleteKeys list for this hash. See CryptoAddClaimTransaction for more information about claim hashes. 
+
 <a name="CryptoDeleteClaimTransactionBody"></a>
 
 ### CryptoDeleteClaimTransactionBody
- Delete a claim hash that was attached to the given account. This transaction is valid if signed by all the keys used for transfers out of the account. It is also valid if signed by any single ThresholdKeys in the deleteKeys list for this hash. See CryptoAddClaimTransaction for more information about claim hashes. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -964,10 +1088,12 @@
 
 ## CryptoGetAccountBalance.proto
 
+ Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller and faster reply than CryptoGetInfo, which returns the balance plus additional information. 
+
 <a name="CryptoGetAccountBalanceQuery"></a>
 
 ### CryptoGetAccountBalanceQuery
- Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller and faster reply than CryptoGetInfo, which returns the balance plus additional information. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -994,10 +1120,12 @@
 
 ## CryptoGetAccountRecords.proto
 
+ Get all the records for an account for any transfers into it and out of it, that were above the threshold, during the last 25 hours. 
+
 <a name="CryptoGetAccountRecordsQuery"></a>
 
 ### CryptoGetAccountRecordsQuery
- Get all the records for an account for any transfers into it and out of it, that were above the threshold, during the last 25 hours. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1022,10 +1150,12 @@
 
 ## CryptoGetClaim.proto
 
+ Get a single claim attached to an account, or return null if it does not exist. 
+
 <a name="CryptoGetClaimQuery"></a>
 
 ### CryptoGetClaimQuery
- Get a single claim attached to an account, or return null if it does not exist. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1050,10 +1180,12 @@
 
 ## CryptoGetInfo.proto
 
+ Get all the information about an account, including the balance. This does not get the list of account records. 
+
 <a name="CryptoGetInfoQuery"></a>
 
 ### CryptoGetInfoQuery
- Get all the information about an account, including the balance. This does not get the list of account records. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1075,7 +1207,7 @@
 <a name="CryptoGetInfoResponse.AccountInfo"></a>
 
 ### CryptoGetInfoResponse.AccountInfo
- Response when the client sends the node CryptoGetInfoQuery 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1099,6 +1231,8 @@
 
 ## CryptoGetStakers.proto
 
+ Get all the accounts that are proxy staking to this account. For each of them, give the amount currently staked. This is not yet implemented, but will be in a future version of the API. 
+
 <a name="AllProxyStakers"></a>
 
 ### AllProxyStakers
@@ -1113,7 +1247,7 @@
 <a name="CryptoGetStakersQuery"></a>
 
 ### CryptoGetStakersQuery
- Get all the accounts that are proxy staking to this account. For each of them, give the amount currently staked. This is not yet implemented, but will be in a future version of the API. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1148,6 +1282,8 @@
 
 ## CryptoService.proto
 
+ The request and responses for different crypto services. 
+
 <a name="CryptoService"></a>
 
 ### CryptoService
@@ -1155,20 +1291,20 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createAccount  | Transaction | TransactionResponse | Creates a new account by submitting the transaction. The grpc server returns the TransactionResponse | 
-| updateAccount  | Transaction | TransactionResponse | Updates an account by submitting the transaction. The grpc server returns the TransactionResponse | 
-| cryptoTransfer  | Transaction | TransactionResponse | Initiates a transfer by submitting the transaction. The grpc server returns the TransactionResponse | 
-| cryptoDelete  | Transaction | TransactionResponse | Deletes and account by submitting the transaction. The grpc server returns the TransactionResponse | 
-| addClaim  | Transaction | TransactionResponse | Adds a claim by submitting the transaction. The grpc server returns the TransactionResponse | 
-| deleteClaim  | Transaction | TransactionResponse | Deletes a claim by submitting the transaction. The grpc server returns the TransactionResponse | 
-| getClaim  | Query | Response | Retrieves the claim for an account by submitting the query. | 
-| getAccountRecords  | Query | Response | Retrieves the record(fetch by AccountID ID) for an account by submitting the query. | 
-| cryptoGetBalance  | Query | Response | Retrieves the balance for an account by submitting the query. | 
-| getAccountInfo  | Query | Response | Retrieves the account information for an account by submitting the query. | 
-| getTransactionReceipts  | Query | Response | Retrieves the transaction receipts for an account by TxId which last for 180sec only for no fee. | 
-| getFastTransactionRecord  | Query | Response | Retrieves the transaction record by TxID which last for 180sec only for no fee. | 
-| getTxRecordByTxID  | Query | Response | Retrieves the transactions record(fetch by Transaction ID) for an account by submitting the query. | 
-| getStakersByAccountID  | Query | Response | Retrieves the stakers for a node by account ID by submitting the query. | 
+| createAccount  | Transaction | TransactionResponse | Creates a new account by submitting the transaction. The grpc server returns the TransactionResponse |
+| updateAccount  | Transaction | TransactionResponse | Updates an account by submitting the transaction. The grpc server returns the TransactionResponse |
+| cryptoTransfer  | Transaction | TransactionResponse | Initiates a transfer by submitting the transaction. The grpc server returns the TransactionResponse |
+| cryptoDelete  | Transaction | TransactionResponse | Deletes and account by submitting the transaction. The grpc server returns the TransactionResponse |
+| addClaim  | Transaction | TransactionResponse | Adds a claim by submitting the transaction. The grpc server returns the TransactionResponse |
+| deleteClaim  | Transaction | TransactionResponse | Deletes a claim by submitting the transaction. The grpc server returns the TransactionResponse |
+| getClaim  | Query | Response | Retrieves the claim for an account by submitting the query. |
+| getAccountRecords  | Query | Response | Retrieves the record(fetch by AccountID ID) for an account by submitting the query. |
+| cryptoGetBalance  | Query | Response | Retrieves the balance for an account by submitting the query. |
+| getAccountInfo  | Query | Response | Retrieves the account information for an account by submitting the query. |
+| getTransactionReceipts  | Query | Response | Retrieves the transaction receipts for an account by TxId which last for 180sec only for no fee. |
+| getFastTransactionRecord  | Query | Response | Retrieves the transaction record by TxID which last for 180sec only for no fee. |
+| getTxRecordByTxID  | Query | Response | Retrieves the transactions record(fetch by Transaction ID) for an account by submitting the query. |
+| getStakersByAccountID  | Query | Response | Retrieves the stakers for a node by account ID by submitting the query. |
 
 
 <a name="CryptoTransfer.proto"></a>
@@ -1176,10 +1312,12 @@
 
 ## CryptoTransfer.proto
 
+ An account, and the amount that it sends or receives during a cryptocurrency transfer. 
+
 <a name="AccountAmount"></a>
 
 ### AccountAmount
- An account, and the amount that it sends or receives during a cryptocurrency transfer. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1212,10 +1350,12 @@
 
 ## CryptoUpdate.proto
 
+ Change properties for the given account. Any null field is ignored (left unchanged). This transaction must be signed by the existing key for this account. If the transaction is changing the key field, then the transaction must be signed by both the old key (from before the change) and the new key. The old key must sign for security. The new key must sign as a safeguard to avoid accidentally changing to an invalid key, and then having no way to recover. When extending the expiration date, the cost is affected by the size of the list of attached claims, and of the keys associated with the claims and the account. 
+
 <a name="CryptoUpdateTransactionBody"></a>
 
 ### CryptoUpdateTransactionBody
- Change properties for the given account. Any null field is ignored (left unchanged). This transaction must be signed by the existing key for this account. If the transaction is changing the key field, then the transaction must be signed by both the old key (from before the change) and the new key. The old key must sign for security. The new key must sign as a safeguard to avoid accidentally changing to an invalid key, and then having no way to recover. When extending the expiration date, the cost is affected by the size of the list of attached claims, and of the keys associated with the claims and the account. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1241,10 +1381,12 @@
 
 ## Duration.proto
 
+  The length of a period of time. This is an identical data structure to the protobuf Duration.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/duration.proto) 
+
 <a name="Duration"></a>
 
 ### Duration
-  The length of a period of time. This is an identical data structure to the protobuf Duration.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/duration.proto) 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1256,10 +1398,12 @@
 
 ## ExchangeRate.proto
 
+  Values from these proto denotes habr and cents(USD) conversion 
+
 <a name="ExchangeRate"></a>
 
 ### ExchangeRate
-  Values from these proto denotes habr and cents(USD) conversion 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1284,10 +1428,12 @@
 
 ## FileAppend.proto
 
+ Append the given contents to the end of the file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended multiple times to create the entire file. 
+
 <a name="FileAppendTransactionBody"></a>
 
 ### FileAppendTransactionBody
- Append the given contents to the end of the file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended multiple times to create the entire file. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1300,10 +1446,12 @@
 
 ## FileCreate.proto
 
+ Create a new file, containing the given contents.  It is referenced by its FileID, and does not have a filename, so it is important to get the FileID. After the file is created, the FileID for it can be found in the receipt, or retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that.<BR>The file contains the given contents (possibly empty). The file will automatically disappear at the fileExpirationTime, unless its expiration is extended by another transaction before that time. If the file is deleted, then its contents will become empty and it will be marked as deleted until it expires, and then it will cease to exist. See FileGetInfoQuery for more information about files.<BR>The keys field is a list of keys. All the keys on the list must sign to create or modify a file, but only one of them needs to sign in order to delete the file.  Each of those "keys" may itself be threshold key containing other keys (including other threshold keys). In other words, the behavior is an AND for create/modify, OR for delete. This is useful for acting as a revocation server. If it is desired to have the behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single Key, which is a threshold key, with N=1 for OR, N=M for AND.<BR>If a file is created without ANY keys in the keys field, the file is immutable ONLY the expirationTime of the file can be changed using FileUpdate API. The file contents or its keys cannot be changed.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.
+
 <a name="FileCreateTransactionBody"></a>
 
 ### FileCreateTransactionBody
- Create a new file, containing the given contents.  It is referenced by its FileID, and does not have a filename, so it is important to get the FileID. After the file is created, the FileID for it can be found in the receipt, or retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1320,10 +1468,12 @@
 
 ## FileDelete.proto
 
+ Delete the given file. After deletion, it will be marked as deleted and will have no contents. But information about it will continue to exist until it expires. A list of keys  was given when the file was created. All the keys on that list must sign transactions to create or modify the file, but any single one of them can be used to delete the file. Each "key" on that list may itself be a threshold key containing other keys (including other threshold keys). 
+
 <a name="FileDeleteTransactionBody"></a>
 
 ### FileDeleteTransactionBody
- Delete the given file. After deletion, it will be marked as deleted and will have no contents. But information about it will continue to exist until it expires. A list of keys  was given when the file was created. All the keys on that list must sign transactions to create or modify the file, but any single one of them can be used to delete the file. Each "key" on that list may itself be a threshold key containing other keys (including other threshold keys). 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1335,10 +1485,12 @@
 
 ## FileGetContents.proto
 
+ Get the contents of a file. The content field is empty (no bytes) if the file is empty. 
+
 <a name="FileGetContentsQuery"></a>
 
 ### FileGetContentsQuery
- Get the contents of a file. The content field is empty (no bytes) if the file is empty. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1360,7 +1512,7 @@
 <a name="FileGetContentsResponse.FileContents"></a>
 
 ### FileGetContentsResponse.FileContents
- Response when the client sends the node FileGetContentsQuery 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1373,10 +1525,12 @@
 
 ## FileGetInfo.proto
 
+ Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. Note that each file has a FileID, but does not have a filename. 
+
 <a name="FileGetInfoQuery"></a>
 
 ### FileGetInfoQuery
- Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. Note that each file has a FileID, but does not have a filename. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1398,7 +1552,7 @@
 <a name="FileGetInfoResponse.FileInfo"></a>
 
 ### FileGetInfoResponse.FileInfo
- Response when the client sends the node FileGetInfoQuery 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1414,6 +1568,8 @@
 
 ## FileService.proto
 
+ The request and responses for different file services. 
+
 <a name="FileService"></a>
 
 ### FileService
@@ -1421,14 +1577,14 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createFile  | Transaction | TransactionResponse | Creates a file with the content by submitting the transaction. The grpc server returns the TransactionResponse | 
-| updateFile  | Transaction | TransactionResponse | Updates a file by submitting the transaction. The grpc server returns the TransactionResponse | 
-| deleteFile  | Transaction | TransactionResponse | Deletes a file by submitting the transaction. The grpc server returns the TransactionResponse | 
-| appendContent  | Transaction | TransactionResponse | Appends the file contents(for a given FileID) by submitting the transaction. The grpc server returns the TransactionResponse | 
-| getFileContent  | Query | Response | Retrieves the file content by submitting the query. The grpc server returns the Response | 
-| getFileInfo  | Query | Response | Retrieves the file information by submitting the query. The grpc server returns the Response | 
-| systemDelete  | Transaction | TransactionResponse | Deletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse | 
-| systemUndelete  | Transaction | TransactionResponse | UnDeletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse | 
+| createFile  | Transaction | TransactionResponse | Creates a file with the content by submitting the transaction. The grpc server returns the TransactionResponse |
+| updateFile  | Transaction | TransactionResponse | Updates a file by submitting the transaction. The grpc server returns the TransactionResponse |
+| deleteFile  | Transaction | TransactionResponse | Deletes a file by submitting the transaction. The grpc server returns the TransactionResponse |
+| appendContent  | Transaction | TransactionResponse | Appends the file contents(for a given FileID) by submitting the transaction. The grpc server returns the TransactionResponse |
+| getFileContent  | Query | Response | Retrieves the file content by submitting the query. The grpc server returns the Response |
+| getFileInfo  | Query | Response | Retrieves the file information by submitting the query. The grpc server returns the Response |
+| systemDelete  | Transaction | TransactionResponse | Deletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
+| systemUndelete  | Transaction | TransactionResponse | UnDeletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
 
 
 <a name="FileUpdate.proto"></a>
@@ -1436,10 +1592,12 @@
 
 ## FileUpdate.proto
 
+ Modify some of the metadata for a file. Any null field is ignored (left unchanged). Any field that is null is left unchanged. If contents is non-null, then the file's contents will be replaced with the given bytes. This transaction must be signed by all the keys for that file. If the transaction is modifying the keys field, then it must be signed by all the keys in both the old list and the new list.<BR>If a file was created without ANY keys in the keys field, ONLY the expirationTime of the file can be changed using this call. The file contents or its keys cannot be changed.
+
 <a name="FileUpdateTransactionBody"></a>
 
 ### FileUpdateTransactionBody
- Modify some of the metadata for a file. Any null field is ignored (left unchanged). Any field that is null is left unchanged. If contents is non-null, then the file's contents will be replaced with the given bytes. This transaction must be signed by all the keys for that file. If the transaction is modifying the keys field, then it must be signed by all the keys in both the old list and the new list.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1454,10 +1612,12 @@
 
 ## Freeze.proto
 
+ Set the freezing period in which the platform will stop creating events and accepting transactions. This is used before safely shut down the platform for maintenance. 
+
 <a name="FreezeTransactionBody"></a>
 
 ### FreezeTransactionBody
- Set the freezing period in which the platform will stop creating events and accepting transactions. This is used before safely shut down the platform for maintenance. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1472,6 +1632,8 @@
 
 ## FreezeService.proto
 
+ The request and responses for freeze service. 
+
 <a name="FreezeService"></a>
 
 ### FreezeService
@@ -1479,13 +1641,15 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| freeze  | Transaction | TransactionResponse | Freezes the nodes by submitting the transaction. The grpc server returns the TransactionResponse | 
+| freeze  | Transaction | TransactionResponse | Freezes the nodes by submitting the transaction. The grpc server returns the TransactionResponse |
 
 
 <a name="GetByKey.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## GetByKey.proto
+
+ Get all accounts, claims, files, and smart contract instances whose associated keys include the given Key. The given Key must not be a contractID or a ThresholdKey. This is not yet implemented in the API, but will be in the future. 
 
 <a name="EntityID"></a>
 
@@ -1504,7 +1668,7 @@
 <a name="GetByKeyQuery"></a>
 
 ### GetByKeyQuery
- Get all accounts, claims, files, and smart contract instances whose associated keys include the given Key. The given Key must not be a contractID or a ThresholdKey. This is not yet implemented in the API, but will be in the future. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1528,10 +1692,12 @@
 
 ## GetBySolidityID.proto
 
+ Get the IDs in the format used by transactions, given the ID in the format used by Solidity. If the Solidity ID is for a smart contract instance, then both the ContractID and associated AccountID will be returned. 
+
 <a name="GetBySolidityIDQuery"></a>
 
 ### GetBySolidityIDQuery
- Get the IDs in the format used by transactions, given the ID in the format used by Solidity. If the Solidity ID is for a smart contract instance, then both the ContractID and associated AccountID will be returned. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1557,10 +1723,12 @@
 
 ## Query.proto
 
+ A single query, which is sent from the client to the node. This includes all possible queries. Each Query should not have more than 50 levels. 
+
 <a name="Query"></a>
 
 ### Query
- A single query, which is sent from the client to the node. This includes all possible queries. Each Query should not have more than 50 levels. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1589,6 +1757,8 @@
 
 ## QueryHeader.proto
 
+ The client uses the ResponseType to request that the node send it just the answer, or both the answer and a state proof. It can also ask for just the cost for getting the answer or both. If the payment in the query fails the precheck, then the response may have some fields blank. The state proof is only available for some types of information. It is available for a Record, but not a receipt. It is available for the information in each kind of GetInfo request. 
+
 <a name="QueryHeader"></a>
 
 ### QueryHeader
@@ -1603,7 +1773,7 @@
 <a name="ResponseType"></a>
 
 ### ResponseType
- The client uses the ResponseType to request that the node send it just the answer, or both the answer and a state proof. It can also ask for just the cost for getting the answer or both. If the payment in the query fails the precheck, then the response may have some fields blank. The state proof is only available for some types of information. It is available for a Record, but not a receipt. It is available for the information in each kind of *GetInfo request. 
+
 
 | Enum Name | Description |
 | --------- | ----------- |
@@ -1618,10 +1788,12 @@
 
 ## Response.proto
 
+ A single response, which is returned from the node to the client, after the client sent the node a query. This includes all responses. 
+
 <a name="Response"></a>
 
 ### Response
- A single response, which is returned from the node to the client, after the client sent the node a query. This includes all responses. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1775,8 +1947,8 @@
 | UNAUTHORIZED | An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey). |
 | INVALID_TOPIC_MESSAGE | A ConsensusService message is empty. |
 | INVALID_AUTORENEW_ACCOUNT | The autoRenewAccount specified is not a valid, active account. |
-| AUTORENEW_ACCOUNT_NOT_ALLOWED |  |
-| TOPIC_EXPIRED |  |
+| AUTORENEW_ACCOUNT_NOT_ALLOWED |  An adminKey was not specified on the topic, so there must not be an autoRenewAccount. |
+| TOPIC_EXPIRED |  The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be<BR>deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported<BR>by HAPI. |
 
 
 <a name="ResponseHeader.proto"></a>
@@ -1784,10 +1956,12 @@
 
 ## ResponseHeader.proto
 
+ Every query receives a response containing the QueryResponseHeader. Either or both of the cost and stateProof fields may be blank, if the responseType didn't ask for the cost or stateProof. 
+
 <a name="ResponseHeader"></a>
 
 ### ResponseHeader
- Every query receives a response containing the QueryResponseHeader. Either or both of the cost and stateProof fields may be blank, if the responseType didn't ask for the cost or stateProof. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1802,6 +1976,8 @@
 
 ## SmartContractService.proto
 
+ The request and responses for different smart contract services. 
+
 <a name="SmartContractService"></a>
 
 ### SmartContractService
@@ -1809,17 +1985,17 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createContract  | Transaction | TransactionResponse | Creates a contract by submitting the transaction. The grpc server returns the TransactionResponse | 
-| updateContract  | Transaction | TransactionResponse | Updates a contract with the content by submitting the transaction. The grpc server returns the TransactionResponse | 
-| contractCallMethod  | Transaction | TransactionResponse | Calls a contract by submitting the transaction. The grpc server returns the TransactionResponse | 
-| getContractInfo  | Query | Response | Retrieves the contract information by submitting the query. The grpc server returns the Response | 
-| contractCallLocalMethod  | Query | Response | Calls a smart contract by submitting the query. The grpc server returns the Response | 
-| ContractGetBytecode  | Query | Response | Retrieves the byte code of a contract by submitting the query. The grpc server returns the Response | 
-| getBySolidityID  | Query | Response | Retrieves a contract(using Solidity ID) by submitting the query. The grpc server returns the Response | 
-| getTxRecordByContractID  | Query | Response | Retrieves a contract(using contract ID) by submitting the query. The grpc server returns the Response | 
-| deleteContract  | Transaction | TransactionResponse | Delete a contract instance(mark as deleted until it expires), and transfer hbars to the specified account. The grpc server returns the TransactionResponse | 
-| systemDelete  | Transaction | TransactionResponse | Deletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse | 
-| systemUndelete  | Transaction | TransactionResponse | UnDeletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse | 
+| createContract  | Transaction | TransactionResponse | Creates a contract by submitting the transaction. The grpc server returns the TransactionResponse |
+| updateContract  | Transaction | TransactionResponse | Updates a contract with the content by submitting the transaction. The grpc server returns the TransactionResponse |
+| contractCallMethod  | Transaction | TransactionResponse | Calls a contract by submitting the transaction. The grpc server returns the TransactionResponse |
+| getContractInfo  | Query | Response | Retrieves the contract information by submitting the query. The grpc server returns the Response |
+| contractCallLocalMethod  | Query | Response | Calls a smart contract by submitting the query. The grpc server returns the Response |
+| ContractGetBytecode  | Query | Response | Retrieves the byte code of a contract by submitting the query. The grpc server returns the Response |
+| getBySolidityID  | Query | Response | Retrieves a contract(using Solidity ID) by submitting the query. The grpc server returns the Response |
+| getTxRecordByContractID  | Query | Response | Retrieves a contract(using contract ID) by submitting the query. The grpc server returns the Response |
+| deleteContract  | Transaction | TransactionResponse | Delete a contract instance(mark as deleted until it expires), and transfer hbars to the specified account. The grpc server returns the TransactionResponse |
+| systemDelete  | Transaction | TransactionResponse | Deletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
+| systemUndelete  | Transaction | TransactionResponse | UnDeletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
 
 
 <a name="SystemDelete.proto"></a>
@@ -1827,10 +2003,12 @@
 
 ## SystemDelete.proto
 
+ Delete a file or smart contract - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
+
 <a name="SystemDeleteTransactionBody"></a>
 
 ### SystemDeleteTransactionBody
- Delete a file or smart contract - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1845,10 +2023,12 @@
 
 ## SystemUndelete.proto
 
+ Undelete a file or smart contract that was deleted by AdminDelete - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
+
 <a name="SystemUndeleteTransactionBody"></a>
 
 ### SystemUndeleteTransactionBody
- Undelete a file or smart contract that was deleted by AdminDelete - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1862,10 +2042,12 @@
 
 ## Timestamp.proto
 
+ An exact date and time. This is the same data structure as the protobuf Timestamp.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) 
+
 <a name="Timestamp"></a>
 
 ### Timestamp
- An exact date and time. This is the same data structure as the protobuf Timestamp.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/timestamp.proto) 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1888,10 +2070,12 @@
 
 ## Transaction.proto
 
+ A single signed transaction, including all its signatures. The SignatureList will have a Signature for each Key in the transaction, either explicit or implicit, in the order that they appear in the transaction. For example, a CryptoTransfer will first have a Signature corresponding to the Key for the paying account, followed by a Signature corresponding to the Key for each account that is sending or receiving cryptocurrency in the transfer. Each Transaction should not have more than 50 levels.<BR>The SignatureList field is deprecated and succeeded by SignatureMap.
+
 <a name="Transaction"></a>
 
 ### Transaction
- A single signed transaction, including all its signatures. The SignatureList will have a Signature for each Key in the transaction, either explicit or implicit, in the order that they appear in the transaction. For example, a CryptoTransfer will first have a Signature corresponding to the Key for the paying account, followed by a Signature corresponding to the Key for each account that is sending or receiving cryptocurrency in the transfer. Each Transaction should not have more than 50 levels.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1907,10 +2091,12 @@
 
 ## TransactionBody.proto
 
+ A single transaction. All transaction types are possible here. 
+
 <a name="TransactionBody"></a>
 
 ### TransactionBody
- A single transaction. All transaction types are possible here. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1949,10 +2135,12 @@
 
 ## TransactionGetFastRecord.proto
 
+ Get the tx record of a transaction, given its transaction ID. Once a transaction reaches consensus, then information about whether it succeeded or failed will be available until the end of the receipt period.  Before and after the receipt period, and for a transaction that was never submitted, the receipt is unknown.  This query is free (the payment field is left empty). 
+
 <a name="TransactionGetFastRecordQuery"></a>
 
 ### TransactionGetFastRecordQuery
- Get the tx record of a transaction, given its transaction ID. Once a transaction reaches consensus, then information about whether it succeeded or failed will be available until the end of the receipt period.  Before and after the receipt period, and for a transaction that was never submitted, the receipt is unknown.  This query is free (the payment field is left empty). 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1976,10 +2164,12 @@
 
 ## TransactionGetReceipt.proto
 
+ Get the receipt of a transaction, given its transaction ID. Once a transaction reaches consensus, then information about whether it succeeded or failed will be available until the end of the receipt period.  Before and after the receipt period, and for a transaction that was never submitted, the receipt is unknown.  This query is free (the payment field is left empty). No State proof is available for this response
+
 <a name="TransactionGetReceiptQuery"></a>
 
 ### TransactionGetReceiptQuery
- Get the receipt of a transaction, given its transaction ID. Once a transaction reaches consensus, then information about whether it succeeded or failed will be available until the end of the receipt period.  Before and after the receipt period, and for a transaction that was never submitted, the receipt is unknown.  This query is free (the payment field is left empty). No State proof is available for this response
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -2003,10 +2193,12 @@
 
 ## TransactionGetRecord.proto
 
+ Get the record for a transaction. If the transaction requested a record, then the record lasts for one hour, and a state proof is available for it. If the transaction created an account, file, or smart contract instance, then the record will contain the ID for what it created. If the transaction called a smart contract function, then the record contains the result of that call. If the transaction was a cryptocurrency transfer, then the record includes the TransferList which gives the details of that transfer. If the transaction didn't return anything that should be in the record, then the results field will be set to nothing. 
+
 <a name="TransactionGetRecordQuery"></a>
 
 ### TransactionGetRecordQuery
- Get the record for a transaction. If the transaction requested a record, then the record lasts for one hour, and a state proof is available for it. If the transaction created an account, file, or smart contract instance, then the record will contain the ID for what it created. If the transaction called a smart contract function, then the record contains the result of that call. If the transaction was a cryptocurrency transfer, then the record includes the TransferList which gives the details of that transfer. If the transaction didn't return anything that should be in the record, then the results field will be set to nothing. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -2030,10 +2222,12 @@
 
 ## TransactionReceipt.proto
 
+ The consensus result for a transaction, which might not be currently known, or may  succeed or fail. 
+
 <a name="TransactionReceipt"></a>
 
 ### TransactionReceipt
- The consensus result for a transaction, which might not be currently known, or may  succeed or fail. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -2043,8 +2237,8 @@
 | contractID | [ContractID](#ContractID) | The contract ID, if a new smart contract instance was created | |
 | exchangeRate | [ExchangeRateSet](#ExchangeRateSet) | exchange rate set of Hbar to cents (USD) | |
 | topicID | [TopicID](#TopicID) | TopicID of a newly created consensus service topic | |
-| topicSequenceNumber |  |  | |
-| topicRunningHash |  |  | |
+| topicSequenceNumber |  |  Updated sequence number for a consensus service topic. The result of a ConsensusSubmitMessage. | |
+| topicRunningHash |  |  Updated running hash for a consensus service topic. The result of a ConsensusSubmitMessage. | |
 
 
 <a name="TransactionRecord.proto"></a>
@@ -2052,10 +2246,12 @@
 
 ## TransactionRecord.proto
 
+ Response when the client sends the node TransactionGetRecordResponse 
+
 <a name="TransactionRecord"></a>
 
 ### TransactionRecord
- Response when the client sends the node TransactionGetRecordResponse 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -2076,10 +2272,12 @@
 
 ## TransactionResponse.proto
 
+ When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). If the fee offered was insufficient, this will also contain the amount of the required fee. To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). 
+
 <a name="TransactionResponse"></a>
 
 ### TransactionResponse
- When the client sends the node a transaction of any kind, the node replies with this, which simply says that the transaction passed the precheck (so the node will submit it to the network) or it failed (so it won't). If the fee offered was insufficient, this will also contain the amount of the required fee. To learn the consensus result, the client should later obtain a receipt (free), or can buy a more detailed record (not free). 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
