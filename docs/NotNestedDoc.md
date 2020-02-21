@@ -481,7 +481,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| deprecated |  |  | |
+| option | [deprecated=true](#deprecated=true) |  | |
 | signature | oneof |  | |
 | | contract |  | smart contract virtual signature (always length zero) | |
 | | ed25519 |  | ed25519 signature bytes | |
@@ -498,7 +498,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| deprecated |  |  | |
+| option | [deprecated=true](#deprecated=true) |  | |
 | sigs | [Signature](#Signature) | each signature corresponds to a Key in the KeyList | |
 
 
@@ -545,7 +545,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| deprecated |  |  | |
+| option | [deprecated=true](#deprecated=true) |  | |
 | sigs | [SignatureList](#SignatureList) | for an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null | |
 
 
