@@ -63,9 +63,9 @@ message TransactionBody {
     SystemUndeleteTransactionBody systemUndelete = 21; //To undelete an entity deleted by SystemDelete
     FreezeTransactionBody freeze = 23; // Freeze the nodes
 
-    ConsensusCreateTopicTransactionBody consensusCreateTopic = 24;
-    ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 25;
-    ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 26;
-    ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 27;
+    ConsensusCreateTopicTransactionBody consensusCreateTopic = 24; // Create a new topic
+    ConsensusUpdateTopicTransactionBody consensusUpdateTopic = 25; // Modify an existing topic
+    ConsensusDeleteTopicTransactionBody consensusDeleteTopic = 26; // Delete a topic
+    ConsensusSubmitMessageTransactionBody consensusSubmitMessage = 27; // Submit a message to a topic
   }
 }
