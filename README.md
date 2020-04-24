@@ -36,7 +36,7 @@ java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs
 
 Commit all changes to github
 
-`mvn release:clean release:prepare` (you will be prompted for github user and password (or access token if 2FA) and version numbers)
+`mvn release:clean release:prepare` (you will be prompted to confirm version numbers, etc...)
 
 `mvn release:perform`
 
