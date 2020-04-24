@@ -247,23 +247,6 @@
       <build>
         <plugins>
           <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-              <additionalOptions>-html5</additionalOptions>
-            </configuration>
-            <executions>
-              <execution>
-                <phase>deploy</phase>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-          <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-gpg-plugin</artifactId>
               <version>1.6</version>
