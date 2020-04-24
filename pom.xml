@@ -5,7 +5,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.4.1</version>
+    <version>0.4.2-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -246,23 +246,6 @@
       <id>release</id>
       <build>
         <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-javadoc-plugin</artifactId>
-            <configuration>
-              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-              <additionalOptions>-html5</additionalOptions>
-            </configuration>
-            <executions>
-              <execution>
-                <phase>deploy</phase>
-                <id>attach-javadocs</id>
-                <goals>
-                  <goal>jar</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
           <plugin>
               <groupId>org.apache.maven.plugins</groupId>
               <artifactId>maven-gpg-plugin</artifactId>

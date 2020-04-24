@@ -26,7 +26,7 @@ If you are unfamiliar with protocol buffers (or need a refresher), you may consu
 *You will need the appropriate credentials to do so*
 
 - Update the version number in the `pom.xml` (ensure pom.xml has x.x.x-SNAPSHOT for version)
-- Build the project with `mvn install`
+- Build the project with `mvn clean install`
 - Re-generate the documentation
 
 ```shell

@@ -32,6 +32,8 @@
 <li>
 <a href="#RealmID"><span class="badge">M</span>RealmID</a></li>
 <li>
+<a href="#SemanticVersion"><span class="badge">M</span>SemanticVersion</a></li>
+<li>
 <a href="#ServicesConfigurationList"><span class="badge">M</span>ServicesConfigurationList</a></li>
 <li>
 <a href="#Setting"><span class="badge">M</span>Setting</a></li>
@@ -154,6 +156,13 @@
 <li>
 <a href="#CryptoAddClaimTransactionBody"><span class="badge">M</span>CryptoAddClaimTransactionBody</a></li>
 </ul>
+<a href=#CryptoAddLiveHash.proto>CryptoAddLiveHash.proto</a>
+<ul>
+<li>
+<a href="#CryptoAddLiveHashTransactionBody"><span class="badge">M</span>CryptoAddLiveHashTransactionBody</a></li>
+<li>
+<a href="#LiveHash"><span class="badge">M</span>LiveHash</a></li>
+</ul>
 <a href=#CryptoCreate.proto>CryptoCreate.proto</a>
 <ul>
 <li>
@@ -168,6 +177,11 @@
 <ul>
 <li>
 <a href="#CryptoDeleteClaimTransactionBody"><span class="badge">M</span>CryptoDeleteClaimTransactionBody</a></li>
+</ul>
+<a href=#CryptoDeleteLiveHash.proto>CryptoDeleteLiveHash.proto</a>
+<ul>
+<li>
+<a href="#CryptoDeleteLiveHashTransactionBody"><span class="badge">M</span>CryptoDeleteLiveHashTransactionBody</a></li>
 </ul>
 <a href=#CryptoGetAccountBalance.proto>CryptoGetAccountBalance.proto</a>
 <ul>
@@ -198,6 +212,13 @@
 <a href="#CryptoGetInfoResponse"><span class="badge">M</span>CryptoGetInfoResponse</a></li>
 <li>
 <a href="#CryptoGetInfoResponse.AccountInfo"><span class="badge">M</span>CryptoGetInfoResponse.AccountInfo</a></li>
+</ul>
+<a href=#CryptoGetLiveHash.proto>CryptoGetLiveHash.proto</a>
+<ul>
+<li>
+<a href="#CryptoGetLiveHashQuery"><span class="badge">M</span>CryptoGetLiveHashQuery</a></li>
+<li>
+<a href="#CryptoGetLiveHashResponse"><span class="badge">M</span>CryptoGetLiveHashResponse</a></li>
 </ul>
 <a href=#CryptoGetStakers.proto>CryptoGetStakers.proto</a>
 <ul>
@@ -309,6 +330,18 @@
 <a href="#GetBySolidityIDQuery"><span class="badge">M</span>GetBySolidityIDQuery</a></li>
 <li>
 <a href="#GetBySolidityIDResponse"><span class="badge">M</span>GetBySolidityIDResponse</a></li>
+</ul>
+<a href=#NetworkGetVersionInfo.proto>NetworkGetVersionInfo.proto</a>
+<ul>
+<li>
+<a href="#NetworkGetVersionInfoQuery"><span class="badge">M</span>NetworkGetVersionInfoQuery</a></li>
+<li>
+<a href="#NetworkGetVersionInfoResponse"><span class="badge">M</span>NetworkGetVersionInfoResponse</a></li>
+</ul>
+<a href=#NetworkService.proto>NetworkService.proto</a>
+<ul>
+<li>
+<a href="#NetworkService"><span class="badge">S</span>NetworkService</a></li>
 </ul>
 <a href=#Query.proto>Query.proto</a>
 <ul>
@@ -506,7 +539,7 @@
 </TABLE>
 
 <H3 id="FeeComponents"><span class="BigBadge">Message</span>FeeComponents</H3>
-<P> The different components used for fee calculation </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -519,74 +552,74 @@
 <TR>
 <TD>min</TD>
 <TD>int64</TD>
-<TD><P>The minimum fees that needs to be paid</P></TD>
+<TD><P>A minimum, the calculated fee must be greater than this value</P></TD>
 </TR>
 
 <TR>
 <TD>max</TD>
 <TD>int64</TD>
-<TD><P>The maximum fees that can be submitted</P></TD>
+<TD><P>A maximum, the calculated fee must be less than this value</P></TD>
 </TR>
 
 <TR>
 <TD>constant</TD>
 <TD>int64</TD>
-<TD><P>A constant determined by the business to calculate the fees</P></TD>
+<TD><P>A constant contribution to the fee</P></TD>
 </TR>
 
 <TR>
 <TD>bpt</TD>
 <TD>int64</TD>
-<TD><P>Bytes per transaction</P></TD>
+<TD><P>The price of bandwidth consumed by a transaction, measured in bytes</P></TD>
 </TR>
 
 <TR>
 <TD>vpt</TD>
 <TD>int64</TD>
-<TD><P>Verifications per transaction</P></TD>
+<TD><P>The price per signature verification for a transaction</P></TD>
 </TR>
 
 <TR>
 <TD>rbh</TD>
 <TD>int64</TD>
-<TD><P>Ram byte seconds</P></TD>
+<TD><P>The price of RAM consumed by a transaction, measured in byte-hours</P></TD>
 </TR>
 
 <TR>
 <TD>sbh</TD>
 <TD>int64</TD>
-<TD><P>Storage byte seconds</P></TD>
+<TD><P>The price of storage consumed by a transaction, measured in byte-hours</P></TD>
 </TR>
 
 <TR>
 <TD>gas</TD>
 <TD>int64</TD>
-<TD><P>Gas for the contract execution</P></TD>
+<TD><P>The price of computation for a smart contract transaction, measured in gas</P></TD>
 </TR>
 
 <TR>
 <TD>tv</TD>
 <TD>int64</TD>
-<TD><P>Transaction value (crypto transfers amount, tv is in tiny bars divided by 1000, rounded down)</P></TD>
+<TD><P>The price per hbar transferred for a transfer</P></TD>
 </TR>
 
 <TR>
 <TD>bpr</TD>
 <TD>int64</TD>
-<TD><P>Bytes per response</P></TD>
+<TD><P>The price of bandwidth for data retrieved from memory for a response, measured in bytes</P></TD>
 </TR>
 
 <TR>
 <TD>sbpr</TD>
 <TD>int64</TD>
-<TD><P>Storage bytes per response</P></TD>
+<TD><P>The price of bandwidth for data retrieved from disk for a response, measured in bytes</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="FeeData"><span class="BigBadge">Message</span>FeeData</H3>
-<P> The total fees charged for a transaction. It contains three parts namely node data, network data and service data </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -599,26 +632,26 @@
 <TR>
 <TD>nodedata</TD>
 <TD><a href="#FeeComponents">FeeComponents</a></TD>
-<TD><P>Fee charged by Node for this functionality</P></TD>
+<TD><P> Fee paid to the submitting node</P></TD>
 </TR>
 
 <TR>
 <TD>networkdata</TD>
 <TD><a href="#FeeComponents">FeeComponents</a></TD>
-<TD><P>Fee charged for network operations by Hedera</P></TD>
+<TD><P> Fee paid to the network for processing a transaction into consensus</P></TD>
 </TR>
 
 <TR>
 <TD>servicedata</TD>
 <TD><a href="#FeeComponents">FeeComponents</a></TD>
-<TD><P>Fee charged for providing service by Hedera</P></TD>
+<TD><P> Fee paid to the network for providing the service associated with the transaction; for instance, storing a file</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="FeeSchedule"><span class="BigBadge">Message</span>FeeSchedule</H3>
-<P> The fee schedule for a specific hedera functionality and the time period this fee schedule will expire  </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -631,13 +664,13 @@
 <TR>
 <TD>transactionFeeSchedule</TD>
 <TD><a href="#TransactionFeeSchedule">TransactionFeeSchedule</a> (repeated)</TD>
-<TD><P>Contains multiple functionality specific fee schedule.</P></TD>
+<TD><P> List of price coefficients for network resources</P></TD>
 </TR>
 
 <TR>
 <TD>expiryTime</TD>
 <TD><a href="#TimestampSeconds">TimestampSeconds</a></TD>
-<TD><P>FeeSchedule expiry time</P></TD>
+<TD><P> FeeSchedule expiry time</P></TD>
 </TR>
 
 <tbody>
@@ -676,7 +709,7 @@
 </TABLE>
 
 <H3 id="HederaFunctionality"><span class="BigBadge">Enum</span>HederaFunctionality</H3>
-<P> The functionality provided by hedera hashgraph </P>
+<P></P>
 <table class="enum-table">
 <thead>
 <TR>
@@ -706,13 +739,13 @@
 </TR>
 
 <TR>
-<TD>CryptoAddClaim</TD>
-<TD><P>crypto add claim to the account</P></TD>
+<TD>CryptoAddLiveHash</TD>
+<TD><P> Add a livehash to a crypto account</P></TD>
 </TR>
 
 <TR>
-<TD>CryptoDeleteClaim</TD>
-<TD><P>crypto delete claim to the account</P></TD>
+<TD>CryptoDeleteLiveHash</TD>
+<TD><P> Delete a livehash from a crypto account</P></TD>
 </TR>
 
 <TR>
@@ -791,8 +824,8 @@
 </TR>
 
 <TR>
-<TD>CryptoGetClaim</TD>
-<TD><P>Crypto get the claim</P></TD>
+<TD>CryptoGetLiveHash</TD>
+<TD><P> Get a live hash from a crypto account</P></TD>
 </TR>
 
 <TR>
@@ -861,7 +894,7 @@
 </TR>
 
 <TR>
-<TD>getVersion</TD>
+<TD>GetVersionInfo</TD>
 <TD><P>Get Version</P></TD>
 </TR>
 
@@ -989,7 +1022,7 @@
 </TABLE>
 
 <H3 id="NodeAddress"><span class="BigBadge">Message</span>NodeAddress</H3>
-<P> The information about a node </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1014,20 +1047,38 @@
 <TR>
 <TD>memo</TD>
 <TD>bytes</TD>
-<TD><P>The memo field of the node</P></TD>
+<TD><P>The memo field of the node (usage to store account ID is deprecated)</P></TD>
 </TR>
 
 <TR>
 <TD>RSA_PubKey</TD>
 <TD>string</TD>
-<TD><P>The RSA public key of the node.</P></TD>
+<TD><P>The RSA public key of the node</P></TD>
+</TR>
+
+<TR>
+<TD>nodeId</TD>
+<TD>int64</TD>
+<TD><P>A non-sequential identifier for the node</P></TD>
+</TR>
+
+<TR>
+<TD>nodeAccountId</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The account to be paid for queries and transactions sent to this node</P></TD>
+</TR>
+
+<TR>
+<TD>nodeCertHash</TD>
+<TD>bytes</TD>
+<TD><P>A hash of the X509 cert used for gRPC traffic to this node</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="NodeAddressBook"><span class="BigBadge">Message</span>NodeAddressBook</H3>
-<P> Gives the node addresses in the address book </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1067,6 +1118,38 @@
 <TD>realmNum</TD>
 <TD>int64</TD>
 <TD><P>The realm number (nonnegative)</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="SemanticVersion"><span class="BigBadge">Message</span>SemanticVersion</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>major</TD>
+<TD>int32</TD>
+<TD><P>Increases with incompatible API changes</P></TD>
+</TR>
+
+<TR>
+<TD>minor</TD>
+<TD>int32</TD>
+<TD><P>Increases with backwards-compatible new functionality</P></TD>
+</TR>
+
+<TR>
+<TD>patch</TD>
+<TD>int32</TD>
+<TD><P>Increases with backwards-compatible bug fixes</P></TD>
 </TR>
 
 <tbody>
@@ -1221,7 +1304,7 @@
 </TABLE>
 
 <H3 id="SignatureList"><span class="BigBadge">Message</span>SignatureList</H3>
-<P> The signatures corresponding to a KeyList of the same length.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.</P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1247,7 +1330,7 @@
 </TABLE>
 
 <H3 id="SignatureMap"><span class="BigBadge">Message</span>SignatureMap</H3>
-<P> A set of signatures corresponding to every unique public key used to sign a given transaction.<BR>If one public key matches more than one prefixes on the signature map, the transaction containing the map will fail immediately with the response code KEY_PREFIX_MISMATCH.</P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1267,7 +1350,7 @@
 </TABLE>
 
 <H3 id="SignaturePair"><span class="BigBadge">Message</span>SignaturePair</H3>
-<P> The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.<BR>If 0 bytes is used, then it is assumed that only one public key is used to sign.</P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1357,7 +1440,7 @@
 </TABLE>
 
 <H3 id="ThresholdSignature"><span class="BigBadge">Message</span>ThresholdSignature</H3>
-<P> A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.</P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1428,13 +1511,13 @@
 <TR>
 <TD>hederaFunctionality</TD>
 <TD><a href="#HederaFunctionality">HederaFunctionality</a></TD>
-<TD><P>Specific Transaction or Query</P></TD>
+<TD><P> A particular transaction or query</P></TD>
 </TR>
 
 <TR>
 <TD>feeData</TD>
 <TD><a href="#FeeData">FeeData</a></TD>
-<TD><P>The fee information about the query/data</P></TD>
+<TD><P> Resource price coefficients</P></TD>
 </TR>
 
 <tbody>
@@ -1565,7 +1648,7 @@
 <TR>
 <TD>topicID</TD>
 <TD><a href="#TopicID">TopicID</a></TD>
-<TD><P>Topic to retrieve info about (the parameters and running state of).</P></TD>
+<TD><P> The Topic for which information is being requested</P></TD>
 </TR>
 
 <tbody>
@@ -1698,7 +1781,7 @@
 <TR>
 <TD>runningHash</TD>
 <TD>bytes</TD>
-<TD><P> SHA-384 running hash <previousRunningHash, topicId, consensusTimestamp, sequenceNumber, message></P></TD>
+<TD><P> When a topic is created, its running hash is initialized to 48 bytes of binary zeros.<BR>For each submitted message, the topic's running hash is then updated to the output<BR>of a particular SHA-384 digest whose input data include the previous running hash.<BR><BR>See the TransactionReceipt.proto documentation for an exact description of the<BR>data included in the SHA-384 digest used for the update.</P></TD>
 </TR>
 
 <TR>
@@ -1805,7 +1888,6 @@
 <H2 id="ContractCall.proto">ContractCall.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Call a function of the given smart contract instance, giving it functionParameters as its inputs. it can use the given amount of gas, and any unspent gas will be refunded to the paying account.<BR>If this function stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.</P>
 <H3 id="ContractCallTransactionBody"><span class="BigBadge">Message</span>ContractCallTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -1850,7 +1932,7 @@
 </div>
 <P> The log information for an event returned by a smart contract function call. One function call may return several such events. </P>
 <H3 id="ContractCallLocalQuery"><span class="BigBadge">Message</span>ContractCallLocalQuery</H3>
-<P> Call a function of the given smart contract instance, giving it functionParameters as its inputs. It will consume the entire given amount of gas.<BR>This is performed locally on the particular node that the client is communicating with. It cannot change the state of the contract instance (and so, cannot spend anything from the instance's cryptocurrency account). It will not have a consensus timestamp. It cannot generate a record or a receipt. The response will contain the output returned by the function call.  This is useful for calling getter functions, which purely read the state and don't change it. It is faster and cheaper than a normal call, because it is purely local to a single  node.</P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1875,7 +1957,7 @@
 <TR>
 <TD>gas</TD>
 <TD>int64</TD>
-<TD><P>the amount of gas to use for the call. All of the gas offered will be charged for.</P></TD>
+<TD><P>The amount of gas to use for the call; all of the gas offered will be used and charged a corresponding fee</P></TD>
 </TR>
 
 <TR>
@@ -1957,13 +2039,19 @@
 <TR>
 <TD>gasUsed</TD>
 <TD>uint64</TD>
-<TD><P>units of gas used  to execute contract</P></TD>
+<TD><P>units of gas used to execute contract</P></TD>
 </TR>
 
 <TR>
 <TD>logInfo</TD>
 <TD><a href="#ContractLoginfo">ContractLoginfo</a> (repeated)</TD>
 <TD><P>the log info for events returned by the function</P></TD>
+</TR>
+
+<TR>
+<TD>createdContractIDs</TD>
+<TD><a href="#ContractID">ContractID</a> (repeated)</TD>
+<TD><P>the list of smart contracts that were created by the function call</P></TD>
 </TR>
 
 <tbody>
@@ -2011,7 +2099,6 @@
 <H2 id="ContractCreate.proto">ContractCreate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Start a new smart contract instance. After the instance is created, the ContractID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The instance will run the bytecode stored in the given file, referenced either by FileID or by the transaction ID of the transaction that created the file. The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs come from the given constructorParameters.<BR>The instance will exist for autoRenewPeriod seconds. When that is reached, it will renew itself for another autoRenewPeriod seconds by charging its associated cryptocurrency account (which it creates here). If it has insufficient cryptocurrency to extend that long, it will extend as long as it can. If its balance is zero, the instance will be deleted.<BR>A smart contract instance normally enforces rules, so "the code is law". For example, an ERC-20 contract prevents a transfer from being undone without a signature by the recipient of the transfer. This is always enforced if the contract instance was created with the adminKeys being null. But for some uses, it might be desirable to create something like an ERC-20 contract that has a specific group of trusted individuals who can act as a "supreme court" with the ability to override the normal operation, when a sufficient number of them agree to do so. If adminKeys is not null, then they can sign a transaction that can change the state of the smart contract in arbitrary ways, such as to reverse a transaction that violates some standard of behavior that is not covered by the code itself. The admin keys can also be used to change the autoRenewPeriod, and change the adminKeys field itself. The API currently does not implement this ability. But it does allow the adminKeys field to be set and queried, and will in the future implement such admin abilities for any instance that has a non-null adminKeys.<BR>If this constructor stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.<BR>The optional memo field can contain a string whose length is up to 100 bytes. That is the size after Unicode NFD then UTF-8 conversion. This field can be used to describe the smart contract. It could also be used for other purposes. One recommended purpose is to hold a hexadecimal string that is the SHA-384 hash of a PDF file containing a human-readable legal contract. Then, if the admin keys are the public keys of human arbitrators, they can use that legal document to guide their decisions during a binding arbitration tribunal, convened to consider any changes to the smart contract in the future. The memo field can only be changed using the admin keys. If there are no admin keys, then it cannot be changed after the smart contract is created.</P>
 <H3 id="ContractCreateTransactionBody"><span class="BigBadge">Message</span>ContractCreateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -2096,7 +2183,6 @@
 <H2 id="ContractDelete.proto">ContractDelete.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the mangement of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. </P>
 <H3 id="ContractDeleteTransactionBody"><span class="BigBadge">Message</span>ContractDeleteTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -2111,7 +2197,7 @@
 <TR>
 <TD>contractID</TD>
 <TD><a href="#ContractID">ContractID</a></TD>
-<TD><P>The Contract ID instance to delete (this can't be changed)</P></TD>
+<TD><P> The id of the contract to be deleted</P></TD>
 </TR>
 
 <TR>
@@ -2135,13 +2221,13 @@
 <TR>
 <TD>transferAccountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The account ID which will receive all remaining hbars</P></TD>
+<TD><P> The id of an account to receive any remaining hBars from the deleted contract</P></TD>
 </TR>
 
 <TR>
 <TD>transferContractID</TD>
 <TD><a href="#ContractID">ContractID</a></TD>
-<TD><P>The contract ID which will receive all remaining hbars</P></TD>
+<TD><P> The id of a contract to receive any remaining hBars from the deleted contract</P></TD>
 </TR>
 
 <tbody>
@@ -2335,7 +2421,6 @@
 <H2 id="ContractGetRecords.proto">ContractGetRecords.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Get all the records for a smart contract instance, for any function call (or the constructor call) during the last 25 hours, for which a Record was requested. </P>
 <H3 id="ContractGetRecordsQuery"><span class="BigBadge">Message</span>ContractGetRecordsQuery</H3>
 <P></P>
 <table class="field-table">
@@ -2398,7 +2483,6 @@
 <H2 id="ContractUpdate.proto">ContractUpdate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the management of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. </P>
 <H3 id="ContractUpdateTransactionBody"><span class="BigBadge">Message</span>ContractUpdateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -2413,43 +2497,43 @@
 <TR>
 <TD>contractID</TD>
 <TD><a href="#ContractID">ContractID</a></TD>
-<TD><P>The Contract ID instance to update (this can't be changed)</P></TD>
+<TD><P> The id of the contract to be updated</P></TD>
 </TR>
 
 <TR>
 <TD>expirationTime</TD>
 <TD><a href="#Timestamp">Timestamp</a></TD>
-<TD><P>Extend the expiration of the instance and its account to this time (no effect if it already is this time or later)</P></TD>
+<TD><P> The new expiry of the contract, no earlier than the current expiry (resolves to EXPIRATION_REDUCTION_NOT_ALLOWED otherwise)</P></TD>
 </TR>
 
 <TR>
 <TD>adminKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P>The state of the instance can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance.</P></TD>
+<TD><P> The new key to control updates to the contract</P></TD>
 </TR>
 
 <TR>
 <TD>proxyAccountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null.</P></TD>
+<TD><P> (NOT YET IMPLEMENTED) The new id of the account to which the contract is proxy staked</P></TD>
 </TR>
 
 <TR>
 <TD>autoRenewPeriod</TD>
 <TD><a href="#Duration">Duration</a></TD>
-<TD><P>The instance will charge its account every this many seconds to renew for this long</P></TD>
+<TD><P> (NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry (by the same interval)</P></TD>
 </TR>
 
 <TR>
 <TD>fileID</TD>
 <TD><a href="#FileID">FileID</a></TD>
-<TD><P>The file ID of file containing the smart contract byte code. A copy will be made and held by the contract instance, and have the same expiration time as the instance. The file is referenced one of two ways:</P></TD>
+<TD><P> The new id of the file asserted to contain the bytecode of the Solidity transaction that created this contract</P></TD>
 </TR>
 
 <TR>
 <TD>memo</TD>
 <TD>string</TD>
-<TD><P>The memo associated with the contract (max 100 bytes)</P></TD>
+<TD><P> The new contract memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes)</P></TD>
 </TR>
 
 <tbody>
@@ -2519,10 +2603,72 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="CryptoAddLiveHash.proto">CryptoAddLiveHash.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> A hash---presumably of some kind of credential or certificate---along with a list of keys, each of which may be either a primitive or a threshold key. </P>
+<H3 id="CryptoAddLiveHashTransactionBody"><span class="BigBadge">Message</span>CryptoAddLiveHashTransactionBody</H3>
+<P> At consensus, attaches the given livehash to the given account.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>liveHash</TD>
+<TD><a href="#LiveHash">LiveHash</a></TD>
+<TD><P> A hash of some credential or certificate, along with the keys of the entities that asserted it validity</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="LiveHash"><span class="BigBadge">Message</span>LiveHash</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>accountId</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P> The account to which the livehash is attached</P></TD>
+</TR>
+
+<TR>
+<TD>hash</TD>
+<TD>bytes</TD>
+<TD><P> The SHA-384 hash of a credential or certificate</P></TD>
+</TR>
+
+<TR>
+<TD>keys</TD>
+<TD><a href="#KeyList">KeyList</a></TD>
+<TD><P> A list of keys (primitive or threshold), all of which must sign to attach the livehash to an account, and any one of which can later delete it.</P></TD>
+</TR>
+
+<TR>
+<TD>duration</TD>
+<TD><a href="#Duration">Duration</a></TD>
+<TD><P> The duration for which the livehash will remain valid</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="CryptoCreate.proto">CryptoCreate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Create a new account. After the account is created, the AccountID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The account can then automatically generate records for large transfers into it or out of it, which each last for 25 hours. Records are generated for any transfer that exceeds the thresholds given here. This account is charged cryptocurrency for each record generated, so the thresholds are useful for limiting Record generation to happen only for large transactions. The Key field is the key used to sign transactions for this account. If the account has receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this account's key, both for transfers in and out. If it is false, then only transfers out have to be signed by it. When the account is created, the payer account is charged enough hbars so that the new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration time, the new account will then be automatically charged to renew for another autoRenewPeriod seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are used to extend its expiration as long as possible. If it is has a zero balance when it expires, then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired is false, then the transaction does not have to be signed by the keys in the keys field. If it is true, then it must be signed by them, in addition to the keys of the payer account.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.</P>
 <H3 id="CryptoCreateTransactionBody"><span class="BigBadge">Message</span>CryptoCreateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -2660,10 +2806,41 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="CryptoDeleteLiveHash.proto">CryptoDeleteLiveHash.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> At consensus, deletes a livehash associated to the given account. The transaction must be signed by either the key of the owning account, or at least one of the keys associated to the livehash. </P>
+<H3 id="CryptoDeleteLiveHashTransactionBody"><span class="BigBadge">Message</span>CryptoDeleteLiveHashTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>accountOfLiveHash</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P> The account owning the livehash</P></TD>
+</TR>
+
+<TR>
+<TD>liveHashToDelete</TD>
+<TD>bytes</TD>
+<TD><P> The SHA-384 livehash to delete from the account</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="CryptoGetAccountBalance.proto">CryptoGetAccountBalance.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller and faster reply than CryptoGetInfo, which returns the balance plus additional information. </P>
+<P> Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller</P>
 <H3 id="CryptoGetAccountBalanceQuery"><span class="BigBadge">Message</span>CryptoGetAccountBalanceQuery</H3>
 <P></P>
 <table class="field-table">
@@ -2987,13 +3164,13 @@
 <TR>
 <TD>generateSendRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P>The threshold amount (in tinybars) for which an account record is created (and this account charged for them) for any send/withdraw transaction.</P></TD>
+<TD><P> The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold</P></TD>
 </TR>
 
 <TR>
 <TD>generateReceiveRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P>The threshold amount (in tinybars) for which an account record is created  (and this account charged for them) for any transaction above this amount.</P></TD>
+<TD><P> The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold</P></TD>
 </TR>
 
 <TR>
@@ -3015,9 +3192,72 @@
 </TR>
 
 <TR>
-<TD>claims</TD>
-<TD><a href="#Claim">Claim</a> (repeated)</TD>
-<TD><P>All of the claims attached to the account (each of which is a hash along with the keys that authorized it and can delete it )</P></TD>
+<TD>liveHashes</TD>
+<TD><a href="#LiveHash">LiveHash</a> (repeated)</TD>
+<TD><P>All of the livehashes attached to the account (each of which is a hash along with the keys that authorized it and can delete it)</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="CryptoGetLiveHash.proto">CryptoGetLiveHash.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> Requests a livehash associated to an account. </P>
+<H3 id="CryptoGetLiveHashQuery"><span class="BigBadge">Message</span>CryptoGetLiveHashQuery</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#QueryHeader">QueryHeader</a></TD>
+<TD><P> Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).</P></TD>
+</TR>
+
+<TR>
+<TD>accountID</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P> The account to which the livehash is associated</P></TD>
+</TR>
+
+<TR>
+<TD>hash</TD>
+<TD>bytes</TD>
+<TD><P> The SHA-384 data in the livehash</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="CryptoGetLiveHashResponse"><span class="BigBadge">Message</span>CryptoGetLiveHashResponse</H3>
+<P> Returns the full livehash associated to an account, if it is present. Note that the only way to obtain a state proof exhibiting the absence of a livehash from an account is to retrieve a state proof of the entire account with its list of livehashes. </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#ResponseHeader">ResponseHeader</a></TD>
+<TD><P> Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither</P></TD>
+</TR>
+
+<TR>
+<TD>liveHash</TD>
+<TD><a href="#LiveHash">LiveHash</a></TD>
+<TD><P> The livehash, if present</P></TD>
 </TR>
 
 <tbody>
@@ -3136,7 +3376,6 @@
 <H2 id="CryptoService.proto">CryptoService.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The request and responses for different crypto services. </P>
 <H3 id="CryptoService"><span class="BigBadge">Service</span>CryptoService</H3>
 <P></P>
 <table class="field-table">
@@ -3150,59 +3389,59 @@
 </thead>
 <tbody>
 <TR>
-<TD>createAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Creates a new account by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>createAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Creates a new account by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>updateAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Updates an account by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>updateAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Updates an account by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>cryptoTransfer </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Initiates a transfer by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>cryptoTransfer </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Initiates a transfer by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>cryptoDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Deletes and account by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>cryptoDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Deletes and account by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>addClaim </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Adds a claim by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>addLiveHash </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> (NOT CURRENTLY SUPPORTED) Adds a livehash</P></TD>
 </TR>
 
 <TR>
-<TD>deleteClaim </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Deletes a claim by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>deleteLiveHash </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> (NOT CURRENTLY SUPPORTED) Deletes a livehash</P></TD>
 </TR>
 
 <TR>
-<TD>getClaim </TD><TD>Query</TD><TD>Response</TD>Retrieves the claim for an account by submitting the query.<TD><P></P></TD>
+<TD>getLiveHash </TD><TD>Query</TD><TD>Response</TD><TD><P> (NOT CURRENTLY SUPPORTED) Retrieves a livehash for an account</P></TD>
 </TR>
 
 <TR>
-<TD>getAccountRecords </TD><TD>Query</TD><TD>Response</TD>Retrieves the record(fetch by AccountID ID) for an account by submitting the query.<TD><P></P></TD>
+<TD>getAccountRecords </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the 25-hour records stored for an account</P></TD>
 </TR>
 
 <TR>
-<TD>cryptoGetBalance </TD><TD>Query</TD><TD>Response</TD>Retrieves the balance for an account by submitting the query.<TD><P></P></TD>
+<TD>cryptoGetBalance </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the balance of an account</P></TD>
 </TR>
 
 <TR>
-<TD>getAccountInfo </TD><TD>Query</TD><TD>Response</TD>Retrieves the account information for an account by submitting the query.<TD><P></P></TD>
+<TD>getAccountInfo </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the metadata of an account</P></TD>
 </TR>
 
 <TR>
-<TD>getTransactionReceipts </TD><TD>Query</TD><TD>Response</TD>Retrieves the transaction receipts for an account by TxId which last for 180sec only for no fee.<TD><P></P></TD>
+<TD>getTransactionReceipts </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the latest receipt for a transaction that is either awaiting consensus, or reached consensus in the last 180 seconds</P></TD>
 </TR>
 
 <TR>
-<TD>getFastTransactionRecord </TD><TD>Query</TD><TD>Response</TD>Retrieves the transaction record by TxID which last for 180sec only for no fee.<TD><P></P></TD>
+<TD>getFastTransactionRecord </TD><TD>Query</TD><TD>Response</TD><TD><P> (NOT CURRENTLY SUPPORTED) Returns the records of transactions recently funded by an account</P></TD>
 </TR>
 
 <TR>
-<TD>getTxRecordByTxID </TD><TD>Query</TD><TD>Response</TD>Retrieves the transactions record(fetch by Transaction ID) for an account by submitting the query.<TD><P></P></TD>
+<TD>getTxRecordByTxID </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the record of a transaction that is either awaiting consensus, or reached consensus in the last 180 seconds</P></TD>
 </TR>
 
 <TR>
-<TD>getStakersByAccountID </TD><TD>Query</TD><TD>Response</TD>Retrieves the stakers for a node by account ID by submitting the query.<TD><P></P></TD>
+<TD>getStakersByAccountID </TD><TD>Query</TD><TD>Response</TD><TD><P> (NOT CURRENTLY SUPPORTED) Retrieves the stakers for a node by account id</P></TD>
 </TR>
 
 <tbody>
@@ -3240,7 +3479,7 @@
 </TABLE>
 
 <H3 id="CryptoTransferTransactionBody"><span class="BigBadge">Message</span>CryptoTransferTransactionBody</H3>
-<P> Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar). If any sender account fails to have sufficient hbars to do the withdrawal, then the entire transaction fails, and none of those transfers occur, though the transaction fee is still charged. This transaction must be signed by the keys for all the sending accounts, and for any receiving accounts that have receiverSigRequired == true. The signatures are in the same order as the accounts, skipping those accounts that don't need a signature. </P>
+<P> Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar).</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -3283,7 +3522,6 @@
 <H2 id="CryptoUpdate.proto">CryptoUpdate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Change properties for the given account. Any null field is ignored (left unchanged). This transaction must be signed by the existing key for this account. If the transaction is changing the key field, then the transaction must be signed by both the old key (from before the change) and the new key. The old key must sign for security. The new key must sign as a safeguard to avoid accidentally changing to an invalid key, and then having no way to recover. When extending the expiration date, the cost is affected by the size of the list of attached claims, and of the keys associated with the claims and the account. </P>
 <H3 id="CryptoUpdateTransactionBody"><span class="BigBadge">Message</span>CryptoUpdateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -3316,7 +3554,7 @@
 <TR>
 <TD>proxyFraction</TD>
 <TD>int32</TD>
-<TD><P>[Deprecated]. payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account</P></TD>
+<TD><P>[Deprecated]. Payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account</P></TD>
 </TR>
 
 <TR>
@@ -3434,7 +3672,7 @@
 <H2 id="Duration.proto">Duration.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>  The length of a period of time. This is an identical data structure to the protobuf Duration.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/duration.proto) </P>
+<P> A length of time in seconds. </P>
 <H3 id="Duration"><span class="BigBadge">Message</span>Duration</H3>
 <P></P>
 <table class="field-table">
@@ -3449,7 +3687,7 @@
 <TR>
 <TD>seconds</TD>
 <TD>int64</TD>
-<TD><P>number of seconds</P></TD>
+<TD><P>The number of seconds</P></TD>
 </TR>
 
 <tbody>
@@ -3459,7 +3697,6 @@
 <H2 id="ExchangeRate.proto">ExchangeRate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>  Values from these proto denotes habr and cents(USD) conversion </P>
 <H3 id="ExchangeRate"><span class="BigBadge">Message</span>ExchangeRate</H3>
 <P></P>
 <table class="field-table">
@@ -3474,26 +3711,26 @@
 <TR>
 <TD>hbarEquiv</TD>
 <TD>int32</TD>
-<TD><P>value which denote habar equivalent to cent</P></TD>
+<TD><P> Denominator in calculation of exchange rate between hbar and cents</P></TD>
 </TR>
 
 <TR>
 <TD>centEquiv</TD>
 <TD>int32</TD>
-<TD><P>value which denote cents (USD) equivalent to Hbar}</P></TD>
+<TD><P> Numerator in calculation of exchange rate between hbar and cents</P></TD>
 </TR>
 
 <TR>
 <TD>expirationTime</TD>
 <TD><a href="#TimestampSeconds">TimestampSeconds</a></TD>
-<TD><P>expired time in seconds for this exchange rate</P></TD>
+<TD><P> Expiration time in seconds for this exchange rate</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="ExchangeRateSet"><span class="BigBadge">Message</span>ExchangeRateSet</H3>
-<P> Two sets of exchange rate </P>
+<P> Two sets of exchange rates </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -3506,13 +3743,13 @@
 <TR>
 <TD>currentRate</TD>
 <TD><a href="#ExchangeRate">ExchangeRate</a></TD>
-<TD><P>Current rate of Exchange of Hbar to cents</P></TD>
+<TD><P> Current exchange rate</P></TD>
 </TR>
 
 <TR>
 <TD>nextRate</TD>
 <TD><a href="#ExchangeRate">ExchangeRate</a></TD>
-<TD><P>Next rate exchange of Hbar to cents</P></TD>
+<TD><P> Next exchange rate which will take effect when current rate expires</P></TD>
 </TR>
 
 <tbody>
@@ -3522,7 +3759,6 @@
 <H2 id="FileAppend.proto">FileAppend.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Append the given contents to the end of the file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended multiple times to create the entire file. </P>
 <H3 id="FileAppendTransactionBody"><span class="BigBadge">Message</span>FileAppendTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -3537,13 +3773,13 @@
 <TR>
 <TD>fileID</TD>
 <TD><a href="#FileID">FileID</a></TD>
-<TD><P>The file ID of the file to which the bytes are appended to</P></TD>
+<TD><P> The file to which the bytes will be appended</P></TD>
 </TR>
 
 <TR>
 <TD>contents</TD>
 <TD>bytes</TD>
-<TD><P>The bytes to append to the contents of the file</P></TD>
+<TD><P> The bytes that will be appended to the end of the specified file</P></TD>
 </TR>
 
 <tbody>
@@ -3553,7 +3789,7 @@
 <H2 id="FileCreate.proto">FileCreate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Create a new file, containing the given contents.  It is referenced by its FileID, and does not have a filename, so it is important to get the FileID. After the file is created, the FileID for it can be found in the receipt, or retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that.<BR>The file contains the given contents (possibly empty). The file will automatically disappear at the fileExpirationTime, unless its expiration is extended by another transaction before that time. If the file is deleted, then its contents will become empty and it will be marked as deleted until it expires, and then it will cease to exist. See FileGetInfoQuery for more information about files.<BR>The keys field is a list of keys. All the keys on the list must sign to create or modify a file, but only one of them needs to sign in order to delete the file.  Each of those "keys" may itself be threshold key containing other keys (including other threshold keys). In other words, the behavior is an AND for create/modify, OR for delete. This is useful for acting as a revocation server. If it is desired to have the behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single Key, which is a threshold key, with N=1 for OR, N=M for AND.<BR>If a file is created without ANY keys in the keys field, the file is immutable ONLY the expirationTime of the file can be changed using FileUpdate API. The file contents or its keys cannot be changed.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.</P>
+<P> Create a new file, containing the given contents.</P>
 <H3 id="FileCreateTransactionBody"><span class="BigBadge">Message</span>FileCreateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -3716,7 +3952,7 @@
 <H2 id="FileGetInfo.proto">FileGetInfo.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. Note that each file has a FileID, but does not have a filename. </P>
+<P> Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. </P>
 <H3 id="FileGetInfoQuery"><span class="BigBadge">Message</span>FileGetInfoQuery</H3>
 <P></P>
 <table class="field-table">
@@ -3763,7 +3999,7 @@
 <TR>
 <TD>fileInfo</TD>
 <TD><a href="#FileGetInfoResponse.FileInfo">FileGetInfoResponse.FileInfo</a></TD>
-<TD><P>The information about the file (a state proof can be generated for this)</P></TD>
+<TD><P>The information about the file</P></TD>
 </TR>
 
 <tbody>
@@ -3817,7 +4053,6 @@
 <H2 id="FileService.proto">FileService.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The request and responses for different file services. </P>
 <H3 id="FileService"><span class="BigBadge">Service</span>FileService</H3>
 <P></P>
 <table class="field-table">
@@ -3831,35 +4066,35 @@
 </thead>
 <tbody>
 <TR>
-<TD>createFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Creates a file with the content by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>createFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Creates a file</P></TD>
 </TR>
 
 <TR>
-<TD>updateFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Updates a file by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>updateFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Updates a file</P></TD>
 </TR>
 
 <TR>
-<TD>deleteFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Deletes a file by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>deleteFile </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Deletes a file</P></TD>
 </TR>
 
 <TR>
-<TD>appendContent </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Appends the file contents(for a given FileID) by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>appendContent </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Appends to a file</P></TD>
 </TR>
 
 <TR>
-<TD>getFileContent </TD><TD>Query</TD><TD>Response</TD>Retrieves the file content by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>getFileContent </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the file contents</P></TD>
 </TR>
 
 <TR>
-<TD>getFileInfo </TD><TD>Query</TD><TD>Response</TD>Retrieves the file information by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>getFileInfo </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the file information</P></TD>
 </TR>
 
 <TR>
-<TD>systemDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Deletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>systemDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Deletes a file if the submitting account has network admin privileges</P></TD>
 </TR>
 
 <TR>
-<TD>systemUndelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD>UnDeletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>systemUndelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Undeletes a file if the submitting account has network admin privileges</P></TD>
 </TR>
 
 <tbody>
@@ -3869,7 +4104,6 @@
 <H2 id="FileUpdate.proto">FileUpdate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Modify some of the metadata for a file. Any null field is ignored (left unchanged). Any field that is null is left unchanged. If contents is non-null, then the file's contents will be replaced with the given bytes. This transaction must be signed by all the keys for that file. If the transaction is modifying the keys field, then it must be signed by all the keys in both the old list and the new list.<BR>If a file was created without ANY keys in the keys field, ONLY the expirationTime of the file can be changed using this call. The file contents or its keys cannot be changed.</P>
 <H3 id="FileUpdateTransactionBody"><span class="BigBadge">Message</span>FileUpdateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -3884,25 +4118,25 @@
 <TR>
 <TD>fileID</TD>
 <TD><a href="#FileID">FileID</a></TD>
-<TD><P>The file ID of the file to update</P></TD>
+<TD><P>The ID of the file to update</P></TD>
 </TR>
 
 <TR>
 <TD>expirationTime</TD>
 <TD><a href="#Timestamp">Timestamp</a></TD>
-<TD><P>The new time at which it should expire (ignored if not later than the current value)</P></TD>
+<TD><P>The new expiry time (ignored if not later than the current expiry)</P></TD>
 </TR>
 
 <TR>
 <TD>keys</TD>
 <TD><a href="#KeyList">KeyList</a></TD>
-<TD><P>The keys that can modify or delete the file</P></TD>
+<TD><P>The new list of keys that can modify or delete the file</P></TD>
 </TR>
 
 <TR>
 <TD>contents</TD>
 <TD>bytes</TD>
-<TD><P>The new file contents. All the bytes in the old contents are discarded.</P></TD>
+<TD><P>The new contents that should overwrite the file's current contents</P></TD>
 </TR>
 
 <tbody>
@@ -3948,6 +4182,12 @@
 <TD><P>The end minute (in UTC time), a value between 0 and 59</P></TD>
 </TR>
 
+<TR>
+<TD>updateFile</TD>
+<TD><a href="#FileID">FileID</a></TD>
+<TD><P>The ID of the file needs to be updated during a freeze transaction</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -3981,7 +4221,7 @@
 </div>
 <P> Get all accounts, claims, files, and smart contract instances whose associated keys include the given Key. The given Key must not be a contractID or a ThresholdKey. This is not yet implemented in the API, but will be in the future. </P>
 <H3 id="EntityID"><span class="BigBadge">Message</span>EntityID</H3>
-<P> the ID for a single entity (account, claim, file, or smart contract instance) </P>
+<P> the ID for a single entity (account, livehash, file, or smart contract instance) </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -4016,9 +4256,9 @@
 </TR>
 
 <TR>
-<TD>claim</TD>
-<TD><a href="#Claim">Claim</a></TD>
-<TD><P>The claim details attached to an account</P></TD>
+<TD>liveHash</TD>
+<TD><a href="#LiveHash">LiveHash</a></TD>
+<TD><P>A uniquely identifying livehash of an acount</P></TD>
 </TR>
 
 <TR>
@@ -4160,10 +4400,91 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="NetworkGetVersionInfo.proto">NetworkGetVersionInfo.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> Get the deployed versions of Hedera Services and the HAPI proto in semantic version format </P>
+<H3 id="NetworkGetVersionInfoQuery"><span class="BigBadge">Message</span>NetworkGetVersionInfoQuery</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#QueryHeader">QueryHeader</a></TD>
+<TD><P>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="NetworkGetVersionInfoResponse"><span class="BigBadge">Message</span>NetworkGetVersionInfoResponse</H3>
+<P> Response when the client sends the node NetworkGetVersionInfoQuery </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#ResponseHeader">ResponseHeader</a></TD>
+<TD><P>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither</P></TD>
+</TR>
+
+<TR>
+<TD>hapiProtoVersion</TD>
+<TD><a href="#SemanticVersion">SemanticVersion</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>hederaServicesVersion</TD>
+<TD><a href="#SemanticVersion">SemanticVersion</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="NetworkService.proto">NetworkService.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> The requests and responses for different network services. </P>
+<H3 id="NetworkService"><span class="BigBadge">Service</span>NetworkService</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>RPC</TD>
+<TD>Request</TD>
+<TD>Response</TD>
+<TD>Comments</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>getVersionInfo </TD><TD>Query</TD><TD>Response</TD>Retrieves the active versions of Hedera Services and HAPI proto<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="Query.proto">Query.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> A single query, which is sent from the client to the node. This includes all possible queries. Each Query should not have more than 50 levels. </P>
+<P> A single query, which is sent from the client to a node. This includes all possible queries. Each Query should not have more than 50 levels. </P>
 <H3 id="Query"><span class="BigBadge">Message</span>Query</H3>
 <P></P>
 <table class="field-table">
@@ -4248,9 +4569,9 @@
 </TR>
 
 <TR>
-<TD>cryptoGetClaim</TD>
-<TD><a href="#CryptoGetClaimQuery">CryptoGetClaimQuery</a></TD>
-<TD><P>Get a single claim from a single account (or null if it doesn't exist)</P></TD>
+<TD>cryptoGetLiveHash</TD>
+<TD><a href="#CryptoGetLiveHashQuery">CryptoGetLiveHashQuery</a></TD>
+<TD><P>Get a single livehash from a single account, if present</P></TD>
 </TR>
 
 <TR>
@@ -4280,7 +4601,7 @@
 <TR>
 <TD>transactionGetRecord</TD>
 <TD><a href="#TransactionGetRecordQuery">TransactionGetRecordQuery</a></TD>
-<TD><P>Get a record for a transaction (lasts 1 hour)</P></TD>
+<TD><P>Get a record for a transaction</P></TD>
 </TR>
 
 <TR>
@@ -4295,6 +4616,12 @@
 <TD><P>Get the parameters of and state of a consensus topic.</P></TD>
 </TR>
 
+<TR>
+<TD>networkGetVersionInfo</TD>
+<TD><a href="#NetworkGetVersionInfoQuery">NetworkGetVersionInfoQuery</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -4304,9 +4631,8 @@
 <H2 id="QueryHeader.proto">QueryHeader.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The client uses the ResponseType to request that the node send it just the answer, or both the answer and a state proof. It can also ask for just the cost for getting the answer or both. If the payment in the query fails the precheck, then the response may have some fields blank. The state proof is only available for some types of information. It is available for a Record, but not a receipt. It is available for the information in each kind of GetInfo request. </P>
 <H3 id="QueryHeader"><span class="BigBadge">Message</span>QueryHeader</H3>
-<P> Each query from the client to the node will contain the QueryHeader, which gives the requested response type, and includes a payment for the response. It will sometimes leave payment blank: it is blank for TransactionGetReceiptQuery. It can also be left blank when the responseType is costAnswer or costAnswerStateProof. But it needs to be filled in for all other cases. The idea is that an answer that is only a few bytes (or that was paid for earlier) can be given for free. But if the answer is something that requires many bytes or much computation (like a state proof), then it should be paid for. </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -4343,22 +4669,22 @@
 <tbody>
 <TR>
 <TD>ANSWER_ONLY</TD>
-<TD><P>Response returns answer</P></TD>
+<TD><P> Response returns answer</P></TD>
 </TR>
 
 <TR>
 <TD>ANSWER_STATE_PROOF</TD>
-<TD><P>Response returns both answer and state proof</P></TD>
+<TD><P> (NOT YET SUPPORTED) Response returns both answer and state proof</P></TD>
 </TR>
 
 <TR>
 <TD>COST_ANSWER</TD>
-<TD><P>Response returns the cost of answer</P></TD>
+<TD><P> Response returns the cost of answer</P></TD>
 </TR>
 
 <TR>
 <TD>COST_ANSWER_STATE_PROOF</TD>
-<TD><P>Response returns the total cost of answer and state proof</P></TD>
+<TD><P> (NOT YET SUPPORTED) Response returns the total cost of answer and state proof</P></TD>
 </TR>
 
 <tbody>
@@ -4453,9 +4779,9 @@
 </TR>
 
 <TR>
-<TD>cryptoGetClaim</TD>
-<TD><a href="#CryptoGetClaimResponse">CryptoGetClaimResponse</a></TD>
-<TD><P>Get a single claim from a single account (or null if it doesn't exist)</P></TD>
+<TD>cryptoGetLiveHash</TD>
+<TD><a href="#CryptoGetLiveHashResponse">CryptoGetLiveHashResponse</a></TD>
+<TD><P>Contains a livehash associated to an account</P></TD>
 </TR>
 
 <TR>
@@ -4479,13 +4805,13 @@
 <TR>
 <TD>transactionGetReceipt</TD>
 <TD><a href="#TransactionGetReceiptResponse">TransactionGetReceiptResponse</a></TD>
-<TD><P>Get a receipt for a transaction (lasts 180 seconds)</P></TD>
+<TD><P>Get a receipt for a transaction</P></TD>
 </TR>
 
 <TR>
 <TD>transactionGetRecord</TD>
 <TD><a href="#TransactionGetRecordResponse">TransactionGetRecordResponse</a></TD>
-<TD><P>Get a record for a transaction (lasts 1 hour)</P></TD>
+<TD><P>Get a record for a transaction</P></TD>
 </TR>
 
 <TR>
@@ -4498,6 +4824,12 @@
 <TD>consensusGetTopicInfo</TD>
 <TD><a href="#ConsensusGetTopicInfoResponse">ConsensusGetTopicInfoResponse</a></TD>
 <TD><P>Parameters of and state of a consensus topic..</P></TD>
+</TR>
+
+<TR>
+<TD>networkGetVersionInfo</TD>
+<TD><a href="#NetworkGetVersionInfoResponse">NetworkGetVersionInfoResponse</a></TD>
+<TD><P>Semantic versions of Hedera Services and HAPI proto</P></TD>
 </TR>
 
 <tbody>
@@ -4785,23 +5117,23 @@
 </TR>
 
 <TR>
-<TD>EMPTY_CLAIM_BODY</TD>
-<TD><P>the claim body is empty</P></TD>
+<TD>EMPTY_LIVE_HASH_BODY</TD>
+<TD><P>the livehash body is empty</P></TD>
 </TR>
 
 <TR>
-<TD>EMPTY_CLAIM_HASH</TD>
-<TD><P>the hash for the claim is empty</P></TD>
+<TD>EMPTY_LIVE_HASH</TD>
+<TD><P>the livehash data is missing</P></TD>
 </TR>
 
 <TR>
-<TD>EMPTY_CLAIM_KEYS</TD>
-<TD><P>the key list is empty</P></TD>
+<TD>EMPTY_LIVE_HASH_KEYS</TD>
+<TD><P>the keys for a livehash are missing</P></TD>
 </TR>
 
 <TR>
-<TD>INVALID_CLAIM_HASH_SIZE</TD>
-<TD><P>the size of the claim hash is not 48 bytes</P></TD>
+<TD>INVALID_LIVE_HASH_SIZE</TD>
+<TD><P>the livehash data is not the output of a SHA-384 digest</P></TD>
 </TR>
 
 <TR>
@@ -4810,13 +5142,13 @@
 </TR>
 
 <TR>
-<TD>EMPTY_CLAIM_QUERY</TD>
-<TD><P>the crypto claim query is empty</P></TD>
+<TD>EMPTY_LIVE_HASH_QUERY</TD>
+<TD><P>the crypto livehash query is empty</P></TD>
 </TR>
 
 <TR>
-<TD>CLAIM_NOT_FOUND</TD>
-<TD><P>the crypto claim doesn't exists in the file system. It expired or was never persisted.</P></TD>
+<TD>LIVE_HASH_NOT_FOUND</TD>
+<TD><P>the livehash is not present</P></TD>
 </TR>
 
 <TR>
@@ -4825,8 +5157,8 @@
 </TR>
 
 <TR>
-<TD>CLAIM_ALREADY_EXISTS</TD>
-<TD><P>the claim hash already exists</P></TD>
+<TD>LIVE_HASH_ALREADY_EXISTS</TD>
+<TD><P>the livehash already exists for a given account</P></TD>
 </TR>
 
 <TR>
@@ -5169,7 +5501,6 @@
 <H2 id="SmartContractService.proto">SmartContractService.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The request and responses for different smart contract services. </P>
 <H3 id="SmartContractService"><span class="BigBadge">Service</span>SmartContractService</H3>
 <P></P>
 <table class="field-table">
@@ -5183,47 +5514,47 @@
 </thead>
 <tbody>
 <TR>
-<TD>createContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Creates a contract by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>createContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Creates a contract</P></TD>
 </TR>
 
 <TR>
-<TD>updateContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Updates a contract with the content by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>updateContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Updates a contract with the content</P></TD>
 </TR>
 
 <TR>
-<TD>contractCallMethod </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Calls a contract by submitting the transaction. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>contractCallMethod </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Calls a contract</P></TD>
 </TR>
 
 <TR>
-<TD>getContractInfo </TD><TD>Query</TD><TD>Response</TD>Retrieves the contract information by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>getContractInfo </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the contract information</P></TD>
 </TR>
 
 <TR>
-<TD>contractCallLocalMethod </TD><TD>Query</TD><TD>Response</TD>Calls a smart contract by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>contractCallLocalMethod </TD><TD>Query</TD><TD>Response</TD><TD><P> Calls a smart contract to be run on a single node</P></TD>
 </TR>
 
 <TR>
-<TD>ContractGetBytecode </TD><TD>Query</TD><TD>Response</TD>Retrieves the byte code of a contract by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>ContractGetBytecode </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the byte code of a contract</P></TD>
 </TR>
 
 <TR>
-<TD>getBySolidityID </TD><TD>Query</TD><TD>Response</TD>Retrieves a contract(using Solidity ID) by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>getBySolidityID </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves a contract by its Solidity address</P></TD>
 </TR>
 
 <TR>
-<TD>getTxRecordByContractID </TD><TD>Query</TD><TD>Response</TD>Retrieves a contract(using contract ID) by submitting the query. The grpc server returns the Response<TD><P></P></TD>
+<TD>getTxRecordByContractID </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the 25-hour records stored for a contract</P></TD>
 </TR>
 
 <TR>
-<TD>deleteContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Delete a contract instance(mark as deleted until it expires), and transfer hbars to the specified account. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>deleteContract </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Deletes a contract instance and transfers any remaining hbars to a specified receiver</P></TD>
 </TR>
 
 <TR>
-<TD>systemDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD>Deletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>systemDelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Deletes a contract if the submitting account has network admin privileges</P></TD>
 </TR>
 
 <TR>
-<TD>systemUndelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD>UnDeletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse<TD><P></P></TD>
+<TD>systemUndelete </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Undeletes a contract if the submitting account has network admin privileges</P></TD>
 </TR>
 
 <tbody>
@@ -5233,7 +5564,6 @@
 <H2 id="SystemDelete.proto">SystemDelete.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Delete a file or smart contract - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. </P>
 <H3 id="SystemDeleteTransactionBody"><span class="BigBadge">Message</span>SystemDeleteTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -5290,7 +5620,6 @@
 <H2 id="SystemUndelete.proto">SystemUndelete.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> Undelete a file or smart contract that was deleted by AdminDelete - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. </P>
 <H3 id="SystemUndeleteTransactionBody"><span class="BigBadge">Message</span>SystemUndeleteTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -5482,7 +5811,7 @@
 <TR>
 <TD>transactionFee</TD>
 <TD>uint64</TD>
-<TD><P>The maximum transaction fee the client is willing to pay, which is split between the network and the node</P></TD>
+<TD><P>The maximum transaction fee the client is willing to pay</P></TD>
 </TR>
 
 <TR>
@@ -5524,19 +5853,19 @@
 <TR>
 <TD>contractCall</TD>
 <TD><a href="#ContractCallTransactionBody">ContractCallTransactionBody</a></TD>
-<TD><P>Contains the call a function of a contract instance</P></TD>
+<TD><P>Calls a function of a contract instance</P></TD>
 </TR>
 
 <TR>
 <TD>contractCreateInstance</TD>
 <TD><a href="#ContractCreateTransactionBody">ContractCreateTransactionBody</a></TD>
-<TD><P>Contains the create data a contract instance</P></TD>
+<TD><P>Creates a contract instance</P></TD>
 </TR>
 
 <TR>
 <TD>contractUpdateInstance</TD>
 <TD><a href="#ContractUpdateTransactionBody">ContractUpdateTransactionBody</a></TD>
-<TD><P>Contains contract modify info such as expiration date for a contract instance</P></TD>
+<TD><P>Updates a contract</P></TD>
 </TR>
 
 <TR>
@@ -5546,9 +5875,9 @@
 </TR>
 
 <TR>
-<TD>cryptoAddClaim</TD>
-<TD><a href="#CryptoAddClaimTransactionBody">CryptoAddClaimTransactionBody</a></TD>
-<TD><P>Attach a new claim to an account</P></TD>
+<TD>cryptoAddLiveHash</TD>
+<TD><a href="#CryptoAddLiveHashTransactionBody">CryptoAddLiveHashTransactionBody</a></TD>
+<TD><P>Attach a new livehash to an account</P></TD>
 </TR>
 
 <TR>
@@ -5564,9 +5893,9 @@
 </TR>
 
 <TR>
-<TD>cryptoDeleteClaim</TD>
-<TD><a href="#CryptoDeleteClaimTransactionBody">CryptoDeleteClaimTransactionBody</a></TD>
-<TD><P>Remove a claim from an account</P></TD>
+<TD>cryptoDeleteLiveHash</TD>
+<TD><a href="#CryptoDeleteLiveHashTransactionBody">CryptoDeleteLiveHashTransactionBody</a></TD>
+<TD><P>Remove a livehash from an account</P></TD>
 </TR>
 
 <TR>
@@ -5608,7 +5937,7 @@
 <TR>
 <TD>systemDelete</TD>
 <TD><a href="#SystemDeleteTransactionBody">SystemDeleteTransactionBody</a></TD>
-<TD><P>Hedera multisig system deletes a file or smart contract</P></TD>
+<TD><P>Hedera administrative deletion of a file or smart contract</P></TD>
 </TR>
 
 <TR>
@@ -5827,7 +6156,6 @@
 <H2 id="TransactionReceipt.proto">TransactionReceipt.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The consensus result for a transaction, which might not be currently known, or may  succeed or fail. </P>
 <H3 id="TransactionReceipt"><span class="BigBadge">Message</span>TransactionReceipt</H3>
 <P></P>
 <table class="field-table">
@@ -5842,49 +6170,55 @@
 <TR>
 <TD>status</TD>
 <TD><a href="#ResponseCodeEnum">ResponseCodeEnum</a></TD>
-<TD><P>whether the transaction succeeded or failed (or is unknown)</P></TD>
+<TD><P> The consensus status of the transaction; is UNKNOWN if consensus has not been reached, or if the<BR>associated transaction did not have a valid payer signature</P></TD>
 </TR>
 
 <TR>
 <TD>accountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The account ID, if a new account was created</P></TD>
+<TD><P> In the receipt of a CryptoCreate, the id of the newly created account</P></TD>
 </TR>
 
 <TR>
 <TD>fileID</TD>
 <TD><a href="#FileID">FileID</a></TD>
-<TD><P>The file ID, if a new file was created</P></TD>
+<TD><P> In the receipt of a FileCreate, the id of the newly created file</P></TD>
 </TR>
 
 <TR>
 <TD>contractID</TD>
 <TD><a href="#ContractID">ContractID</a></TD>
-<TD><P>The contract ID, if a new smart contract instance was created</P></TD>
+<TD><P> In the receipt of a ContractCreate, the id of the newly created contract</P></TD>
 </TR>
 
 <TR>
 <TD>exchangeRate</TD>
 <TD><a href="#ExchangeRateSet">ExchangeRateSet</a></TD>
-<TD><P>exchange rate set of Hbar to cents (USD)</P></TD>
+<TD><P> The exchange rates in effect when the transaction reached consensus</P></TD>
 </TR>
 
 <TR>
 <TD>topicID</TD>
 <TD><a href="#TopicID">TopicID</a></TD>
-<TD><P>TopicID of a newly created consensus service topic</P></TD>
+<TD><P> In the receipt of a ConsensusCreateTopic, the id of the newly created topic.</P></TD>
 </TR>
 
 <TR>
 <TD>topicSequenceNumber</TD>
 <TD>uint64</TD>
-<TD><P> Updated sequence number for a consensus service topic. The result of a ConsensusSubmitMessage.</P></TD>
+<TD><P> In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that received the message</P></TD>
 </TR>
 
 <TR>
 <TD>topicRunningHash</TD>
 <TD>bytes</TD>
-<TD><P> Updated running hash for a consensus service topic. The result of a ConsensusSubmitMessage.</P></TD>
+<TD><P> In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>Otherwise, IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)</P></TD>
+</TR>
+
+<TR>
+<TD>topicRunningHashVersion</TD>
+<TD>uint64</TD>
+<TD><P> In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash.</P></TD>
 </TR>
 
 <tbody>

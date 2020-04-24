@@ -18,6 +18,7 @@
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
   - [RealmID](#RealmID)
+  - [SemanticVersion](#SemanticVersion)
   - [ServicesConfigurationList](#ServicesConfigurationList)
   - [Setting](#Setting)
   - [ShardID](#ShardID)
@@ -88,6 +89,10 @@
   - [Claim](#Claim)
   - [CryptoAddClaimTransactionBody](#CryptoAddClaimTransactionBody)
 
+- [CryptoAddLiveHash.proto](#CryptoAddLiveHash.proto)
+  - [CryptoAddLiveHashTransactionBody](#CryptoAddLiveHashTransactionBody)
+  - [LiveHash](#LiveHash)
+
 - [CryptoCreate.proto](#CryptoCreate.proto)
   - [CryptoCreateTransactionBody](#CryptoCreateTransactionBody)
 
@@ -96,6 +101,9 @@
 
 - [CryptoDeleteClaim.proto](#CryptoDeleteClaim.proto)
   - [CryptoDeleteClaimTransactionBody](#CryptoDeleteClaimTransactionBody)
+
+- [CryptoDeleteLiveHash.proto](#CryptoDeleteLiveHash.proto)
+  - [CryptoDeleteLiveHashTransactionBody](#CryptoDeleteLiveHashTransactionBody)
 
 - [CryptoGetAccountBalance.proto](#CryptoGetAccountBalance.proto)
   - [CryptoGetAccountBalanceQuery](#CryptoGetAccountBalanceQuery)
@@ -113,6 +121,10 @@
   - [CryptoGetInfoQuery](#CryptoGetInfoQuery)
   - [CryptoGetInfoResponse](#CryptoGetInfoResponse)
   - [CryptoGetInfoResponse.AccountInfo](#CryptoGetInfoResponse.AccountInfo)
+
+- [CryptoGetLiveHash.proto](#CryptoGetLiveHash.proto)
+  - [CryptoGetLiveHashQuery](#CryptoGetLiveHashQuery)
+  - [CryptoGetLiveHashResponse](#CryptoGetLiveHashResponse)
 
 - [CryptoGetStakers.proto](#CryptoGetStakers.proto)
   - [AllProxyStakers](#AllProxyStakers)
@@ -177,6 +189,13 @@
 - [GetBySolidityID.proto](#GetBySolidityID.proto)
   - [GetBySolidityIDQuery](#GetBySolidityIDQuery)
   - [GetBySolidityIDResponse](#GetBySolidityIDResponse)
+
+- [NetworkGetVersionInfo.proto](#NetworkGetVersionInfo.proto)
+  - [NetworkGetVersionInfoQuery](#NetworkGetVersionInfoQuery)
+  - [NetworkGetVersionInfoResponse](#NetworkGetVersionInfoResponse)
+
+- [NetworkService.proto](#NetworkService.proto)
+  - [NetworkService](#NetworkService) (Service)
 
 - [Query.proto](#Query.proto)
   - [Query](#Query)
@@ -279,44 +298,44 @@
 <a name="FeeComponents"></a>
 
 ### FeeComponents
- The different components used for fee calculation 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| min |  | The minimum fees that needs to be paid | |
-| max |  | The maximum fees that can be submitted | |
-| constant |  | A constant determined by the business to calculate the fees | |
-| bpt |  | Bytes per transaction | |
-| vpt |  | Verifications per transaction | |
-| rbh |  | Ram byte seconds | |
-| sbh |  | Storage byte seconds | |
-| gas |  | Gas for the contract execution | |
-| tv |  | Transaction value (crypto transfers amount, tv is in tiny bars divided by 1000, rounded down) | |
-| bpr |  | Bytes per response | |
-| sbpr |  | Storage bytes per response | |
+| min |  | A minimum, the calculated fee must be greater than this value | |
+| max |  | A maximum, the calculated fee must be less than this value | |
+| constant |  | A constant contribution to the fee | |
+| bpt |  | The price of bandwidth consumed by a transaction, measured in bytes | |
+| vpt |  | The price per signature verification for a transaction | |
+| rbh |  | The price of RAM consumed by a transaction, measured in byte-hours | |
+| sbh |  | The price of storage consumed by a transaction, measured in byte-hours | |
+| gas |  | The price of computation for a smart contract transaction, measured in gas | |
+| tv |  | The price per hbar transferred for a transfer | |
+| bpr |  | The price of bandwidth for data retrieved from memory for a response, measured in bytes | |
+| sbpr |  | The price of bandwidth for data retrieved from disk for a response, measured in bytes | |
 
 
 <a name="FeeData"></a>
 
 ### FeeData
- The total fees charged for a transaction. It contains three parts namely node data, network data and service data 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| nodedata | [FeeComponents](#FeeComponents) | Fee charged by Node for this functionality | |
-| networkdata | [FeeComponents](#FeeComponents) | Fee charged for network operations by Hedera | |
-| servicedata | [FeeComponents](#FeeComponents) | Fee charged for providing service by Hedera | |
+| nodedata | [FeeComponents](#FeeComponents) |  Fee paid to the submitting node | |
+| networkdata | [FeeComponents](#FeeComponents) |  Fee paid to the network for processing a transaction into consensus | |
+| servicedata | [FeeComponents](#FeeComponents) |  Fee paid to the network for providing the service associated with the transaction; for instance, storing a file | |
 
 
 <a name="FeeSchedule"></a>
 
 ### FeeSchedule
- The fee schedule for a specific hedera functionality and the time period this fee schedule will expire  
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| transactionFeeSchedule | [TransactionFeeSchedule](#TransactionFeeSchedule) | Contains multiple functionality specific fee schedule. | |
-| expiryTime | [TimestampSeconds](#TimestampSeconds) | FeeSchedule expiry time | |
+| transactionFeeSchedule | [TransactionFeeSchedule](#TransactionFeeSchedule) |  List of price coefficients for network resources | |
+| expiryTime | [TimestampSeconds](#TimestampSeconds) |  FeeSchedule expiry time | |
 
 
 <a name="FileID"></a>
@@ -334,7 +353,7 @@
 <a name="HederaFunctionality"></a>
 
 ### HederaFunctionality
- The functionality provided by hedera hashgraph 
+
 
 | Enum Name | Description |
 | --------- | ----------- |
@@ -342,8 +361,8 @@
 | CryptoTransfer | crypto transfer |
 | CryptoUpdate | crypto update account |
 | CryptoDelete | crypto delete account |
-| CryptoAddClaim | crypto add claim to the account |
-| CryptoDeleteClaim | crypto delete claim to the account |
+| CryptoAddLiveHash |  Add a livehash to a crypto account |
+| CryptoDeleteLiveHash |  Delete a livehash from a crypto account |
 | ContractCall | Smart Contract Call |
 | ContractCreate | Smart Contract Create Contract |
 | ContractUpdate | Smart Contract update contract |
@@ -359,7 +378,7 @@
 | ContractGetBytecode | Smart Contract, get the byte code |
 | GetBySolidityID | Smart Contract, get by solidity ID |
 | GetByKey | Smart Contract, get by key |
-| CryptoGetClaim | Crypto get the claim |
+| CryptoGetLiveHash |  Get a live hash from a crypto account |
 | CryptoGetStakers | Crypto, get the stakers for the node |
 | FileGetContents | File Operations get file contents |
 | FileGetInfo | File Operations get the info of the file |
@@ -373,7 +392,7 @@
 | CreateTransactionRecord | Create Tx Record |
 | CryptoAccountAutoRenew | Crypto Auto Renew |
 | ContractAutoRenew | Contract Auto Renew |
-| getVersion | Get Version |
+| GetVersionInfo | Get Version |
 | TransactionGetReceipt | Transaction Get Receipt |
 | ConsensusCreateTopic |  |
 | ConsensusUpdateTopic |  |
@@ -411,20 +430,23 @@
 <a name="NodeAddress"></a>
 
 ### NodeAddress
- The information about a node 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | ipAddress |  | The ip address of the Node with separator & octets | |
 | portno |  | The port number of the grpc server for the node | |
-| memo |  | The memo field of the node | |
-| RSA_PubKey |  | The RSA public key of the node. | |
+| memo |  | The memo field of the node (usage to store account ID is deprecated) | |
+| RSA_PubKey |  | The RSA public key of the node | |
+| nodeId |  | A non-sequential identifier for the node | |
+| nodeAccountId | [AccountID](#AccountID) | The account to be paid for queries and transactions sent to this node | |
+| nodeCertHash |  | A hash of the X509 cert used for gRPC traffic to this node | |
 
 
 <a name="NodeAddressBook"></a>
 
 ### NodeAddressBook
- Gives the node addresses in the address book 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -440,6 +462,18 @@
 | ----- | ---- | ----------- | - |
 | shardNum |  | The shard number (nonnegative) | |
 | realmNum |  | The realm number (nonnegative) | |
+
+
+<a name="SemanticVersion"></a>
+
+### SemanticVersion
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| major |  | Increases with incompatible API changes | |
+| minor |  | Increases with backwards-compatible new functionality | |
+| patch |  | Increases with backwards-compatible bug fixes | |
 
 
 <a name="ServicesConfigurationList"></a>
@@ -494,7 +528,7 @@
 <a name="SignatureList"></a>
 
 ### SignatureList
- The signatures corresponding to a KeyList of the same length.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -505,7 +539,7 @@
 <a name="SignatureMap"></a>
 
 ### SignatureMap
- A set of signatures corresponding to every unique public key used to sign a given transaction.<BR>If one public key matches more than one prefixes on the signature map, the transaction containing the map will fail immediately with the response code KEY_PREFIX_MISMATCH.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -515,7 +549,7 @@
 <a name="SignaturePair"></a>
 
 ### SignaturePair
- The client may use any number of bytes from 0 to the whole length of the public key for pubKeyPrefix.<BR>If 0 bytes is used, then it is assumed that only one public key is used to sign.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -541,7 +575,7 @@
 <a name="ThresholdSignature"></a>
 
 ### ThresholdSignature
- A signature corresponding to a ThresholdKey. For an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null.<BR>This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -568,8 +602,8 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| hederaFunctionality | [HederaFunctionality](#HederaFunctionality) | Specific Transaction or Query | |
-| feeData | [FeeData](#FeeData) | The fee information about the query/data | |
+| hederaFunctionality | [HederaFunctionality](#HederaFunctionality) |  A particular transaction or query | |
+| feeData | [FeeData](#FeeData) |  Resource price coefficients | |
 
 
 <a name="TransactionID"></a>
@@ -636,7 +670,7 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [QueryHeader](#QueryHeader) |  Standard info sent from client to node, including the signed payment, and what kind of response is requested<BR>(cost, state proof, both, or neither). | |
-| topicID | [TopicID](#TopicID) | Topic to retrieve info about (the parameters and running state of). | |
+| topicID | [TopicID](#TopicID) |  The Topic for which information is being requested | |
 
 
 <a name="ConsensusGetTopicInfoResponse"></a>
@@ -703,7 +737,7 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | memo |  | Short publicly visible memo about the topic. No guarantee of uniqueness. | |
-| runningHash |  |  SHA-384 running hash <previousRunningHash, topicId, consensusTimestamp, sequenceNumber, message> | |
+| runningHash |  |  When a topic is created, its running hash is initialized to 48 bytes of binary zeros.<BR>For each submitted message, the topic's running hash is then updated to the output<BR>of a particular SHA-384 digest whose input data include the previous running hash.<BR><BR>See the TransactionReceipt.proto documentation for an exact description of the<BR>data included in the SHA-384 digest used for the update. | |
 | sequenceNumber |  |  Sequence number (starting at 1 for the first submitMessage) of messages on the topic. | |
 | expirationTime | [Timestamp](#Timestamp) |  Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic<BR>and the topic will expire and after AUTORENEW_GRACE_PERIOD be automatically deleted. | |
 | adminKey | [Key](#Key) | Access control for update/delete of the topic. Null if there is no key. | |
@@ -740,8 +774,6 @@
 
 ## ContractCall.proto
 
- Call a function of the given smart contract instance, giving it functionParameters as its inputs. it can use the given amount of gas, and any unspent gas will be refunded to the paying account.<BR>If this function stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.
-
 <a name="ContractCallTransactionBody"></a>
 
 ### ContractCallTransactionBody
@@ -765,13 +797,13 @@
 <a name="ContractCallLocalQuery"></a>
 
 ### ContractCallLocalQuery
- Call a function of the given smart contract instance, giving it functionParameters as its inputs. It will consume the entire given amount of gas.<BR>This is performed locally on the particular node that the client is communicating with. It cannot change the state of the contract instance (and so, cannot spend anything from the instance's cryptocurrency account). It will not have a consensus timestamp. It cannot generate a record or a receipt. The response will contain the output returned by the function call.  This is useful for calling getter functions, which purely read the state and don't change it. It is faster and cheaper than a normal call, because it is purely local to a single  node.
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [QueryHeader](#QueryHeader) | standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). The payment must cover the fees and all of the gas offered. | |
 | contractID | [ContractID](#ContractID) | the contract instance to call, in the format used in transactions | |
-| gas |  | the amount of gas to use for the call. All of the gas offered will be charged for. | |
+| gas |  | The amount of gas to use for the call; all of the gas offered will be used and charged a corresponding fee | |
 | functionParameters |  | which function to call, and the parameters to pass to the function | |
 | maxResultSize |  | max number of bytes that the result might include. The run will fail if it would have returned more than this number of bytes. | |
 
@@ -798,8 +830,9 @@
 | contractCallResult |  | the result returned by the function | |
 | errorMessage |  | message In case there was an error during smart contract execution | |
 | bloom |  | bloom filter for record | |
-| gasUsed |  | units of gas used  to execute contract | |
+| gasUsed |  | units of gas used to execute contract | |
 | logInfo | [ContractLoginfo](#ContractLoginfo) | the log info for events returned by the function | |
+| createdContractIDs | [ContractID](#ContractID) | the list of smart contracts that were created by the function call | |
 
 
 <a name="ContractLoginfo"></a>
@@ -819,8 +852,6 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## ContractCreate.proto
-
- Start a new smart contract instance. After the instance is created, the ContractID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The instance will run the bytecode stored in the given file, referenced either by FileID or by the transaction ID of the transaction that created the file. The constructor will be executed using the given amount of gas, and any unspent gas will be refunded to the paying account. Constructor inputs come from the given constructorParameters.<BR>The instance will exist for autoRenewPeriod seconds. When that is reached, it will renew itself for another autoRenewPeriod seconds by charging its associated cryptocurrency account (which it creates here). If it has insufficient cryptocurrency to extend that long, it will extend as long as it can. If its balance is zero, the instance will be deleted.<BR>A smart contract instance normally enforces rules, so "the code is law". For example, an ERC-20 contract prevents a transfer from being undone without a signature by the recipient of the transfer. This is always enforced if the contract instance was created with the adminKeys being null. But for some uses, it might be desirable to create something like an ERC-20 contract that has a specific group of trusted individuals who can act as a "supreme court" with the ability to override the normal operation, when a sufficient number of them agree to do so. If adminKeys is not null, then they can sign a transaction that can change the state of the smart contract in arbitrary ways, such as to reverse a transaction that violates some standard of behavior that is not covered by the code itself. The admin keys can also be used to change the autoRenewPeriod, and change the adminKeys field itself. The API currently does not implement this ability. But it does allow the adminKeys field to be set and queried, and will in the future implement such admin abilities for any instance that has a non-null adminKeys.<BR>If this constructor stores information, it is charged gas to store it. There is a fee in hbars to maintain that storage until the expiration time, and that fee is added as part of the transaction fee.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.<BR>The optional memo field can contain a string whose length is up to 100 bytes. That is the size after Unicode NFD then UTF-8 conversion. This field can be used to describe the smart contract. It could also be used for other purposes. One recommended purpose is to hold a hexadecimal string that is the SHA-384 hash of a PDF file containing a human-readable legal contract. Then, if the admin keys are the public keys of human arbitrators, they can use that legal document to guide their decisions during a binding arbitration tribunal, convened to consider any changes to the smart contract in the future. The memo field can only be changed using the admin keys. If there are no admin keys, then it cannot be changed after the smart contract is created.
 
 <a name="ContractCreateTransactionBody"></a>
 
@@ -847,8 +878,6 @@
 
 ## ContractDelete.proto
 
- Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the mangement of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
-
 <a name="ContractDeleteTransactionBody"></a>
 
 ### ContractDeleteTransactionBody
@@ -856,10 +885,10 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| contractID | [ContractID](#ContractID) | The Contract ID instance to delete (this can't be changed) | |
+| contractID | [ContractID](#ContractID) |  The id of the contract to be deleted | |
 | obtainers | oneof |  | |
-| | transferAccountID | [AccountID](#AccountID) | The account ID which will receive all remaining hbars | |
-| | transferContractID | [ContractID](#ContractID) | The contract ID which will receive all remaining hbars | |
+| | transferAccountID | [AccountID](#AccountID) |  The id of an account to receive any remaining hBars from the deleted contract | |
+| | transferContractID | [ContractID](#ContractID) |  The id of a contract to receive any remaining hBars from the deleted contract | |
 
 
 <a name="ContractGetBytecode.proto"></a>
@@ -943,8 +972,6 @@
 
 ## ContractGetRecords.proto
 
- Get all the records for a smart contract instance, for any function call (or the constructor call) during the last 25 hours, for which a Record was requested. 
-
 <a name="ContractGetRecordsQuery"></a>
 
 ### ContractGetRecordsQuery
@@ -973,8 +1000,6 @@
 
 ## ContractUpdate.proto
 
- Modify a smart contract instance to have the given parameter values. Any null field is ignored (left unchanged). If only the contractInstanceExpirationTime is being modified, then no signature is needed on this transaction other than for the account paying for the transaction itself. But if any of the other fields are being modified, then it must be signed by the adminKey. The use of adminKey is not currently supported in this API, but in the future will be implemented to allow these fields to be modified, and also to make modifications to the state of the instance. If the contract is created with no admin key, then none of the fields can be changed that need an admin signature, and therefore no admin key can ever be added. So if there is no admin key, then things like the bytecode are immutable. But if there is an admin key, then they can be changed. For example, the admin key might be a threshold key, which requires 3 of 5 binding arbitration judges to agree before the bytecode can be changed. This can be used to add flexibility to the management of smart contract behavior. But this is optional. If the smart contract is created without an admin key, then such a key can never be added, and its bytecode will be immutable. 
-
 <a name="ContractUpdateTransactionBody"></a>
 
 ### ContractUpdateTransactionBody
@@ -982,13 +1007,13 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| contractID | [ContractID](#ContractID) | The Contract ID instance to update (this can't be changed) | |
-| expirationTime | [Timestamp](#Timestamp) | Extend the expiration of the instance and its account to this time (no effect if it already is this time or later) | |
-| adminKey | [Key](#Key) | The state of the instance can be modified arbitrarily if this key signs a transaction to modify it. If this is null, then such modifications are not possible, and there is no administrator that can override the normal operation of this smart contract instance. | |
-| proxyAccountID | [AccountID](#AccountID) | ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null. | |
-| autoRenewPeriod | [Duration](#Duration) | The instance will charge its account every this many seconds to renew for this long | |
-| fileID | [FileID](#FileID) | The file ID of file containing the smart contract byte code. A copy will be made and held by the contract instance, and have the same expiration time as the instance. The file is referenced one of two ways: | |
-| memo |  | The memo associated with the contract (max 100 bytes) | |
+| contractID | [ContractID](#ContractID) |  The id of the contract to be updated | |
+| expirationTime | [Timestamp](#Timestamp) |  The new expiry of the contract, no earlier than the current expiry (resolves to EXPIRATION_REDUCTION_NOT_ALLOWED otherwise) | |
+| adminKey | [Key](#Key) |  The new key to control updates to the contract | |
+| proxyAccountID | [AccountID](#AccountID) |  (NOT YET IMPLEMENTED) The new id of the account to which the contract is proxy staked | |
+| autoRenewPeriod | [Duration](#Duration) |  (NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry (by the same interval) | |
+| fileID | [FileID](#FileID) |  The new id of the file asserted to contain the bytecode of the Solidity transaction that created this contract | |
+| memo |  |  The new contract memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes) | |
 
 
 <a name="CryptoAddClaim.proto"></a>
@@ -1021,12 +1046,40 @@
 | claim | [Claim](#Claim) | A hash of some credential/certificate, along with the keys that authorized it and are allowed to delete it | |
 
 
+<a name="CryptoAddLiveHash.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## CryptoAddLiveHash.proto
+
+ A hash---presumably of some kind of credential or certificate---along with a list of keys, each of which may be either a primitive or a threshold key. 
+
+<a name="CryptoAddLiveHashTransactionBody"></a>
+
+### CryptoAddLiveHashTransactionBody
+ At consensus, attaches the given livehash to the given account.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| liveHash | [LiveHash](#LiveHash) |  A hash of some credential or certificate, along with the keys of the entities that asserted it validity | |
+
+
+<a name="LiveHash"></a>
+
+### LiveHash
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| accountId | [AccountID](#AccountID) |  The account to which the livehash is attached | |
+| hash |  |  The SHA-384 hash of a credential or certificate | |
+| keys | [KeyList](#KeyList) |  A list of keys (primitive or threshold), all of which must sign to attach the livehash to an account, and any one of which can later delete it. | |
+| duration | [Duration](#Duration) |  The duration for which the livehash will remain valid | |
+
+
 <a name="CryptoCreate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## CryptoCreate.proto
-
- Create a new account. After the account is created, the AccountID for it is in the receipt, or can be retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that. The account can then automatically generate records for large transfers into it or out of it, which each last for 25 hours. Records are generated for any transfer that exceeds the thresholds given here. This account is charged cryptocurrency for each record generated, so the thresholds are useful for limiting Record generation to happen only for large transactions. The Key field is the key used to sign transactions for this account. If the account has receiverSigRequired set to true, then all cryptocurrency transfers must be signed by this account's key, both for transfers in and out. If it is false, then only transfers out have to be signed by it. When the account is created, the payer account is charged enough hbars so that the new account will not expire for the next autoRenewPeriod seconds. When it reaches the expiration time, the new account will then be automatically charged to renew for another autoRenewPeriod seconds. If it does not have enough hbars to renew for that long, then the remaining hbars are used to extend its expiration as long as possible. If it is has a zero balance when it expires, then it is deleted. This transaction must be signed by the payer account. If receiverSigRequired is false, then the transaction does not have to be signed by the keys in the keys field. If it is true, then it must be signed by them, in addition to the keys of the payer account.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.
 
 <a name="CryptoCreateTransactionBody"></a>
 
@@ -1083,12 +1136,30 @@
 | hashToDelete |  | The hash in the claim to delete (a SHA-384 hash, 48 bytes) | |
 
 
+<a name="CryptoDeleteLiveHash.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## CryptoDeleteLiveHash.proto
+
+ At consensus, deletes a livehash associated to the given account. The transaction must be signed by either the key of the owning account, or at least one of the keys associated to the livehash. 
+
+<a name="CryptoDeleteLiveHashTransactionBody"></a>
+
+### CryptoDeleteLiveHashTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| accountOfLiveHash | [AccountID](#AccountID) |  The account owning the livehash | |
+| liveHashToDelete |  |  The SHA-384 livehash to delete from the account | |
+
+
 <a name="CryptoGetAccountBalance.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## CryptoGetAccountBalance.proto
 
- Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller and faster reply than CryptoGetInfo, which returns the balance plus additional information. 
+ Get the balance of a cryptocurrency account. This returns only the balance, so it is a smaller
 
 <a name="CryptoGetAccountBalanceQuery"></a>
 
@@ -1218,12 +1289,42 @@
 | proxyReceived |  | The total number of tinybars proxy staked to this account | |
 | key | [Key](#Key) | The key for the account, which must sign in order to transfer out, or to modify the account in any way other than extending its expiration date. | |
 | balance |  | The current balance of account in tinybars | |
-| generateSendRecordThreshold |  | The threshold amount (in tinybars) for which an account record is created (and this account charged for them) for any send/withdraw transaction. | |
-| generateReceiveRecordThreshold |  | The threshold amount (in tinybars) for which an account record is created  (and this account charged for them) for any transaction above this amount. | |
+| generateSendRecordThreshold |  |  The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold | |
+| generateReceiveRecordThreshold |  |  The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold | |
 | receiverSigRequired |  | If true, no transaction can transfer to this account unless signed by this account's key | |
 | expirationTime | [Timestamp](#Timestamp) | The TimeStamp time at which this account is set to expire | |
 | autoRenewPeriod | [Duration](#Duration) | The duration for expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted. | |
-| claims | [Claim](#Claim) | All of the claims attached to the account (each of which is a hash along with the keys that authorized it and can delete it ) | |
+| liveHashes | [LiveHash](#LiveHash) | All of the livehashes attached to the account (each of which is a hash along with the keys that authorized it and can delete it) | |
+
+
+<a name="CryptoGetLiveHash.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## CryptoGetLiveHash.proto
+
+ Requests a livehash associated to an account. 
+
+<a name="CryptoGetLiveHashQuery"></a>
+
+### CryptoGetLiveHashQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) |  Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+| accountID | [AccountID](#AccountID) |  The account to which the livehash is associated | |
+| hash |  |  The SHA-384 data in the livehash | |
+
+
+<a name="CryptoGetLiveHashResponse"></a>
+
+### CryptoGetLiveHashResponse
+ Returns the full livehash associated to an account, if it is present. Note that the only way to obtain a state proof exhibiting the absence of a livehash from an account is to retrieve a state proof of the entire account with its list of livehashes. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) |  Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| liveHash | [LiveHash](#LiveHash) |  The livehash, if present | |
 
 
 <a name="CryptoGetStakers.proto"></a>
@@ -1282,8 +1383,6 @@
 
 ## CryptoService.proto
 
- The request and responses for different crypto services. 
-
 <a name="CryptoService"></a>
 
 ### CryptoService
@@ -1291,20 +1390,20 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createAccount  | Transaction | TransactionResponse | Creates a new account by submitting the transaction. The grpc server returns the TransactionResponse |
-| updateAccount  | Transaction | TransactionResponse | Updates an account by submitting the transaction. The grpc server returns the TransactionResponse |
-| cryptoTransfer  | Transaction | TransactionResponse | Initiates a transfer by submitting the transaction. The grpc server returns the TransactionResponse |
-| cryptoDelete  | Transaction | TransactionResponse | Deletes and account by submitting the transaction. The grpc server returns the TransactionResponse |
-| addClaim  | Transaction | TransactionResponse | Adds a claim by submitting the transaction. The grpc server returns the TransactionResponse |
-| deleteClaim  | Transaction | TransactionResponse | Deletes a claim by submitting the transaction. The grpc server returns the TransactionResponse |
-| getClaim  | Query | Response | Retrieves the claim for an account by submitting the query. |
-| getAccountRecords  | Query | Response | Retrieves the record(fetch by AccountID ID) for an account by submitting the query. |
-| cryptoGetBalance  | Query | Response | Retrieves the balance for an account by submitting the query. |
-| getAccountInfo  | Query | Response | Retrieves the account information for an account by submitting the query. |
-| getTransactionReceipts  | Query | Response | Retrieves the transaction receipts for an account by TxId which last for 180sec only for no fee. |
-| getFastTransactionRecord  | Query | Response | Retrieves the transaction record by TxID which last for 180sec only for no fee. |
-| getTxRecordByTxID  | Query | Response | Retrieves the transactions record(fetch by Transaction ID) for an account by submitting the query. |
-| getStakersByAccountID  | Query | Response | Retrieves the stakers for a node by account ID by submitting the query. |
+| createAccount  | Transaction | TransactionResponse |  Creates a new account by submitting the transaction |
+| updateAccount  | Transaction | TransactionResponse |  Updates an account by submitting the transaction |
+| cryptoTransfer  | Transaction | TransactionResponse |  Initiates a transfer by submitting the transaction |
+| cryptoDelete  | Transaction | TransactionResponse |  Deletes and account by submitting the transaction |
+| addLiveHash  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Adds a livehash |
+| deleteLiveHash  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Deletes a livehash |
+| getLiveHash  | Query | Response |  (NOT CURRENTLY SUPPORTED) Retrieves a livehash for an account |
+| getAccountRecords  | Query | Response |  Retrieves the 25-hour records stored for an account |
+| cryptoGetBalance  | Query | Response |  Retrieves the balance of an account |
+| getAccountInfo  | Query | Response |  Retrieves the metadata of an account |
+| getTransactionReceipts  | Query | Response |  Retrieves the latest receipt for a transaction that is either awaiting consensus, or reached consensus in the last 180 seconds |
+| getFastTransactionRecord  | Query | Response |  (NOT CURRENTLY SUPPORTED) Returns the records of transactions recently funded by an account |
+| getTxRecordByTxID  | Query | Response |  Retrieves the record of a transaction that is either awaiting consensus, or reached consensus in the last 180 seconds |
+| getStakersByAccountID  | Query | Response |  (NOT CURRENTLY SUPPORTED) Retrieves the stakers for a node by account id |
 
 
 <a name="CryptoTransfer.proto"></a>
@@ -1328,7 +1427,7 @@
 <a name="CryptoTransferTransactionBody"></a>
 
 ### CryptoTransferTransactionBody
- Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar). If any sender account fails to have sufficient hbars to do the withdrawal, then the entire transaction fails, and none of those transfers occur, though the transaction fee is still charged. This transaction must be signed by the keys for all the sending accounts, and for any receiving accounts that have receiverSigRequired == true. The signatures are in the same order as the accounts, skipping those accounts that don't need a signature. 
+ Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar).
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1350,8 +1449,6 @@
 
 ## CryptoUpdate.proto
 
- Change properties for the given account. Any null field is ignored (left unchanged). This transaction must be signed by the existing key for this account. If the transaction is changing the key field, then the transaction must be signed by both the old key (from before the change) and the new key. The old key must sign for security. The new key must sign as a safeguard to avoid accidentally changing to an invalid key, and then having no way to recover. When extending the expiration date, the cost is affected by the size of the list of attached claims, and of the keys associated with the claims and the account. 
-
 <a name="CryptoUpdateTransactionBody"></a>
 
 ### CryptoUpdateTransactionBody
@@ -1362,7 +1459,7 @@
 | accountIDToUpdate | [AccountID](#AccountID) | The account ID which is being updated in this transaction | |
 | key | [Key](#Key) | The new key | |
 | proxyAccountID | [AccountID](#AccountID) | ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null. | |
-| proxyFraction |  | [Deprecated]. payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account | |
+| proxyFraction |  | [Deprecated]. Payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account | |
 | sendRecordThresholdField | oneof |  | |
 | | sendRecordThreshold |  | [Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
 | | sendRecordThresholdWrapper | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) | The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
@@ -1381,7 +1478,7 @@
 
 ## Duration.proto
 
-  The length of a period of time. This is an identical data structure to the protobuf Duration.proto (see the comments in https:github.com/google/protobuf/blob/master/src/google/protobuf/duration.proto) 
+ A length of time in seconds. 
 
 <a name="Duration"></a>
 
@@ -1390,15 +1487,13 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| seconds |  | number of seconds | |
+| seconds |  | The number of seconds | |
 
 
 <a name="ExchangeRate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ExchangeRate.proto
-
-  Values from these proto denotes habr and cents(USD) conversion 
 
 <a name="ExchangeRate"></a>
 
@@ -1407,28 +1502,26 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| hbarEquiv |  | value which denote habar equivalent to cent | |
-| centEquiv |  | value which denote cents (USD) equivalent to Hbar} | |
-| expirationTime | [TimestampSeconds](#TimestampSeconds) | expired time in seconds for this exchange rate | |
+| hbarEquiv |  |  Denominator in calculation of exchange rate between hbar and cents | |
+| centEquiv |  |  Numerator in calculation of exchange rate between hbar and cents | |
+| expirationTime | [TimestampSeconds](#TimestampSeconds) |  Expiration time in seconds for this exchange rate | |
 
 
 <a name="ExchangeRateSet"></a>
 
 ### ExchangeRateSet
- Two sets of exchange rate 
+ Two sets of exchange rates 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| currentRate | [ExchangeRate](#ExchangeRate) | Current rate of Exchange of Hbar to cents | |
-| nextRate | [ExchangeRate](#ExchangeRate) | Next rate exchange of Hbar to cents | |
+| currentRate | [ExchangeRate](#ExchangeRate) |  Current exchange rate | |
+| nextRate | [ExchangeRate](#ExchangeRate) |  Next exchange rate which will take effect when current rate expires | |
 
 
 <a name="FileAppend.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## FileAppend.proto
-
- Append the given contents to the end of the file. If a file is too big to create with a single FileCreateTransaction, then it can be created with the first part of its contents, and then appended multiple times to create the entire file. 
 
 <a name="FileAppendTransactionBody"></a>
 
@@ -1437,8 +1530,8 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| fileID | [FileID](#FileID) | The file ID of the file to which the bytes are appended to | |
-| contents |  | The bytes to append to the contents of the file | |
+| fileID | [FileID](#FileID) |  The file to which the bytes will be appended | |
+| contents |  |  The bytes that will be appended to the end of the specified file | |
 
 
 <a name="FileCreate.proto"></a>
@@ -1446,7 +1539,7 @@
 
 ## FileCreate.proto
 
- Create a new file, containing the given contents.  It is referenced by its FileID, and does not have a filename, so it is important to get the FileID. After the file is created, the FileID for it can be found in the receipt, or retrieved with a GetByKey query, or by asking for a Record of the transaction to be created, and retrieving that.<BR>The file contains the given contents (possibly empty). The file will automatically disappear at the fileExpirationTime, unless its expiration is extended by another transaction before that time. If the file is deleted, then its contents will become empty and it will be marked as deleted until it expires, and then it will cease to exist. See FileGetInfoQuery for more information about files.<BR>The keys field is a list of keys. All the keys on the list must sign to create or modify a file, but only one of them needs to sign in order to delete the file.  Each of those "keys" may itself be threshold key containing other keys (including other threshold keys). In other words, the behavior is an AND for create/modify, OR for delete. This is useful for acting as a revocation server. If it is desired to have the behavior be AND for all 3 operations (or OR for all 3), then the list should have only a single Key, which is a threshold key, with N=1 for OR, N=M for AND.<BR>If a file is created without ANY keys in the keys field, the file is immutable ONLY the expirationTime of the file can be changed using FileUpdate API. The file contents or its keys cannot be changed.<BR>An entity (account, file, or smart contract instance) must be created in a particular realm. If the realmID is left null, then a new realm will be created with the given admin key. If a new realm has a null adminKey, then anyone can create/modify/delete entities in that realm. But if an admin key is given, then any transaction to create/modify/delete an entity in that realm must be signed by that key, though anyone can still call functions on smart contract instances that exist in that realm. A realm ceases to exist when everything within it has expired and no longer exists.<BR>The current API ignores shardID, realmID, and newRealmAdminKey, and creates everything in shard 0 and realm 0, with a null key. Future versions of the API will support multiple realms and multiple shards.
+ Create a new file, containing the given contents.
 
 <a name="FileCreateTransactionBody"></a>
 
@@ -1525,7 +1618,7 @@
 
 ## FileGetInfo.proto
 
- Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. Note that each file has a FileID, but does not have a filename. 
+ Get all of the information about a file, except for its contents. When a file expires, it no longer exists, and there will be no info about it, and the fileInfo field will be blank. If a transaction or smart contract deletes the file, but it has not yet expired, then the fileInfo field will be non-empty, the deleted field will be true, its size will be 0, and its contents will be empty. 
 
 <a name="FileGetInfoQuery"></a>
 
@@ -1546,7 +1639,7 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
-| fileInfo | [FileGetInfoResponse.FileInfo](#FileGetInfoResponse.FileInfo) | The information about the file (a state proof can be generated for this) | |
+| fileInfo | [FileGetInfoResponse.FileInfo](#FileGetInfoResponse.FileInfo) | The information about the file | |
 
 
 <a name="FileGetInfoResponse.FileInfo"></a>
@@ -1568,8 +1661,6 @@
 
 ## FileService.proto
 
- The request and responses for different file services. 
-
 <a name="FileService"></a>
 
 ### FileService
@@ -1577,22 +1668,20 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createFile  | Transaction | TransactionResponse | Creates a file with the content by submitting the transaction. The grpc server returns the TransactionResponse |
-| updateFile  | Transaction | TransactionResponse | Updates a file by submitting the transaction. The grpc server returns the TransactionResponse |
-| deleteFile  | Transaction | TransactionResponse | Deletes a file by submitting the transaction. The grpc server returns the TransactionResponse |
-| appendContent  | Transaction | TransactionResponse | Appends the file contents(for a given FileID) by submitting the transaction. The grpc server returns the TransactionResponse |
-| getFileContent  | Query | Response | Retrieves the file content by submitting the query. The grpc server returns the Response |
-| getFileInfo  | Query | Response | Retrieves the file information by submitting the query. The grpc server returns the Response |
-| systemDelete  | Transaction | TransactionResponse | Deletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
-| systemUndelete  | Transaction | TransactionResponse | UnDeletes a file by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
+| createFile  | Transaction | TransactionResponse |  Creates a file |
+| updateFile  | Transaction | TransactionResponse |  Updates a file |
+| deleteFile  | Transaction | TransactionResponse |  Deletes a file |
+| appendContent  | Transaction | TransactionResponse |  Appends to a file |
+| getFileContent  | Query | Response |  Retrieves the file contents |
+| getFileInfo  | Query | Response |  Retrieves the file information |
+| systemDelete  | Transaction | TransactionResponse |  Deletes a file if the submitting account has network admin privileges |
+| systemUndelete  | Transaction | TransactionResponse |  Undeletes a file if the submitting account has network admin privileges |
 
 
 <a name="FileUpdate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## FileUpdate.proto
-
- Modify some of the metadata for a file. Any null field is ignored (left unchanged). Any field that is null is left unchanged. If contents is non-null, then the file's contents will be replaced with the given bytes. This transaction must be signed by all the keys for that file. If the transaction is modifying the keys field, then it must be signed by all the keys in both the old list and the new list.<BR>If a file was created without ANY keys in the keys field, ONLY the expirationTime of the file can be changed using this call. The file contents or its keys cannot be changed.
 
 <a name="FileUpdateTransactionBody"></a>
 
@@ -1601,10 +1690,10 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| fileID | [FileID](#FileID) | The file ID of the file to update | |
-| expirationTime | [Timestamp](#Timestamp) | The new time at which it should expire (ignored if not later than the current value) | |
-| keys | [KeyList](#KeyList) | The keys that can modify or delete the file | |
-| contents |  | The new file contents. All the bytes in the old contents are discarded. | |
+| fileID | [FileID](#FileID) | The ID of the file to update | |
+| expirationTime | [Timestamp](#Timestamp) | The new expiry time (ignored if not later than the current expiry) | |
+| keys | [KeyList](#KeyList) | The new list of keys that can modify or delete the file | |
+| contents |  | The new contents that should overwrite the file's current contents | |
 
 
 <a name="Freeze.proto"></a>
@@ -1625,6 +1714,7 @@
 | startMin |  | The start minute (in UTC time), a value between 0 and 59 | |
 | endHour |  | The end hour (in UTC time), a value between 0 and 23 | |
 | endMin |  | The end minute (in UTC time), a value between 0 and 59 | |
+| updateFile | [FileID](#FileID) | The ID of the file needs to be updated during a freeze transaction | |
 
 
 <a name="FreezeService.proto"></a>
@@ -1654,13 +1744,13 @@
 <a name="EntityID"></a>
 
 ### EntityID
- the ID for a single entity (account, claim, file, or smart contract instance) 
+ the ID for a single entity (account, livehash, file, or smart contract instance) 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | entity | oneof |  | |
 | | accountID | [AccountID](#AccountID) | The Account ID for the cryptocurrency account | |
-| | claim | [Claim](#Claim) | The claim details attached to an account | |
+| | liveHash | [LiveHash](#LiveHash) | A uniquely identifying livehash of an acount | |
 | | fileID | [FileID](#FileID) | The file ID of the file | |
 | | contractID | [ContractID](#ContractID) | The smart contract ID that identifies instance | |
 
@@ -1718,12 +1808,58 @@
 | contractID | [ContractID](#ContractID) | A smart contract ID for the instance (if this is included, then the associated accountID will also be included) | |
 
 
+<a name="NetworkGetVersionInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## NetworkGetVersionInfo.proto
+
+ Get the deployed versions of Hedera Services and the HAPI proto in semantic version format 
+
+<a name="NetworkGetVersionInfoQuery"></a>
+
+### NetworkGetVersionInfoQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+
+
+<a name="NetworkGetVersionInfoResponse"></a>
+
+### NetworkGetVersionInfoResponse
+ Response when the client sends the node NetworkGetVersionInfoQuery 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| hapiProtoVersion | [SemanticVersion](#SemanticVersion) |  | |
+| hederaServicesVersion | [SemanticVersion](#SemanticVersion) |  | |
+
+
+<a name="NetworkService.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## NetworkService.proto
+
+ The requests and responses for different network services. 
+
+<a name="NetworkService"></a>
+
+### NetworkService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| getVersionInfo  | Query | Response | Retrieves the active versions of Hedera Services and HAPI proto |
+
+
 <a name="Query.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## Query.proto
 
- A single query, which is sent from the client to the node. This includes all possible queries. Each Query should not have more than 50 levels. 
+ A single query, which is sent from the client to a node. This includes all possible queries. Each Query should not have more than 50 levels. 
 
 <a name="Query"></a>
 
@@ -1742,14 +1878,15 @@
 | | cryptogetAccountBalance | [CryptoGetAccountBalanceQuery](#CryptoGetAccountBalanceQuery) | Get the current balance in a cryptocurrency account | |
 | | cryptoGetAccountRecords | [CryptoGetAccountRecordsQuery](#CryptoGetAccountRecordsQuery) | Get all the records that currently exist for transactions involving an account | |
 | | cryptoGetInfo | [CryptoGetInfoQuery](#CryptoGetInfoQuery) | Get all information about an account | |
-| | cryptoGetClaim | [CryptoGetClaimQuery](#CryptoGetClaimQuery) | Get a single claim from a single account (or null if it doesn't exist) | |
+| | cryptoGetLiveHash | [CryptoGetLiveHashQuery](#CryptoGetLiveHashQuery) | Get a single livehash from a single account, if present | |
 | | cryptoGetProxyStakers | [CryptoGetStakersQuery](#CryptoGetStakersQuery) | Get all the accounts that proxy stake to a given account, and how much they proxy stake (not yet implemented in the current API) | |
 | | fileGetContents | [FileGetContentsQuery](#FileGetContentsQuery) | Get the contents of a file (the bytes stored in it) | |
 | | fileGetInfo | [FileGetInfoQuery](#FileGetInfoQuery) | Get information about a file, such as its expiration date | |
 | | transactionGetReceipt | [TransactionGetReceiptQuery](#TransactionGetReceiptQuery) | Get a receipt for a transaction (lasts 180 seconds) | |
-| | transactionGetRecord | [TransactionGetRecordQuery](#TransactionGetRecordQuery) | Get a record for a transaction (lasts 1 hour) | |
+| | transactionGetRecord | [TransactionGetRecordQuery](#TransactionGetRecordQuery) | Get a record for a transaction | |
 | | transactionGetFastRecord | [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery) | Get a record for a transaction (lasts 180 seconds) | |
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery) | Get the parameters of and state of a consensus topic. | |
+| | networkGetVersionInfo | [NetworkGetVersionInfoQuery](#NetworkGetVersionInfoQuery) |  | |
 
 
 <a name="QueryHeader.proto"></a>
@@ -1757,12 +1894,10 @@
 
 ## QueryHeader.proto
 
- The client uses the ResponseType to request that the node send it just the answer, or both the answer and a state proof. It can also ask for just the cost for getting the answer or both. If the payment in the query fails the precheck, then the response may have some fields blank. The state proof is only available for some types of information. It is available for a Record, but not a receipt. It is available for the information in each kind of GetInfo request. 
-
 <a name="QueryHeader"></a>
 
 ### QueryHeader
- Each query from the client to the node will contain the QueryHeader, which gives the requested response type, and includes a payment for the response. It will sometimes leave payment blank: it is blank for TransactionGetReceiptQuery. It can also be left blank when the responseType is costAnswer or costAnswerStateProof. But it needs to be filled in for all other cases. The idea is that an answer that is only a few bytes (or that was paid for earlier) can be given for free. But if the answer is something that requires many bytes or much computation (like a state proof), then it should be paid for. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1777,10 +1912,10 @@
 
 | Enum Name | Description |
 | --------- | ----------- |
-| ANSWER_ONLY | Response returns answer |
-| ANSWER_STATE_PROOF | Response returns both answer and state proof |
-| COST_ANSWER | Response returns the cost of answer |
-| COST_ANSWER_STATE_PROOF | Response returns the total cost of answer and state proof |
+| ANSWER_ONLY |  Response returns answer |
+| ANSWER_STATE_PROOF |  (NOT YET SUPPORTED) Response returns both answer and state proof |
+| COST_ANSWER |  Response returns the cost of answer |
+| COST_ANSWER_STATE_PROOF |  (NOT YET SUPPORTED) Response returns the total cost of answer and state proof |
 
 
 <a name="Response.proto"></a>
@@ -1807,14 +1942,15 @@
 | | cryptogetAccountBalance | [CryptoGetAccountBalanceResponse](#CryptoGetAccountBalanceResponse) | Get the current balance in a cryptocurrency account | |
 | | cryptoGetAccountRecords | [CryptoGetAccountRecordsResponse](#CryptoGetAccountRecordsResponse) | Get all the records that currently exist for transactions involving an account | |
 | | cryptoGetInfo | [CryptoGetInfoResponse](#CryptoGetInfoResponse) | Get all information about an account | |
-| | cryptoGetClaim | [CryptoGetClaimResponse](#CryptoGetClaimResponse) | Get a single claim from a single account (or null if it doesn't exist) | |
+| | cryptoGetLiveHash | [CryptoGetLiveHashResponse](#CryptoGetLiveHashResponse) | Contains a livehash associated to an account | |
 | | cryptoGetProxyStakers | [CryptoGetStakersResponse](#CryptoGetStakersResponse) | Get all the accounts that proxy stake to a given account, and how much they proxy stake | |
 | | fileGetContents | [FileGetContentsResponse](#FileGetContentsResponse) | Get the contents of a file (the bytes stored in it) | |
 | | fileGetInfo | [FileGetInfoResponse](#FileGetInfoResponse) | Get information about a file, such as its expiration date | |
-| | transactionGetReceipt | [TransactionGetReceiptResponse](#TransactionGetReceiptResponse) | Get a receipt for a transaction (lasts 180 seconds) | |
-| | transactionGetRecord | [TransactionGetRecordResponse](#TransactionGetRecordResponse) | Get a record for a transaction (lasts 1 hour) | |
+| | transactionGetReceipt | [TransactionGetReceiptResponse](#TransactionGetReceiptResponse) | Get a receipt for a transaction | |
+| | transactionGetRecord | [TransactionGetRecordResponse](#TransactionGetRecordResponse) | Get a record for a transaction | |
 | | transactionGetFastRecord | [TransactionGetFastRecordResponse](#TransactionGetFastRecordResponse) | Get a record for a transaction (lasts 180 seconds) | |
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse) | Parameters of and state of a consensus topic.. | |
+| | networkGetVersionInfo | [NetworkGetVersionInfoResponse](#NetworkGetVersionInfoResponse) | Semantic versions of Hedera Services and HAPI proto | |
 
 
 <a name="ResponseCode.proto"></a>
@@ -1882,15 +2018,15 @@
 | INVALID_TRANSACTION_BODY | Invalid transaction body provided |
 | INVALID_SIGNATURE_TYPE_MISMATCHING_KEY | the type of key (base ed25519 key, KeyList, or ThresholdKey) does not match the type of signature (base ed25519 signature, SignatureList, or ThresholdKeySignature) |
 | INVALID_SIGNATURE_COUNT_MISMATCHING_KEY | the number of key (KeyList, or ThresholdKey) does not match that of signature (SignatureList, or ThresholdKeySignature). e.g. if a keyList has 3 base keys, then the corresponding signatureList should also have 3 base signatures. |
-| EMPTY_CLAIM_BODY | the claim body is empty |
-| EMPTY_CLAIM_HASH | the hash for the claim is empty |
-| EMPTY_CLAIM_KEYS | the key list is empty |
-| INVALID_CLAIM_HASH_SIZE | the size of the claim hash is not 48 bytes |
+| EMPTY_LIVE_HASH_BODY | the livehash body is empty |
+| EMPTY_LIVE_HASH | the livehash data is missing |
+| EMPTY_LIVE_HASH_KEYS | the keys for a livehash are missing |
+| INVALID_LIVE_HASH_SIZE | the livehash data is not the output of a SHA-384 digest |
 | EMPTY_QUERY_BODY | the query body is empty |
-| EMPTY_CLAIM_QUERY | the crypto claim query is empty |
-| CLAIM_NOT_FOUND | the crypto claim doesn't exists in the file system. It expired or was never persisted. |
+| EMPTY_LIVE_HASH_QUERY | the crypto livehash query is empty |
+| LIVE_HASH_NOT_FOUND | the livehash is not present |
 | ACCOUNT_ID_DOES_NOT_EXIST | the account id passed has not yet been created. |
-| CLAIM_ALREADY_EXISTS | the claim hash already exists |
+| LIVE_HASH_ALREADY_EXISTS | the livehash already exists for a given account |
 | INVALID_FILE_WACL | File WACL keys are invalid |
 | SERIALIZATION_FAILED | Serialization failure |
 | TRANSACTION_OVERSIZE | The size of the Transaction is greater than transactionMaxBytes |
@@ -1976,8 +2112,6 @@
 
 ## SmartContractService.proto
 
- The request and responses for different smart contract services. 
-
 <a name="SmartContractService"></a>
 
 ### SmartContractService
@@ -1985,25 +2119,23 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| createContract  | Transaction | TransactionResponse | Creates a contract by submitting the transaction. The grpc server returns the TransactionResponse |
-| updateContract  | Transaction | TransactionResponse | Updates a contract with the content by submitting the transaction. The grpc server returns the TransactionResponse |
-| contractCallMethod  | Transaction | TransactionResponse | Calls a contract by submitting the transaction. The grpc server returns the TransactionResponse |
-| getContractInfo  | Query | Response | Retrieves the contract information by submitting the query. The grpc server returns the Response |
-| contractCallLocalMethod  | Query | Response | Calls a smart contract by submitting the query. The grpc server returns the Response |
-| ContractGetBytecode  | Query | Response | Retrieves the byte code of a contract by submitting the query. The grpc server returns the Response |
-| getBySolidityID  | Query | Response | Retrieves a contract(using Solidity ID) by submitting the query. The grpc server returns the Response |
-| getTxRecordByContractID  | Query | Response | Retrieves a contract(using contract ID) by submitting the query. The grpc server returns the Response |
-| deleteContract  | Transaction | TransactionResponse | Delete a contract instance(mark as deleted until it expires), and transfer hbars to the specified account. The grpc server returns the TransactionResponse |
-| systemDelete  | Transaction | TransactionResponse | Deletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
-| systemUndelete  | Transaction | TransactionResponse | UnDeletes a smart contract by submitting the transaction when the account has admin privileges on the file. The grpc server returns the TransactionResponse |
+| createContract  | Transaction | TransactionResponse |  Creates a contract |
+| updateContract  | Transaction | TransactionResponse |  Updates a contract with the content |
+| contractCallMethod  | Transaction | TransactionResponse |  Calls a contract |
+| getContractInfo  | Query | Response |  Retrieves the contract information |
+| contractCallLocalMethod  | Query | Response |  Calls a smart contract to be run on a single node |
+| ContractGetBytecode  | Query | Response |  Retrieves the byte code of a contract |
+| getBySolidityID  | Query | Response |  Retrieves a contract by its Solidity address |
+| getTxRecordByContractID  | Query | Response |  Retrieves the 25-hour records stored for a contract |
+| deleteContract  | Transaction | TransactionResponse |  Deletes a contract instance and transfers any remaining hbars to a specified receiver |
+| systemDelete  | Transaction | TransactionResponse |  Deletes a contract if the submitting account has network admin privileges |
+| systemUndelete  | Transaction | TransactionResponse |  Undeletes a contract if the submitting account has network admin privileges |
 
 
 <a name="SystemDelete.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## SystemDelete.proto
-
- Delete a file or smart contract - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
 
 <a name="SystemDeleteTransactionBody"></a>
 
@@ -2022,8 +2154,6 @@
 <p align="right"><a href="#top">Top</a></p>
 
 ## SystemUndelete.proto
-
- Undelete a file or smart contract that was deleted by AdminDelete - can only be done with a Hedera admin multisig. When it is deleted, it immediately disappears from the system as seen by the user, but is still stored internally until the expiration time, at which time it is truly and permanently deleted. Until that time, it can be undeleted by the Hedera admin multisig. When a smart contract is deleted, the cryptocurrency account within it continues to exist, and is not affected by the expiration time here. 
 
 <a name="SystemUndeleteTransactionBody"></a>
 
@@ -2102,26 +2232,26 @@
 | ----- | ---- | ----------- | - |
 | transactionID | [TransactionID](#TransactionID) | The ID for this transaction, which includes the payer's account (the account paying the transaction fee). If two transactions have the same transactionID, they won't both have an effect | |
 | nodeAccountID | [AccountID](#AccountID) | The account of the node that submits the client's transaction to the network | |
-| transactionFee |  | The maximum transaction fee the client is willing to pay, which is split between the network and the node | |
+| transactionFee |  | The maximum transaction fee the client is willing to pay | |
 | transactionValidDuration | [Duration](#Duration) | The transaction is invalid if consensusTimestamp > transactionID.transactionValidStart + transactionValidDuration | |
 | generateRecord |  | Should a record of this transaction be generated? (A receipt is always generated, but the record is optional) | |
 | memo |  | Any notes or descriptions that should be put into the record (max length 100) | |
 | data | oneof |  | |
-| | contractCall | [ContractCallTransactionBody](#ContractCallTransactionBody) | Contains the call a function of a contract instance | |
-| | contractCreateInstance | [ContractCreateTransactionBody](#ContractCreateTransactionBody) | Contains the create data a contract instance | |
-| | contractUpdateInstance | [ContractUpdateTransactionBody](#ContractUpdateTransactionBody) | Contains contract modify info such as expiration date for a contract instance | |
+| | contractCall | [ContractCallTransactionBody](#ContractCallTransactionBody) | Calls a function of a contract instance | |
+| | contractCreateInstance | [ContractCreateTransactionBody](#ContractCreateTransactionBody) | Creates a contract instance | |
+| | contractUpdateInstance | [ContractUpdateTransactionBody](#ContractUpdateTransactionBody) | Updates a contract | |
 | | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) | Delete contract and transfer remaining balance into specified account | |
-| | cryptoAddClaim | [CryptoAddClaimTransactionBody](#CryptoAddClaimTransactionBody) | Attach a new claim to an account | |
+| | cryptoAddLiveHash | [CryptoAddLiveHashTransactionBody](#CryptoAddLiveHashTransactionBody) | Attach a new livehash to an account | |
 | | cryptoCreateAccount | [CryptoCreateTransactionBody](#CryptoCreateTransactionBody) | Create a new cryptocurrency account | |
 | | cryptoDelete | [CryptoDeleteTransactionBody](#CryptoDeleteTransactionBody) | Delete a cryptocurrency account (mark as deleted, and transfer hbars out) | |
-| | cryptoDeleteClaim | [CryptoDeleteClaimTransactionBody](#CryptoDeleteClaimTransactionBody) | Remove a claim from an account | |
+| | cryptoDeleteLiveHash | [CryptoDeleteLiveHashTransactionBody](#CryptoDeleteLiveHashTransactionBody) | Remove a livehash from an account | |
 | | cryptoTransfer | [CryptoTransferTransactionBody](#CryptoTransferTransactionBody) | Transfer amount between accounts | |
 | | cryptoUpdateAccount | [CryptoUpdateTransactionBody](#CryptoUpdateTransactionBody) | Modify information such as the expiration date for an account | |
 | | fileAppend | [FileAppendTransactionBody](#FileAppendTransactionBody) | Add bytes to the end of the contents of a file | |
 | | fileCreate | [FileCreateTransactionBody](#FileCreateTransactionBody) | Create a new file | |
 | | fileDelete | [FileDeleteTransactionBody](#FileDeleteTransactionBody) | Delete a file (remove contents and mark as deleted until it expires) | |
 | | fileUpdate | [FileUpdateTransactionBody](#FileUpdateTransactionBody) | Modify information such as the expiration date for a file | |
-| | systemDelete | [SystemDeleteTransactionBody](#SystemDeleteTransactionBody) | Hedera multisig system deletes a file or smart contract | |
+| | systemDelete | [SystemDeleteTransactionBody](#SystemDeleteTransactionBody) | Hedera administrative deletion of a file or smart contract | |
 | | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) | To undelete an entity deleted by SystemDelete | |
 | | freeze | [FreezeTransactionBody](#FreezeTransactionBody) | Freeze the nodes | |
 | | consensusCreateTopic | [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody) |  | |
@@ -2222,8 +2352,6 @@
 
 ## TransactionReceipt.proto
 
- The consensus result for a transaction, which might not be currently known, or may  succeed or fail. 
-
 <a name="TransactionReceipt"></a>
 
 ### TransactionReceipt
@@ -2231,14 +2359,15 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| status | [ResponseCodeEnum](#ResponseCodeEnum) | whether the transaction succeeded or failed (or is unknown) | |
-| accountID | [AccountID](#AccountID) | The account ID, if a new account was created | |
-| fileID | [FileID](#FileID) | The file ID, if a new file was created | |
-| contractID | [ContractID](#ContractID) | The contract ID, if a new smart contract instance was created | |
-| exchangeRate | [ExchangeRateSet](#ExchangeRateSet) | exchange rate set of Hbar to cents (USD) | |
-| topicID | [TopicID](#TopicID) | TopicID of a newly created consensus service topic | |
-| topicSequenceNumber |  |  Updated sequence number for a consensus service topic. The result of a ConsensusSubmitMessage. | |
-| topicRunningHash |  |  Updated running hash for a consensus service topic. The result of a ConsensusSubmitMessage. | |
+| status | [ResponseCodeEnum](#ResponseCodeEnum) |  The consensus status of the transaction; is UNKNOWN if consensus has not been reached, or if the<BR>associated transaction did not have a valid payer signature | |
+| accountID | [AccountID](#AccountID) |  In the receipt of a CryptoCreate, the id of the newly created account | |
+| fileID | [FileID](#FileID) |  In the receipt of a FileCreate, the id of the newly created file | |
+| contractID | [ContractID](#ContractID) |  In the receipt of a ContractCreate, the id of the newly created contract | |
+| exchangeRate | [ExchangeRateSet](#ExchangeRateSet) |  The exchange rates in effect when the transaction reached consensus | |
+| topicID | [TopicID](#TopicID) |  In the receipt of a ConsensusCreateTopic, the id of the newly created topic. | |
+| topicSequenceNumber |  |  In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that received the message | |
+| topicRunningHash |  |  In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>Otherwise, IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes) | |
+| topicRunningHashVersion |  |  In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash. | |
 
 
 <a name="TransactionRecord.proto"></a>
