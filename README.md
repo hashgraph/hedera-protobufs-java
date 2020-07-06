@@ -34,6 +34,10 @@ cd docgenerator
 java -jar proto2html.jar "HAPI Documentation" ../src/main/proto/ ../docs
 ```
 
+```shell
+cd ..
+```
+
 Commit all changes to github
 
 `mvn release:clean release:prepare` (you will be prompted to confirm version numbers, etc...)
