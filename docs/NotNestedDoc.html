@@ -83,6 +83,8 @@
 <a href=#ConsensusSubmitMessage.proto>ConsensusSubmitMessage.proto</a>
 <ul>
 <li>
+<a href="#ConsensusMessageChunkInfo"><span class="badge">M</span>ConsensusMessageChunkInfo</a></li>
+<li>
 <a href="#ConsensusSubmitMessageTransactionBody"><span class="badge">M</span>ConsensusSubmitMessageTransactionBody</a></li>
 </ul>
 <a href=#ConsensusTopicInfo.proto>ConsensusTopicInfo.proto</a>
@@ -1730,6 +1732,38 @@
 <H2 id="ConsensusSubmitMessage.proto">ConsensusSubmitMessage.proto</H2>
 <a href="#title">Top</a>
 </div>
+<H3 id="ConsensusMessageChunkInfo"><span class="BigBadge">Message</span>ConsensusMessageChunkInfo</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>initialTransactionID</TD>
+<TD><a href="#TransactionID">TransactionID</a></TD>
+<TD><P>TransactionID of the first chunk, gets copied to every subsequent chunk in a fragmented message.</P></TD>
+</TR>
+
+<TR>
+<TD>total</TD>
+<TD>int32</TD>
+<TD><P>The total number of chunks in the message.</P></TD>
+</TR>
+
+<TR>
+<TD>number</TD>
+<TD>int32</TD>
+<TD><P>The sequence number (from 1 to total) of the current chunk in the message.</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
 <H3 id="ConsensusSubmitMessageTransactionBody"><span class="BigBadge">Message</span>ConsensusSubmitMessageTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -1750,7 +1784,13 @@
 <TR>
 <TD>message</TD>
 <TD>bytes</TD>
-<TD><P>Message to be submitted. Max size of the Transaction (including signatures) is 4kB.</P></TD>
+<TD><P>Message to be submitted. Max size of the Transaction (including signatures) is 6KiB.</P></TD>
+</TR>
+
+<TR>
+<TD>chunkInfo</TD>
+<TD><a href="#ConsensusMessageChunkInfo">ConsensusMessageChunkInfo</a></TD>
+<TD><P>Optional information of the current chunk in a fragmented message.</P></TD>
 </TR>
 
 <tbody>
@@ -5449,6 +5489,16 @@
 <TR>
 <TD>TOPIC_EXPIRED</TD>
 <TD><P> The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be<BR>deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported<BR>by HAPI.</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_CHUNK_NUMBER</TD>
+<TD><P>chunk number must be from 1 to total (chunks) inclusive.</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_CHUNK_TRANSACTION_ID</TD>
+<TD><P>For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1.</P></TD>
 </TR>
 
 <tbody>

@@ -46,6 +46,7 @@
   - [ConsensusService](#ConsensusService) (Service)
 
 - [ConsensusSubmitMessage.proto](#ConsensusSubmitMessage.proto)
+  - [ConsensusMessageChunkInfo](#ConsensusMessageChunkInfo)
   - [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody)
 
 - [ConsensusTopicInfo.proto](#ConsensusTopicInfo.proto)
@@ -711,6 +712,18 @@
 
 ## ConsensusSubmitMessage.proto
 
+<a name="ConsensusMessageChunkInfo"></a>
+
+### ConsensusMessageChunkInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| initialTransactionID | [TransactionID](#TransactionID) | TransactionID of the first chunk, gets copied to every subsequent chunk in a fragmented message. | |
+| total |  | The total number of chunks in the message. | |
+| number |  | The sequence number (from 1 to total) of the current chunk in the message. | |
+
+
 <a name="ConsensusSubmitMessageTransactionBody"></a>
 
 ### ConsensusSubmitMessageTransactionBody
@@ -719,7 +732,8 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | topicID | [TopicID](#TopicID) | Topic to submit message to. | |
-| message |  | Message to be submitted. Max size of the Transaction (including signatures) is 4kB. | |
+| message |  | Message to be submitted. Max size of the Transaction (including signatures) is 6KiB. | |
+| chunkInfo | [ConsensusMessageChunkInfo](#ConsensusMessageChunkInfo) | Optional information of the current chunk in a fragmented message. | |
 
 
 <a name="ConsensusTopicInfo.proto"></a>
@@ -2085,6 +2099,8 @@
 | INVALID_AUTORENEW_ACCOUNT | The autoRenewAccount specified is not a valid, active account. |
 | AUTORENEW_ACCOUNT_NOT_ALLOWED |  An adminKey was not specified on the topic, so there must not be an autoRenewAccount. |
 | TOPIC_EXPIRED |  The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be<BR>deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported<BR>by HAPI. |
+| INVALID_CHUNK_NUMBER | chunk number must be from 1 to total (chunks) inclusive. |
+| INVALID_CHUNK_TRANSACTION_ID | For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1. |
 
 
 <a name="ResponseHeader.proto"></a>
