@@ -50,6 +50,8 @@
         <os.plugin.version>1.6.0</os.plugin.version>
         <protobuf.plugin.version>0.5.0</protobuf.plugin.version>
         <protoc.version>3.5.1</protoc.version>
+        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.target>12</maven.compiler.target>
     </properties>
 
     <dependencies>
