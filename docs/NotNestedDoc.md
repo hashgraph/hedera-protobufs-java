@@ -86,10 +86,6 @@
 - [ContractUpdate.proto](#ContractUpdate.proto)
   - [ContractUpdateTransactionBody](#ContractUpdateTransactionBody)
 
-- [CryptoAddClaim.proto](#CryptoAddClaim.proto)
-  - [Claim](#Claim)
-  - [CryptoAddClaimTransactionBody](#CryptoAddClaimTransactionBody)
-
 - [CryptoAddLiveHash.proto](#CryptoAddLiveHash.proto)
   - [CryptoAddLiveHashTransactionBody](#CryptoAddLiveHashTransactionBody)
   - [LiveHash](#LiveHash)
@@ -99,9 +95,6 @@
 
 - [CryptoDelete.proto](#CryptoDelete.proto)
   - [CryptoDeleteTransactionBody](#CryptoDeleteTransactionBody)
-
-- [CryptoDeleteClaim.proto](#CryptoDeleteClaim.proto)
-  - [CryptoDeleteClaimTransactionBody](#CryptoDeleteClaimTransactionBody)
 
 - [CryptoDeleteLiveHash.proto](#CryptoDeleteLiveHash.proto)
   - [CryptoDeleteLiveHashTransactionBody](#CryptoDeleteLiveHashTransactionBody)
@@ -113,10 +106,6 @@
 - [CryptoGetAccountRecords.proto](#CryptoGetAccountRecords.proto)
   - [CryptoGetAccountRecordsQuery](#CryptoGetAccountRecordsQuery)
   - [CryptoGetAccountRecordsResponse](#CryptoGetAccountRecordsResponse)
-
-- [CryptoGetClaim.proto](#CryptoGetClaim.proto)
-  - [CryptoGetClaimQuery](#CryptoGetClaimQuery)
-  - [CryptoGetClaimResponse](#CryptoGetClaimResponse)
 
 - [CryptoGetInfo.proto](#CryptoGetInfo.proto)
   - [CryptoGetInfoQuery](#CryptoGetInfoQuery)
@@ -712,6 +701,8 @@
 
 ## ConsensusSubmitMessage.proto
 
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+
 <a name="ConsensusMessageChunkInfo"></a>
 
 ### ConsensusMessageChunkInfo
@@ -1030,36 +1021,6 @@
 | memo |  |  The new contract memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes) | |
 
 
-<a name="CryptoAddClaim.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## CryptoAddClaim.proto
-
- A hash (presumably of some kind of credential or certificate), along with a list of keys (each of which is either a primitive or a threshold key). Each of them must reach its threshold when signing the transaction, to attach this claim to this account. At least one of them must reach its threshold to delete this Claim from this account. This is intended to provide a revocation service: all the authorities agree to attach the hash, to attest to the fact that the credential or certificate is valid. Any one of the authorities can later delete the hash, to indicate that the credential has been revoked. In this way, any client can prove to a third party that any particular account has certain credentials, or to identity facts proved about it, and that none of them have been revoked yet. 
-
-<a name="Claim"></a>
-
-### Claim
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| accountID | [AccountID](#AccountID) | the account to which the claim is attached | |
-| hash |  | 48 byte SHA-384 hash (presumably of some kind of credential or certificate) | |
-| keys | [KeyList](#KeyList) | list of keys: all must sign the transaction to attach the claim, and any one of them can later delete it. Each "key" can actually be a threshold key containing multiple other keys (including other threshold keys). | |
-| claimDuration | [Duration](#Duration) | the duration for which the claim will remain valid | |
-
-
-<a name="CryptoAddClaimTransactionBody"></a>
-
-### CryptoAddClaimTransactionBody
- Attach the given hash to the given account. The hash can be deleted by the keys used to transfer money from the account. The hash can also be deleted by any one of the deleteKeys (where that one may itself be a threshold key made up of multiple keys). Therefore, this acts as a revocation service for claims about the account. External authorities may issue certificates or credentials of some kind that make a claim about this account. The account owner can then attach a hash of that claim to the account. The transaction that adds the claim will be signed by the owner of the account, and also by all the authorities that are attesting to the truth of that claim. If the claim ever ceases to be true, such as when a certificate is revoked, then any one of the listed authorities has the ability to delete it. The account owner also has the ability to delete it at any time.<BR>In this way, it acts as a revocation server, and the account owner can prove to any third party that the claim is still true for this account, by sending the third party the signed credential, and then having the third party query to discover whether the hash of that credential is still attached to the account.<BR>For a given account, each Claim must contain a different hash. To modify the list of keys in a Claim, the existing Claim should first be deleted, then the Claim with the new list of keys can be added.
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| claim | [Claim](#Claim) | A hash of some credential/certificate, along with the keys that authorized it and are allowed to delete it | |
-
-
 <a name="CryptoAddLiveHash.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -1130,24 +1091,6 @@
 | ----- | ---- | ----------- | - |
 | transferAccountID | [AccountID](#AccountID) | The account ID which will receive all remaining hbars | |
 | deleteAccountID | [AccountID](#AccountID) | The account ID which should be deleted | |
-
-
-<a name="CryptoDeleteClaim.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## CryptoDeleteClaim.proto
-
- Delete a claim hash that was attached to the given account. This transaction is valid if signed by all the keys used for transfers out of the account. It is also valid if signed by any single ThresholdKeys in the deleteKeys list for this hash. See CryptoAddClaimTransaction for more information about claim hashes. 
-
-<a name="CryptoDeleteClaimTransactionBody"></a>
-
-### CryptoDeleteClaimTransactionBody
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| accountIDToDeleteFrom | [AccountID](#AccountID) | The account ID that should have a claim deleted | |
-| hashToDelete |  | The hash in the claim to delete (a SHA-384 hash, 48 bytes) | |
 
 
 <a name="CryptoDeleteLiveHash.proto"></a>
@@ -1228,36 +1171,6 @@
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
 | accountID | [AccountID](#AccountID) | The account that this record is for | |
 | records | [TransactionRecord](#TransactionRecord) | List of records, each with CryptoRecordBody as their body | |
-
-
-<a name="CryptoGetClaim.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## CryptoGetClaim.proto
-
- Get a single claim attached to an account, or return null if it does not exist. 
-
-<a name="CryptoGetClaimQuery"></a>
-
-### CryptoGetClaimQuery
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
-| accountID | [AccountID](#AccountID) | The account ID to which the claim was attached | |
-| hash |  | The hash of the claim | |
-
-
-<a name="CryptoGetClaimResponse"></a>
-
-### CryptoGetClaimResponse
- Response when the client sends the node CryptoGetClaimQuery. If the claim exists, there can be a state proof for that single claim. If the claim doesn't exist, then the state proof must be obtained for the account as a whole, which lists all the attached claims, which then proves that any claim not on the list must not exist. 
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
-| claim | [Claim](#Claim) | The claim (account, hash, keys), or null if there is no Claim with the given hash attached to the given account | |
 
 
 <a name="CryptoGetInfo.proto"></a>
@@ -1972,6 +1885,8 @@
 
 ## ResponseCode.proto
 
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+
 <a name="ResponseCodeEnum"></a>
 
 ### ResponseCodeEnum
@@ -2000,7 +1915,7 @@
 | RECEIPT_NOT_FOUND | Receipt for given transaction id does not exist |
 | RECORD_NOT_FOUND | Record for given transaction id does not exist |
 | INVALID_SOLIDITY_ID | The solidity id is invalid or entity with this solidity id does not exist |
-| UNKNOWN | Transaction hasn't yet reached consensus, or has already expired |
+| UNKNOWN | The responding node has submitted the transaction to the network. Its final status is still unknown. |
 | SUCCESS | The transaction succeeded |
 | FAIL_INVALID | There was a system error and the transaction failed because of invalid request parameters. |
 | FAIL_FEE | There was a system error while performing fee calculation, reserved for future. |
@@ -2048,7 +1963,7 @@
 | CONTRACT_DELETED | Contract is marked as deleted |
 | PLATFORM_NOT_ACTIVE | the platform node is either disconnected or lagging behind. |
 | KEY_PREFIX_MISMATCH | one public key matches more than one prefixes on the signature map |
-| PLATFORM_TRANSACTION_NOT_CREATED | transaction not created by platform due to either large backlog or message size exceeded transactionMaxBytes |
+| PLATFORM_TRANSACTION_NOT_CREATED | transaction not created by platform due to large backlog |
 | INVALID_RENEWAL_PERIOD | auto renewal period is not a positive number of seconds |
 | INVALID_PAYER_ACCOUNT_ID | the response code when a smart contract id is passed for a crypto API request |
 | ACCOUNT_DELETED | the account has been marked as deleted |
@@ -2382,7 +2297,7 @@
 | exchangeRate | [ExchangeRateSet](#ExchangeRateSet) |  The exchange rates in effect when the transaction reached consensus | |
 | topicID | [TopicID](#TopicID) |  In the receipt of a ConsensusCreateTopic, the id of the newly created topic. | |
 | topicSequenceNumber |  |  In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that received the message | |
-| topicRunningHash |  |  In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>Otherwise, IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes) | |
+| topicRunningHash |  |  In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)<BR><BR>Otherwise, IF the topicRunningHashVersion is '3', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The payer account's shard (8 bytes)<BR>4. The payer account's realm (8 bytes)<BR>5. The payer account's number (8 bytes)<BR>6. The topic's shard (8 bytes)<BR>7. The topic's realm (8 bytes)<BR>8. The topic's number (8 bytes)<BR>9. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>10. The number of nanoseconds since 9. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>11. The topicSequenceNumber from above (8 bytes)<BR>12. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes) | |
 | topicRunningHashVersion |  |  In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash. | |
 
 

@@ -151,13 +151,6 @@
 <li>
 <a href="#ContractUpdateTransactionBody"><span class="badge">M</span>ContractUpdateTransactionBody</a></li>
 </ul>
-<a href=#CryptoAddClaim.proto>CryptoAddClaim.proto</a>
-<ul>
-<li>
-<a href="#Claim"><span class="badge">M</span>Claim</a></li>
-<li>
-<a href="#CryptoAddClaimTransactionBody"><span class="badge">M</span>CryptoAddClaimTransactionBody</a></li>
-</ul>
 <a href=#CryptoAddLiveHash.proto>CryptoAddLiveHash.proto</a>
 <ul>
 <li>
@@ -174,11 +167,6 @@
 <ul>
 <li>
 <a href="#CryptoDeleteTransactionBody"><span class="badge">M</span>CryptoDeleteTransactionBody</a></li>
-</ul>
-<a href=#CryptoDeleteClaim.proto>CryptoDeleteClaim.proto</a>
-<ul>
-<li>
-<a href="#CryptoDeleteClaimTransactionBody"><span class="badge">M</span>CryptoDeleteClaimTransactionBody</a></li>
 </ul>
 <a href=#CryptoDeleteLiveHash.proto>CryptoDeleteLiveHash.proto</a>
 <ul>
@@ -198,13 +186,6 @@
 <a href="#CryptoGetAccountRecordsQuery"><span class="badge">M</span>CryptoGetAccountRecordsQuery</a></li>
 <li>
 <a href="#CryptoGetAccountRecordsResponse"><span class="badge">M</span>CryptoGetAccountRecordsResponse</a></li>
-</ul>
-<a href=#CryptoGetClaim.proto>CryptoGetClaim.proto</a>
-<ul>
-<li>
-<a href="#CryptoGetClaimQuery"><span class="badge">M</span>CryptoGetClaimQuery</a></li>
-<li>
-<a href="#CryptoGetClaimResponse"><span class="badge">M</span>CryptoGetClaimResponse</a></li>
 </ul>
 <a href=#CryptoGetInfo.proto>CryptoGetInfo.proto</a>
 <ul>
@@ -1732,6 +1713,7 @@
 <H2 id="ConsensusSubmitMessage.proto">ConsensusSubmitMessage.proto</H2>
 <a href="#title">Top</a>
 </div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
 <H3 id="ConsensusMessageChunkInfo"><span class="BigBadge">Message</span>ConsensusMessageChunkInfo</H3>
 <P></P>
 <table class="field-table">
@@ -2580,69 +2562,6 @@
 </TABLE>
 
 <div class="file-heading">
-<H2 id="CryptoAddClaim.proto">CryptoAddClaim.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P> A hash (presumably of some kind of credential or certificate), along with a list of keys (each of which is either a primitive or a threshold key). Each of them must reach its threshold when signing the transaction, to attach this claim to this account. At least one of them must reach its threshold to delete this Claim from this account. This is intended to provide a revocation service: all the authorities agree to attach the hash, to attest to the fact that the credential or certificate is valid. Any one of the authorities can later delete the hash, to indicate that the credential has been revoked. In this way, any client can prove to a third party that any particular account has certain credentials, or to identity facts proved about it, and that none of them have been revoked yet. </P>
-<H3 id="Claim"><span class="BigBadge">Message</span>Claim</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>accountID</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>the account to which the claim is attached</P></TD>
-</TR>
-
-<TR>
-<TD>hash</TD>
-<TD>bytes</TD>
-<TD><P>48 byte SHA-384 hash (presumably of some kind of credential or certificate)</P></TD>
-</TR>
-
-<TR>
-<TD>keys</TD>
-<TD><a href="#KeyList">KeyList</a></TD>
-<TD><P>list of keys: all must sign the transaction to attach the claim, and any one of them can later delete it. Each "key" can actually be a threshold key containing multiple other keys (including other threshold keys).</P></TD>
-</TR>
-
-<TR>
-<TD>claimDuration</TD>
-<TD><a href="#Duration">Duration</a></TD>
-<TD><P>the duration for which the claim will remain valid</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="CryptoAddClaimTransactionBody"><span class="BigBadge">Message</span>CryptoAddClaimTransactionBody</H3>
-<P> Attach the given hash to the given account. The hash can be deleted by the keys used to transfer money from the account. The hash can also be deleted by any one of the deleteKeys (where that one may itself be a threshold key made up of multiple keys). Therefore, this acts as a revocation service for claims about the account. External authorities may issue certificates or credentials of some kind that make a claim about this account. The account owner can then attach a hash of that claim to the account. The transaction that adds the claim will be signed by the owner of the account, and also by all the authorities that are attesting to the truth of that claim. If the claim ever ceases to be true, such as when a certificate is revoked, then any one of the listed authorities has the ability to delete it. The account owner also has the ability to delete it at any time.<BR>In this way, it acts as a revocation server, and the account owner can prove to any third party that the claim is still true for this account, by sending the third party the signed credential, and then having the third party query to discover whether the hash of that credential is still attached to the account.<BR>For a given account, each Claim must contain a different hash. To modify the list of keys in a Claim, the existing Claim should first be deleted, then the Claim with the new list of keys can be added.</P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>claim</TD>
-<TD><a href="#Claim">Claim</a></TD>
-<TD><P>A hash of some credential/certificate, along with the keys that authorized it and are allowed to delete it</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
 <H2 id="CryptoAddLiveHash.proto">CryptoAddLiveHash.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -2809,37 +2728,6 @@
 <TD>deleteAccountID</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
 <TD><P>The account ID which should be deleted</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="CryptoDeleteClaim.proto">CryptoDeleteClaim.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P> Delete a claim hash that was attached to the given account. This transaction is valid if signed by all the keys used for transfers out of the account. It is also valid if signed by any single ThresholdKeys in the deleteKeys list for this hash. See CryptoAddClaimTransaction for more information about claim hashes. </P>
-<H3 id="CryptoDeleteClaimTransactionBody"><span class="BigBadge">Message</span>CryptoDeleteClaimTransactionBody</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>accountIDToDeleteFrom</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The account ID that should have a claim deleted</P></TD>
-</TR>
-
-<TR>
-<TD>hashToDelete</TD>
-<TD>bytes</TD>
-<TD><P>The hash in the claim to delete (a SHA-384 hash, 48 bytes)</P></TD>
 </TR>
 
 <tbody>
@@ -3023,69 +2911,6 @@
 <TD>records</TD>
 <TD><a href="#TransactionRecord">TransactionRecord</a> (repeated)</TD>
 <TD><P>List of records, each with CryptoRecordBody as their body</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="CryptoGetClaim.proto">CryptoGetClaim.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P> Get a single claim attached to an account, or return null if it does not exist. </P>
-<H3 id="CryptoGetClaimQuery"><span class="BigBadge">Message</span>CryptoGetClaimQuery</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>header</TD>
-<TD><a href="#QueryHeader">QueryHeader</a></TD>
-<TD><P>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).</P></TD>
-</TR>
-
-<TR>
-<TD>accountID</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The account ID to which the claim was attached</P></TD>
-</TR>
-
-<TR>
-<TD>hash</TD>
-<TD>bytes</TD>
-<TD><P>The hash of the claim</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="CryptoGetClaimResponse"><span class="BigBadge">Message</span>CryptoGetClaimResponse</H3>
-<P> Response when the client sends the node CryptoGetClaimQuery. If the claim exists, there can be a state proof for that single claim. If the claim doesn't exist, then the state proof must be obtained for the account as a whole, which lists all the attached claims, which then proves that any claim not on the list must not exist. </P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>header</TD>
-<TD><a href="#ResponseHeader">ResponseHeader</a></TD>
-<TD><P>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither</P></TD>
-</TR>
-
-<TR>
-<TD>claim</TD>
-<TD><a href="#Claim">Claim</a></TD>
-<TD><P>The claim (account, hash, keys), or null if there is no Claim with the given hash attached to the given account</P></TD>
 </TR>
 
 <tbody>
@@ -4881,6 +4706,7 @@
 <H2 id="ResponseCode.proto">ResponseCode.proto</H2>
 <a href="#title">Top</a>
 </div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
 <H3 id="ResponseCodeEnum"><span class="BigBadge">Enum</span>ResponseCodeEnum</H3>
 <P></P>
 <table class="enum-table">
@@ -4998,7 +4824,7 @@
 
 <TR>
 <TD>UNKNOWN</TD>
-<TD><P>Transaction hasn't yet reached consensus, or has already expired</P></TD>
+<TD><P>The responding node has submitted the transaction to the network. Its final status is still unknown.</P></TD>
 </TR>
 
 <TR>
@@ -5238,7 +5064,7 @@
 
 <TR>
 <TD>PLATFORM_TRANSACTION_NOT_CREATED</TD>
-<TD><P>transaction not created by platform due to either large backlog or message size exceeded transactionMaxBytes</P></TD>
+<TD><P>transaction not created by platform due to large backlog</P></TD>
 </TR>
 
 <TR>
@@ -6262,7 +6088,7 @@
 <TR>
 <TD>topicRunningHash</TD>
 <TD>bytes</TD>
-<TD><P> In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>Otherwise, IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)</P></TD>
+<TD><P> In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)<BR><BR>Otherwise, IF the topicRunningHashVersion is '3', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The payer account's shard (8 bytes)<BR>4. The payer account's realm (8 bytes)<BR>5. The payer account's number (8 bytes)<BR>6. The topic's shard (8 bytes)<BR>7. The topic's realm (8 bytes)<BR>8. The topic's number (8 bytes)<BR>9. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>10. The number of nanoseconds since 9. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>11. The topicSequenceNumber from above (8 bytes)<BR>12. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)</P></TD>
 </TR>
 
 <TR>
