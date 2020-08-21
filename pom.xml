@@ -5,7 +5,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.7.0-rc1</version>
+    <version>0.7.0-rc2-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
