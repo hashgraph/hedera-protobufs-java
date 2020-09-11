@@ -42,7 +42,6 @@ enum ResponseCodeEnum {
   BUSY = 12; //If API is throttled out
   NOT_SUPPORTED = 13; //The API is not currently supported
 
-
   INVALID_FILE_ID = 14; //The file id is invalid or does not exist
   INVALID_ACCOUNT_ID = 15; //The account id is invalid or does not exist
   INVALID_CONTRACT_ID = 16; //The contract id is invalid or does not exist
@@ -163,7 +162,7 @@ enum ResponseCodeEnum {
   INVALID_TOPIC_ID = 150; // The Topic ID specified is not in the system.
   INVALID_ADMIN_KEY = 155;
   INVALID_SUBMIT_KEY = 156;
-  UNAUTHORIZED = 157; // An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey).
+  UNAUTHORIZED = 157; // An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey, a tokenUpdate or tokenDelete for token with no adminKey).
   INVALID_TOPIC_MESSAGE = 158; // A ConsensusService message is empty.
   INVALID_AUTORENEW_ACCOUNT = 159; // The autoRenewAccount specified is not a valid, active account.
 
@@ -176,4 +175,32 @@ enum ResponseCodeEnum {
   TOPIC_EXPIRED = 162;
   INVALID_CHUNK_NUMBER = 163; // chunk number must be from 1 to total (chunks) inclusive.
   INVALID_CHUNK_TRANSACTION_ID = 164; // For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1.
+
+  ACCOUNT_FROZEN_FOR_TOKEN = 165;
+  TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED = 166;
+  INVALID_TOKEN_ID = 167;
+  INVALID_TOKEN_DIVISIBILITY = 168;
+  INVALID_TOKEN_FLOAT = 169;
+  INVALID_TREASURY_ACCOUNT_FOR_TOKEN = 170;
+  INVALID_TOKEN_SYMBOL = 171;
+  TOKEN_HAS_NO_FREEZE_KEY = 172;
+  TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN = 173;
+  MISSING_TOKEN_SYMBOL = 174;
+  TOKEN_SYMBOL_TOO_LONG = 175;
+  TOKEN_SYMBOL_ALREADY_IN_USE = 176;
+  INVALID_TOKEN_REF = 177;
+  ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN = 178;
+  TOKEN_HAS_NO_KYC_KEY = 179;
+  INSUFFICIENT_TOKEN_BALANCE = 180;
+  TOKEN_WAS_DELETED = 181;
+  TOKEN_HAS_NO_SUPPLY_KEY = 182;
+  TOKEN_HAS_NO_WIPE_KEY = 183;
+  INVALID_TOKEN_MINT_AMOUNT = 184;
+  INVALID_TOKEN_BURN_AMOUNT = 185;
+  ACCOUNT_HAS_NO_TOKEN_RELATIONSHIP = 186;
+  CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT = 187;
+  INVALID_KYC_KEY = 188;
+  INVALID_WIPE_KEY = 189;
+  INVALID_FREEZE_KEY = 190;
+  INVALID_SUPPLY_KEY = 191;
 }

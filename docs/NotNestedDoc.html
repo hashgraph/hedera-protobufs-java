@@ -52,6 +52,16 @@
 <li>
 <a href="#ThresholdSignature"><span class="badge">M</span>ThresholdSignature</a></li>
 <li>
+<a href="#TokenFreezeStatus"><span class="badge">E</span>TokenFreezeStatus</a></li>
+<li>
+<a href="#TokenID"><span class="badge">M</span>TokenID</a></li>
+<li>
+<a href="#TokenKycStatus"><span class="badge">E</span>TokenKycStatus</a></li>
+<li>
+<a href="#TokenRef"><span class="badge">M</span>TokenRef</a></li>
+<li>
+<a href="#TokenRelationship"><span class="badge">M</span>TokenRelationship</a></li>
+<li>
 <a href="#TopicID"><span class="badge">M</span>TopicID</a></li>
 <li>
 <a href="#TransactionFeeSchedule"><span class="badge">M</span>TransactionFeeSchedule</a></li>
@@ -179,6 +189,8 @@
 <a href="#CryptoGetAccountBalanceQuery"><span class="badge">M</span>CryptoGetAccountBalanceQuery</a></li>
 <li>
 <a href="#CryptoGetAccountBalanceResponse"><span class="badge">M</span>CryptoGetAccountBalanceResponse</a></li>
+<li>
+<a href="#TokenBalance"><span class="badge">M</span>TokenBalance</a></li>
 </ul>
 <a href=#CryptoGetAccountRecords.proto>CryptoGetAccountRecords.proto</a>
 <ul>
@@ -225,6 +237,8 @@
 <a href="#AccountAmount"><span class="badge">M</span>AccountAmount</a></li>
 <li>
 <a href="#CryptoTransferTransactionBody"><span class="badge">M</span>CryptoTransferTransactionBody</a></li>
+<li>
+<a href="#TokenTransferList"><span class="badge">M</span>TokenTransferList</a></li>
 <li>
 <a href="#TransferList"><span class="badge">M</span>TransferList</a></li>
 </ul>
@@ -375,6 +389,77 @@
 <li>
 <a href="#TimestampSeconds"><span class="badge">M</span>TimestampSeconds</a></li>
 </ul>
+<a href=#TokenBurnCoins.proto>TokenBurnCoins.proto</a>
+<ul>
+<li>
+<a href="#TokenBurnCoins"><span class="badge">M</span>TokenBurnCoins</a></li>
+</ul>
+<a href=#TokenCreate.proto>TokenCreate.proto</a>
+<ul>
+<li>
+<a href="#TokenCreation"><span class="badge">M</span>TokenCreation</a></li>
+</ul>
+<a href=#TokenDelete.proto>TokenDelete.proto</a>
+<ul>
+<li>
+<a href="#TokenDeletion"><span class="badge">M</span>TokenDeletion</a></li>
+</ul>
+<a href=#TokenFreeze.proto>TokenFreeze.proto</a>
+<ul>
+<li>
+<a href="#TokenFreeze"><span class="badge">M</span>TokenFreeze</a></li>
+</ul>
+<a href=#TokenGetInfo.proto>TokenGetInfo.proto</a>
+<ul>
+<li>
+<a href="#TokenGetInfoQuery"><span class="badge">M</span>TokenGetInfoQuery</a></li>
+<li>
+<a href="#TokenGetInfoResponse"><span class="badge">M</span>TokenGetInfoResponse</a></li>
+<li>
+<a href="#TokenInfo"><span class="badge">M</span>TokenInfo</a></li>
+</ul>
+<a href=#TokenGrantKyc.proto>TokenGrantKyc.proto</a>
+<ul>
+<li>
+<a href="#TokenGrantKyc"><span class="badge">M</span>TokenGrantKyc</a></li>
+</ul>
+<a href=#TokenManagement.proto>TokenManagement.proto</a>
+<ul>
+<li>
+<a href="#TokenManagement"><span class="badge">M</span>TokenManagement</a></li>
+</ul>
+<a href=#TokenMintCoins.proto>TokenMintCoins.proto</a>
+<ul>
+<li>
+<a href="#TokenMintCoins"><span class="badge">M</span>TokenMintCoins</a></li>
+</ul>
+<a href=#TokenRevokeKyc.proto>TokenRevokeKyc.proto</a>
+<ul>
+<li>
+<a href="#TokenRevokeKyc"><span class="badge">M</span>TokenRevokeKyc</a></li>
+</ul>
+<a href=#TokenService.proto>TokenService.proto</a>
+<ul>
+<li>
+<a href="#TokenService"><span class="badge">S</span>TokenService</a></li>
+</ul>
+<a href=#TokenTransact.proto>TokenTransact.proto</a>
+<ul>
+<li>
+<a href="#TokenTransfer"><span class="badge">M</span>TokenTransfer</a></li>
+<li>
+<a href="#TokenTransfers"><span class="badge">M</span>TokenTransfers</a></li>
+</ul>
+<a href=#TokenUnfreeze.proto>TokenUnfreeze.proto</a>
+<ul>
+<li>
+<a href="#TokenUnfreeze"><span class="badge">M</span>TokenUnfreeze</a></li>
+</ul>
+<a href=#TokenWipeAccount.proto>TokenWipeAccount.proto</a>
+<ul>
+<li>
+<a href="#TokenWipeAccount"><span class="badge">M</span>TokenWipeAccount</a></li>
+</ul>
 <a href=#Transaction.proto>Transaction.proto</a>
 <ul>
 <li>
@@ -384,11 +469,6 @@
 <ul>
 <li>
 <a href="#TransactionBody"><span class="badge">M</span>TransactionBody</a></li>
-</ul>
-<a href=#TransactionContents.proto>TransactionContents.proto</a>
-<ul>
-<li>
-<a href="#SignedTransaction"><span class="badge">M</span>SignedTransaction</a></li>
 </ul>
 <a href=#TransactionGetFastRecord.proto>TransactionGetFastRecord.proto</a>
 <ul>
@@ -425,6 +505,11 @@
 <ul>
 <li>
 <a href="#TransactionResponse"><span class="badge">M</span>TransactionResponse</a></li>
+</ul>
+<a href=#UncheckedSubmit.proto>UncheckedSubmit.proto</a>
+<ul>
+<li>
+<a href="#UncheckedSubmitBody"><span class="badge">M</span>UncheckedSubmitBody</a></li>
 </ul>
 </li>
 </ul>
@@ -913,6 +998,71 @@
 
 <TR>
 <TD>ConsensusSubmitMessage</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>UncheckedSubmit</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenCreate</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenTransact</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenGetInfo</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenFreezeAccount</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenUnfreezeAccount</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenGrantKycToAccount</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenRevokeKycFromAccount</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenDelete</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenUpdate</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenMint</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenBurn</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenAccountWipe</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1448,6 +1598,184 @@
 <TD>sigs</TD>
 <TD><a href="#SignatureList">SignatureList</a></TD>
 <TD><P>for an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenFreezeStatus"><span class="BigBadge">Enum</span>TokenFreezeStatus</H3>
+<P></P>
+<table class="enum-table">
+<thead>
+<TR>
+<TD>Enum Name</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>FreezeNotApplicable</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Frozen</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Unfrozen</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenID"><span class="BigBadge">Message</span>TokenID</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>shardNum</TD>
+<TD>int64</TD>
+<TD><P>A nonnegative shard number</P></TD>
+</TR>
+
+<TR>
+<TD>realmNum</TD>
+<TD>int64</TD>
+<TD><P>A nonnegative realm number</P></TD>
+</TR>
+
+<TR>
+<TD>tokenNum</TD>
+<TD>int64</TD>
+<TD><P>A nonnegative token number</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenKycStatus"><span class="BigBadge">Enum</span>TokenKycStatus</H3>
+<P></P>
+<table class="enum-table">
+<thead>
+<TR>
+<TD>Enum Name</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>KycNotApplicable</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Granted</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Revoked</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenRef"><span class="BigBadge">Message</span>TokenRef</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>ref</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+<tbody>
+</TABLE>
+
+<H3 id="TokenRelationship"><span class="BigBadge">Message</span>TokenRelationship</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>balance</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>kycStatus</TD>
+<TD><a href="#TokenKycStatus">TokenKycStatus</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>freezeStatus</TD>
+<TD><a href="#TokenFreezeStatus">TokenFreezeStatus</a></TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -2855,6 +3183,38 @@
 <TD><P>The current balance, in tinybars</P></TD>
 </TR>
 
+<TR>
+<TD>tokenBalances</TD>
+<TD><a href="#TokenBalance">TokenBalance</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenBalance"><span class="BigBadge">Message</span>TokenBalance</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>balance</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -3065,6 +3425,12 @@
 <TD>liveHashes</TD>
 <TD><a href="#LiveHash">LiveHash</a> (repeated)</TD>
 <TD><P>All of the livehashes attached to the account (each of which is a hash along with the keys that authorized it and can delete it)</P></TD>
+</TR>
+
+<TR>
+<TD>tokenRelationships</TD>
+<TD><a href="#TokenRelationship">TokenRelationship</a> (repeated)</TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -3363,6 +3729,32 @@
 <TD>transfers</TD>
 <TD><a href="#TransferList">TransferList</a></TD>
 <TD><P>Accounts and amounts to transfer</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenTransferList"><span class="BigBadge">Message</span>TokenTransferList</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>transfers</TD>
+<TD><a href="#AccountAmount">AccountAmount</a> (repeated)</TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -4347,6 +4739,10 @@
 <TD>getVersionInfo </TD><TD>Query</TD><TD>Response</TD>Retrieves the active versions of Hedera Services and HAPI proto<TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>uncheckedSubmit </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -4489,6 +4885,12 @@
 <TR>
 <TD>networkGetVersionInfo</TD>
 <TD><a href="#NetworkGetVersionInfoQuery">NetworkGetVersionInfoQuery</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenGetInfo</TD>
+<TD><a href="#TokenGetInfoQuery">TokenGetInfoQuery</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -4700,6 +5102,12 @@
 <TD>networkGetVersionInfo</TD>
 <TD><a href="#NetworkGetVersionInfoResponse">NetworkGetVersionInfoResponse</a></TD>
 <TD><P>Semantic versions of Hedera Services and HAPI proto</P></TD>
+</TR>
+
+<TR>
+<TD>tokenGetInfo</TD>
+<TD><a href="#TokenGetInfoResponse">TokenGetInfoResponse</a></TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -5299,7 +5707,7 @@
 
 <TR>
 <TD>UNAUTHORIZED</TD>
-<TD><P>An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey).</P></TD>
+<TD><P>An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey, a tokenUpdate or tokenDelete for token with no adminKey).</P></TD>
 </TR>
 
 <TR>
@@ -5330,6 +5738,141 @@
 <TR>
 <TD>INVALID_CHUNK_TRANSACTION_ID</TD>
 <TD><P>For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1.</P></TD>
+</TR>
+
+<TR>
+<TD>ACCOUNT_FROZEN_FOR_TOKEN</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_ID</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_DIVISIBILITY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_FLOAT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TREASURY_ACCOUNT_FOR_TOKEN</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_SYMBOL</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_FREEZE_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MISSING_TOKEN_SYMBOL</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_SYMBOL_TOO_LONG</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_SYMBOL_ALREADY_IN_USE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_REF</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_KYC_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INSUFFICIENT_TOKEN_BALANCE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_WAS_DELETED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_SUPPLY_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_WIPE_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_MINT_AMOUNT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_TOKEN_BURN_AMOUNT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ACCOUNT_HAS_NO_TOKEN_RELATIONSHIP</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_KYC_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_WIPE_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_FREEZE_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_SUPPLY_KEY</TD>
+<TD><P></P></TD>
 </TR>
 
 <tbody>
@@ -5599,6 +6142,673 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="TokenBurnCoins.proto">TokenBurnCoins.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenBurnCoins"><span class="BigBadge">Message</span>TokenBurnCoins</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenCreate.proto">TokenCreate.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="TokenCreation"><span class="BigBadge">Message</span>TokenCreation</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>float</TD>
+<TD>uint64</TD>
+<TD><P>The total number of tokens to put into circulation</P></TD>
+</TR>
+
+<TR>
+<TD>divisibility</TD>
+<TD>uint32</TD>
+<TD><P>The number of unit into which each token may be subdivided</P></TD>
+</TR>
+
+<TR>
+<TD>treasury</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The treasury account which should receive the initial float</P></TD>
+</TR>
+
+<TR>
+<TD>adminKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which must sign to modify this token's properties</P></TD>
+</TR>
+
+<TR>
+<TD>kycKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which must sign to grant or revoke KYC of an account for token transactions</P></TD>
+</TR>
+
+<TR>
+<TD>freezeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
+</TR>
+
+<TR>
+<TD>wipeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
+</TR>
+
+<TR>
+<TD>supplyKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
+</TR>
+
+<TR>
+<TD>freezeDefault</TD>
+<TD>bool</TD>
+<TD><P>The default status (frozen or unfrozen) of Hedera accounts relative to this token</P></TD>
+</TR>
+
+<TR>
+<TD>kycDefault</TD>
+<TD>bool</TD>
+<TD><P>The default KYC status (granted or revoked) of Hedera accounts relative to this token</P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P>The case-insensitive UTF-8 alphanumeric string identifying the token</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenDelete.proto">TokenDelete.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenDeletion"><span class="BigBadge">Message</span>TokenDeletion</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenFreeze.proto">TokenFreeze.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenFreeze"><span class="BigBadge">Message</span>TokenFreeze</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenGetInfo.proto">TokenGetInfo.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenGetInfoQuery"><span class="BigBadge">Message</span>TokenGetInfoQuery</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#QueryHeader">QueryHeader</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenGetInfoResponse"><span class="BigBadge">Message</span>TokenGetInfoResponse</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>header</TD>
+<TD><a href="#ResponseHeader">ResponseHeader</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenInfo</TD>
+<TD><a href="#TokenInfo">TokenInfo</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenInfo"><span class="BigBadge">Message</span>TokenInfo</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>treasury</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>currentFloat</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>divisibility</TD>
+<TD>uint32</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>adminKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>kycKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>freezeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>wipeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>supplyKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>defaultFreezeStatus</TD>
+<TD><a href="#TokenFreezeStatus">TokenFreezeStatus</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>defaultKycStatus</TD>
+<TD><a href="#TokenKycStatus">TokenKycStatus</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>isDeleted</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenGrantKyc.proto">TokenGrantKyc.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenGrantKyc"><span class="BigBadge">Message</span>TokenGrantKyc</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenManagement.proto">TokenManagement.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenManagement"><span class="BigBadge">Message</span>TokenManagement</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>treasury</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>adminKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>kycKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>freezeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>wipeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>supplyKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenMintCoins.proto">TokenMintCoins.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenMintCoins"><span class="BigBadge">Message</span>TokenMintCoins</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenRevokeKyc.proto">TokenRevokeKyc.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenRevokeKyc"><span class="BigBadge">Message</span>TokenRevokeKyc</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenService.proto">TokenService.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> The requests and responses for different network services. </P>
+<H3 id="TokenService"><span class="BigBadge">Service</span>TokenService</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>RPC</TD>
+<TD>Request</TD>
+<TD>Response</TD>
+<TD>Comments</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>mintToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>burnToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>createToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>updateToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>deleteToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>transferTokens </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>wipeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>freezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>unfreezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>grantKycToTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>revokeKycFromTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>getTokenInfo </TD><TD>Query</TD><TD>Response</TD><TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenTransact.proto">TokenTransact.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenTransfer"><span class="BigBadge">Message</span>TokenTransfer</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD><a href="#sint64">sint64</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenTransfers"><span class="BigBadge">Message</span>TokenTransfers</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>transfers</TD>
+<TD><a href="#TokenTransfer">TokenTransfer</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenUnfreeze.proto">TokenUnfreeze.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenUnfreeze"><span class="BigBadge">Message</span>TokenUnfreeze</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenWipeAccount.proto">TokenWipeAccount.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="TokenWipeAccount"><span class="BigBadge">Message</span>TokenWipeAccount</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenRef">TokenRef</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="Transaction.proto">Transaction.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -5615,15 +6825,41 @@
 </thead>
 <tbody>
 <TR>
-<TD>signedTransactionBytes</TD>
-<TD>bytes</TD>
-<TD><P>SignedTransaction serialized into bytes</P></TD>
+<TD>bodyData</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>body</TD>
+<TD><a href="#TransactionBody">TransactionBody</a></TD>
+<TD><P>the body of the transaction, which needs to be signed</P></TD>
 </TR>
 
 <TR>
 <TD>bodyBytes</TD>
 <TD>bytes</TD>
-<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
+<TD><P>TransactionBody serialized into bytes , which needs to be signed</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+<TR>
+<TD>sigs</TD>
+<TD><a href="#SignatureList">SignatureList</a></TD>
+<TD><P>The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field</P></TD>
 </TR>
 
 <TR>
@@ -5831,39 +7067,80 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>uncheckedSubmit</TD>
+<TD><a href="#UncheckedSubmitBody">UncheckedSubmitBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenCreation</TD>
+<TD><a href="#TokenCreation">TokenCreation</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenTransfers</TD>
+<TD><a href="#TokenTransfers">TokenTransfers</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenFreeze</TD>
+<TD><a href="#TokenFreeze">TokenFreeze</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenUnfreeze</TD>
+<TD><a href="#TokenUnfreeze">TokenUnfreeze</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenGrantKyc</TD>
+<TD><a href="#TokenGrantKyc">TokenGrantKyc</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenRevokeKyc</TD>
+<TD><a href="#TokenRevokeKyc">TokenRevokeKyc</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenDeletion</TD>
+<TD><a href="#TokenDeletion">TokenDeletion</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenUpdate</TD>
+<TD><a href="#TokenManagement">TokenManagement</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenMint</TD>
+<TD><a href="#TokenMintCoins">TokenMintCoins</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenBurn</TD>
+<TD><a href="#TokenBurnCoins">TokenBurnCoins</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenWipe</TD>
+<TD><a href="#TokenWipeAccount">TokenWipeAccount</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="TransactionContents.proto">TransactionContents.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="SignedTransaction"><span class="BigBadge">Message</span>SignedTransaction</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>bodyBytes</TD>
-<TD>bytes</TD>
-<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
-</TR>
-
-<TR>
-<TD>sigMap</TD>
-<TD><a href="#SignatureMap">SignatureMap</a></TD>
-<TD><P>The signatures on the body with the new format, to authorize the transaction</P></TD>
-</TR>
-
 <tbody>
 </TABLE>
 
@@ -5952,6 +7229,12 @@
 <TD><P>The ID of the transaction for which the receipt is requested.</P></TD>
 </TR>
 
+<TR>
+<TD>includeDuplicates</TD>
+<TD>bool</TD>
+<TD><P>Whether receipts of processing duplicate transactions should be returned along with the receipt of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such receipt exists, the receipt of processing the first transaction to reach consensus with the given transaction id..</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -5975,7 +7258,13 @@
 <TR>
 <TD>receipt</TD>
 <TD><a href="#TransactionReceipt">TransactionReceipt</a></TD>
-<TD><P>The receipt, indicating it reached consensus (and whether it succeeded or failed) or is currently unknown (because it hasn't reached consensus yet, or the transaction has expired already), and including the ID of any new account/file/instance created by that transaction.</P></TD>
+<TD><P>Either the receipt of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such receipt exists, the receipt of processing the first transaction to reach consensus with the given transaction id.</P></TD>
+</TR>
+
+<TR>
+<TD>duplicateTransactionReceipts</TD>
+<TD><a href="#TransactionReceipt">TransactionReceipt</a> (repeated)</TD>
+<TD><P>The receipts of processing all consensus transaction with the same id as the distinguished receipt above, in chronological order.</P></TD>
 </TR>
 
 <tbody>
@@ -6009,6 +7298,12 @@
 <TD><P>The ID of the transaction for which the record is requested.</P></TD>
 </TR>
 
+<TR>
+<TD>includeDuplicates</TD>
+<TD>bool</TD>
+<TD><P>Whether records of processing duplicate transactions should be returned along with the record of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such record exists, the record of processing the first transaction to reach consensus with the given transaction id..</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -6032,7 +7327,13 @@
 <TR>
 <TD>transactionRecord</TD>
 <TD><a href="#TransactionRecord">TransactionRecord</a></TD>
-<TD><P>The requested record</P></TD>
+<TD><P>Either the record of processing the first consensus transaction with the given id whose status was neither <tt>INVALID_NODE_ACCOUNT</tt> nor <tt>INVALID_PAYER_SIGNATURE</tt>; <b>or</b>, if no such record exists, the record of processing the first transaction to reach consensus with the given transaction id.</P></TD>
+</TR>
+
+<TR>
+<TD>duplicateTransactionRecords</TD>
+<TD><a href="#TransactionRecord">TransactionRecord</a> (repeated)</TD>
+<TD><P>The records of processing all consensus transaction with the same id as the distinguished record above, in chronological order.</P></TD>
 </TR>
 
 <tbody>
@@ -6105,6 +7406,12 @@
 <TD>topicRunningHashVersion</TD>
 <TD>uint64</TD>
 <TD><P> In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash.</P></TD>
+</TR>
+
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P> In the receipt of a CreateToken, the id of the newly created token</P></TD>
 </TR>
 
 <tbody>
@@ -6200,6 +7507,12 @@
 <TD><P>All hbar transfers as a result of this transaction, such as fees, or transfers performed by the transaction, or by a smart contract it calls, or by the creation of threshold records that it triggers.</P></TD>
 </TR>
 
+<TR>
+<TD>tokenTransferLists</TD>
+<TD><a href="#TokenTransferList">TokenTransferList</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -6229,6 +7542,30 @@
 <TD>cost</TD>
 <TD>uint64</TD>
 <TD><P>If the response code was INSUFFICIENT_TX_FEE, the actual transaction fee that would be required to execute the transaction.</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="UncheckedSubmit.proto">UncheckedSubmit.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="UncheckedSubmitBody"><span class="BigBadge">Message</span>UncheckedSubmitBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>transactionBytes</TD>
+<TD>bytes</TD>
+<TD><P>The serialized bytes of the Transaction to be submitted without prechecks</P></TD>
 </TR>
 
 <tbody>
