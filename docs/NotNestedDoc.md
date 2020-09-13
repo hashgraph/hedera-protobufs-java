@@ -271,6 +271,9 @@
 - [TransactionBody.proto](#TransactionBody.proto)
   - [TransactionBody](#TransactionBody)
 
+- [TransactionContents.proto](#TransactionContents.proto)
+  - [SignedTransaction](#SignedTransaction)
+
 - [TransactionGetFastRecord.proto](#TransactionGetFastRecord.proto)
   - [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery)
   - [TransactionGetFastRecordResponse](#TransactionGetFastRecordResponse)
@@ -2621,10 +2624,8 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| bodyData | oneof |  | |
-| | body | [TransactionBody](#TransactionBody) | the body of the transaction, which needs to be signed | |
-| | bodyBytes |  | TransactionBody serialized into bytes , which needs to be signed | |
-| sigs | [SignatureList](#SignatureList) | The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field | |
+| signedTransactionBytes |  | SignedTransaction serialized into bytes | |
+| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
 | sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
@@ -2682,6 +2683,24 @@
 | | tokenMint | [TokenMintCoins](#TokenMintCoins) |  | |
 | | tokenBurn | [TokenBurnCoins](#TokenBurnCoins) |  | |
 | | tokenWipe | [TokenWipeAccount](#TokenWipeAccount) |  | |
+
+
+<a name="TransactionContents.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TransactionContents.proto
+
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+
+<a name="SignedTransaction"></a>
+
+### SignedTransaction
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
+| sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
 <a name="TransactionGetFastRecord.proto"></a>
