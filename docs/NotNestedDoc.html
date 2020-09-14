@@ -470,11 +470,6 @@
 <li>
 <a href="#TransactionBody"><span class="badge">M</span>TransactionBody</a></li>
 </ul>
-<a href=#TransactionContents.proto>TransactionContents.proto</a>
-<ul>
-<li>
-<a href="#SignedTransaction"><span class="badge">M</span>SignedTransaction</a></li>
-</ul>
 <a href=#TransactionGetFastRecord.proto>TransactionGetFastRecord.proto</a>
 <ul>
 <li>
@@ -2998,13 +2993,13 @@
 <TR>
 <TD>sendRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P>The threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction</P></TD>
+<TD><P>[Deprecated]. The threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction</P></TD>
 </TR>
 
 <TR>
 <TD>receiveRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P>The threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction</P></TD>
+<TD><P>[Deprecated]. The threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction</P></TD>
 </TR>
 
 <TR>
@@ -3399,13 +3394,13 @@
 <TR>
 <TD>generateSendRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P> The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold</P></TD>
+<TD><P> [Deprecated]. The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold</P></TD>
 </TR>
 
 <TR>
 <TD>generateReceiveRecordThreshold</TD>
 <TD>uint64</TD>
-<TD><P> The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold</P></TD>
+<TD><P> [Deprecated]. The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold</P></TD>
 </TR>
 
 <TR>
@@ -3851,7 +3846,7 @@
 <TR>
 <TD>sendRecordThresholdWrapper</TD>
 <TD><a href="#google.protobuf.UInt64Value">google.protobuf.UInt64Value</a></TD>
-<TD><P>The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction</P></TD>
+<TD><P>[Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction</P></TD>
 </TR>
 
 <tbody>
@@ -3883,7 +3878,7 @@
 <TR>
 <TD>receiveRecordThresholdWrapper</TD>
 <TD><a href="#google.protobuf.UInt64Value">google.protobuf.UInt64Value</a></TD>
-<TD><P>The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction.</P></TD>
+<TD><P>[Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction.</P></TD>
 </TR>
 
 <tbody>
@@ -5567,12 +5562,12 @@
 
 <TR>
 <TD>INVALID_RECEIVE_RECORD_THRESHOLD</TD>
-<TD><P>attempt to set negative receive record threshold</P></TD>
+<TD><P>[Deprecated]. attempt to set negative receive record threshold</P></TD>
 </TR>
 
 <TR>
 <TD>INVALID_SEND_RECORD_THRESHOLD</TD>
-<TD><P>attempt to set negative send record threshold</P></TD>
+<TD><P>[Deprecated]. attempt to set negative send record threshold</P></TD>
 </TR>
 
 <TR>
@@ -6830,15 +6825,41 @@
 </thead>
 <tbody>
 <TR>
-<TD>signedTransactionBytes</TD>
-<TD>bytes</TD>
-<TD><P>SignedTransaction serialized into bytes</P></TD>
+<TD>bodyData</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>body</TD>
+<TD><a href="#TransactionBody">TransactionBody</a></TD>
+<TD><P>the body of the transaction, which needs to be signed</P></TD>
 </TR>
 
 <TR>
 <TD>bodyBytes</TD>
 <TD>bytes</TD>
-<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
+<TD><P>TransactionBody serialized into bytes , which needs to be signed</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+<TR>
+<TD>sigs</TD>
+<TD><a href="#SignatureList">SignatureList</a></TD>
+<TD><P>The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field</P></TD>
 </TR>
 
 <TR>
@@ -7120,37 +7141,6 @@
 
 <tbody>
 </TABLE>
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="TransactionContents.proto">TransactionContents.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="SignedTransaction"><span class="BigBadge">Message</span>SignedTransaction</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>bodyBytes</TD>
-<TD>bytes</TD>
-<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
-</TR>
-
-<TR>
-<TD>sigMap</TD>
-<TD><a href="#SignatureMap">SignatureMap</a></TD>
-<TD><P>The signatures on the body with the new format, to authorize the transaction</P></TD>
-</TR>
-
 <tbody>
 </TABLE>
 

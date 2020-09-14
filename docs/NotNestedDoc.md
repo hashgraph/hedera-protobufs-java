@@ -271,9 +271,6 @@
 - [TransactionBody.proto](#TransactionBody.proto)
   - [TransactionBody](#TransactionBody)
 
-- [TransactionContents.proto](#TransactionContents.proto)
-  - [SignedTransaction](#SignedTransaction)
-
 - [TransactionGetFastRecord.proto](#TransactionGetFastRecord.proto)
   - [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery)
   - [TransactionGetFastRecordResponse](#TransactionGetFastRecordResponse)
@@ -1196,8 +1193,8 @@
 | key | [Key](#Key) | The key that must sign each transfer out of the account. If receiverSigRequired is true, then it must also sign any transfer into the account. | |
 | initialBalance |  | The initial number of tinybars to put into the account | |
 | proxyAccountID | [AccountID](#AccountID) | ID of the account to which this account is proxy staked. If proxyAccountID is null, or is an invalid account, or is an account that isn't a node, then this account is automatically proxy staked to a node chosen by the network, but without earning payments. If the proxyAccountID account refuses to accept proxy staking , or if it is not currently running a node, then it will behave as if proxyAccountID was null. | |
-| sendRecordThreshold |  | The threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
-| receiveRecordThreshold |  | The threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction | |
+| sendRecordThreshold |  | [Deprecated]. The threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
+| receiveRecordThreshold |  | [Deprecated]. The threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction | |
 | receiverSigRequired |  | If true, this account's key must sign any transaction depositing into this account (in addition to all withdrawals) | |
 | autoRenewPeriod | [Duration](#Duration) | The account is charged to extend its expiration date every this many seconds. If it doesn't have enough balance, it extends as long as possible. If it is empty when it expires, then it is deleted. | |
 | shardID | [ShardID](#ShardID) | The shard in which this account is created | |
@@ -1358,8 +1355,8 @@
 | proxyReceived |  | The total number of tinybars proxy staked to this account | |
 | key | [Key](#Key) | The key for the account, which must sign in order to transfer out, or to modify the account in any way other than extending its expiration date. | |
 | balance |  | The current balance of account in tinybars | |
-| generateSendRecordThreshold |  |  The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold | |
-| generateReceiveRecordThreshold |  |  The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold | |
+| generateSendRecordThreshold |  |  [Deprecated]. The threshold amount, in tinybars, at which a record is created of any transaction that decreases the balance of this account by more than the threshold | |
+| generateReceiveRecordThreshold |  |  [Deprecated]. The threshold amount, in tinybars, at which a record is created of any transaction that increases the balance of this account by more than the threshold | |
 | receiverSigRequired |  | If true, no transaction can transfer to this account unless signed by this account's key | |
 | expirationTime | [Timestamp](#Timestamp) | The TimeStamp time at which this account is set to expire | |
 | autoRenewPeriod | [Duration](#Duration) | The duration for expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted. | |
@@ -1543,10 +1540,10 @@
 | proxyFraction |  | [Deprecated]. Payments earned from proxy staking are shared between the node and this account, with proxyFraction / 10000 going to this account | |
 | sendRecordThresholdField | oneof |  | |
 | | sendRecordThreshold |  | [Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
-| | sendRecordThresholdWrapper | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) | The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
+| | sendRecordThresholdWrapper | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) | [Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any send/withdraw transaction | |
 | receiveRecordThresholdField | oneof |  | |
 | | receiveRecordThreshold |  | [Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction. | |
-| | receiveRecordThresholdWrapper | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) | The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction. | |
+| | receiveRecordThresholdWrapper | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) | [Deprecated]. The new threshold amount (in tinybars) for which an account record is created for any receive/deposit transaction. | |
 | autoRenewPeriod | [Duration](#Duration) | The duration in which it will automatically extend the expiration period. If it doesn't have enough balance, it extends as long as possible. If it is empty when it expires, then it is deleted. | |
 | expirationTime | [Timestamp](#Timestamp) | The new expiration time to extend to (ignored if equal to or before the current one) | |
 | receiverSigRequiredField | oneof |  | |
@@ -2137,8 +2134,8 @@
 | CONTRACT_FILE_EMPTY | File to create a smart contract was of length zero |
 | CONTRACT_BYTECODE_EMPTY | Bytecode for smart contract is of length zero |
 | INVALID_INITIAL_BALANCE | Attempt to set negative initial balance |
-| INVALID_RECEIVE_RECORD_THRESHOLD | attempt to set negative receive record threshold |
-| INVALID_SEND_RECORD_THRESHOLD | attempt to set negative send record threshold |
+| INVALID_RECEIVE_RECORD_THRESHOLD | [Deprecated]. attempt to set negative receive record threshold |
+| INVALID_SEND_RECORD_THRESHOLD | [Deprecated]. attempt to set negative send record threshold |
 | ACCOUNT_IS_NOT_GENESIS_ACCOUNT | Special Account Operations should be performed by only Genesis account, return this code if it is not Genesis Account |
 | PAYER_ACCOUNT_UNAUTHORIZED | The fee payer account doesn't have permission to submit such Transaction |
 | INVALID_FREEZE_TRANSACTION_BODY | FreezeTransactionBody is invalid |
@@ -2624,8 +2621,10 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| signedTransactionBytes |  | SignedTransaction serialized into bytes | |
-| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
+| bodyData | oneof |  | |
+| | body | [TransactionBody](#TransactionBody) | the body of the transaction, which needs to be signed | |
+| | bodyBytes |  | TransactionBody serialized into bytes , which needs to be signed | |
+| sigs | [SignatureList](#SignatureList) | The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field | |
 | sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
@@ -2683,24 +2682,6 @@
 | | tokenMint | [TokenMintCoins](#TokenMintCoins) |  | |
 | | tokenBurn | [TokenBurnCoins](#TokenBurnCoins) |  | |
 | | tokenWipe | [TokenWipeAccount](#TokenWipeAccount) |  | |
-
-
-<a name="TransactionContents.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## TransactionContents.proto
-
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
-
-<a name="SignedTransaction"></a>
-
-### SignedTransaction
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
-| sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
 <a name="TransactionGetFastRecord.proto"></a>
