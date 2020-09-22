@@ -5,7 +5,7 @@
     <groupId>com.hedera.hashgraph</groupId>
     <artifactId>hedera-protobuf-java-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.9.0-alpha4-SNAPSHOT</version>
+    <version>0.9.0-alpha5-SNAPSHOT</version>
 
     <name>hedera-protobuf-java-api</name>
   	<description>Protobuf Java API for Hedera Hashgraph</description>
@@ -30,7 +30,7 @@
   		<connection>scm:git:git@github.com:hashgraph/hedera-protobuf.git</connection>
   		<developerConnection>scm:git:git@github.com:hashgraph/hedera-protobuf.git</developerConnection>
   		<url>https://github.com/hashgraph/hedera-protobuf</url>
-  	  <tag>hedera-protobuf-java-api-0.9.0-alpha3</tag>
+  	  <tag>hedera-protobuf-java-api-0.9.0-alpha4</tag>
   </scm>
 
   	<distributionManagement>
@@ -50,7 +50,7 @@
         <os.plugin.version>1.6.0</os.plugin.version>
         <protobuf.plugin.version>0.5.0</protobuf.plugin.version>
         <protoc.version>3.5.1</protoc.version>
-        <maven.compiler.source>12</maven.compiler.source>
+        <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
@@ -172,8 +172,7 @@
       				<groupId>org.apache.maven.plugins</groupId>
       				<artifactId>maven-javadoc-plugin</artifactId>
       				<configuration>
-      					<javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-      					<additionalOptions>-html5</additionalOptions>
+      					<javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
       					<reportOutputDirectory>${project.basedir}/javadoc</reportOutputDirectory>
       				</configuration>
       				<executions>
@@ -252,8 +251,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <configuration>
-              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
-              <additionalOptions>-html5</additionalOptions>
+              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
             </configuration>
             <executions>
               <execution>
