@@ -5,6 +5,7 @@
 
 
 - [BasicTypes.proto](#BasicTypes.proto)
+  - [AccountAmount](#AccountAmount)
   - [AccountID](#AccountID)
   - [ContractID](#ContractID)
   - [CurrentAndNextFeeSchedule](#CurrentAndNextFeeSchedule)
@@ -31,8 +32,7 @@
   - [TokenFreezeStatus](#TokenFreezeStatus) (Enum)
   - [TokenID](#TokenID)
   - [TokenKycStatus](#TokenKycStatus) (Enum)
-  - [TokenRef](#TokenRef)
-  - [TokenRelationship](#TokenRelationship)
+  - [TokenTransferList](#TokenTransferList)
   - [TopicID](#TopicID)
   - [TransactionFeeSchedule](#TransactionFeeSchedule)
   - [TransactionID](#TransactionID)
@@ -108,6 +108,7 @@
   - [CryptoGetAccountBalanceQuery](#CryptoGetAccountBalanceQuery)
   - [CryptoGetAccountBalanceResponse](#CryptoGetAccountBalanceResponse)
   - [TokenBalance](#TokenBalance)
+  - [TokenBalances](#TokenBalances)
 
 - [CryptoGetAccountRecords.proto](#CryptoGetAccountRecords.proto)
   - [CryptoGetAccountRecordsQuery](#CryptoGetAccountRecordsQuery)
@@ -117,6 +118,7 @@
   - [CryptoGetInfoQuery](#CryptoGetInfoQuery)
   - [CryptoGetInfoResponse](#CryptoGetInfoResponse)
   - [CryptoGetInfoResponse.AccountInfo](#CryptoGetInfoResponse.AccountInfo)
+  - [TokenRelationship](#TokenRelationship)
 
 - [CryptoGetLiveHash.proto](#CryptoGetLiveHash.proto)
   - [CryptoGetLiveHashQuery](#CryptoGetLiveHashQuery)
@@ -132,9 +134,7 @@
   - [CryptoService](#CryptoService) (Service)
 
 - [CryptoTransfer.proto](#CryptoTransfer.proto)
-  - [AccountAmount](#AccountAmount)
   - [CryptoTransferTransactionBody](#CryptoTransferTransactionBody)
-  - [TokenTransferList](#TokenTransferList)
   - [TransferList](#TransferList)
 
 - [CryptoUpdate.proto](#CryptoUpdate.proto)
@@ -223,17 +223,23 @@
   - [Timestamp](#Timestamp)
   - [TimestampSeconds](#TimestampSeconds)
 
-- [TokenBurnCoins.proto](#TokenBurnCoins.proto)
-  - [TokenBurnCoins](#TokenBurnCoins)
+- [TokenAssociate.proto](#TokenAssociate.proto)
+  - [TokenAssociateTransactionBody](#TokenAssociateTransactionBody)
+
+- [TokenBurn.proto](#TokenBurn.proto)
+  - [TokenBurnTransactionBody](#TokenBurnTransactionBody)
 
 - [TokenCreate.proto](#TokenCreate.proto)
-  - [TokenCreation](#TokenCreation)
+  - [TokenCreateTransactionBody](#TokenCreateTransactionBody)
 
 - [TokenDelete.proto](#TokenDelete.proto)
-  - [TokenDeletion](#TokenDeletion)
+  - [TokenDeleteTransactionBody](#TokenDeleteTransactionBody)
 
-- [TokenFreeze.proto](#TokenFreeze.proto)
-  - [TokenFreeze](#TokenFreeze)
+- [TokenDissociate.proto](#TokenDissociate.proto)
+  - [TokenDissociateTransactionBody](#TokenDissociateTransactionBody)
+
+- [TokenFreezeAccount.proto](#TokenFreezeAccount.proto)
+  - [TokenFreezeAccountTransactionBody](#TokenFreezeAccountTransactionBody)
 
 - [TokenGetInfo.proto](#TokenGetInfo.proto)
   - [TokenGetInfoQuery](#TokenGetInfoQuery)
@@ -241,35 +247,37 @@
   - [TokenInfo](#TokenInfo)
 
 - [TokenGrantKyc.proto](#TokenGrantKyc.proto)
-  - [TokenGrantKyc](#TokenGrantKyc)
+  - [TokenGrantKycTransactionBody](#TokenGrantKycTransactionBody)
 
-- [TokenManagement.proto](#TokenManagement.proto)
-  - [TokenManagement](#TokenManagement)
-
-- [TokenMintCoins.proto](#TokenMintCoins.proto)
-  - [TokenMintCoins](#TokenMintCoins)
+- [TokenMint.proto](#TokenMint.proto)
+  - [TokenMintTransactionBody](#TokenMintTransactionBody)
 
 - [TokenRevokeKyc.proto](#TokenRevokeKyc.proto)
-  - [TokenRevokeKyc](#TokenRevokeKyc)
+  - [TokenRevokeKycTransactionBody](#TokenRevokeKycTransactionBody)
 
 - [TokenService.proto](#TokenService.proto)
   - [TokenService](#TokenService) (Service)
 
-- [TokenTransact.proto](#TokenTransact.proto)
-  - [TokenTransfer](#TokenTransfer)
-  - [TokenTransfers](#TokenTransfers)
+- [TokenTransfer.proto](#TokenTransfer.proto)
+  - [TokenTransfersTransactionBody](#TokenTransfersTransactionBody)
 
-- [TokenUnfreeze.proto](#TokenUnfreeze.proto)
-  - [TokenUnfreeze](#TokenUnfreeze)
+- [TokenUnfreezeAccount.proto](#TokenUnfreezeAccount.proto)
+  - [TokenUnfreezeAccountTransactionBody](#TokenUnfreezeAccountTransactionBody)
+
+- [TokenUpdate.proto](#TokenUpdate.proto)
+  - [TokenUpdateTransactionBody](#TokenUpdateTransactionBody)
 
 - [TokenWipeAccount.proto](#TokenWipeAccount.proto)
-  - [TokenWipeAccount](#TokenWipeAccount)
+  - [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody)
 
 - [Transaction.proto](#Transaction.proto)
   - [Transaction](#Transaction)
 
 - [TransactionBody.proto](#TransactionBody.proto)
   - [TransactionBody](#TransactionBody)
+
+- [TransactionContents.proto](#TransactionContents.proto)
+  - [SignedTransaction](#SignedTransaction)
 
 - [TransactionGetFastRecord.proto](#TransactionGetFastRecord.proto)
   - [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery)
@@ -301,6 +309,17 @@
 ## BasicTypes.proto
 
  Each shard has a nonnegative shard number. Each realm within a given shard has a nonnegative realm number (that number might be reused in other shards). And each account, file, and smart contract instance within a given realm has a nonnegative number (which might be reused in other realms). Every account, file, and smart contract instance is within exactly one realm. So a FileID is a triplet of numbers, like 0.1.2 for entity number 2 within realm 1  within shard 0.  Each realm maintains a single counter for assigning numbers,  so if there is a file with ID 0.1.2, then there won't be an account or smart  contract instance with ID 0.1.2.
+
+<a name="AccountAmount"></a>
+
+### AccountAmount
+ An account, and the amount that it sends or receives during a cryptocurrency or token transfer. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| accountID | [AccountID](#AccountID) | The Account ID that sends/receives cryptocurrency or tokens | |
+| amount | [sint64](#sint64) | The amount of tinybars (for Crypto transfers) or in the lowest denomination (for Token transfers) that the account sends(negative) or receives(positive) | |
+
 
 <a name="AccountID"></a>
 
@@ -436,24 +455,26 @@
 | ContractAutoRenew | Contract Auto Renew |
 | GetVersionInfo | Get Version |
 | TransactionGetReceipt | Transaction Get Receipt |
-| ConsensusCreateTopic |  |
-| ConsensusUpdateTopic |  |
-| ConsensusDeleteTopic |  |
-| ConsensusGetTopicInfo |  |
-| ConsensusSubmitMessage |  |
+| ConsensusCreateTopic | Create Topic |
+| ConsensusUpdateTopic | Update Topic |
+| ConsensusDeleteTopic | Delete Topic |
+| ConsensusGetTopicInfo | Get Topic information |
+| ConsensusSubmitMessage | Submit message to topic |
 | UncheckedSubmit |  |
-| TokenCreate |  |
-| TokenTransact |  |
-| TokenGetInfo |  |
-| TokenFreezeAccount |  |
-| TokenUnfreezeAccount |  |
-| TokenGrantKycToAccount |  |
-| TokenRevokeKycFromAccount |  |
-| TokenDelete |  |
-| TokenUpdate |  |
-| TokenMint |  |
-| TokenBurn |  |
-| TokenAccountWipe |  |
+| TokenCreate | Create Token |
+| TokenTransact | Transfer Tokens |
+| TokenGetInfo | Get token information |
+| TokenFreezeAccount | Freeze Account |
+| TokenUnfreezeAccount | Unfreeze Account |
+| TokenGrantKycToAccount | Grant KYC to Account |
+| TokenRevokeKycFromAccount | Revoke KYC from Account |
+| TokenDelete | Delete Token |
+| TokenUpdate | Update Token |
+| TokenMint | Mint tokens to treasury |
+| TokenBurn | Burn tokens from treasury |
+| TokenAccountWipe | Wipe token amount from Account holder |
+| TokenAssociateToAccount | Associate tokens to an account |
+| TokenDissociateFromAccount | Dissociate tokens from an account |
 
 
 <a name="Key"></a>
@@ -641,7 +662,7 @@
 <a name="TokenFreezeStatus"></a>
 
 ### TokenFreezeStatus
-
+ Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship 
 
 | Enum Name | Description |
 | --------- | ----------- |
@@ -653,7 +674,7 @@
 <a name="TokenID"></a>
 
 ### TokenID
-
+ Unique identifier for a token 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -665,7 +686,7 @@
 <a name="TokenKycStatus"></a>
 
 ### TokenKycStatus
-
+ Possible KYC statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship 
 
 | Enum Name | Description |
 | --------- | ----------- |
@@ -674,30 +695,15 @@
 | Revoked |  |
 
 
-<a name="TokenRef"></a>
+<a name="TokenTransferList"></a>
 
-### TokenRef
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| ref | oneof |  | |
-| | tokenId | [TokenID](#TokenID) |  | |
-| | symbol |  |  | |
-
-
-<a name="TokenRelationship"></a>
-
-### TokenRelationship
-
+### TokenTransferList
+ A list of token IDs and amounts representing the transferred out (negative) or into (positive) amounts, represented in the lowest denomination of the token 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| tokenId | [TokenID](#TokenID) |  | |
-| balance |  |  | |
-| symbol |  |  | |
-| kycStatus | [TokenKycStatus](#TokenKycStatus) |  | |
-| freezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) |  | |
+| token | [TokenID](#TokenID) | The ID of the token | |
+| transfers | [AccountAmount](#AccountAmount) | Multiple list of AccountAmounts, each of which has an account and amount | |
 
 
 <a name="TopicID"></a>
@@ -1268,18 +1274,28 @@
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
 | accountID | [AccountID](#AccountID) | The account ID that is being described (this is useful with state proofs, for proving to a third party) | |
 | balance |  | The current balance, in tinybars | |
-| tokenBalances | [TokenBalance](#TokenBalance) |  | |
+| tokenBalances | [TokenBalance](#TokenBalance) | The array of tokens that the account possesses | |
 
 
 <a name="TokenBalance"></a>
 
 ### TokenBalance
+ Contains information the balance of an Account in regards to the corresponding Token ID 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenId | [TokenID](#TokenID) | The ID of the token | |
+| balance |  | The current token balance | |
+
+
+<a name="TokenBalances"></a>
+
+### TokenBalances
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| tokenId | [TokenID](#TokenID) |  | |
-| balance |  |  | |
+| tokenBalances | [TokenBalance](#TokenBalance) |  | |
 
 
 <a name="CryptoGetAccountRecords.proto"></a>
@@ -1361,7 +1377,21 @@
 | expirationTime | [Timestamp](#Timestamp) | The TimeStamp time at which this account is set to expire | |
 | autoRenewPeriod | [Duration](#Duration) | The duration for expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted. | |
 | liveHashes | [LiveHash](#LiveHash) | All of the livehashes attached to the account (each of which is a hash along with the keys that authorized it and can delete it) | |
-| tokenRelationships | [TokenRelationship](#TokenRelationship) |  | |
+| tokenRelationships | [TokenRelationship](#TokenRelationship) | All tokens related to this account | |
+
+
+<a name="TokenRelationship"></a>
+
+### TokenRelationship
+ Token's information related to the given Account 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenId | [TokenID](#TokenID) | The ID of the token | |
+| symbol |  | The Symbol of the token | |
+| balance |  | The balance that the Account holds in the smallest denomination | |
+| kycStatus | [TokenKycStatus](#TokenKycStatus) | The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned | |
+| freezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) | The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned | |
 
 
 <a name="CryptoGetLiveHash.proto"></a>
@@ -1478,18 +1508,7 @@
 
 ## CryptoTransfer.proto
 
- An account, and the amount that it sends or receives during a cryptocurrency transfer. 
-
-<a name="AccountAmount"></a>
-
-### AccountAmount
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| accountID | [AccountID](#AccountID) | The Account ID that sends or receives cryptocurrency | |
-| amount | [sint64](#sint64) | The amount of tinybars that the account sends(negative) or receives(positive) | |
-
+ A list of accounts and amounts to transfer out of each account (negative) or into it (positive). 
 
 <a name="CryptoTransferTransactionBody"></a>
 
@@ -1501,21 +1520,10 @@
 | transfers | [TransferList](#TransferList) | Accounts and amounts to transfer | |
 
 
-<a name="TokenTransferList"></a>
-
-### TokenTransferList
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| token | [TokenID](#TokenID) |  | |
-| transfers | [AccountAmount](#AccountAmount) |  | |
-
-
 <a name="TransferList"></a>
 
 ### TransferList
- A list of accounts and amounts to transfer out of each account (negative) or into it (positive). 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1966,7 +1974,7 @@
 | | transactionGetFastRecord | [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery) | Get a record for a transaction (lasts 180 seconds) | |
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery) | Get the parameters of and state of a consensus topic. | |
 | | networkGetVersionInfo | [NetworkGetVersionInfoQuery](#NetworkGetVersionInfoQuery) |  | |
-| | tokenGetInfo | [TokenGetInfoQuery](#TokenGetInfoQuery) |  | |
+| | tokenGetInfo | [TokenGetInfoQuery](#TokenGetInfoQuery) | Get all information about a token | |
 
 
 <a name="QueryHeader.proto"></a>
@@ -2031,7 +2039,7 @@
 | | transactionGetFastRecord | [TransactionGetFastRecordResponse](#TransactionGetFastRecordResponse) | Get a record for a transaction (lasts 180 seconds) | |
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse) | Parameters of and state of a consensus topic.. | |
 | | networkGetVersionInfo | [NetworkGetVersionInfoResponse](#NetworkGetVersionInfoResponse) | Semantic versions of Hedera Services and HAPI proto | |
-| | tokenGetInfo | [TokenGetInfoResponse](#TokenGetInfoResponse) |  | |
+| | tokenGetInfo | [TokenGetInfoResponse](#TokenGetInfoResponse) | Get all information about a token | |
 
 
 <a name="ResponseCode.proto"></a>
@@ -2163,40 +2171,45 @@
 | INVALID_TOPIC_ID | The Topic ID specified is not in the system. |
 | INVALID_ADMIN_KEY |  |
 | INVALID_SUBMIT_KEY |  |
-| UNAUTHORIZED | An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey, a tokenUpdate or tokenDelete for token with no adminKey). |
+| UNAUTHORIZED | An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey). |
 | INVALID_TOPIC_MESSAGE | A ConsensusService message is empty. |
 | INVALID_AUTORENEW_ACCOUNT | The autoRenewAccount specified is not a valid, active account. |
 | AUTORENEW_ACCOUNT_NOT_ALLOWED |  An adminKey was not specified on the topic, so there must not be an autoRenewAccount. |
 | TOPIC_EXPIRED |  The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be<BR>deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported<BR>by HAPI. |
 | INVALID_CHUNK_NUMBER | chunk number must be from 1 to total (chunks) inclusive. |
 | INVALID_CHUNK_TRANSACTION_ID | For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1. |
-| ACCOUNT_FROZEN_FOR_TOKEN |  |
-| TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED |  |
-| INVALID_TOKEN_ID |  |
-| INVALID_TOKEN_DIVISIBILITY |  |
-| INVALID_TOKEN_FLOAT |  |
-| INVALID_TREASURY_ACCOUNT_FOR_TOKEN |  |
-| INVALID_TOKEN_SYMBOL |  |
-| TOKEN_HAS_NO_FREEZE_KEY |  |
-| TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN |  |
-| MISSING_TOKEN_SYMBOL |  |
-| TOKEN_SYMBOL_TOO_LONG |  |
-| TOKEN_SYMBOL_ALREADY_IN_USE |  |
-| INVALID_TOKEN_REF |  |
-| ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN |  |
-| TOKEN_HAS_NO_KYC_KEY |  |
-| INSUFFICIENT_TOKEN_BALANCE |  |
-| TOKEN_WAS_DELETED |  |
-| TOKEN_HAS_NO_SUPPLY_KEY |  |
-| TOKEN_HAS_NO_WIPE_KEY |  |
+| ACCOUNT_FROZEN_FOR_TOKEN | Account is frozen and cannot transact with the token |
+| TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED | Maximum number of token relations for agiven account is exceeded |
+| INVALID_TOKEN_ID | The token is invalid or does not exist |
+| INVALID_TOKEN_DECIMALS | Invalid token decimals |
+| INVALID_TOKEN_INITIAL_SUPPLY | Invalid token initial supply |
+| INVALID_TREASURY_ACCOUNT_FOR_TOKEN | Treasury Account does not exist or is deleted |
+| INVALID_TOKEN_SYMBOL | Token Symbol is not UTF-8 capitalized alphabetical string |
+| TOKEN_HAS_NO_FREEZE_KEY | Freeze key is not set on token |
+| TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN | Amounts in transfer list are not net zero |
+| MISSING_TOKEN_SYMBOL | Token Symbol is not provided |
+| TOKEN_SYMBOL_TOO_LONG | Token Symbol is too long |
+| ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN | KYC must be granted and account does not have KYC granted |
+| TOKEN_HAS_NO_KYC_KEY | KYC key is not set on token |
+| INSUFFICIENT_TOKEN_BALANCE | Token balance is not sufficient for the transaction |
+| TOKEN_WAS_DELETED | Token transactions cannot be executed on deleted token |
+| TOKEN_HAS_NO_SUPPLY_KEY | Supply key is not set on token |
+| TOKEN_HAS_NO_WIPE_KEY | Wipe key is not set on token |
 | INVALID_TOKEN_MINT_AMOUNT |  |
 | INVALID_TOKEN_BURN_AMOUNT |  |
-| ACCOUNT_HAS_NO_TOKEN_RELATIONSHIP |  |
-| CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT |  |
+| TOKEN_NOT_ASSOCIATED_TO_ACCOUNT |  |
+| CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT | Cannot execute wipe operation on treasury account |
 | INVALID_KYC_KEY |  |
 | INVALID_WIPE_KEY |  |
 | INVALID_FREEZE_KEY |  |
 | INVALID_SUPPLY_KEY |  |
+| MISSING_TOKEN_NAME | Token Name is not provided |
+| TOKEN_NAME_TOO_LONG | Token Name is too long |
+| INVALID_WIPING_AMOUNT | The provided wipe amount must not be negative, zero or bigger than the token holder balance |
+| TOKEN_IS_IMMUTABLE | Token does not have Admin key set, thus update/delete transactions cannot be performed |
+| TOKEN_ALREADY_ASSOCIATED_TO_ACCOUNT | An <tt>associateToken</tt> operation specified a token already associated to the account |
+| TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES | An attempted operation is invalid until all token balances for the target account are zero |
+| ACCOUNT_IS_TREASURY | An attempted operation is invalid because the account is a treasury |
 
 
 <a name="ResponseHeader.proto"></a>
@@ -2307,22 +2320,38 @@
 | seconds |  | Number of complete seconds since the start of the epoch | |
 
 
-<a name="TokenBurnCoins.proto"></a>
+<a name="TokenAssociate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## TokenBurnCoins.proto
+## TokenAssociate.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Associates the provided account with the provided tokens. Must be signed by the provided Account's key.
 
-<a name="TokenBurnCoins"></a>
+<a name="TokenAssociateTransactionBody"></a>
 
-### TokenBurnCoins
+### TokenAssociateTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| amount |  |  | |
+| account | [AccountID](#AccountID) | The account to be associated with the provided tokens | |
+| tokens | [TokenID](#TokenID) | The tokens to be associated with the provided account | |
+
+
+<a name="TokenBurn.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenBurn.proto
+
+<a name="TokenBurnTransactionBody"></a>
+
+### TokenBurnTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token | [TokenID](#TokenID) | The token for which to burn tokens. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| amount |  | The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination. | |
 
 
 <a name="TokenCreate.proto"></a>
@@ -2330,24 +2359,27 @@
 
 ## TokenCreate.proto
 
-<a name="TokenCreation"></a>
+<a name="TokenCreateTransactionBody"></a>
 
-### TokenCreation
+### TokenCreateTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| float |  | The total number of tokens to put into circulation | |
-| divisibility |  | The number of unit into which each token may be subdivided | |
-| treasury | [AccountID](#AccountID) | The treasury account which should receive the initial float | |
-| adminKey | [Key](#Key) | The key which must sign to modify this token's properties | |
-| kycKey | [Key](#Key) | The key which must sign to grant or revoke KYC of an account for token transactions | |
-| freezeKey | [Key](#Key) | The key which must sign to freeze or unfreeze an account for token transactions | |
-| wipeKey | [Key](#Key) | The key which must sign to freeze or unfreeze an account for token transactions | |
-| supplyKey | [Key](#Key) | The key which must sign to freeze or unfreeze an account for token transactions | |
-| freezeDefault |  | The default status (frozen or unfrozen) of Hedera accounts relative to this token | |
-| kycDefault |  | The default KYC status (granted or revoked) of Hedera accounts relative to this token | |
-| symbol |  | The case-insensitive UTF-8 alphanumeric string identifying the token | |
+| name |  | The publicly visible name of the token, specified as a string of only ASCII characters | |
+| symbol |  | The publicly visible token symbol. It is UTF-8 capitalized alphabetical string identifying the token | |
+| decimals |  | The number of decimal places a token is divisible by. This field can never be changed! | |
+| initialSupply |  | Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible. | |
+| treasury | [AccountID](#AccountID) | The account which will act as a treasury for the token. This account will receive the specified initial supply | |
+| adminKey | [Key](#Key) | The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted) | |
+| kycKey | [Key](#Key) | The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible. | |
+| freezeKey | [Key](#Key) | The key which can sign to freeze or unfreeze an account for token transactions. If empty, freezing is not possible | |
+| wipeKey | [Key](#Key) | The key which can wipe the token balance of an account. If empty, wipe is not possible | |
+| supplyKey | [Key](#Key) | The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations | |
+| freezeDefault |  | The default Freeze status (frozen or unfrozen) of Hedera accounts relative to this token. If true, an account must be unfrozen before it can receive the token | |
+| expiry |  | The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod | |
+| autoRenewAccount | [AccountID](#AccountID) | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval | |
+| autoRenewPeriod |  | The interval at which the auto-renew account will be charged to extend the token's expiry | |
 
 
 <a name="TokenDelete.proto"></a>
@@ -2355,34 +2387,50 @@
 
 ## TokenDelete.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+<a name="TokenDeleteTransactionBody"></a>
 
-<a name="TokenDeletion"></a>
-
-### TokenDeletion
+### TokenDeleteTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
+| token | [TokenID](#TokenID) | The token to be deleted. If invalid token is specified, transaction will result in INVALID_TOKEN_ID | |
 
 
-<a name="TokenFreeze.proto"></a>
+<a name="TokenDissociate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## TokenFreeze.proto
+## TokenDissociate.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Dissociates the provided account with the provided tokens. Must be signed by the provided Account's key.
 
-<a name="TokenFreeze"></a>
+<a name="TokenDissociateTransactionBody"></a>
 
-### TokenFreeze
+### TokenDissociateTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| account | [AccountID](#AccountID) |  | |
+| account | [AccountID](#AccountID) | The account to be dissociated with the provided tokens | |
+| tokens | [TokenID](#TokenID) | The tokens to be dissociated with the provided account | |
+
+
+<a name="TokenFreezeAccount.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenFreezeAccount.proto
+
+ Freezes transfers of the specified token for the account. Must be signed by the Token's freezeKey.
+
+<a name="TokenFreezeAccountTransactionBody"></a>
+
+### TokenFreezeAccountTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token | [TokenID](#TokenID) | The token for which this account will be frozen. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| account | [AccountID](#AccountID) | The account to be frozen | |
 
 
 <a name="TokenGetInfo.proto"></a>
@@ -2390,7 +2438,7 @@
 
 ## TokenGetInfo.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Gets information about Token instance 
 
 <a name="TokenGetInfoQuery"></a>
 
@@ -2399,41 +2447,45 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| header | [QueryHeader](#QueryHeader) |  | |
-| token | [TokenRef](#TokenRef) |  | |
+| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither) | |
+| token | [TokenID](#TokenID) | The token for which information is requested. If invalid token is provided, INVALID_TOKEN_ID response is returned. | |
 
 
 <a name="TokenGetInfoResponse"></a>
 
 ### TokenGetInfoResponse
-
+ Response when the client sends the node TokenGetInfoQuery 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| header | [ResponseHeader](#ResponseHeader) |  | |
-| tokenInfo | [TokenInfo](#TokenInfo) |  | |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| tokenInfo | [TokenInfo](#TokenInfo) | The information requested about this token instance | |
 
 
 <a name="TokenInfo"></a>
 
 ### TokenInfo
-
+ The metadata about a Token instance 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| tokenId | [TokenID](#TokenID) |  | |
-| symbol |  |  | |
-| treasury | [AccountID](#AccountID) |  | |
-| currentFloat |  |  | |
-| divisibility |  |  | |
-| adminKey | [Key](#Key) |  | |
-| kycKey | [Key](#Key) |  | |
-| freezeKey | [Key](#Key) |  | |
-| wipeKey | [Key](#Key) |  | |
-| supplyKey | [Key](#Key) |  | |
-| defaultFreezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) |  | |
-| defaultKycStatus | [TokenKycStatus](#TokenKycStatus) |  | |
-| isDeleted |  |  | |
+| tokenId | [TokenID](#TokenID) | ID of the token instance | |
+| name |  | The name of the token. It is a string of ASCII only characters | |
+| symbol |  | The symbol of the token. It is a UTF-8 capitalized alphabetical string | |
+| decimals |  | The number of decimal places a token is divisible by | |
+| totalSupply |  | The total supply of tokens that are currently in circulation | |
+| treasury | [AccountID](#AccountID) | The ID of the account which is set as Treasury | |
+| adminKey | [Key](#Key) | The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted) | |
+| kycKey | [Key](#Key) | The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible. | |
+| freezeKey | [Key](#Key) | The key which can freeze or unfreeze an account for token transactions. If empty, freezing is not possible | |
+| wipeKey | [Key](#Key) | The key which can wipe token balance of an account. If empty, wipe is not possible | |
+| supplyKey | [Key](#Key) | The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations | |
+| defaultFreezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) | The default Freeze status (not applicable, frozen or unfrozen) of Hedera accounts relative to this token. FreezeNotApplicable is returned if Token Freeze Key is empty. Frozen is returned if Token Freeze Key is set and defaultFreeze is set to true. Unfrozen is returned if Token Freeze Key is set and defaultFreeze is set to false | |
+| defaultKycStatus | [TokenKycStatus](#TokenKycStatus) | The default KYC status (KycNotApplicable or Revoked) of Hedera accounts relative to this token. KycNotApplicable is returned if KYC key is not set, otherwise Revoked | |
+| isDeleted |  | Specifies whether the token was deleted or not | |
+| autoRenewAccount | [AccountID](#AccountID) | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval | |
+| autoRenewPeriod |  | The interval at which the auto-renew account will be charged to extend the token's expiry | |
+| expiry |  | The epoch second at which the token will expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod | |
 
 
 <a name="TokenGrantKyc.proto"></a>
@@ -2441,59 +2493,33 @@
 
 ## TokenGrantKyc.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Grants KYC to the account for the given token. Must be signed by the Token's kycKey.
 
-<a name="TokenGrantKyc"></a>
+<a name="TokenGrantKycTransactionBody"></a>
 
-### TokenGrantKyc
+### TokenGrantKycTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| account | [AccountID](#AccountID) |  | |
+| token | [TokenID](#TokenID) | The token for which this account will be granted KYC. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| account | [AccountID](#AccountID) | The account to be KYCed | |
 
 
-<a name="TokenManagement.proto"></a>
+<a name="TokenMint.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## TokenManagement.proto
+## TokenMint.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+<a name="TokenMintTransactionBody"></a>
 
-<a name="TokenManagement"></a>
-
-### TokenManagement
+### TokenMintTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| treasury | [AccountID](#AccountID) |  | |
-| adminKey | [Key](#Key) |  | |
-| kycKey | [Key](#Key) |  | |
-| freezeKey | [Key](#Key) |  | |
-| wipeKey | [Key](#Key) |  | |
-| supplyKey | [Key](#Key) |  | |
-| symbol |  |  | |
-
-
-<a name="TokenMintCoins.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## TokenMintCoins.proto
-
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
-
-<a name="TokenMintCoins"></a>
-
-### TokenMintCoins
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| amount |  |  | |
+| token | [TokenID](#TokenID) | The token for which to mint tokens. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| amount |  | The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63. | |
 
 
 <a name="TokenRevokeKyc.proto"></a>
@@ -2501,17 +2527,17 @@
 
 ## TokenRevokeKyc.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Revokes KYC to the account for the given token. Must be signed by the Token's kycKey.
 
-<a name="TokenRevokeKyc"></a>
+<a name="TokenRevokeKycTransactionBody"></a>
 
-### TokenRevokeKyc
+### TokenRevokeKycTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| account | [AccountID](#AccountID) |  | |
+| token | [TokenID](#TokenID) | The token for which this account will get his KYC revoked. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| account | [AccountID](#AccountID) | The account to be KYC Revoked | |
 
 
 <a name="TokenService.proto"></a>
@@ -2519,7 +2545,7 @@
 
 ## TokenService.proto
 
- The requests and responses for different network services. 
+ Transactions and queries for the Token Service 
 
 <a name="TokenService"></a>
 
@@ -2528,65 +2554,83 @@
 
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
-| mintToken  | Transaction | TransactionResponse |  |
-| burnToken  | Transaction | TransactionResponse |  |
-| createToken  | Transaction | TransactionResponse |  |
-| updateToken  | Transaction | TransactionResponse |  |
-| deleteToken  | Transaction | TransactionResponse |  |
-| transferTokens  | Transaction | TransactionResponse |  |
-| wipeTokenAccount  | Transaction | TransactionResponse |  |
-| freezeTokenAccount  | Transaction | TransactionResponse |  |
-| unfreezeTokenAccount  | Transaction | TransactionResponse |  |
-| grantKycToTokenAccount  | Transaction | TransactionResponse |  |
-| revokeKycFromTokenAccount  | Transaction | TransactionResponse |  |
-| getTokenInfo  | Query | Response |  |
+| createToken  | Transaction | TransactionResponse |  Creates a new Token by submitting the transaction |
+| updateToken  | Transaction | TransactionResponse |  Updates the account by submitting the transaction |
+| mintToken  | Transaction | TransactionResponse |  Mints an amount of the token to the defined treasury account |
+| burnToken  | Transaction | TransactionResponse |  Burns an amount of the token from the defined treasury account |
+| deleteToken  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Deletes a Token |
+| wipeTokenAccount  | Transaction | TransactionResponse |  Wipes the provided amount of tokens from the specified Account ID |
+| freezeTokenAccount  | Transaction | TransactionResponse |  Freezes the transfer of tokens to or from the specified Account ID |
+| unfreezeTokenAccount  | Transaction | TransactionResponse |  Unfreezes the transfer of tokens to or from the specified Account ID |
+| grantKycToTokenAccount  | Transaction | TransactionResponse |  Flags the provided Account ID as having gone through KYC |
+| revokeKycFromTokenAccount  | Transaction | TransactionResponse |  Removes the KYC flag of the provided Account ID |
+| transferTokens  | Transaction | TransactionResponse |  Initiates a Token transfer by submitting the transaction |
+| associateTokens  | Transaction | TransactionResponse |  Associates tokens to an account |
+| dissociateTokens  | Transaction | TransactionResponse |  Dissociates tokens from an account |
+| getTokenInfo  | Query | Response |  Retrieves the metadata of a token |
 
 
-<a name="TokenTransact.proto"></a>
+<a name="TokenTransfer.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## TokenTransact.proto
+## TokenTransfer.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Transfer tokens from some accounts to other accounts. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). All amounts must have sum of zero.
 
-<a name="TokenTransfer"></a>
+<a name="TokenTransfersTransactionBody"></a>
 
-### TokenTransfer
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| account | [AccountID](#AccountID) |  | |
-| amount | [sint64](#sint64) |  | |
-| token | [TokenRef](#TokenRef) |  | |
-
-
-<a name="TokenTransfers"></a>
-
-### TokenTransfers
+### TokenTransfersTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| transfers | [TokenTransfer](#TokenTransfer) |  | |
+| tokenTransfers | [TokenTransferList](#TokenTransferList) |  | |
 
 
-<a name="TokenUnfreeze.proto"></a>
+<a name="TokenUnfreezeAccount.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
-## TokenUnfreeze.proto
+## TokenUnfreezeAccount.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Unfreezes transfers of the specified token for the account. Must be signed by the Token's freezeKey.
 
-<a name="TokenUnfreeze"></a>
+<a name="TokenUnfreezeAccountTransactionBody"></a>
 
-### TokenUnfreeze
+### TokenUnfreezeAccountTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| account | [AccountID](#AccountID) |  | |
+| token | [TokenID](#TokenID) | The token for which this account will be unfrozen. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| account | [AccountID](#AccountID) | The account to be unfrozen | |
+
+
+<a name="TokenUpdate.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenUpdate.proto
+
+ Updates an already created Token.
+
+<a name="TokenUpdateTransactionBody"></a>
+
+### TokenUpdateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token | [TokenID](#TokenID) | The Token to be updated | |
+| symbol |  | The new Symbol of the Token. Must be UTF-8 capitalized alphabetical string identifying the token. | |
+| name |  | The new Name of the Token. Must be a string of ASCII characters. | |
+| treasury | [AccountID](#AccountID) | The new Treasury account of the Token. If the provided treasury account is not existing or deleted, the response will be INVALID_TREASURY_ACCOUNT_FOR_TOKEN. If successful, the Token balance held in the previous Treasury Account is transferred to the new one. | |
+| adminKey | [Key](#Key) | The new Admin key of the Token. If Token is immutable, transaction will resolve to TOKEN_IS_IMMUTABlE. | |
+| kycKey | [Key](#Key) | The new KYC key of the Token. If Token does not have currently a KYC key, transaction will resolve to TOKEN_HAS_NO_KYC_KEY. | |
+| freezeKey | [Key](#Key) | The new Freeze key of the Token. If the Token does not have currently a Freeze key, transaction will resolve to TOKEN_HAS_NO_FREEZE_KEY. | |
+| wipeKey | [Key](#Key) | The new Wipe key of the Token. If the Token does not have currently a Wipe key, transaction will resolve to TOKEN_HAS_NO_WIPE_KEY. | |
+| supplyKey | [Key](#Key) | The new Supply key of the Token. If the Token does not have currently a Supply key, transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY. | |
+| autoRenewAccount | [AccountID](#AccountID) | The new account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval. | |
+| autoRenewPeriod |  | The new interval at which the auto-renew account will be charged to extend the token's expiry. | |
+| expiry |  | The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME | |
 
 
 <a name="TokenWipeAccount.proto"></a>
@@ -2594,17 +2638,18 @@
 
 ## TokenWipeAccount.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+ Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's Wipe key.
 
-<a name="TokenWipeAccount"></a>
+<a name="TokenWipeAccountTransactionBody"></a>
 
-### TokenWipeAccount
+### TokenWipeAccountTransactionBody
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token | [TokenRef](#TokenRef) |  | |
-| account | [AccountID](#AccountID) |  | |
+| token | [TokenID](#TokenID) | The token for which the account will be wiped. If token does not exist, transaction results in INVALID_TOKEN_ID | |
+| account | [AccountID](#AccountID) | The account to be wiped | |
+| amount |  | The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance] | |
 
 
 <a name="Transaction.proto"></a>
@@ -2621,10 +2666,8 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| bodyData | oneof |  | |
-| | body | [TransactionBody](#TransactionBody) | the body of the transaction, which needs to be signed | |
-| | bodyBytes |  | TransactionBody serialized into bytes , which needs to be signed | |
-| sigs | [SignatureList](#SignatureList) | The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field | |
+| signedTransactionBytes |  | SignedTransaction serialized into bytes | |
+| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
 | sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
@@ -2666,22 +2709,42 @@
 | | systemDelete | [SystemDeleteTransactionBody](#SystemDeleteTransactionBody) | Hedera administrative deletion of a file or smart contract | |
 | | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) | To undelete an entity deleted by SystemDelete | |
 | | freeze | [FreezeTransactionBody](#FreezeTransactionBody) | Freeze the nodes | |
-| | consensusCreateTopic | [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody) |  | |
-| | consensusUpdateTopic | [ConsensusUpdateTopicTransactionBody](#ConsensusUpdateTopicTransactionBody) |  | |
-| | consensusDeleteTopic | [ConsensusDeleteTopicTransactionBody](#ConsensusDeleteTopicTransactionBody) |  | |
-| | consensusSubmitMessage | [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody) |  | |
+| | consensusCreateTopic | [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody) | Creates a topic | |
+| | consensusUpdateTopic | [ConsensusUpdateTopicTransactionBody](#ConsensusUpdateTopicTransactionBody) | Updates a topic | |
+| | consensusDeleteTopic | [ConsensusDeleteTopicTransactionBody](#ConsensusDeleteTopicTransactionBody) | Deletes a topic | |
+| | consensusSubmitMessage | [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody) | Submits message to a topic | |
 | | uncheckedSubmit | [UncheckedSubmitBody](#UncheckedSubmitBody) |  | |
-| | tokenCreation | [TokenCreation](#TokenCreation) |  | |
-| | tokenTransfers | [TokenTransfers](#TokenTransfers) |  | |
-| | tokenFreeze | [TokenFreeze](#TokenFreeze) |  | |
-| | tokenUnfreeze | [TokenUnfreeze](#TokenUnfreeze) |  | |
-| | tokenGrantKyc | [TokenGrantKyc](#TokenGrantKyc) |  | |
-| | tokenRevokeKyc | [TokenRevokeKyc](#TokenRevokeKyc) |  | |
-| | tokenDeletion | [TokenDeletion](#TokenDeletion) |  | |
-| | tokenUpdate | [TokenManagement](#TokenManagement) |  | |
-| | tokenMint | [TokenMintCoins](#TokenMintCoins) |  | |
-| | tokenBurn | [TokenBurnCoins](#TokenBurnCoins) |  | |
-| | tokenWipe | [TokenWipeAccount](#TokenWipeAccount) |  | |
+| | tokenCreation | [TokenCreateTransactionBody](#TokenCreateTransactionBody) | Creates a token instance | |
+| | tokenTransfers | [TokenTransfersTransactionBody](#TokenTransfersTransactionBody) | Transfers tokens between accounts | |
+| | tokenFreeze | [TokenFreezeAccountTransactionBody](#TokenFreezeAccountTransactionBody) | Freezes account not to be able to transact with a token | |
+| | tokenUnfreeze | [TokenUnfreezeAccountTransactionBody](#TokenUnfreezeAccountTransactionBody) | Unfreezes account for a token | |
+| | tokenGrantKyc | [TokenGrantKycTransactionBody](#TokenGrantKycTransactionBody) | Grants KYC to an account for a token | |
+| | tokenRevokeKyc | [TokenRevokeKycTransactionBody](#TokenRevokeKycTransactionBody) | Revokes KYC of an account for a token | |
+| | tokenDeletion | [TokenDeleteTransactionBody](#TokenDeleteTransactionBody) | Deletes a token instance | |
+| | tokenUpdate | [TokenUpdateTransactionBody](#TokenUpdateTransactionBody) | Updates a token instance | |
+| | tokenMint | [TokenMintTransactionBody](#TokenMintTransactionBody) | Mints new tokens to a token's treasury account | |
+| | tokenBurn | [TokenBurnTransactionBody](#TokenBurnTransactionBody) | Burns tokens from a token's treasury account | |
+| | tokenWipe | [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody) | Wipes amount of tokens from an account | |
+| | tokenAssociate | [TokenAssociateTransactionBody](#TokenAssociateTransactionBody) | Associate tokens to an account | |
+| | tokenDissociate | [TokenDissociateTransactionBody](#TokenDissociateTransactionBody) | Dissociate tokens from an account | |
+
+
+<a name="TransactionContents.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TransactionContents.proto
+
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+
+<a name="SignedTransaction"></a>
+
+### SignedTransaction
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| bodyBytes |  | TransactionBody serialized into bytes, which needs to be signed | |
+| sigMap | [SignatureMap](#SignatureMap) | The signatures on the body with the new format, to authorize the transaction | |
 
 
 <a name="TransactionGetFastRecord.proto"></a>
@@ -2823,7 +2886,7 @@
 | | contractCallResult | [ContractFunctionResult](#ContractFunctionResult) | Record of the value returned by the smart contract function (if it completed and didn't fail) from ContractCallTransaction | |
 | | contractCreateResult | [ContractFunctionResult](#ContractFunctionResult) | Record of the value returned by the smart contract constructor (if it completed and didn't fail) from ContractCreateTransaction | |
 | transferList | [TransferList](#TransferList) | All hbar transfers as a result of this transaction, such as fees, or transfers performed by the transaction, or by a smart contract it calls, or by the creation of threshold records that it triggers. | |
-| tokenTransferLists | [TokenTransferList](#TokenTransferList) |  | |
+| tokenTransferLists | [TokenTransferList](#TokenTransferList) | All Token transfers as a result of this transaction | |
 
 
 <a name="TransactionResponse.proto"></a>
