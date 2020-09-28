@@ -6,6 +6,8 @@
 <a href=#BasicTypes.proto>BasicTypes.proto</a>
 <ul>
 <li>
+<a href="#AccountAmount"><span class="badge">M</span>AccountAmount</a></li>
+<li>
 <a href="#AccountID"><span class="badge">M</span>AccountID</a></li>
 <li>
 <a href="#ContractID"><span class="badge">M</span>ContractID</a></li>
@@ -58,9 +60,7 @@
 <li>
 <a href="#TokenKycStatus"><span class="badge">E</span>TokenKycStatus</a></li>
 <li>
-<a href="#TokenRef"><span class="badge">M</span>TokenRef</a></li>
-<li>
-<a href="#TokenRelationship"><span class="badge">M</span>TokenRelationship</a></li>
+<a href="#TokenTransferList"><span class="badge">M</span>TokenTransferList</a></li>
 <li>
 <a href="#TopicID"><span class="badge">M</span>TopicID</a></li>
 <li>
@@ -191,6 +191,8 @@
 <a href="#CryptoGetAccountBalanceResponse"><span class="badge">M</span>CryptoGetAccountBalanceResponse</a></li>
 <li>
 <a href="#TokenBalance"><span class="badge">M</span>TokenBalance</a></li>
+<li>
+<a href="#TokenBalances"><span class="badge">M</span>TokenBalances</a></li>
 </ul>
 <a href=#CryptoGetAccountRecords.proto>CryptoGetAccountRecords.proto</a>
 <ul>
@@ -207,6 +209,8 @@
 <a href="#CryptoGetInfoResponse"><span class="badge">M</span>CryptoGetInfoResponse</a></li>
 <li>
 <a href="#CryptoGetInfoResponse.AccountInfo"><span class="badge">M</span>CryptoGetInfoResponse.AccountInfo</a></li>
+<li>
+<a href="#TokenRelationship"><span class="badge">M</span>TokenRelationship</a></li>
 </ul>
 <a href=#CryptoGetLiveHash.proto>CryptoGetLiveHash.proto</a>
 <ul>
@@ -234,11 +238,7 @@
 <a href=#CryptoTransfer.proto>CryptoTransfer.proto</a>
 <ul>
 <li>
-<a href="#AccountAmount"><span class="badge">M</span>AccountAmount</a></li>
-<li>
 <a href="#CryptoTransferTransactionBody"><span class="badge">M</span>CryptoTransferTransactionBody</a></li>
-<li>
-<a href="#TokenTransferList"><span class="badge">M</span>TokenTransferList</a></li>
 <li>
 <a href="#TransferList"><span class="badge">M</span>TransferList</a></li>
 </ul>
@@ -389,25 +389,35 @@
 <li>
 <a href="#TimestampSeconds"><span class="badge">M</span>TimestampSeconds</a></li>
 </ul>
-<a href=#TokenBurnCoins.proto>TokenBurnCoins.proto</a>
+<a href=#TokenAssociate.proto>TokenAssociate.proto</a>
 <ul>
 <li>
-<a href="#TokenBurnCoins"><span class="badge">M</span>TokenBurnCoins</a></li>
+<a href="#TokenAssociateTransactionBody"><span class="badge">M</span>TokenAssociateTransactionBody</a></li>
+</ul>
+<a href=#TokenBurn.proto>TokenBurn.proto</a>
+<ul>
+<li>
+<a href="#TokenBurnTransactionBody"><span class="badge">M</span>TokenBurnTransactionBody</a></li>
 </ul>
 <a href=#TokenCreate.proto>TokenCreate.proto</a>
 <ul>
 <li>
-<a href="#TokenCreation"><span class="badge">M</span>TokenCreation</a></li>
+<a href="#TokenCreateTransactionBody"><span class="badge">M</span>TokenCreateTransactionBody</a></li>
 </ul>
 <a href=#TokenDelete.proto>TokenDelete.proto</a>
 <ul>
 <li>
-<a href="#TokenDeletion"><span class="badge">M</span>TokenDeletion</a></li>
+<a href="#TokenDeleteTransactionBody"><span class="badge">M</span>TokenDeleteTransactionBody</a></li>
 </ul>
-<a href=#TokenFreeze.proto>TokenFreeze.proto</a>
+<a href=#TokenDissociate.proto>TokenDissociate.proto</a>
 <ul>
 <li>
-<a href="#TokenFreeze"><span class="badge">M</span>TokenFreeze</a></li>
+<a href="#TokenDissociateTransactionBody"><span class="badge">M</span>TokenDissociateTransactionBody</a></li>
+</ul>
+<a href=#TokenFreezeAccount.proto>TokenFreezeAccount.proto</a>
+<ul>
+<li>
+<a href="#TokenFreezeAccountTransactionBody"><span class="badge">M</span>TokenFreezeAccountTransactionBody</a></li>
 </ul>
 <a href=#TokenGetInfo.proto>TokenGetInfo.proto</a>
 <ul>
@@ -421,44 +431,42 @@
 <a href=#TokenGrantKyc.proto>TokenGrantKyc.proto</a>
 <ul>
 <li>
-<a href="#TokenGrantKyc"><span class="badge">M</span>TokenGrantKyc</a></li>
+<a href="#TokenGrantKycTransactionBody"><span class="badge">M</span>TokenGrantKycTransactionBody</a></li>
 </ul>
-<a href=#TokenManagement.proto>TokenManagement.proto</a>
+<a href=#TokenMint.proto>TokenMint.proto</a>
 <ul>
 <li>
-<a href="#TokenManagement"><span class="badge">M</span>TokenManagement</a></li>
-</ul>
-<a href=#TokenMintCoins.proto>TokenMintCoins.proto</a>
-<ul>
-<li>
-<a href="#TokenMintCoins"><span class="badge">M</span>TokenMintCoins</a></li>
+<a href="#TokenMintTransactionBody"><span class="badge">M</span>TokenMintTransactionBody</a></li>
 </ul>
 <a href=#TokenRevokeKyc.proto>TokenRevokeKyc.proto</a>
 <ul>
 <li>
-<a href="#TokenRevokeKyc"><span class="badge">M</span>TokenRevokeKyc</a></li>
+<a href="#TokenRevokeKycTransactionBody"><span class="badge">M</span>TokenRevokeKycTransactionBody</a></li>
 </ul>
 <a href=#TokenService.proto>TokenService.proto</a>
 <ul>
 <li>
 <a href="#TokenService"><span class="badge">S</span>TokenService</a></li>
 </ul>
-<a href=#TokenTransact.proto>TokenTransact.proto</a>
+<a href=#TokenTransfer.proto>TokenTransfer.proto</a>
 <ul>
 <li>
-<a href="#TokenTransfer"><span class="badge">M</span>TokenTransfer</a></li>
-<li>
-<a href="#TokenTransfers"><span class="badge">M</span>TokenTransfers</a></li>
+<a href="#TokenTransfersTransactionBody"><span class="badge">M</span>TokenTransfersTransactionBody</a></li>
 </ul>
-<a href=#TokenUnfreeze.proto>TokenUnfreeze.proto</a>
+<a href=#TokenUnfreezeAccount.proto>TokenUnfreezeAccount.proto</a>
 <ul>
 <li>
-<a href="#TokenUnfreeze"><span class="badge">M</span>TokenUnfreeze</a></li>
+<a href="#TokenUnfreezeAccountTransactionBody"><span class="badge">M</span>TokenUnfreezeAccountTransactionBody</a></li>
+</ul>
+<a href=#TokenUpdate.proto>TokenUpdate.proto</a>
+<ul>
+<li>
+<a href="#TokenUpdateTransactionBody"><span class="badge">M</span>TokenUpdateTransactionBody</a></li>
 </ul>
 <a href=#TokenWipeAccount.proto>TokenWipeAccount.proto</a>
 <ul>
 <li>
-<a href="#TokenWipeAccount"><span class="badge">M</span>TokenWipeAccount</a></li>
+<a href="#TokenWipeAccountTransactionBody"><span class="badge">M</span>TokenWipeAccountTransactionBody</a></li>
 </ul>
 <a href=#Transaction.proto>Transaction.proto</a>
 <ul>
@@ -469,6 +477,11 @@
 <ul>
 <li>
 <a href="#TransactionBody"><span class="badge">M</span>TransactionBody</a></li>
+</ul>
+<a href=#TransactionContents.proto>TransactionContents.proto</a>
+<ul>
+<li>
+<a href="#SignedTransaction"><span class="badge">M</span>SignedTransaction</a></li>
 </ul>
 <a href=#TransactionGetFastRecord.proto>TransactionGetFastRecord.proto</a>
 <ul>
@@ -521,6 +534,32 @@
 <a href="#title">Top</a>
 </div>
 <P> Each shard has a nonnegative shard number. Each realm within a given shard has a nonnegative realm number (that number might be reused in other shards). And each account, file, and smart contract instance within a given realm has a nonnegative number (which might be reused in other realms). Every account, file, and smart contract instance is within exactly one realm. So a FileID is a triplet of numbers, like 0.1.2 for entity number 2 within realm 1  within shard 0.  Each realm maintains a single counter for assigning numbers,  so if there is a file with ID 0.1.2, then there won't be an account or smart  contract instance with ID 0.1.2.</P>
+<H3 id="AccountAmount"><span class="BigBadge">Message</span>AccountAmount</H3>
+<P> An account, and the amount that it sends or receives during a cryptocurrency or token transfer. </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>accountID</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The Account ID that sends/receives cryptocurrency or tokens</P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD><a href="#sint64">sint64</a></TD>
+<TD><P>The amount of tinybars (for Crypto transfers) or in the lowest denomination (for Token transfers) that the account sends(negative) or receives(positive)</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
 <H3 id="AccountID"><span class="BigBadge">Message</span>AccountID</H3>
 <P> The ID for an a cryptocurrency account  </P>
 <table class="field-table">
@@ -978,27 +1017,27 @@
 
 <TR>
 <TD>ConsensusCreateTopic</TD>
-<TD><P></P></TD>
+<TD><P>Create Topic</P></TD>
 </TR>
 
 <TR>
 <TD>ConsensusUpdateTopic</TD>
-<TD><P></P></TD>
+<TD><P>Update Topic</P></TD>
 </TR>
 
 <TR>
 <TD>ConsensusDeleteTopic</TD>
-<TD><P></P></TD>
+<TD><P>Delete Topic</P></TD>
 </TR>
 
 <TR>
 <TD>ConsensusGetTopicInfo</TD>
-<TD><P></P></TD>
+<TD><P>Get Topic information</P></TD>
 </TR>
 
 <TR>
 <TD>ConsensusSubmitMessage</TD>
-<TD><P></P></TD>
+<TD><P>Submit message to topic</P></TD>
 </TR>
 
 <TR>
@@ -1008,62 +1047,72 @@
 
 <TR>
 <TD>TokenCreate</TD>
-<TD><P></P></TD>
+<TD><P>Create Token</P></TD>
 </TR>
 
 <TR>
 <TD>TokenTransact</TD>
-<TD><P></P></TD>
+<TD><P>Transfer Tokens</P></TD>
 </TR>
 
 <TR>
 <TD>TokenGetInfo</TD>
-<TD><P></P></TD>
+<TD><P>Get token information</P></TD>
 </TR>
 
 <TR>
 <TD>TokenFreezeAccount</TD>
-<TD><P></P></TD>
+<TD><P>Freeze Account</P></TD>
 </TR>
 
 <TR>
 <TD>TokenUnfreezeAccount</TD>
-<TD><P></P></TD>
+<TD><P>Unfreeze Account</P></TD>
 </TR>
 
 <TR>
 <TD>TokenGrantKycToAccount</TD>
-<TD><P></P></TD>
+<TD><P>Grant KYC to Account</P></TD>
 </TR>
 
 <TR>
 <TD>TokenRevokeKycFromAccount</TD>
-<TD><P></P></TD>
+<TD><P>Revoke KYC from Account</P></TD>
 </TR>
 
 <TR>
 <TD>TokenDelete</TD>
-<TD><P></P></TD>
+<TD><P>Delete Token</P></TD>
 </TR>
 
 <TR>
 <TD>TokenUpdate</TD>
-<TD><P></P></TD>
+<TD><P>Update Token</P></TD>
 </TR>
 
 <TR>
 <TD>TokenMint</TD>
-<TD><P></P></TD>
+<TD><P>Mint tokens to treasury</P></TD>
 </TR>
 
 <TR>
 <TD>TokenBurn</TD>
-<TD><P></P></TD>
+<TD><P>Burn tokens from treasury</P></TD>
 </TR>
 
 <TR>
 <TD>TokenAccountWipe</TD>
-<TD><P></P></TD>
+<TD><P>Wipe token amount from Account holder</P></TD>
+</TR>
+
+<TR>
+<TD>TokenAssociateToAccount</TD>
+<TD><P>Associate tokens to an account</P></TD>
+</TR>
+
+<TR>
+<TD>TokenDissociateFromAccount</TD>
+<TD><P>Dissociate tokens from an account</P></TD>
 </TR>
 
 <tbody>
@@ -1604,7 +1653,7 @@
 </TABLE>
 
 <H3 id="TokenFreezeStatus"><span class="BigBadge">Enum</span>TokenFreezeStatus</H3>
-<P></P>
+<P> Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship </P>
 <table class="enum-table">
 <thead>
 <TR>
@@ -1632,7 +1681,7 @@
 </TABLE>
 
 <H3 id="TokenID"><span class="BigBadge">Message</span>TokenID</H3>
-<P></P>
+<P> Unique identifier for a token </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1664,7 +1713,7 @@
 </TABLE>
 
 <H3 id="TokenKycStatus"><span class="BigBadge">Enum</span>TokenKycStatus</H3>
-<P></P>
+<P> Possible KYC statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship </P>
 <table class="enum-table">
 <thead>
 <TR>
@@ -1691,8 +1740,8 @@
 <tbody>
 </TABLE>
 
-<H3 id="TokenRef"><span class="BigBadge">Message</span>TokenRef</H3>
-<P></P>
+<H3 id="TokenTransferList"><span class="BigBadge">Message</span>TokenTransferList</H3>
+<P> A list of token IDs and amounts representing the transferred out (negative) or into (positive) amounts, represented in the lowest denomination of the token </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1703,79 +1752,15 @@
 </thead>
 <tbody>
 <TR>
-<TD>ref</TD>
-<TD>oneof</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>&nbsp;</TD>
-<TD colspan=2>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>tokenId</TD>
+<TD>token</TD>
 <TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
+<TD><P>The ID of the token</P></TD>
 </TR>
 
 <TR>
-<TD>symbol</TD>
-<TD>string</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-<tbody>
-</TABLE>
-
-<H3 id="TokenRelationship"><span class="BigBadge">Message</span>TokenRelationship</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>tokenId</TD>
-<TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>balance</TD>
-<TD>uint64</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>symbol</TD>
-<TD>string</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>kycStatus</TD>
-<TD><a href="#TokenKycStatus">TokenKycStatus</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>freezeStatus</TD>
-<TD><a href="#TokenFreezeStatus">TokenFreezeStatus</a></TD>
-<TD><P></P></TD>
+<TD>transfers</TD>
+<TD><a href="#AccountAmount">AccountAmount</a> (repeated)</TD>
+<TD><P>Multiple list of AccountAmounts, each of which has an account and amount</P></TD>
 </TR>
 
 <tbody>
@@ -3186,14 +3171,14 @@
 <TR>
 <TD>tokenBalances</TD>
 <TD><a href="#TokenBalance">TokenBalance</a> (repeated)</TD>
-<TD><P></P></TD>
+<TD><P>The array of tokens that the account possesses</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="TokenBalance"><span class="BigBadge">Message</span>TokenBalance</H3>
-<P></P>
+<P> Contains information the balance of an Account in regards to the corresponding Token ID </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -3206,12 +3191,32 @@
 <TR>
 <TD>tokenId</TD>
 <TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
+<TD><P>The ID of the token</P></TD>
 </TR>
 
 <TR>
 <TD>balance</TD>
 <TD>uint64</TD>
+<TD><P>The current token balance</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenBalances"><span class="BigBadge">Message</span>TokenBalances</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenBalances</TD>
+<TD><a href="#TokenBalance">TokenBalance</a> (repeated)</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -3430,7 +3435,51 @@
 <TR>
 <TD>tokenRelationships</TD>
 <TD><a href="#TokenRelationship">TokenRelationship</a> (repeated)</TD>
-<TD><P></P></TD>
+<TD><P>All tokens related to this account</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenRelationship"><span class="BigBadge">Message</span>TokenRelationship</H3>
+<P> Token's information related to the given Account </P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>tokenId</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The ID of the token</P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P>The Symbol of the token</P></TD>
+</TR>
+
+<TR>
+<TD>balance</TD>
+<TD>uint64</TD>
+<TD><P>The balance that the Account holds in the smallest denomination</P></TD>
+</TR>
+
+<TR>
+<TD>kycStatus</TD>
+<TD><a href="#TokenKycStatus">TokenKycStatus</a></TD>
+<TD><P>The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned</P></TD>
+</TR>
+
+<TR>
+<TD>freezeStatus</TD>
+<TD><a href="#TokenFreezeStatus">TokenFreezeStatus</a></TD>
+<TD><P>The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned</P></TD>
 </TR>
 
 <tbody>
@@ -3687,33 +3736,7 @@
 <H2 id="CryptoTransfer.proto">CryptoTransfer.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> An account, and the amount that it sends or receives during a cryptocurrency transfer. </P>
-<H3 id="AccountAmount"><span class="BigBadge">Message</span>AccountAmount</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>accountID</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The Account ID that sends or receives cryptocurrency</P></TD>
-</TR>
-
-<TR>
-<TD>amount</TD>
-<TD><a href="#sint64">sint64</a></TD>
-<TD><P>The amount of tinybars that the account sends(negative) or receives(positive)</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
+<P> A list of accounts and amounts to transfer out of each account (negative) or into it (positive). </P>
 <H3 id="CryptoTransferTransactionBody"><span class="BigBadge">Message</span>CryptoTransferTransactionBody</H3>
 <P> Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar).</P>
 <table class="field-table">
@@ -3734,34 +3757,8 @@
 <tbody>
 </TABLE>
 
-<H3 id="TokenTransferList"><span class="BigBadge">Message</span>TokenTransferList</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>token</TD>
-<TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>transfers</TD>
-<TD><a href="#AccountAmount">AccountAmount</a> (repeated)</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
 <H3 id="TransferList"><span class="BigBadge">Message</span>TransferList</H3>
-<P> A list of accounts and amounts to transfer out of each account (negative) or into it (positive). </P>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -4891,7 +4888,7 @@
 <TR>
 <TD>tokenGetInfo</TD>
 <TD><a href="#TokenGetInfoQuery">TokenGetInfoQuery</a></TD>
-<TD><P></P></TD>
+<TD><P>Get all information about a token</P></TD>
 </TR>
 
 <tbody>
@@ -5107,7 +5104,7 @@
 <TR>
 <TD>tokenGetInfo</TD>
 <TD><a href="#TokenGetInfoResponse">TokenGetInfoResponse</a></TD>
-<TD><P></P></TD>
+<TD><P>Get all information about a token</P></TD>
 </TR>
 
 <tbody>
@@ -5707,7 +5704,7 @@
 
 <TR>
 <TD>UNAUTHORIZED</TD>
-<TD><P>An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey, a tokenUpdate or tokenDelete for token with no adminKey).</P></TD>
+<TD><P>An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey).</P></TD>
 </TR>
 
 <TR>
@@ -5742,97 +5739,87 @@
 
 <TR>
 <TD>ACCOUNT_FROZEN_FOR_TOKEN</TD>
-<TD><P></P></TD>
+<TD><P>Account is frozen and cannot transact with the token</P></TD>
 </TR>
 
 <TR>
 <TD>TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED</TD>
-<TD><P></P></TD>
+<TD><P>Maximum number of token relations for agiven account is exceeded</P></TD>
 </TR>
 
 <TR>
 <TD>INVALID_TOKEN_ID</TD>
-<TD><P></P></TD>
+<TD><P>The token is invalid or does not exist</P></TD>
 </TR>
 
 <TR>
-<TD>INVALID_TOKEN_DIVISIBILITY</TD>
-<TD><P></P></TD>
+<TD>INVALID_TOKEN_DECIMALS</TD>
+<TD><P>Invalid token decimals</P></TD>
 </TR>
 
 <TR>
-<TD>INVALID_TOKEN_FLOAT</TD>
-<TD><P></P></TD>
+<TD>INVALID_TOKEN_INITIAL_SUPPLY</TD>
+<TD><P>Invalid token initial supply</P></TD>
 </TR>
 
 <TR>
 <TD>INVALID_TREASURY_ACCOUNT_FOR_TOKEN</TD>
-<TD><P></P></TD>
+<TD><P>Treasury Account does not exist or is deleted</P></TD>
 </TR>
 
 <TR>
 <TD>INVALID_TOKEN_SYMBOL</TD>
-<TD><P></P></TD>
+<TD><P>Token Symbol is not UTF-8 capitalized alphabetical string</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_HAS_NO_FREEZE_KEY</TD>
-<TD><P></P></TD>
+<TD><P>Freeze key is not set on token</P></TD>
 </TR>
 
 <TR>
 <TD>TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN</TD>
-<TD><P></P></TD>
+<TD><P>Amounts in transfer list are not net zero</P></TD>
 </TR>
 
 <TR>
 <TD>MISSING_TOKEN_SYMBOL</TD>
-<TD><P></P></TD>
+<TD><P>Token Symbol is not provided</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_SYMBOL_TOO_LONG</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>TOKEN_SYMBOL_ALREADY_IN_USE</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>INVALID_TOKEN_REF</TD>
-<TD><P></P></TD>
+<TD><P>Token Symbol is too long</P></TD>
 </TR>
 
 <TR>
 <TD>ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN</TD>
-<TD><P></P></TD>
+<TD><P>KYC must be granted and account does not have KYC granted</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_HAS_NO_KYC_KEY</TD>
-<TD><P></P></TD>
+<TD><P>KYC key is not set on token</P></TD>
 </TR>
 
 <TR>
 <TD>INSUFFICIENT_TOKEN_BALANCE</TD>
-<TD><P></P></TD>
+<TD><P>Token balance is not sufficient for the transaction</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_WAS_DELETED</TD>
-<TD><P></P></TD>
+<TD><P>Token transactions cannot be executed on deleted token</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_HAS_NO_SUPPLY_KEY</TD>
-<TD><P></P></TD>
+<TD><P>Supply key is not set on token</P></TD>
 </TR>
 
 <TR>
 <TD>TOKEN_HAS_NO_WIPE_KEY</TD>
-<TD><P></P></TD>
+<TD><P>Wipe key is not set on token</P></TD>
 </TR>
 
 <TR>
@@ -5846,13 +5833,13 @@
 </TR>
 
 <TR>
-<TD>ACCOUNT_HAS_NO_TOKEN_RELATIONSHIP</TD>
+<TD>TOKEN_NOT_ASSOCIATED_TO_ACCOUNT</TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
 <TD>CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT</TD>
-<TD><P></P></TD>
+<TD><P>Cannot execute wipe operation on treasury account</P></TD>
 </TR>
 
 <TR>
@@ -5873,6 +5860,41 @@
 <TR>
 <TD>INVALID_SUPPLY_KEY</TD>
 <TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MISSING_TOKEN_NAME</TD>
+<TD><P>Token Name is not provided</P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_NAME_TOO_LONG</TD>
+<TD><P>Token Name is too long</P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_WIPING_AMOUNT</TD>
+<TD><P>The provided wipe amount must not be negative, zero or bigger than the token holder balance</P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_IS_IMMUTABLE</TD>
+<TD><P>Token does not have Admin key set, thus update/delete transactions cannot be performed</P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_ALREADY_ASSOCIATED_TO_ACCOUNT</TD>
+<TD><P>An <tt>associateToken</tt> operation specified a token already associated to the account</P></TD>
+</TR>
+
+<TR>
+<TD>TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES</TD>
+<TD><P>An attempted operation is invalid until all token balances for the target account are zero</P></TD>
+</TR>
+
+<TR>
+<TD>ACCOUNT_IS_TREASURY</TD>
+<TD><P>An attempted operation is invalid because the account is a treasury</P></TD>
 </TR>
 
 <tbody>
@@ -6142,11 +6164,41 @@
 </TABLE>
 
 <div class="file-heading">
-<H2 id="TokenBurnCoins.proto">TokenBurnCoins.proto</H2>
+<H2 id="TokenAssociate.proto">TokenAssociate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenBurnCoins"><span class="BigBadge">Message</span>TokenBurnCoins</H3>
+<P> Associates the provided account with the provided tokens. Must be signed by the provided Account's key.</P>
+<H3 id="TokenAssociateTransactionBody"><span class="BigBadge">Message</span>TokenAssociateTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The account to be associated with the provided tokens</P></TD>
+</TR>
+
+<TR>
+<TD>tokens</TD>
+<TD><a href="#TokenID">TokenID</a> (repeated)</TD>
+<TD><P>The tokens to be associated with the provided account</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenBurn.proto">TokenBurn.proto</H2>
+<a href="#title">Top</a>
+</div>
+<H3 id="TokenBurnTransactionBody"><span class="BigBadge">Message</span>TokenBurnTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6159,14 +6211,14 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which to burn tokens. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>amount</TD>
 <TD>uint64</TD>
-<TD><P></P></TD>
+<TD><P>The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination.</P></TD>
 </TR>
 
 <tbody>
@@ -6176,7 +6228,7 @@
 <H2 id="TokenCreate.proto">TokenCreate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<H3 id="TokenCreation"><span class="BigBadge">Message</span>TokenCreation</H3>
+<H3 id="TokenCreateTransactionBody"><span class="BigBadge">Message</span>TokenCreateTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6188,69 +6240,87 @@
 </thead>
 <tbody>
 <TR>
-<TD>float</TD>
-<TD>uint64</TD>
-<TD><P>The total number of tokens to put into circulation</P></TD>
-</TR>
-
-<TR>
-<TD>divisibility</TD>
-<TD>uint32</TD>
-<TD><P>The number of unit into which each token may be subdivided</P></TD>
-</TR>
-
-<TR>
-<TD>treasury</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P>The treasury account which should receive the initial float</P></TD>
-</TR>
-
-<TR>
-<TD>adminKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key which must sign to modify this token's properties</P></TD>
-</TR>
-
-<TR>
-<TD>kycKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key which must sign to grant or revoke KYC of an account for token transactions</P></TD>
-</TR>
-
-<TR>
-<TD>freezeKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
-</TR>
-
-<TR>
-<TD>wipeKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
-</TR>
-
-<TR>
-<TD>supplyKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P>The key which must sign to freeze or unfreeze an account for token transactions</P></TD>
-</TR>
-
-<TR>
-<TD>freezeDefault</TD>
-<TD>bool</TD>
-<TD><P>The default status (frozen or unfrozen) of Hedera accounts relative to this token</P></TD>
-</TR>
-
-<TR>
-<TD>kycDefault</TD>
-<TD>bool</TD>
-<TD><P>The default KYC status (granted or revoked) of Hedera accounts relative to this token</P></TD>
+<TD>name</TD>
+<TD>string</TD>
+<TD><P>The publicly visible name of the token, specified as a string of only ASCII characters</P></TD>
 </TR>
 
 <TR>
 <TD>symbol</TD>
 <TD>string</TD>
-<TD><P>The case-insensitive UTF-8 alphanumeric string identifying the token</P></TD>
+<TD><P>The publicly visible token symbol. It is UTF-8 capitalized alphabetical string identifying the token</P></TD>
+</TR>
+
+<TR>
+<TD>decimals</TD>
+<TD>uint32</TD>
+<TD><P>The number of decimal places a token is divisible by. This field can never be changed!</P></TD>
+</TR>
+
+<TR>
+<TD>initialSupply</TD>
+<TD>uint64</TD>
+<TD><P>Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible.</P></TD>
+</TR>
+
+<TR>
+<TD>treasury</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The account which will act as a treasury for the token. This account will receive the specified initial supply</P></TD>
+</TR>
+
+<TR>
+<TD>adminKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted)</P></TD>
+</TR>
+
+<TR>
+<TD>kycKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible.</P></TD>
+</TR>
+
+<TR>
+<TD>freezeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which can sign to freeze or unfreeze an account for token transactions. If empty, freezing is not possible</P></TD>
+</TR>
+
+<TR>
+<TD>wipeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which can wipe the token balance of an account. If empty, wipe is not possible</P></TD>
+</TR>
+
+<TR>
+<TD>supplyKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations</P></TD>
+</TR>
+
+<TR>
+<TD>freezeDefault</TD>
+<TD>bool</TD>
+<TD><P>The default Freeze status (frozen or unfrozen) of Hedera accounts relative to this token. If true, an account must be unfrozen before it can receive the token</P></TD>
+</TR>
+
+<TR>
+<TD>expiry</TD>
+<TD>uint64</TD>
+<TD><P>The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewAccount</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewPeriod</TD>
+<TD>uint64</TD>
+<TD><P>The interval at which the auto-renew account will be charged to extend the token's expiry</P></TD>
 </TR>
 
 <tbody>
@@ -6260,8 +6330,7 @@
 <H2 id="TokenDelete.proto">TokenDelete.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenDeletion"><span class="BigBadge">Message</span>TokenDeletion</H3>
+<H3 id="TokenDeleteTransactionBody"><span class="BigBadge">Message</span>TokenDeleteTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6274,19 +6343,50 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token to be deleted. If invalid token is specified, transaction will result in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <div class="file-heading">
-<H2 id="TokenFreeze.proto">TokenFreeze.proto</H2>
+<H2 id="TokenDissociate.proto">TokenDissociate.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenFreeze"><span class="BigBadge">Message</span>TokenFreeze</H3>
+<P> Dissociates the provided account with the provided tokens. Must be signed by the provided Account's key.</P>
+<H3 id="TokenDissociateTransactionBody"><span class="BigBadge">Message</span>TokenDissociateTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>account</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The account to be dissociated with the provided tokens</P></TD>
+</TR>
+
+<TR>
+<TD>tokens</TD>
+<TD><a href="#TokenID">TokenID</a> (repeated)</TD>
+<TD><P>The tokens to be dissociated with the provided account</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenFreezeAccount.proto">TokenFreezeAccount.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> Freezes transfers of the specified token for the account. Must be signed by the Token's freezeKey.</P>
+<H3 id="TokenFreezeAccountTransactionBody"><span class="BigBadge">Message</span>TokenFreezeAccountTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6299,14 +6399,14 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which this account will be frozen. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>account</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
+<TD><P>The account to be frozen</P></TD>
 </TR>
 
 <tbody>
@@ -6316,7 +6416,7 @@
 <H2 id="TokenGetInfo.proto">TokenGetInfo.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<P> Gets information about Token instance </P>
 <H3 id="TokenGetInfoQuery"><span class="BigBadge">Message</span>TokenGetInfoQuery</H3>
 <P></P>
 <table class="field-table">
@@ -6331,20 +6431,20 @@
 <TR>
 <TD>header</TD>
 <TD><a href="#QueryHeader">QueryHeader</a></TD>
-<TD><P></P></TD>
+<TD><P>Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither)</P></TD>
 </TR>
 
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which information is requested. If invalid token is provided, INVALID_TOKEN_ID response is returned.</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="TokenGetInfoResponse"><span class="BigBadge">Message</span>TokenGetInfoResponse</H3>
-<P></P>
+<P> Response when the client sends the node TokenGetInfoQuery </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -6357,20 +6457,20 @@
 <TR>
 <TD>header</TD>
 <TD><a href="#ResponseHeader">ResponseHeader</a></TD>
-<TD><P></P></TD>
+<TD><P>Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither</P></TD>
 </TR>
 
 <TR>
 <TD>tokenInfo</TD>
 <TD><a href="#TokenInfo">TokenInfo</a></TD>
-<TD><P></P></TD>
+<TD><P>The information requested about this token instance</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <H3 id="TokenInfo"><span class="BigBadge">Message</span>TokenInfo</H3>
-<P></P>
+<P> The metadata about a Token instance </P>
 <table class="field-table">
 <thead>
 <TR>
@@ -6383,79 +6483,103 @@
 <TR>
 <TD>tokenId</TD>
 <TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
+<TD><P>ID of the token instance</P></TD>
+</TR>
+
+<TR>
+<TD>name</TD>
+<TD>string</TD>
+<TD><P>The name of the token. It is a string of ASCII only characters</P></TD>
 </TR>
 
 <TR>
 <TD>symbol</TD>
 <TD>string</TD>
-<TD><P></P></TD>
+<TD><P>The symbol of the token. It is a UTF-8 capitalized alphabetical string</P></TD>
+</TR>
+
+<TR>
+<TD>decimals</TD>
+<TD>uint32</TD>
+<TD><P>The number of decimal places a token is divisible by</P></TD>
+</TR>
+
+<TR>
+<TD>totalSupply</TD>
+<TD>uint64</TD>
+<TD><P>The total supply of tokens that are currently in circulation</P></TD>
 </TR>
 
 <TR>
 <TD>treasury</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>currentFloat</TD>
-<TD>uint64</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>divisibility</TD>
-<TD>uint32</TD>
-<TD><P></P></TD>
+<TD><P>The ID of the account which is set as Treasury</P></TD>
 </TR>
 
 <TR>
 <TD>adminKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
+<TD><P>The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted)</P></TD>
 </TR>
 
 <TR>
 <TD>kycKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
+<TD><P>The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible.</P></TD>
 </TR>
 
 <TR>
 <TD>freezeKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
+<TD><P>The key which can freeze or unfreeze an account for token transactions. If empty, freezing is not possible</P></TD>
 </TR>
 
 <TR>
 <TD>wipeKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
+<TD><P>The key which can wipe token balance of an account. If empty, wipe is not possible</P></TD>
 </TR>
 
 <TR>
 <TD>supplyKey</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
+<TD><P>The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations</P></TD>
 </TR>
 
 <TR>
 <TD>defaultFreezeStatus</TD>
 <TD><a href="#TokenFreezeStatus">TokenFreezeStatus</a></TD>
-<TD><P></P></TD>
+<TD><P>The default Freeze status (not applicable, frozen or unfrozen) of Hedera accounts relative to this token. FreezeNotApplicable is returned if Token Freeze Key is empty. Frozen is returned if Token Freeze Key is set and defaultFreeze is set to true. Unfrozen is returned if Token Freeze Key is set and defaultFreeze is set to false</P></TD>
 </TR>
 
 <TR>
 <TD>defaultKycStatus</TD>
 <TD><a href="#TokenKycStatus">TokenKycStatus</a></TD>
-<TD><P></P></TD>
+<TD><P>The default KYC status (KycNotApplicable or Revoked) of Hedera accounts relative to this token. KycNotApplicable is returned if KYC key is not set, otherwise Revoked</P></TD>
 </TR>
 
 <TR>
 <TD>isDeleted</TD>
 <TD>bool</TD>
-<TD><P></P></TD>
+<TD><P>Specifies whether the token was deleted or not</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewAccount</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewPeriod</TD>
+<TD>uint64</TD>
+<TD><P>The interval at which the auto-renew account will be charged to extend the token's expiry</P></TD>
+</TR>
+
+<TR>
+<TD>expiry</TD>
+<TD>uint64</TD>
+<TD><P>The epoch second at which the token will expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod</P></TD>
 </TR>
 
 <tbody>
@@ -6465,8 +6589,8 @@
 <H2 id="TokenGrantKyc.proto">TokenGrantKyc.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenGrantKyc"><span class="BigBadge">Message</span>TokenGrantKyc</H3>
+<P> Grants KYC to the account for the given token. Must be signed by the Token's kycKey.</P>
+<H3 id="TokenGrantKycTransactionBody"><span class="BigBadge">Message</span>TokenGrantKycTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6479,25 +6603,24 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which this account will be granted KYC. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>account</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
+<TD><P>The account to be KYCed</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <div class="file-heading">
-<H2 id="TokenManagement.proto">TokenManagement.proto</H2>
+<H2 id="TokenMint.proto">TokenMint.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenManagement"><span class="BigBadge">Message</span>TokenManagement</H3>
+<H3 id="TokenMintTransactionBody"><span class="BigBadge">Message</span>TokenMintTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6510,81 +6633,14 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>treasury</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>adminKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>kycKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>freezeKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>wipeKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>supplyKey</TD>
-<TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>symbol</TD>
-<TD>string</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="TokenMintCoins.proto">TokenMintCoins.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenMintCoins"><span class="BigBadge">Message</span>TokenMintCoins</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which to mint tokens. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>amount</TD>
 <TD>uint64</TD>
-<TD><P></P></TD>
+<TD><P>The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63.</P></TD>
 </TR>
 
 <tbody>
@@ -6594,8 +6650,8 @@
 <H2 id="TokenRevokeKyc.proto">TokenRevokeKyc.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenRevokeKyc"><span class="BigBadge">Message</span>TokenRevokeKyc</H3>
+<P> Revokes KYC to the account for the given token. Must be signed by the Token's kycKey.</P>
+<H3 id="TokenRevokeKycTransactionBody"><span class="BigBadge">Message</span>TokenRevokeKycTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6608,14 +6664,14 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which this account will get his KYC revoked. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>account</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
+<TD><P>The account to be KYC Revoked</P></TD>
 </TR>
 
 <tbody>
@@ -6625,7 +6681,7 @@
 <H2 id="TokenService.proto">TokenService.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P> The requests and responses for different network services. </P>
+<P> Transactions and queries for the Token Service </P>
 <H3 id="TokenService"><span class="BigBadge">Service</span>TokenService</H3>
 <P></P>
 <table class="field-table">
@@ -6639,62 +6695,70 @@
 </thead>
 <tbody>
 <TR>
-<TD>mintToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>createToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Creates a new Token by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>burnToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>updateToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Updates the account by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>createToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>mintToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Mints an amount of the token to the defined treasury account</P></TD>
 </TR>
 
 <TR>
-<TD>updateToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>burnToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Burns an amount of the token from the defined treasury account</P></TD>
 </TR>
 
 <TR>
-<TD>deleteToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>deleteToken </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> (NOT CURRENTLY SUPPORTED) Deletes a Token</P></TD>
 </TR>
 
 <TR>
-<TD>transferTokens </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>wipeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Wipes the provided amount of tokens from the specified Account ID</P></TD>
 </TR>
 
 <TR>
-<TD>wipeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>freezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Freezes the transfer of tokens to or from the specified Account ID</P></TD>
 </TR>
 
 <TR>
-<TD>freezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>unfreezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Unfreezes the transfer of tokens to or from the specified Account ID</P></TD>
 </TR>
 
 <TR>
-<TD>unfreezeTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>grantKycToTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Flags the provided Account ID as having gone through KYC</P></TD>
 </TR>
 
 <TR>
-<TD>grantKycToTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>revokeKycFromTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Removes the KYC flag of the provided Account ID</P></TD>
 </TR>
 
 <TR>
-<TD>revokeKycFromTokenAccount </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P></P></TD>
+<TD>transferTokens </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Initiates a Token transfer by submitting the transaction</P></TD>
 </TR>
 
 <TR>
-<TD>getTokenInfo </TD><TD>Query</TD><TD>Response</TD><TD><P></P></TD>
+<TD>associateTokens </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Associates tokens to an account</P></TD>
+</TR>
+
+<TR>
+<TD>dissociateTokens </TD><TD>Transaction</TD><TD>TransactionResponse</TD><TD><P> Dissociates tokens from an account</P></TD>
+</TR>
+
+<TR>
+<TD>getTokenInfo </TD><TD>Query</TD><TD>Response</TD><TD><P> Retrieves the metadata of a token</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
 <div class="file-heading">
-<H2 id="TokenTransact.proto">TokenTransact.proto</H2>
+<H2 id="TokenTransfer.proto">TokenTransfer.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenTransfer"><span class="BigBadge">Message</span>TokenTransfer</H3>
+<P> Transfer tokens from some accounts to other accounts. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). All amounts must have sum of zero.</P>
+<H3 id="TokenTransfersTransactionBody"><span class="BigBadge">Message</span>TokenTransfersTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6706,40 +6770,8 @@
 </thead>
 <tbody>
 <TR>
-<TD>account</TD>
-<TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>amount</TD>
-<TD><a href="#sint64">sint64</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="TokenTransfers"><span class="BigBadge">Message</span>TokenTransfers</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>transfers</TD>
-<TD><a href="#TokenTransfer">TokenTransfer</a> (repeated)</TD>
+<TD>tokenTransfers</TD>
+<TD><a href="#TokenTransferList">TokenTransferList</a> (repeated)</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -6747,11 +6779,11 @@
 </TABLE>
 
 <div class="file-heading">
-<H2 id="TokenUnfreeze.proto">TokenUnfreeze.proto</H2>
+<H2 id="TokenUnfreezeAccount.proto">TokenUnfreezeAccount.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenUnfreeze"><span class="BigBadge">Message</span>TokenUnfreeze</H3>
+<P> Unfreezes transfers of the specified token for the account. Must be signed by the Token's freezeKey.</P>
+<H3 id="TokenUnfreezeAccountTransactionBody"><span class="BigBadge">Message</span>TokenUnfreezeAccountTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6764,14 +6796,105 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which this account will be unfrozen. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>account</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
+<TD><P>The account to be unfrozen</P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TokenUpdate.proto">TokenUpdate.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> Updates an already created Token.</P>
+<H3 id="TokenUpdateTransactionBody"><span class="BigBadge">Message</span>TokenUpdateTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The Token to be updated</P></TD>
+</TR>
+
+<TR>
+<TD>symbol</TD>
+<TD>string</TD>
+<TD><P>The new Symbol of the Token. Must be UTF-8 capitalized alphabetical string identifying the token.</P></TD>
+</TR>
+
+<TR>
+<TD>name</TD>
+<TD>string</TD>
+<TD><P>The new Name of the Token. Must be a string of ASCII characters.</P></TD>
+</TR>
+
+<TR>
+<TD>treasury</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The new Treasury account of the Token. If the provided treasury account is not existing or deleted, the response will be INVALID_TREASURY_ACCOUNT_FOR_TOKEN. If successful, the Token balance held in the previous Treasury Account is transferred to the new one.</P></TD>
+</TR>
+
+<TR>
+<TD>adminKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The new Admin key of the Token. If Token is immutable, transaction will resolve to TOKEN_IS_IMMUTABlE.</P></TD>
+</TR>
+
+<TR>
+<TD>kycKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The new KYC key of the Token. If Token does not have currently a KYC key, transaction will resolve to TOKEN_HAS_NO_KYC_KEY.</P></TD>
+</TR>
+
+<TR>
+<TD>freezeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The new Freeze key of the Token. If the Token does not have currently a Freeze key, transaction will resolve to TOKEN_HAS_NO_FREEZE_KEY.</P></TD>
+</TR>
+
+<TR>
+<TD>wipeKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The new Wipe key of the Token. If the Token does not have currently a Wipe key, transaction will resolve to TOKEN_HAS_NO_WIPE_KEY.</P></TD>
+</TR>
+
+<TR>
+<TD>supplyKey</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P>The new Supply key of the Token. If the Token does not have currently a Supply key, transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY.</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewAccount</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P>The new account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval.</P></TD>
+</TR>
+
+<TR>
+<TD>autoRenewPeriod</TD>
+<TD>uint64</TD>
+<TD><P>The new interval at which the auto-renew account will be charged to extend the token's expiry.</P></TD>
+</TR>
+
+<TR>
+<TD>expiry</TD>
+<TD>uint64</TD>
+<TD><P>The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME</P></TD>
 </TR>
 
 <tbody>
@@ -6781,8 +6904,8 @@
 <H2 id="TokenWipeAccount.proto">TokenWipeAccount.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
-<H3 id="TokenWipeAccount"><span class="BigBadge">Message</span>TokenWipeAccount</H3>
+<P> Wipes the provided amount of tokens from the specified Account. Must be signed by the Token's Wipe key.</P>
+<H3 id="TokenWipeAccountTransactionBody"><span class="BigBadge">Message</span>TokenWipeAccountTransactionBody</H3>
 <P></P>
 <table class="field-table">
 <thead>
@@ -6795,14 +6918,20 @@
 <tbody>
 <TR>
 <TD>token</TD>
-<TD><a href="#TokenRef">TokenRef</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P>The token for which the account will be wiped. If token does not exist, transaction results in INVALID_TOKEN_ID</P></TD>
 </TR>
 
 <TR>
 <TD>account</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
-<TD><P></P></TD>
+<TD><P>The account to be wiped</P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD>uint64</TD>
+<TD><P>The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance]</P></TD>
 </TR>
 
 <tbody>
@@ -6825,41 +6954,15 @@
 </thead>
 <tbody>
 <TR>
-<TD>bodyData</TD>
-<TD>oneof</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>&nbsp;</TD>
-<TD colspan=2>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>body</TD>
-<TD><a href="#TransactionBody">TransactionBody</a></TD>
-<TD><P>the body of the transaction, which needs to be signed</P></TD>
+<TD>signedTransactionBytes</TD>
+<TD>bytes</TD>
+<TD><P>SignedTransaction serialized into bytes</P></TD>
 </TR>
 
 <TR>
 <TD>bodyBytes</TD>
 <TD>bytes</TD>
-<TD><P>TransactionBody serialized into bytes , which needs to be signed</P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-<TR>
-<TD>sigs</TD>
-<TD><a href="#SignatureList">SignatureList</a></TD>
-<TD><P>The signatures on the body, to authorize the transaction; deprecated and to be succeeded by SignatureMap field</P></TD>
+<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
 </TR>
 
 <TR>
@@ -7046,25 +7149,25 @@
 <TR>
 <TD>consensusCreateTopic</TD>
 <TD><a href="#ConsensusCreateTopicTransactionBody">ConsensusCreateTopicTransactionBody</a></TD>
-<TD><P></P></TD>
+<TD><P>Creates a topic</P></TD>
 </TR>
 
 <TR>
 <TD>consensusUpdateTopic</TD>
 <TD><a href="#ConsensusUpdateTopicTransactionBody">ConsensusUpdateTopicTransactionBody</a></TD>
-<TD><P></P></TD>
+<TD><P>Updates a topic</P></TD>
 </TR>
 
 <TR>
 <TD>consensusDeleteTopic</TD>
 <TD><a href="#ConsensusDeleteTopicTransactionBody">ConsensusDeleteTopicTransactionBody</a></TD>
-<TD><P></P></TD>
+<TD><P>Deletes a topic</P></TD>
 </TR>
 
 <TR>
 <TD>consensusSubmitMessage</TD>
 <TD><a href="#ConsensusSubmitMessageTransactionBody">ConsensusSubmitMessageTransactionBody</a></TD>
-<TD><P></P></TD>
+<TD><P>Submits message to a topic</P></TD>
 </TR>
 
 <TR>
@@ -7075,72 +7178,115 @@
 
 <TR>
 <TD>tokenCreation</TD>
-<TD><a href="#TokenCreation">TokenCreation</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenCreateTransactionBody">TokenCreateTransactionBody</a></TD>
+<TD><P>Creates a token instance</P></TD>
 </TR>
 
 <TR>
 <TD>tokenTransfers</TD>
-<TD><a href="#TokenTransfers">TokenTransfers</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenTransfersTransactionBody">TokenTransfersTransactionBody</a></TD>
+<TD><P>Transfers tokens between accounts</P></TD>
 </TR>
 
 <TR>
 <TD>tokenFreeze</TD>
-<TD><a href="#TokenFreeze">TokenFreeze</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenFreezeAccountTransactionBody">TokenFreezeAccountTransactionBody</a></TD>
+<TD><P>Freezes account not to be able to transact with a token</P></TD>
 </TR>
 
 <TR>
 <TD>tokenUnfreeze</TD>
-<TD><a href="#TokenUnfreeze">TokenUnfreeze</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenUnfreezeAccountTransactionBody">TokenUnfreezeAccountTransactionBody</a></TD>
+<TD><P>Unfreezes account for a token</P></TD>
 </TR>
 
 <TR>
 <TD>tokenGrantKyc</TD>
-<TD><a href="#TokenGrantKyc">TokenGrantKyc</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenGrantKycTransactionBody">TokenGrantKycTransactionBody</a></TD>
+<TD><P>Grants KYC to an account for a token</P></TD>
 </TR>
 
 <TR>
 <TD>tokenRevokeKyc</TD>
-<TD><a href="#TokenRevokeKyc">TokenRevokeKyc</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenRevokeKycTransactionBody">TokenRevokeKycTransactionBody</a></TD>
+<TD><P>Revokes KYC of an account for a token</P></TD>
 </TR>
 
 <TR>
 <TD>tokenDeletion</TD>
-<TD><a href="#TokenDeletion">TokenDeletion</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenDeleteTransactionBody">TokenDeleteTransactionBody</a></TD>
+<TD><P>Deletes a token instance</P></TD>
 </TR>
 
 <TR>
 <TD>tokenUpdate</TD>
-<TD><a href="#TokenManagement">TokenManagement</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenUpdateTransactionBody">TokenUpdateTransactionBody</a></TD>
+<TD><P>Updates a token instance</P></TD>
 </TR>
 
 <TR>
 <TD>tokenMint</TD>
-<TD><a href="#TokenMintCoins">TokenMintCoins</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenMintTransactionBody">TokenMintTransactionBody</a></TD>
+<TD><P>Mints new tokens to a token's treasury account</P></TD>
 </TR>
 
 <TR>
 <TD>tokenBurn</TD>
-<TD><a href="#TokenBurnCoins">TokenBurnCoins</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenBurnTransactionBody">TokenBurnTransactionBody</a></TD>
+<TD><P>Burns tokens from a token's treasury account</P></TD>
 </TR>
 
 <TR>
 <TD>tokenWipe</TD>
-<TD><a href="#TokenWipeAccount">TokenWipeAccount</a></TD>
-<TD><P></P></TD>
+<TD><a href="#TokenWipeAccountTransactionBody">TokenWipeAccountTransactionBody</a></TD>
+<TD><P>Wipes amount of tokens from an account</P></TD>
+</TR>
+
+<TR>
+<TD>tokenAssociate</TD>
+<TD><a href="#TokenAssociateTransactionBody">TokenAssociateTransactionBody</a></TD>
+<TD><P>Associate tokens to an account</P></TD>
+</TR>
+
+<TR>
+<TD>tokenDissociate</TD>
+<TD><a href="#TokenDissociateTransactionBody">TokenDissociateTransactionBody</a></TD>
+<TD><P>Dissociate tokens from an account</P></TD>
 </TR>
 
 <tbody>
 </TABLE>
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="TransactionContents.proto">TransactionContents.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P>-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍</P>
+<H3 id="SignedTransaction"><span class="BigBadge">Message</span>SignedTransaction</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>bodyBytes</TD>
+<TD>bytes</TD>
+<TD><P>TransactionBody serialized into bytes, which needs to be signed</P></TD>
+</TR>
+
+<TR>
+<TD>sigMap</TD>
+<TD><a href="#SignatureMap">SignatureMap</a></TD>
+<TD><P>The signatures on the body with the new format, to authorize the transaction</P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -7510,7 +7656,7 @@
 <TR>
 <TD>tokenTransferLists</TD>
 <TD><a href="#TokenTransferList">TokenTransferList</a> (repeated)</TD>
-<TD><P></P></TD>
+<TD><P>All Token transfers as a result of this transaction</P></TD>
 </TR>
 
 <tbody>
