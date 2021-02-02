@@ -1,3 +1,5 @@
+*.sw*
+*.versionsBackup
 /target/
 /bin/
 .classpath
