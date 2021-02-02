@@ -63,7 +63,6 @@
     <maven-release.version>3.0.0-M1</maven-release.version>
     <maven-surefire.version>2.22.2</maven-surefire.version>
     <maven-gpg.version>1.6</maven-gpg.version>
-    <maven-deploy.version>3.0.0-M1</maven-deploy.version>
     <maven-dependency.version>3.1.1</maven-dependency.version>
     <maven-versions.version>2.8.1</maven-versions.version>
     <maven-project-info.version>2.8</maven-project-info.version>
@@ -124,11 +123,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-javadoc-plugin</artifactId>
           <version>${maven-javadoc.version}</version>
-        </plugin>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-          <version>${maven-deploy.version}</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -210,8 +204,9 @@
          <groupId>org.apache.maven.plugins</groupId>
          <artifactId>maven-javadoc-plugin</artifactId>
          <configuration>
-          <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+          <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
           <reportOutputDirectory>${project.basedir}/javadoc</reportOutputDirectory>
+          <source>8</source>
          </configuration>
          <executions>
            <execution>
@@ -287,7 +282,7 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-javadoc-plugin</artifactId>
             <configuration>
-              <javadocExecutable>${java.home}/../bin/javadoc</javadocExecutable>
+              <javadocExecutable>${java.home}/bin/javadoc</javadocExecutable>
             </configuration>
             <executions>
               <execution>
