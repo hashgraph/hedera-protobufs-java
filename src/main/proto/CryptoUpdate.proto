@@ -52,4 +52,5 @@ message CryptoUpdateTransactionBody {
         bool receiverSigRequired = 10 [deprecated = true];  // [Deprecated] Do NOT use this field to set a false value because the server cannot distinguish from the default value. Use receiverSigRequiredWrapper field for this purpose.
         google.protobuf.BoolValue receiverSigRequiredWrapper = 13; // If true, this account's key must sign any transaction depositing into this account (in addition to all withdrawals)
     }
+    string memo = 14; // The new account memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes)
 }

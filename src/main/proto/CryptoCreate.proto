@@ -46,4 +46,5 @@ message CryptoCreateTransactionBody {
     ShardID shardID = 10; // The shard in which this account is created
     RealmID realmID = 11; // The realm in which this account is created (leave this null to create a new realm)
     Key newRealmAdminKey = 12; // If realmID is null, then this the admin key for the new realm that will be created
+    string memo = 13; // the memo that was submitted as part of the Account creation (max 100 bytes)
 }

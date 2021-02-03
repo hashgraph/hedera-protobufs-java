@@ -36,4 +36,5 @@ message FileUpdateTransactionBody {
     Timestamp expirationTime = 2; // The new expiry time (ignored if not later than the current expiry)
     KeyList keys = 3; // The new list of keys that can modify or delete the file
     bytes contents = 4; // The new contents that should overwrite the file's current contents
+    string memo = 5; // The new file memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes)
 }

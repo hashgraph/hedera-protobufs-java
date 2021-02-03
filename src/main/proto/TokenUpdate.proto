@@ -51,4 +51,5 @@ message TokenUpdateTransactionBody {
     AccountID autoRenewAccount = 10; // The new account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval.
     Duration autoRenewPeriod = 11; // The new interval at which the auto-renew account will be charged to extend the token's expiry.
     Timestamp expiry = 12; // The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME
+    string memo = 13; // The new token memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes)
 }
