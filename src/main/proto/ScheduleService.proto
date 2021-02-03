@@ -22,15 +22,25 @@ package proto;
  * ‍
  */
 
-option java_package = "com.hederahashgraph.service.proto.java";
+option java_package = "com.hederahashgraph.api.proto.java";
+option java_multiple_files = true;
 
 import "Query.proto";
 import "Response.proto";
 import "TransactionResponse.proto";
 import "Transaction.proto";
 
-/* The requests and responses for different network services. */
-service NetworkService {
-    rpc getVersionInfo (Query) returns (Response); // Retrieves the active versions of Hedera Services and HAPI proto
-    rpc uncheckedSubmit (Transaction) returns (TransactionResponse); // Submits a "wrapped" transaction to the network, skipping its standard prechecks. (Note that the "wrapper" <tt>UncheckedSubmit</tt> transaction is still subject to normal prechecks, including an authorization requirement that its payer be either the treasury or system admin account.)
+/* Transactions and queries for the Schedule Service */
+service ScheduleService {
+  // Creates a new Schedule by submitting the transaction
+  rpc createSchedule (Transaction) returns (TransactionResponse);
+
+  // Signs a new Schedule by submitting the transaction
+  rpc signSchedule (Transaction) returns (TransactionResponse);
+
+  // Deletes a new Schedule by submitting the transaction
+  rpc deleteSchedule (Transaction) returns (TransactionResponse);
+
+  // Retrieves the metadata of a schedule entity
+  rpc getScheduleInfo (Query) returns (Response);
 }
