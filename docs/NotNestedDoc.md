@@ -2256,7 +2256,7 @@
 | TOKEN_TRANSFER_LIST_SIZE_LIMIT_EXCEEDED | Exceeded the number of token transfers (both from and to) allowed for token transfer list |
 | EMPTY_TOKEN_TRANSFER_BODY | TokenTransfersTransactionBody has no TokenTransferList |
 | EMPTY_TOKEN_TRANSFER_ACCOUNT_AMOUNTS | TokenTransfersTransactionBody has a TokenTransferList with no AccountAmounts |
-| INVALID_SCHEDULE_ID | The Scheduled entity does not exist |
+| INVALID_SCHEDULE_ID | The Scheduled entity does not exist, has expired, has been deleted or executed |
 | SCHEDULE_IS_IMMUTABLE | The Scheduled entity cannot be modified. Admin key not set |
 | INVALID_SCHEDULE_PAYER_ID | The provided Scheduled Payer does not exist |
 | INVALID_SCHEDULE_ACCOUNT_ID | The Schedule Create Transaction TransactionID account does not exist |

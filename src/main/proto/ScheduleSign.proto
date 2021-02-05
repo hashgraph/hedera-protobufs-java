@@ -30,7 +30,7 @@ import "BasicTypes.proto";
 /*
 Provides signatures for a given Scheduled Transaction. The Scheduled Transaction executes if all of the required signatures are witnessed.
 
-INVALID_SCHEDULE_ID is returned if the specified ScheduleID does not exist, has already been executed or expired
+INVALID_SCHEDULE_ID is returned if the specified ScheduleID does not exist, has expired, has been deleted or executed
 UNRESOLVABLE_REQUIRED_SIGNERS is returned if any of the required keys were updated/deleted and cannot be resolved
 INVALID_ACCOUNT_ID is returned if the payerAccountID has been deleted or cannot be resolved
 NO_NEW_VALID_SIGNATURES is returned if there are no new signatures provided in the sigMap to be witnessed
