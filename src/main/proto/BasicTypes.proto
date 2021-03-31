@@ -352,9 +352,9 @@ Note :  This structure is intended to be used to parse 0.0.102, use NodeAddressF
         Usage of NodeAddress to parse 0.0.101 is deprecated.
 */
 message NodeAddress {
-    bytes ipAddress = 1 [deprecated=true]; // The ip address of the Node with separator & octets
-    int32 portno = 2 [deprecated=true]; // The port number of the grpc server for the node
-    bytes memo = 3 [deprecated=true]; // The memo field of the node (usage to store account ID is deprecated)
+    bytes ipAddress = 1 [deprecated=true]; // The ip address of the Node with separator & octets. Usage is deprecated, NodeEndPoint is preferred to retrieve a node's list of IP addresses and ports
+    int32 portno = 2 [deprecated=true]; // The port number of the grpc server for the node.  Usage is deprecated, NodeEndPoint is preferred to retrieve a node's list of IP addresses and ports
+    bytes memo = 3 [deprecated=true]; // Usage is deprecated, nodeAccountId is preferred to retrieve a node's account ID
     string RSA_PubKey = 4; // The RSA public key of the node
     int64 nodeId = 5; // A non-sequential identifier for the node
     AccountID nodeAccountId = 6; // The account to be paid for queries and transactions sent to this node
@@ -365,14 +365,13 @@ message NodeAddress {
 }
 
 /*
-A list of nodes and their metadata.
+A list of nodes and their metadata that contains all details of the nodes for the network
 */
 message AddressBook {
-    repeated NodeAddress nodeAddress = 1; // Contains all details of the nodes for the network
+    repeated NodeAddress nodeAddress = 1; // Metadata of nodes on the network
 }
 
-/* All the information required to connect to the network.
-*/
+/* All the information required to connect to the network.*/
 message NodeAddressForClients {
     int64 nodeId = 5; // A non-sequential identifier for the node. This value is the key between the full and abbreviated address books
     AccountID nodeAccountId = 6; // The account to be paid for queries and transactions sent to this node
