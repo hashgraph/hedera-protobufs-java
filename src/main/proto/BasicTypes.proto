@@ -67,7 +67,6 @@ Applicable to Scheduled Transactions:
 - The ID of a Scheduled Transaction has transactionValidStart and accountIDs inherited from the ScheduleCreate transaction that created it. That is to say that they are equal
 - The scheduled property is true for Scheduled Transactions
 - transactionValidStart, accountID and scheduled properties should be omitted
-- Scheduled Transactions should be submitted with only nonce populated (if desired). Nonce is an additional option presented to users so that they can create multiple sequential Scheduled Transactions that have the same transaction body.
 */
 message TransactionID {
     Timestamp transactionValidStart = 1; // The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid
