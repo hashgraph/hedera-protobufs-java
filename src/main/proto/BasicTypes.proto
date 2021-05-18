@@ -112,6 +112,22 @@ message ScheduleID {
     int64 scheduleNum = 3; // A nonnegative schedule number
 }
 
+/* Possible Token Types (IWA Compatibility). */
+enum TokenType {
+    Fungible = 0; // Interchangeable value with one another, where any quantity of them has the same value as another equal quantity if they are in the same class.
+    NonFungible = 1; // Unique, not interchangeable with other tokens of the same type as they typically have different values.
+}
+
+/*
+ * Possible Token Representation Types (IWA Compatibility).
+ * Tokens can have either a common or unique representation. This distinction might seem subtle, but it is important when considering
+ * how tokens can be traced and if they can have isolated and unique properties.
+ */
+enum TokenRepresentationType {
+    Common = 0; // Share a single set of properties, not distinct from one another. Simply represented as a balance or quantity to a given Hedera account.
+    Unique = 1; // Individually traced and can carry unique properties (e.g. serial number).
+}
+
 /* Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship */
 enum TokenFreezeStatus {
     FreezeNotApplicable = 0;
