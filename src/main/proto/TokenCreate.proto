@@ -57,7 +57,6 @@ message TokenCreateTransactionBody {
     AccountID autoRenewAccount = 14; // An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval
     Duration autoRenewPeriod = 15; // The interval at which the auto-renew account will be charged to extend the token's expiry
     string memo = 16; // The memo associated with the token (UTF-8 encoding max 100 bytes)
-    TokenType tokenType = 17; // IWA compatibility. Specifies the token type. Defaults to Fungible.
-    TokenRepresentationType tokenRepresentationType = 18; // IWA Compatibility. Specifies the token representation type. Defaults to Common.
-    int64 maxSupply = 19; // IWA Compatibility. Defaults to 0, which is considered infinite (Long.MAX_VALUE). For tokens of type FUNGIBLE - the maximum number of tokens that can be in circulation. For tokens of type NON_FUNGIBLE - the maximum number of NFTs (serial numbers) that can be minted. This field can never be changed!
+    TokenType tokenType = 17; // IWA compatibility. Specifies the token type. Defaults to FUNGIBLE_COMMON.
+    int64 maxSupply = 18; // IWA Compatibility. Defaults to 0, which is considered infinite (Long.MAX_VALUE). For tokens of type FUNGIBLE - the maximum number of tokens that can be in circulation. For tokens of type NON_FUNGIBLE - the maximum number of NFTs (serial numbers) that can be minted. This field can never be changed!
 }
