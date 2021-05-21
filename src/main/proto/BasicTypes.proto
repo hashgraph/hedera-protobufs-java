@@ -124,15 +124,10 @@ enum TokenType {
      */
     FUNGIBLE_COMMON = 0;
     /**
-     * Interchangeable value with one another, where any quantity of them has the same value as another equal quantity if they are in the same class.
-     * Individually traced and can carry unique properties (e.g. serial number).
-     */
-    FUNGIBLE_UNIQUE = 1;
-    /**
      * Unique, not interchangeable with other tokens of the same type as they typically have different values.
      * Individually traced and can carry unique properties (e.g. serial number).
      */
-    NON_FUNGIBLE_UNIQUE = 2;
+    NON_FUNGIBLE_UNIQUE = 1;
 }
 
 /* Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship */
