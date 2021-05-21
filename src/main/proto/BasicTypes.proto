@@ -136,7 +136,7 @@ enum TokenType {
  */
 enum TokenSupplyType {
     INFINITE = 0; // Indicates that tokens of that type have an upper bound of Long.MAX_VALUE.
-    FIXED = 1; // Indicates that tokens of that type have an upper bound of maxSupply, provided on token creation.
+    FINITE = 1; // Indicates that tokens of that type have an upper bound of maxSupply, provided on token creation.
 }
 
 /* Possible Freeze statuses returned on TokenGetInfoQuery or CryptoGetInfoResponse in TokenRelationship */
