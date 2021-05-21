@@ -58,8 +58,7 @@ message TokenInfo {
     Timestamp expiry = 17; // The epoch second at which the token will expire
     string memo = 18; // The memo associated with the token
     TokenType tokenType = 19; // The token type
-    TokenRepresentationType tokenRepresentationType = 20; // The token representation type
-    int64 maxSupply = 21; // For tokens of type FUNGIBLE - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE - the maximum number of NFTs (serial numbers) that can be in circulation
+    int64 maxSupply = 20; // For tokens of type FUNGIBLE - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE - the maximum number of NFTs (serial numbers) that can be in circulation
 }
 
 /* Response when the client sends the node TokenGetInfoQuery */
