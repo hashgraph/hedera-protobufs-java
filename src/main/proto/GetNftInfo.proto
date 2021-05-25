@@ -36,7 +36,7 @@ message NftId {
     int64 serialNumber = 2; // The unique identifier of this instance
 }
 
-/* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of type NON_FUNGIBLE) and serial number */
+/* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of type NON_FUNGIBLE_UNIQUE) and serial number */
 message GetNftInfoQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
     NftId nftId = 2; // The ID of the NFT
