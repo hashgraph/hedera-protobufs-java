@@ -85,10 +85,18 @@ message TransferList {
     repeated AccountAmount accountAmounts = 1; // Multiple list of AccountAmount pairs, each of which has an account and an amount to transfer into it (positive) or out of it (negative)
 }
 
+/* A sender account, a receiver account, and the serial number of an NFT of a Token with NON_FUNGIBLE_UNIQUE type. */
+message NftTransfer {
+    AccountID senderAccountID = 1; // The accountID of the sender
+    AccountID receiverAccountID = 2; // The accountID of the receiver
+    int64 serialNumber = 3; // The serial number of the NFT
+}
+
 /* A list of token IDs and amounts representing the transferred out (negative) or into (positive) amounts, represented in the lowest denomination of the token */
 message TokenTransferList {
     TokenID token = 1; // The ID of the token
-    repeated AccountAmount transfers = 2; // Multiple list of AccountAmounts, each of which has an account and amount
+    repeated AccountAmount transfers = 2; // Applicable to tokens of type FUNGIBLE_COMMON. Multiple list of AccountAmounts, each of which has an account and amount
+    repeated NftTransfer nftTransfers = 3; // Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of which has a sender and receiver account, including the serial number of the NFT
 }
 
 /* Unique identifier for a topic (used by the consensus service) */
@@ -429,7 +437,7 @@ message ServicesConfigurationList {
 message TokenRelationship {
     TokenID tokenId = 1; // The ID of the token
     string symbol = 2; // The Symbol of the token
-    uint64 balance = 3; // The balance that the Account holds in the smallest denomination
+    uint64 balance = 3; // For token of type FUNGIBLE_COMMON - the balance that the Account holds in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account
     TokenKycStatus kycStatus = 4; // The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned
     TokenFreezeStatus freezeStatus = 5; // The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned
     uint32 decimals = 6; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
@@ -442,7 +450,7 @@ The transferable unit of a token is its smallest denomination, as given by the t
 Transferable units are not directly comparable across different tokens. */
 message TokenBalance {
     TokenID tokenId = 1; // A unique token id
-    uint64 balance = 2; // A number of transferable units of the identified token
+    uint64 balance = 2; // Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account
     uint32 decimals = 3; // Tokens divide into <tt>10<sup>decimals</sup></tt> pieces
 }
 
