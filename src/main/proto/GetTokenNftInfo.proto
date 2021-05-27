@@ -35,13 +35,13 @@ import "ResponseHeader.proto";
  */
 message GetTokenNftInfoQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
-    TokenID tokenId = 2; // The ID of the token for which information is requested
+    TokenID tokenID = 2; // The ID of the token for which information is requested
     int64 start = 3; // Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1]
     int64 end = 4; // Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs]
 }
 
 message GetTokenNftInfoResponse {
     ResponseHeader header = 1; // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither
-    TokenID tokenId = 2; // The Token with type NON_FUNGIBLE that this record is for
+    TokenID tokenID = 2; // The Token with type NON_FUNGIBLE that this record is for
     repeated NftInfo nfts = 3; // List of NFTs associated to the specified token
 }
