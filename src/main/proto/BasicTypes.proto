@@ -317,6 +317,9 @@ enum HederaFunctionality {
     ScheduleDelete = 71; // Delete Scheduled Transaction
     ScheduleSign = 72; // Sign Scheduled Transaction
     ScheduleGetInfo = 73; // Get Scheduled Transaction Information
+    GetAccountNftInfo = 74; // Get Account Nft Information
+    GetNftInfo = 75; // Get Nft Token Information
+    GetTokenNftInfo = 76; // Token Nft Information
 }
 
 /*
