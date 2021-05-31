@@ -88,6 +88,6 @@ message Query {
 
         TokenGetAccountNftInfoQuery tokenGetAccountNftInfo = 54; // Get a list of NFTs associated with the account
         TokenGetNftInfoQuery tokenGetNftInfo = 55; // Get all information about a NFT
-        TokenGetNftInfoQuery tokenGetNftInfos = 56; // Get a list of NFTs for the token
+        TokenGetNftInfosQuery tokenGetNftInfos = 56; // Get a list of NFTs for the token
     }
 }
