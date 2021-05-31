@@ -26,22 +26,21 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "BasicTypes.proto";
-import "GetNftInfo.proto";
+import "TokenGetNftInfo.proto";
 import "QueryHeader.proto";
 import "ResponseHeader.proto";
 
-/* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M on the list of NFTs associated with a given NON_FUNGIBLE_UNIQUE Token.
- * Example: If there are 10 NFTs issued, having start=0 and end=5 will query for the first 5 NFTs. Querying +all 10 NFTs will require start=0 and end=10
+/* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.
+ * Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs
  */
-message GetTokenNftInfoQuery {
+message TokenGetAccountNftInfoQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
-    TokenID tokenID = 2; // The ID of the token for which information is requested
+    AccountID accountID = 2; // The Account for which information is requested
     int64 start = 3; // Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1]
     int64 end = 4; // Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs]
 }
 
-message GetTokenNftInfoResponse {
+message TokenGetAccountNftInfoResponse {
     ResponseHeader header = 1; // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither
-    TokenID tokenID = 2; // The Token with type NON_FUNGIBLE that this record is for
-    repeated NftInfo nfts = 3; // List of NFTs associated to the specified token
+    repeated TokenNftInfo nfts = 2; // List of NFTs associated to the account
 }

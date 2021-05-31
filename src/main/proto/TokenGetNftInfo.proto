@@ -37,19 +37,19 @@ message NftID {
 }
 
 /* Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of type NON_FUNGIBLE_UNIQUE) and serial number */
-message GetNftInfoQuery {
+message TokenGetNftInfoQuery {
     QueryHeader header = 1; // Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither).
     NftID nftID = 2; // The ID of the NFT
 }
 
-message NftInfo {
+message TokenNftInfo {
     NftID nftID = 1; // The ID of the NFT
     AccountID accountID = 2; // The current owner of the NFT
     Timestamp creationTime = 3; // The effective consensus timestamp at which the NFT was minted
     bytes metadata = 4; // Represents the unique metadata of the NFT
 }
 
-message GetNftInfoResponse {
+message TokenGetNftInfoResponse {
     ResponseHeader header = 1; // Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither
-    NftInfo nft = 2; // The information about this NFT
+    TokenNftInfo nft = 2; // The information about this NFT
 }
