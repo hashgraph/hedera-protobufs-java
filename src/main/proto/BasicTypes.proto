@@ -138,10 +138,15 @@ enum TokenType {
     NON_FUNGIBLE_UNIQUE = 1;
 }
 
+
+/**
+ * Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.
+ * When not explicitly specified, DEFAULT is used.
+ */
 enum SubType {
-    SUBTYPE_NONE = 0;
-    FUNGIBLE_COMMON_TOKEN = 1;
-    NON_FUNGIBLE_UNIQUE_TOKEN = 2;
+    DEFAULT = 0;
+    TOKEN_FUNGIBLE_COMMON = 1;
+    TOKEN_NON_FUNGIBLE_UNIQUE = 2;
 }
 
 /**
