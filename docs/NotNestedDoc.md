@@ -4,6 +4,11 @@
 ## Table of Contents
 
 
+- [AccountBalanceFile.proto](#AccountBalanceFile.proto)
+  - [AllAccountBalances](#AllAccountBalances)
+  - [SingleAccountBalances](#SingleAccountBalances)
+  - [TokenUnitBalance](#TokenUnitBalance)
+
 - [BasicTypes.proto](#BasicTypes.proto)
   - [AccountAmount](#AccountAmount)
   - [AccountID](#AccountID)
@@ -16,10 +21,13 @@
   - [HederaFunctionality](#HederaFunctionality) (Enum)
   - [Key](#Key)
   - [KeyList](#KeyList)
+  - [NftTransfer](#NftTransfer)
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
   - [RealmID](#RealmID)
+  - [ScheduleID](#ScheduleID)
   - [SemanticVersion](#SemanticVersion)
+  - [ServiceEndpoint](#ServiceEndpoint)
   - [ServicesConfigurationList](#ServicesConfigurationList)
   - [Setting](#Setting)
   - [ShardID](#ShardID)
@@ -27,15 +35,22 @@
   - [SignatureList](#SignatureList)
   - [SignatureMap](#SignatureMap)
   - [SignaturePair](#SignaturePair)
+  - [SubType](#SubType) (Enum)
   - [ThresholdKey](#ThresholdKey)
   - [ThresholdSignature](#ThresholdSignature)
+  - [TokenBalance](#TokenBalance)
+  - [TokenBalances](#TokenBalances)
   - [TokenFreezeStatus](#TokenFreezeStatus) (Enum)
   - [TokenID](#TokenID)
   - [TokenKycStatus](#TokenKycStatus) (Enum)
+  - [TokenRelationship](#TokenRelationship)
+  - [TokenSupplyType](#TokenSupplyType) (Enum)
   - [TokenTransferList](#TokenTransferList)
+  - [TokenType](#TokenType) (Enum)
   - [TopicID](#TopicID)
   - [TransactionFeeSchedule](#TransactionFeeSchedule)
   - [TransactionID](#TransactionID)
+  - [TransferList](#TransferList)
 
 - [ConsensusCreateTopic.proto](#ConsensusCreateTopic.proto)
   - [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody)
@@ -107,8 +122,6 @@
 - [CryptoGetAccountBalance.proto](#CryptoGetAccountBalance.proto)
   - [CryptoGetAccountBalanceQuery](#CryptoGetAccountBalanceQuery)
   - [CryptoGetAccountBalanceResponse](#CryptoGetAccountBalanceResponse)
-  - [TokenBalance](#TokenBalance)
-  - [TokenBalances](#TokenBalances)
 
 - [CryptoGetAccountRecords.proto](#CryptoGetAccountRecords.proto)
   - [CryptoGetAccountRecordsQuery](#CryptoGetAccountRecordsQuery)
@@ -118,7 +131,6 @@
   - [CryptoGetInfoQuery](#CryptoGetInfoQuery)
   - [CryptoGetInfoResponse](#CryptoGetInfoResponse)
   - [CryptoGetInfoResponse.AccountInfo](#CryptoGetInfoResponse.AccountInfo)
-  - [TokenRelationship](#TokenRelationship)
 
 - [CryptoGetLiveHash.proto](#CryptoGetLiveHash.proto)
   - [CryptoGetLiveHashQuery](#CryptoGetLiveHashQuery)
@@ -135,7 +147,6 @@
 
 - [CryptoTransfer.proto](#CryptoTransfer.proto)
   - [CryptoTransferTransactionBody](#CryptoTransferTransactionBody)
-  - [TransferList](#TransferList)
 
 - [CryptoUpdate.proto](#CryptoUpdate.proto)
   - [CryptoUpdateTransactionBody](#CryptoUpdateTransactionBody)
@@ -210,6 +221,26 @@
 - [ResponseHeader.proto](#ResponseHeader.proto)
   - [ResponseHeader](#ResponseHeader)
 
+- [SchedulableTransactionBody.proto](#SchedulableTransactionBody.proto)
+  - [SchedulableTransactionBody](#SchedulableTransactionBody)
+
+- [ScheduleCreate.proto](#ScheduleCreate.proto)
+  - [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody)
+
+- [ScheduleDelete.proto](#ScheduleDelete.proto)
+  - [ScheduleDeleteTransactionBody](#ScheduleDeleteTransactionBody)
+
+- [ScheduleGetInfo.proto](#ScheduleGetInfo.proto)
+  - [ScheduleGetInfoQuery](#ScheduleGetInfoQuery)
+  - [ScheduleGetInfoResponse](#ScheduleGetInfoResponse)
+  - [ScheduleInfo](#ScheduleInfo)
+
+- [ScheduleService.proto](#ScheduleService.proto)
+  - [ScheduleService](#ScheduleService) (Service)
+
+- [ScheduleSign.proto](#ScheduleSign.proto)
+  - [ScheduleSignTransactionBody](#ScheduleSignTransactionBody)
+
 - [SmartContractService.proto](#SmartContractService.proto)
   - [SmartContractService](#SmartContractService) (Service)
 
@@ -218,6 +249,11 @@
 
 - [SystemUndelete.proto](#SystemUndelete.proto)
   - [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody)
+
+- [ThrottleDefinitions.proto](#ThrottleDefinitions.proto)
+  - [ThrottleBucket](#ThrottleBucket)
+  - [ThrottleDefinitions](#ThrottleDefinitions)
+  - [ThrottleGroup](#ThrottleGroup)
 
 - [Timestamp.proto](#Timestamp.proto)
   - [Timestamp](#Timestamp)
@@ -241,10 +277,24 @@
 - [TokenFreezeAccount.proto](#TokenFreezeAccount.proto)
   - [TokenFreezeAccountTransactionBody](#TokenFreezeAccountTransactionBody)
 
+- [TokenGetAccountNftInfo.proto](#TokenGetAccountNftInfo.proto)
+  - [TokenGetAccountNftInfoQuery](#TokenGetAccountNftInfoQuery)
+  - [TokenGetAccountNftInfoResponse](#TokenGetAccountNftInfoResponse)
+
 - [TokenGetInfo.proto](#TokenGetInfo.proto)
   - [TokenGetInfoQuery](#TokenGetInfoQuery)
   - [TokenGetInfoResponse](#TokenGetInfoResponse)
   - [TokenInfo](#TokenInfo)
+
+- [TokenGetNftInfo.proto](#TokenGetNftInfo.proto)
+  - [NftID](#NftID)
+  - [TokenGetNftInfoQuery](#TokenGetNftInfoQuery)
+  - [TokenGetNftInfoResponse](#TokenGetNftInfoResponse)
+  - [TokenNftInfo](#TokenNftInfo)
+
+- [TokenGetNftInfos.proto](#TokenGetNftInfos.proto)
+  - [TokenGetNftInfosQuery](#TokenGetNftInfosQuery)
+  - [TokenGetNftInfosResponse](#TokenGetNftInfosResponse)
 
 - [TokenGrantKyc.proto](#TokenGrantKyc.proto)
   - [TokenGrantKycTransactionBody](#TokenGrantKycTransactionBody)
@@ -257,9 +307,6 @@
 
 - [TokenService.proto](#TokenService.proto)
   - [TokenService](#TokenService) (Service)
-
-- [TokenTransfer.proto](#TokenTransfer.proto)
-  - [TokenTransfersTransactionBody](#TokenTransfersTransactionBody)
 
 - [TokenUnfreezeAccount.proto](#TokenUnfreezeAccount.proto)
   - [TokenUnfreezeAccountTransactionBody](#TokenUnfreezeAccountTransactionBody)
@@ -302,6 +349,47 @@
 
 - [UncheckedSubmit.proto](#UncheckedSubmit.proto)
   - [UncheckedSubmitBody](#UncheckedSubmitBody)
+
+<a name="AccountBalanceFile.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## AccountBalanceFile.proto
+
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+
+<a name="AllAccountBalances"></a>
+
+### AllAccountBalances
+ Includes all currency balances (both hbar and token) of all accounts in the ledger. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| consensusTimestamp | [Timestamp](#Timestamp) | An instant in consensus time | |
+| allAccounts | [SingleAccountBalances](#SingleAccountBalances) | The list of account balances for all accounts, after handling all transactions with consensus timestamp up to and including the above instant | |
+
+
+<a name="SingleAccountBalances"></a>
+
+### SingleAccountBalances
+ Includes all currency balances (both hbar and token) of a single account in the ledger. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| accountID | [AccountID](#AccountID) | The account | |
+| hbarBalance |  | The account's hbar balance | |
+| tokenUnitBalances | [TokenUnitBalance](#TokenUnitBalance) | The list of the account's token balances | |
+
+
+<a name="TokenUnitBalance"></a>
+
+### TokenUnitBalance
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenId | [TokenID](#TokenID) | A unique token id | |
+| balance |  | Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account | |
+
 
 <a name="BasicTypes.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
@@ -386,6 +474,7 @@
 | nodedata | [FeeComponents](#FeeComponents) |  Fee paid to the submitting node | |
 | networkdata | [FeeComponents](#FeeComponents) |  Fee paid to the network for processing a transaction into consensus | |
 | servicedata | [FeeComponents](#FeeComponents) |  Fee paid to the network for providing the service associated with the transaction; for instance, storing a file | |
+| subType | [SubType](#SubType) |  SubType distinguishing between different types of FeeData, correlating to the same HederaFunctionality | |
 
 
 <a name="FeeSchedule"></a>
@@ -462,8 +551,7 @@
 | ConsensusSubmitMessage | Submit message to topic |
 | UncheckedSubmit |  |
 | TokenCreate | Create Token |
-| TokenTransact | Transfer Tokens |
-| TokenGetInfo | Get token information |
+| TokenGetInfo | Get Token information |
 | TokenFreezeAccount | Freeze Account |
 | TokenUnfreezeAccount | Unfreeze Account |
 | TokenGrantKycToAccount | Grant KYC to Account |
@@ -475,12 +563,19 @@
 | TokenAccountWipe | Wipe token amount from Account holder |
 | TokenAssociateToAccount | Associate tokens to an account |
 | TokenDissociateFromAccount | Dissociate tokens from an account |
+| ScheduleCreate | Create Scheduled Transaction |
+| ScheduleDelete | Delete Scheduled Transaction |
+| ScheduleSign | Sign Scheduled Transaction |
+| ScheduleGetInfo | Get Scheduled Transaction Information |
+| TokenGetAccountNftInfo | Get Token Account Nft Information |
+| TokenGetNftInfo | Get Token Nft Information |
+| TokenGetNftInfos | Get Token Nft List Information |
 
 
 <a name="Key"></a>
 
 ### Key
- A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.<BR>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.<BR>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.<BR>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.<BR>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.<BR>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys.
+ A Key can be a public key from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. And similarly for RSA and ECDSA.<BR>A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.<BR>A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.<BR>A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.<BR>A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.<BR>Each Key should not have more than 46 levels, which implies 15 levels of nested ThresholdKeys. Only ed25519 primitive keys are currently supported.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -503,6 +598,18 @@
 | keys | [Key](#Key) | list of keys | |
 
 
+<a name="NftTransfer"></a>
+
+### NftTransfer
+ A sender account, a receiver account, and the serial number of an NFT of a Token with NON_FUNGIBLE_UNIQUE type. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| senderAccountID | [AccountID](#AccountID) | The accountID of the sender | |
+| receiverAccountID | [AccountID](#AccountID) | The accountID of the receiver | |
+| serialNumber |  | The serial number of the NFT | |
+
+
 <a name="NodeAddress"></a>
 
 ### NodeAddress
@@ -510,13 +617,16 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| ipAddress |  | The ip address of the Node with separator & octets | |
-| portno |  | The port number of the grpc server for the node | |
-| memo |  | The memo field of the node (usage to store account ID is deprecated) | |
-| RSA_PubKey |  | The RSA public key of the node | |
-| nodeId |  | A non-sequential identifier for the node | |
-| nodeAccountId | [AccountID](#AccountID) | The account to be paid for queries and transactions sent to this node | |
-| nodeCertHash |  | A hash of the X509 cert used for gRPC traffic to this node | |
+| ipAddress |  | The IP address of the Node with separator & octets encoded in UTF-8. Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports | |
+| portno |  | The port number of the grpc server for the node.  Usage is deprecated, ServiceEndpoint is preferred to retrieve a node's list of IP addresses and ports | |
+| memo |  | Usage is deprecated, nodeAccountId is preferred to retrieve a node's account ID | |
+| RSA_PubKey |  | The node's hex-encoded X509 RSA public key | |
+| nodeId |  | # A non-sequential identifier for the node | |
+| nodeAccountId | [AccountID](#AccountID) | # The account to be paid for queries and transactions sent to this node | |
+| nodeCertHash |  | # The hex-encoded SHA-384 hash of the X509 cert used to encrypt gRPC traffic to the node | |
+| serviceEndpoint | [ServiceEndpoint](#ServiceEndpoint) | # A node's service IP addresses and ports | |
+| description |  | A description of the node, with UTF-8 encoding up to 100 bytes | |
+| stake |  | The amount of tinybars staked to the node | |
 
 
 <a name="NodeAddressBook"></a>
@@ -526,7 +636,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| nodeAddress | [NodeAddress](#NodeAddress) | Contains multiple Node Address for the network | |
+| nodeAddress | [NodeAddress](#NodeAddress) | Metadata of all nodes in the network | |
 
 
 <a name="RealmID"></a>
@@ -540,16 +650,41 @@
 | realmNum |  | The realm number (nonnegative) | |
 
 
+<a name="ScheduleID"></a>
+
+### ScheduleID
+ Unique identifier for a Schedule 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| shardNum |  | A nonnegative shard number | |
+| realmNum |  | A nonnegative realm number | |
+| scheduleNum |  | A nonnegative schedule number | |
+
+
 <a name="SemanticVersion"></a>
 
 ### SemanticVersion
-
+ Hedera follows semantic versioning (https:semver.org/) for both the HAPI protobufs and the Services software.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | major |  | Increases with incompatible API changes | |
 | minor |  | Increases with backwards-compatible new functionality | |
 | patch |  | Increases with backwards-compatible bug fixes | |
+| pre |  | A pre-release version MAY be denoted by appending a hyphen and a series of dot separated identifiers (https:semver.org/#spec-item-9); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain 'alpha.1' | |
+| build |  | Build metadata MAY be denoted by appending a plus sign and a series of dot separated identifiers immediately following the patch or pre-release version (https:semver.org/#spec-item-10); so given a semver 0.14.0-alpha.1+21AF26D3, this field would contain '21AF26D3' | |
+
+
+<a name="ServiceEndpoint"></a>
+
+### ServiceEndpoint
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| ipAddressV4 |  | The 32-bit IPv4 address of the node encoded in left to right order (e.g. 127.0.0.1 has 127 as its first byte) | |
+| port |  | The port of the node | |
 
 
 <a name="ServicesConfigurationList"></a>
@@ -637,6 +772,18 @@
 | | ECDSA_384 |  | ECDSA p-384 signature | |
 
 
+<a name="SubType"></a>
+
+### SubType
+<BR>Possible FeeData Object SubTypes. Supplementary to the main HederaFunctionality Type.<BR>When not explicitly specified, DEFAULT is used.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| DEFAULT |  |
+| TOKEN_FUNGIBLE_COMMON |  |
+| TOKEN_NON_FUNGIBLE_UNIQUE |  |
+
+
 <a name="ThresholdKey"></a>
 
 ### ThresholdKey
@@ -657,6 +804,28 @@
 | ----- | ---- | ----------- | - |
 | option | [deprecated=true](#deprecated=true) |  | |
 | sigs | [SignatureList](#SignatureList) | for an N-of-M threshold key, this is a list of M signatures, at least N of which must be non-null | |
+
+
+<a name="TokenBalance"></a>
+
+### TokenBalance
+ A number of <i>transferable units</i> of a certain token.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenId | [TokenID](#TokenID) | A unique token id | |
+| balance |  | Number of transferable units of the identified token. For token of type FUNGIBLE_COMMON - balance in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account | |
+| decimals |  | Tokens divide into <tt>10<sup>decimals</sup></tt> pieces | |
+
+
+<a name="TokenBalances"></a>
+
+### TokenBalances
+ A sequence of token balances 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenBalances | [TokenBalance](#TokenBalance) |  | |
 
 
 <a name="TokenFreezeStatus"></a>
@@ -695,6 +864,32 @@
 | Revoked |  |
 
 
+<a name="TokenRelationship"></a>
+
+### TokenRelationship
+ Token's information related to the given Account 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenId | [TokenID](#TokenID) | The ID of the token | |
+| symbol |  | The Symbol of the token | |
+| balance |  | For token of type FUNGIBLE_COMMON - the balance that the Account holds in the smallest denomination. For token of type NON_FUNGIBLE_UNIQUE - the number of NFTs held by the account | |
+| kycStatus | [TokenKycStatus](#TokenKycStatus) | The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned | |
+| freezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) | The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned | |
+| decimals |  | Tokens divide into <tt>10<sup>decimals</sup></tt> pieces | |
+
+
+<a name="TokenSupplyType"></a>
+
+### TokenSupplyType
+<BR>Possible Token Supply Types (IWA Compatibility).<BR>Indicates how many tokens can have during its lifetime.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| INFINITE | Indicates that tokens of that type have an upper bound of Long.MAX_VALUE. |
+| FINITE | Indicates that tokens of that type have an upper bound of maxSupply, provided on token creation. |
+
+
 <a name="TokenTransferList"></a>
 
 ### TokenTransferList
@@ -703,7 +898,25 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | token | [TokenID](#TokenID) | The ID of the token | |
-| transfers | [AccountAmount](#AccountAmount) | Multiple list of AccountAmounts, each of which has an account and amount | |
+| transfers | [AccountAmount](#AccountAmount) | Applicable to tokens of type FUNGIBLE_COMMON. Multiple list of AccountAmounts, each of which has an account and amount | |
+| nftTransfers | [NftTransfer](#NftTransfer) | Applicable to tokens of type NON_FUNGIBLE_UNIQUE. Multiple list of NftTransfers, each of which has a sender and receiver account, including the serial number of the NFT | |
+
+
+<a name="TokenType"></a>
+
+### TokenType
+<BR>Possible Token Types (IWA Compatibility).<BR>Apart from fungible and non-fungible, Tokens can have either a common or unique representation. This distinction might seem subtle, but it is important when considering<BR>how tokens can be traced and if they can have isolated and unique properties.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+|  |  |
+| FUNGIBLE_COMMON |  |
+| * |  |
+| * |  |
+|  |  |
+| NON_FUNGIBLE_UNIQUE |  |
 
 
 <a name="TopicID"></a>
@@ -732,12 +945,23 @@
 <a name="TransactionID"></a>
 
 ### TransactionID
- The ID for a transaction. This is used for retrieving receipts and records for a transaction, for appending to a file right after creating it, for instantiating a smart contract with bytecode in a file just created, and internally by the network for detecting when duplicate transactions are submitted. A user might get a transaction processed faster by submitting it to N nodes, each with a different node account, but all with the same TransactionID. Then, the transaction will take effect when the first of all those nodes submits the transaction and it reaches consensus. The other transactions will not take effect. So this could make the transaction take effect faster, if any given node might be slow. However, the full transaction fee is charged for each transaction, so the total fee is N times as much if the transaction is sent to N nodes. 
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | transactionValidStart | [Timestamp](#Timestamp) | The transaction is invalid if consensusTimestamp < transactionID.transactionStartValid | |
 | accountID | [AccountID](#AccountID) | The Account ID that paid for this transaction | |
+| scheduled |  | Whether the Transaction is of type Scheduled or no | |
+
+
+<a name="TransferList"></a>
+
+### TransferList
+ A list of accounts and amounts to transfer out of each account (negative) or into it (positive). 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| accountAmounts | [AccountAmount](#AccountAmount) | Multiple list of AccountAmount pairs, each of which has an account and an amount to transfer into it (positive) or out of it (negative) | |
 
 
 <a name="ConsensusCreateTopic.proto"></a>
@@ -834,7 +1058,7 @@
 
 ## ConsensusSubmitMessage.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
 
 <a name="ConsensusMessageChunkInfo"></a>
 
@@ -874,14 +1098,14 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| memo |  | Short publicly visible memo about the topic. No guarantee of uniqueness. | |
+| memo |  | The memo associated with the topic (UTF-8 encoding max 100 bytes) | |
 | runningHash |  |  When a topic is created, its running hash is initialized to 48 bytes of binary zeros.<BR>For each submitted message, the topic's running hash is then updated to the output<BR>of a particular SHA-384 digest whose input data include the previous running hash.<BR><BR>See the TransactionReceipt.proto documentation for an exact description of the<BR>data included in the SHA-384 digest used for the update. | |
 | sequenceNumber |  |  Sequence number (starting at 1 for the first submitMessage) of messages on the topic. | |
 | expirationTime | [Timestamp](#Timestamp) |  Effective consensus timestamp at (and after) which submitMessage calls will no longer succeed on the topic<BR>and the topic will expire and after AUTORENEW_GRACE_PERIOD be automatically deleted. | |
 | adminKey | [Key](#Key) | Access control for update/delete of the topic. Null if there is no key. | |
 | submitKey | [Key](#Key) | Access control for ConsensusService.submitMessage. Null if there is no key. | |
-| autoRenewPeriod | [Duration](#Duration) |  | |
-| autoRenewAccount | [AccountID](#AccountID) | Null if there is no autoRenewAccount. | |
+| autoRenewPeriod | [Duration](#Duration) | If an auto-renew account is specified, when the topic expires, its lifetime will be extended by up to this duration (depending on the solvency of the auto-renew account). If the auto-renew account has no funds at all, the topic will be deleted instead. | |
+| autoRenewAccount | [AccountID](#AccountID) | The account, if any, to charge for automatic renewal of the topic's lifetime upon expiry. | |
 
 
 <a name="ConsensusUpdateTopic.proto"></a>
@@ -899,7 +1123,7 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | topicID | [TopicID](#TopicID) |  | |
-| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) |  Short publicly visible memo about the topic. No guarantee of uniqueness. Null for "do not update". | |
+| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) | If set, the new memo to be associated with the topic (UTF-8 encoding max 100 bytes) | |
 | expirationTime | [Timestamp](#Timestamp) |  Effective consensus timestamp at (and after) which all consensus transactions and queries will fail.<BR>The expirationTime may be no longer than MAX_AUTORENEW_PERIOD (8000001 seconds) from the consensus timestamp of<BR>this transaction.<BR>On topics with no adminKey, extending the expirationTime is the only updateTopic option allowed on the topic.<BR>If unspecified, no change. | |
 | adminKey | [Key](#Key) |  Access control for update/delete of the topic.<BR>If unspecified, no change.<BR>If empty keyList - the adminKey is cleared. | |
 | submitKey | [Key](#Key) |  Access control for ConsensusService.submitMessage.<BR>If unspecified, no change.<BR>If empty keyList - the submitKey is cleared. | |
@@ -1103,12 +1327,16 @@
 | storage |  | number of bytes of storage being used by this instance (which affects the cost to extend the expiration time) | |
 | memo |  | the memo associated with the contract (max 100 bytes) | |
 | balance |  | The current balance, in tinybars | |
+| deleted |  | Whether the contract has been deleted | |
+| tokenRelationships | [TokenRelationship](#TokenRelationship) | The tokens associated to the contract | |
 
 
 <a name="ContractGetRecords.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
 ## ContractGetRecords.proto
+
+ Before v0.9.0, requested records of all transactions against the given contract in the last 25 hours.
 
 <a name="ContractGetRecordsQuery"></a>
 
@@ -1117,6 +1345,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
+| option | [deprecated=true](#deprecated=true) |  | |
 | header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
 | contractID | [ContractID](#ContractID) | The smart contract instance for which the records should be retrieved | |
 
@@ -1124,10 +1353,11 @@
 <a name="ContractGetRecordsResponse"></a>
 
 ### ContractGetRecordsResponse
- Response when the client sends the node ContractGetRecordsQuery 
+ Before v0.9.0, returned records of all transactions against the given contract in the last 25 hours.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
+| option | [deprecated=true](#deprecated=true) |  | |
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
 | contractID | [ContractID](#ContractID) | The smart contract instance that this record is for | |
 | records | [TransactionRecord](#TransactionRecord) | List of records, each with contractCreateResult or contractCallResult as its body | |
@@ -1151,7 +1381,9 @@
 | proxyAccountID | [AccountID](#AccountID) |  (NOT YET IMPLEMENTED) The new id of the account to which the contract is proxy staked | |
 | autoRenewPeriod | [Duration](#Duration) |  (NOT YET IMPLEMENTED) The new interval at which the contract will pay to extend its expiry (by the same interval) | |
 | fileID | [FileID](#FileID) |  The new id of the file asserted to contain the bytecode of the Solidity transaction that created this contract | |
-| memo |  |  The new contract memo, assumed to be Unicode encoded with UTF-8 (at most 100 bytes) | |
+| memoField | oneof |  | |
+| | memo |  | [Deprecated] If set with a non-zero length, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) | |
+| | memoWrapper | [google.protobuf.StringValue](#google.protobuf.StringValue) | If set, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="CryptoAddLiveHash.proto"></a>
@@ -1206,6 +1438,7 @@
 | shardID | [ShardID](#ShardID) | The shard in which this account is created | |
 | realmID | [RealmID](#RealmID) | The realm in which this account is created (leave this null to create a new realm) | |
 | newRealmAdminKey | [Key](#Key) | If realmID is null, then this the admin key for the new realm that will be created | |
+| memo |  | The memo associated with the account (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="CryptoDelete.proto"></a>
@@ -1271,31 +1504,10 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither. | |
 | accountID | [AccountID](#AccountID) | The account ID that is being described (this is useful with state proofs, for proving to a third party) | |
-| balance |  | The current balance, in tinybars | |
-| tokenBalances | [TokenBalance](#TokenBalance) | The array of tokens that the account possesses | |
-
-
-<a name="TokenBalance"></a>
-
-### TokenBalance
- Contains information the balance of an Account in regards to the corresponding Token ID 
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| tokenId | [TokenID](#TokenID) | The ID of the token | |
-| balance |  | The current token balance | |
-
-
-<a name="TokenBalances"></a>
-
-### TokenBalances
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| tokenBalances | [TokenBalance](#TokenBalance) |  | |
+| balance |  | The current balance, in tinybars. | |
+| tokenBalances | [TokenBalance](#TokenBalance) | The token balances possessed by the target account. | |
 
 
 <a name="CryptoGetAccountRecords.proto"></a>
@@ -1303,7 +1515,7 @@
 
 ## CryptoGetAccountRecords.proto
 
- Get all the records for an account for any transfers into it and out of it, that were above the threshold, during the last 25 hours. 
+ Requests records of all transactions for which the given account was the effective payer in the last 3 minutes of consensus time and <tt>ledger.keepRecordsInState=true</tt> was true during <tt>handleTransaction</tt>.
 
 <a name="CryptoGetAccountRecordsQuery"></a>
 
@@ -1319,13 +1531,13 @@
 <a name="CryptoGetAccountRecordsResponse"></a>
 
 ### CryptoGetAccountRecordsResponse
- Response when the client sends the node CryptoGetAccountRecordsQuery 
+ Returns records of all transactions for which the given account was the effective payer in the last 3 minutes of consensus time and <tt>ledger.keepRecordsInState=true</tt> was true during <tt>handleTransaction</tt>.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
 | accountID | [AccountID](#AccountID) | The account that this record is for | |
-| records | [TransactionRecord](#TransactionRecord) | List of records, each with CryptoRecordBody as their body | |
+| records | [TransactionRecord](#TransactionRecord) | List of records | |
 
 
 <a name="CryptoGetInfo.proto"></a>
@@ -1378,20 +1590,8 @@
 | autoRenewPeriod | [Duration](#Duration) | The duration for expiration time will extend every this many seconds. If there are insufficient funds, then it extends as long as possible. If it is empty when it expires, then it is deleted. | |
 | liveHashes | [LiveHash](#LiveHash) | All of the livehashes attached to the account (each of which is a hash along with the keys that authorized it and can delete it) | |
 | tokenRelationships | [TokenRelationship](#TokenRelationship) | All tokens related to this account | |
-
-
-<a name="TokenRelationship"></a>
-
-### TokenRelationship
- Token's information related to the given Account 
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| tokenId | [TokenID](#TokenID) | The ID of the token | |
-| symbol |  | The Symbol of the token | |
-| balance |  | The balance that the Account holds in the smallest denomination | |
-| kycStatus | [TokenKycStatus](#TokenKycStatus) | The KYC status of the account (KycNotApplicable, Granted or Revoked). If the token does not have KYC key, KycNotApplicable is returned | |
-| freezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) | The Freeze status of the account (FreezeNotApplicable, Frozen or Unfrozen). If the token does not have Freeze key, FreezeNotApplicable is returned | |
+| memo |  | The memo associated with the account | |
+| ownedNfts |  | The number of NFTs owned by this account | |
 
 
 <a name="CryptoGetLiveHash.proto"></a>
@@ -1494,7 +1694,7 @@
 | addLiveHash  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Adds a livehash |
 | deleteLiveHash  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Deletes a livehash |
 | getLiveHash  | Query | Response |  (NOT CURRENTLY SUPPORTED) Retrieves a livehash for an account |
-| getAccountRecords  | Query | Response |  Retrieves the 25-hour records stored for an account |
+| getAccountRecords  | Query | Response |  Returns all transactions in the last 180s of consensus time for which the given account was the effective payer <b>and</b> network property <tt>ledger.keepRecordsInState</tt> was <tt>true</tt>. |
 | cryptoGetBalance  | Query | Response |  Retrieves the balance of an account |
 | getAccountInfo  | Query | Response |  Retrieves the metadata of an account |
 | getTransactionReceipts  | Query | Response |  Retrieves the latest receipt for a transaction that is either awaiting consensus, or reached consensus in the last 180 seconds |
@@ -1508,26 +1708,17 @@
 
 ## CryptoTransfer.proto
 
- A list of accounts and amounts to transfer out of each account (negative) or into it (positive). 
+ Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar).
 
 <a name="CryptoTransferTransactionBody"></a>
 
 ### CryptoTransferTransactionBody
- Transfer cryptocurrency from some accounts to other accounts. The accounts list can contain up to 10 accounts. The amounts list must be the same length as the accounts list. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). The amounts list must sum to zero. Each amount is a number of tinyBars (there are 100,000,000 tinyBars in one Hbar).
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| transfers | [TransferList](#TransferList) | Accounts and amounts to transfer | |
-
-
-<a name="TransferList"></a>
-
-### TransferList
 
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| accountAmounts | [AccountAmount](#AccountAmount) | Multiple list of AccountAmount pairs, each of which has an account and an amount to transfer into it (positive) or out of it (negative) | |
+| transfers | [TransferList](#TransferList) |  | |
+| tokenTransfers | [TokenTransferList](#TokenTransferList) |  | |
 
 
 <a name="CryptoUpdate.proto"></a>
@@ -1557,6 +1748,7 @@
 | receiverSigRequiredField | oneof |  | |
 | | receiverSigRequired |  | [Deprecated] Do NOT use this field to set a false value because the server cannot distinguish from the default value. Use receiverSigRequiredWrapper field for this purpose. | |
 | | receiverSigRequiredWrapper | [google.protobuf.BoolValue](#google.protobuf.BoolValue) | If true, this account's key must sign any transaction depositing into this account (in addition to all withdrawals) | |
+| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) | If set, the new memo to be associated with the account (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="Duration.proto"></a>
@@ -1640,6 +1832,7 @@
 | shardID | [ShardID](#ShardID) | Shard in which this file is created | |
 | realmID | [RealmID](#RealmID) | The Realm in which to the file is created (leave this null to create a new realm) | |
 | newRealmAdminKey | [Key](#Key) | If realmID is null, then this the admin key for the new realm that will be created | |
+| memo |  | The memo associated with the file (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="FileDelete.proto"></a>
@@ -1740,6 +1933,7 @@
 | expirationTime | [Timestamp](#Timestamp) | The current time at which this account is set to expire | |
 | deleted |  | True if deleted but not yet expired | |
 | keys | [KeyList](#KeyList) | One of these keys must sign in order to modify or delete the file | |
+| memo |  | The memo associated with the file | |
 
 
 <a name="FileService.proto"></a>
@@ -1780,6 +1974,7 @@
 | expirationTime | [Timestamp](#Timestamp) | The new expiry time (ignored if not later than the current expiry) | |
 | keys | [KeyList](#KeyList) | The new list of keys that can modify or delete the file | |
 | contents |  | The new contents that should overwrite the file's current contents | |
+| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) | If set, the new memo to be associated with the file (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="Freeze.proto"></a>
@@ -1801,6 +1996,7 @@
 | endHour |  | The end hour (in UTC time), a value between 0 and 23 | |
 | endMin |  | The end minute (in UTC time), a value between 0 and 59 | |
 | updateFile | [FileID](#FileID) | The ID of the file needs to be updated during a freeze transaction | |
+| fileHash |  | The hash value of the file, used to verify file content before performing freeze and update | |
 
 
 <a name="FreezeService.proto"></a>
@@ -1919,8 +2115,8 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
-| hapiProtoVersion | [SemanticVersion](#SemanticVersion) |  | |
-| hederaServicesVersion | [SemanticVersion](#SemanticVersion) |  | |
+| hapiProtoVersion | [SemanticVersion](#SemanticVersion) | The Hedera API (HAPI) protobuf version recognized by the responding node. | |
+| hederaServicesVersion | [SemanticVersion](#SemanticVersion) | The version of the Hedera Services software deployed on the responding node. | |
 
 
 <a name="NetworkService.proto"></a>
@@ -1938,7 +2134,7 @@
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
 | getVersionInfo  | Query | Response | Retrieves the active versions of Hedera Services and HAPI proto |
-| uncheckedSubmit  | Transaction | TransactionResponse |  |
+| uncheckedSubmit  | Transaction | TransactionResponse | Submits a "wrapped" transaction to the network, skipping its standard prechecks. (Note that the "wrapper" <tt>UncheckedSubmit</tt> transaction is still subject to normal prechecks, including an authorization requirement that its payer be either the treasury or system admin account.) |
 
 
 <a name="Query.proto"></a>
@@ -1973,8 +2169,12 @@
 | | transactionGetRecord | [TransactionGetRecordQuery](#TransactionGetRecordQuery) | Get a record for a transaction | |
 | | transactionGetFastRecord | [TransactionGetFastRecordQuery](#TransactionGetFastRecordQuery) | Get a record for a transaction (lasts 180 seconds) | |
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery) | Get the parameters of and state of a consensus topic. | |
-| | networkGetVersionInfo | [NetworkGetVersionInfoQuery](#NetworkGetVersionInfoQuery) |  | |
+| | networkGetVersionInfo | [NetworkGetVersionInfoQuery](#NetworkGetVersionInfoQuery) | Get the versions of the HAPI protobuf and Hedera Services software deployed on the responding node. | |
 | | tokenGetInfo | [TokenGetInfoQuery](#TokenGetInfoQuery) | Get all information about a token | |
+| | scheduleGetInfo | [ScheduleGetInfoQuery](#ScheduleGetInfoQuery) | Get all information about a scheduled entity | |
+| | tokenGetAccountNftInfo | [TokenGetAccountNftInfoQuery](#TokenGetAccountNftInfoQuery) | Get a list of NFTs associated with the account | |
+| | tokenGetNftInfo | [TokenGetNftInfoQuery](#TokenGetNftInfoQuery) | Get all information about a NFT | |
+| | tokenGetNftInfos | [TokenGetNftInfosQuery](#TokenGetNftInfosQuery) | Get a list of NFTs for the token | |
 
 
 <a name="QueryHeader.proto"></a>
@@ -2040,6 +2240,10 @@
 | | consensusGetTopicInfo | [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse) | Parameters of and state of a consensus topic.. | |
 | | networkGetVersionInfo | [NetworkGetVersionInfoResponse](#NetworkGetVersionInfoResponse) | Semantic versions of Hedera Services and HAPI proto | |
 | | tokenGetInfo | [TokenGetInfoResponse](#TokenGetInfoResponse) | Get all information about a token | |
+| | scheduleGetInfo | [ScheduleGetInfoResponse](#ScheduleGetInfoResponse) | Get all information about a schedule entity | |
+| | tokenGetAccountNftInfo | [TokenGetAccountNftInfoResponse](#TokenGetAccountNftInfoResponse) | A list of the NFTs associated with the account | |
+| | tokenGetNftInfo | [TokenGetNftInfoResponse](#TokenGetNftInfoResponse) | All information about an NFT | |
+| | tokenGetNftInfos | [TokenGetNftInfosResponse](#TokenGetNftInfosResponse) | A list of the NFTs for the token | |
 
 
 <a name="ResponseCode.proto"></a>
@@ -2047,7 +2251,7 @@
 
 ## ResponseCode.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
 
 <a name="ResponseCodeEnum"></a>
 
@@ -2169,17 +2373,17 @@
 | MAX_GAS_LIMIT_EXCEEDED | Gas exceeded currently allowable gas limit per transaction |
 | MAX_FILE_SIZE_EXCEEDED | File size exceeded the currently allowable limit |
 | INVALID_TOPIC_ID | The Topic ID specified is not in the system. |
-| INVALID_ADMIN_KEY |  |
-| INVALID_SUBMIT_KEY |  |
+| INVALID_ADMIN_KEY | A provided admin key was invalid. |
+| INVALID_SUBMIT_KEY | A provided submit key was invalid. |
 | UNAUTHORIZED | An attempted operation was not authorized (ie - a deleteTopic for a topic with no adminKey). |
 | INVALID_TOPIC_MESSAGE | A ConsensusService message is empty. |
 | INVALID_AUTORENEW_ACCOUNT | The autoRenewAccount specified is not a valid, active account. |
-| AUTORENEW_ACCOUNT_NOT_ALLOWED |  An adminKey was not specified on the topic, so there must not be an autoRenewAccount. |
+| AUTORENEW_ACCOUNT_NOT_ALLOWED | An adminKey was not specified on the topic, so there must not be an autoRenewAccount. |
 | TOPIC_EXPIRED |  The topic has expired, was not automatically renewed, and is in a 7 day grace period before the topic will be<BR>deleted unrecoverably. This error response code will not be returned until autoRenew functionality is supported<BR>by HAPI. |
 | INVALID_CHUNK_NUMBER | chunk number must be from 1 to total (chunks) inclusive. |
 | INVALID_CHUNK_TRANSACTION_ID | For every chunk, the payer account that is part of initialTransactionID must match the Payer Account of this transaction. The entire initialTransactionID should match the transactionID of the first chunk, but this is not checked or enforced by Hedera except when the chunk number is 1. |
 | ACCOUNT_FROZEN_FOR_TOKEN | Account is frozen and cannot transact with the token |
-| TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED | Maximum number of token relations for agiven account is exceeded |
+| TOKENS_PER_ACCOUNT_LIMIT_EXCEEDED | An involved account already has more than <tt>tokens.maxPerAccount</tt> associations with non-deleted tokens. |
 | INVALID_TOKEN_ID | The token is invalid or does not exist |
 | INVALID_TOKEN_DECIMALS | Invalid token decimals |
 | INVALID_TOKEN_INITIAL_SUPPLY | Invalid token initial supply |
@@ -2187,22 +2391,22 @@
 | INVALID_TOKEN_SYMBOL | Token Symbol is not UTF-8 capitalized alphabetical string |
 | TOKEN_HAS_NO_FREEZE_KEY | Freeze key is not set on token |
 | TRANSFERS_NOT_ZERO_SUM_FOR_TOKEN | Amounts in transfer list are not net zero |
-| MISSING_TOKEN_SYMBOL | Token Symbol is not provided |
-| TOKEN_SYMBOL_TOO_LONG | Token Symbol is too long |
+| MISSING_TOKEN_SYMBOL | A token symbol was not provided |
+| TOKEN_SYMBOL_TOO_LONG | The provided token symbol was too long |
 | ACCOUNT_KYC_NOT_GRANTED_FOR_TOKEN | KYC must be granted and account does not have KYC granted |
 | TOKEN_HAS_NO_KYC_KEY | KYC key is not set on token |
 | INSUFFICIENT_TOKEN_BALANCE | Token balance is not sufficient for the transaction |
 | TOKEN_WAS_DELETED | Token transactions cannot be executed on deleted token |
 | TOKEN_HAS_NO_SUPPLY_KEY | Supply key is not set on token |
 | TOKEN_HAS_NO_WIPE_KEY | Wipe key is not set on token |
-| INVALID_TOKEN_MINT_AMOUNT |  |
-| INVALID_TOKEN_BURN_AMOUNT |  |
-| TOKEN_NOT_ASSOCIATED_TO_ACCOUNT |  |
-| CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT | Cannot execute wipe operation on treasury account |
-| INVALID_KYC_KEY |  |
-| INVALID_WIPE_KEY |  |
-| INVALID_FREEZE_KEY |  |
-| INVALID_SUPPLY_KEY |  |
+| INVALID_TOKEN_MINT_AMOUNT | The requested token mint amount would cause an invalid total supply |
+| INVALID_TOKEN_BURN_AMOUNT | The requested token burn amount would cause an invalid total supply |
+| TOKEN_NOT_ASSOCIATED_TO_ACCOUNT | A required token-account relationship is missing |
+| CANNOT_WIPE_TOKEN_TREASURY_ACCOUNT | The target of a wipe operation was the token treasury account |
+| INVALID_KYC_KEY | The provided KYC key was invalid. |
+| INVALID_WIPE_KEY | The provided wipe key was invalid. |
+| INVALID_FREEZE_KEY | The provided freeze key was invalid. |
+| INVALID_SUPPLY_KEY | The provided supply key was invalid. |
 | MISSING_TOKEN_NAME | Token Name is not provided |
 | TOKEN_NAME_TOO_LONG | Token Name is too long |
 | INVALID_WIPING_AMOUNT | The provided wipe amount must not be negative, zero or bigger than the token holder balance |
@@ -2210,6 +2414,36 @@
 | TOKEN_ALREADY_ASSOCIATED_TO_ACCOUNT | An <tt>associateToken</tt> operation specified a token already associated to the account |
 | TRANSACTION_REQUIRES_ZERO_TOKEN_BALANCES | An attempted operation is invalid until all token balances for the target account are zero |
 | ACCOUNT_IS_TREASURY | An attempted operation is invalid because the account is a treasury |
+| TOKEN_ID_REPEATED_IN_TOKEN_LIST | Same TokenIDs present in the token list |
+| TOKEN_TRANSFER_LIST_SIZE_LIMIT_EXCEEDED | Exceeded the number of token transfers (both from and to) allowed for token transfer list |
+| EMPTY_TOKEN_TRANSFER_BODY | TokenTransfersTransactionBody has no TokenTransferList |
+| EMPTY_TOKEN_TRANSFER_ACCOUNT_AMOUNTS | TokenTransfersTransactionBody has a TokenTransferList with no AccountAmounts |
+| INVALID_SCHEDULE_ID | The Scheduled entity does not exist; or has now expired, been deleted, or been executed |
+| SCHEDULE_IS_IMMUTABLE | The Scheduled entity cannot be modified. Admin key not set |
+| INVALID_SCHEDULE_PAYER_ID | The provided Scheduled Payer does not exist |
+| INVALID_SCHEDULE_ACCOUNT_ID | The Schedule Create Transaction TransactionID account does not exist |
+| NO_NEW_VALID_SIGNATURES | The provided sig map did not contain any new valid signatures from required signers of the scheduled transaction |
+| UNRESOLVABLE_REQUIRED_SIGNERS | The required signers for a scheduled transaction cannot be resolved, for example because they do not exist or have been deleted |
+| SCHEDULED_TRANSACTION_NOT_IN_WHITELIST | Only whitelisted transaction types may be scheduled |
+| SOME_SIGNATURES_WERE_INVALID | At least one of the signatures in the provided sig map did not represent a valid signature for any required signer |
+| TRANSACTION_ID_FIELD_NOT_ALLOWED | The scheduled field in the TransactionID may not be set to true |
+| IDENTICAL_SCHEDULE_ALREADY_CREATED | A schedule already exists with the same identifying fields of an attempted ScheduleCreate (that is, all fields other than scheduledPayerAccountID) |
+| INVALID_ZERO_BYTE_IN_STRING | A string field in the transaction has a UTF-8 encoding with the prohibited zero byte |
+| SCHEDULE_ALREADY_DELETED | A schedule being signed or deleted has already been deleted |
+| SCHEDULE_ALREADY_EXECUTED | A schedule being signed or deleted has already been executed |
+| MESSAGE_SIZE_TOO_LARGE | ConsensusSubmitMessage request's message size is larger than allowed. |
+| OPERATION_REPEATED_IN_BUCKET_GROUPS | An operation was assigned to more than one throttle group in a given bucket |
+| BUCKET_CAPACITY_OVERFLOW | The capacity needed to satisfy all opsPerSec groups in a bucket overflowed a signed 8-byte integral type |
+| NODE_CAPACITY_NOT_SUFFICIENT_FOR_OPERATION | Given the network size in the address book, the node-level capacity for an operation would never be enough to accept a single request; usually means a bucket burstPeriod should be increased |
+| BUCKET_HAS_NO_THROTTLE_GROUPS | A bucket was defined without any throttle groups |
+| THROTTLE_GROUP_HAS_ZERO_OPS_PER_SEC | A throttle group was granted zero opsPerSec |
+| SUCCESS_BUT_MISSING_EXPECTED_OPERATION | The throttle definitions file was updated, but some supported operations were not assigned a bucket |
+| UNPARSEABLE_THROTTLE_DEFINITIONS | The new contents for the throttle definitions system file were not valid protobuf |
+| INVALID_THROTTLE_DEFINITIONS | The new throttle definitions system file were invalid, and no more specific error could be divined |
+| ACCOUNT_EXPIRED_AND_PENDING_REMOVAL | The transaction references an account which has passed its expiration without renewal funds available, and currently remains in the ledger only because of the grace period given to expired entities |
+| INVALID_TOKEN_MAX_SUPPLY | Invalid token max supply |
+| INVALID_TOKEN_NFT_SERIAL_NUMBER | Invalid token nft serial number |
+| INVALID_NFT_ID | Invalid nft id |
 
 
 <a name="ResponseHeader.proto"></a>
@@ -2232,6 +2466,171 @@
 | stateProof |  | The state proof for this information (if a state proof was requested, and is available) | |
 
 
+<a name="SchedulableTransactionBody.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## SchedulableTransactionBody.proto
+
+ A schedulable transaction. Note that the global/dynamic system property
+
+<a name="SchedulableTransactionBody"></a>
+
+### SchedulableTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| transactionFee |  | The maximum transaction fee the client is willing to pay | |
+| memo |  | A memo to include the execution record; the UTF-8 encoding may be up to 100 bytes and must not include the zero byte | |
+| data | oneof |  | |
+| | contractCall | [ContractCallTransactionBody](#ContractCallTransactionBody) | Calls a function of a contract instance | |
+| | contractCreateInstance | [ContractCreateTransactionBody](#ContractCreateTransactionBody) | Creates a contract instance | |
+| | contractUpdateInstance | [ContractUpdateTransactionBody](#ContractUpdateTransactionBody) | Updates a contract | |
+| | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) | Delete contract and transfer remaining balance into specified account | |
+| | cryptoCreateAccount | [CryptoCreateTransactionBody](#CryptoCreateTransactionBody) | Create a new cryptocurrency account | |
+| | cryptoDelete | [CryptoDeleteTransactionBody](#CryptoDeleteTransactionBody) | Delete a cryptocurrency account (mark as deleted, and transfer hbars out) | |
+| | cryptoTransfer | [CryptoTransferTransactionBody](#CryptoTransferTransactionBody) | Transfer amount between accounts | |
+| | cryptoUpdateAccount | [CryptoUpdateTransactionBody](#CryptoUpdateTransactionBody) | Modify information such as the expiration date for an account | |
+| | fileAppend | [FileAppendTransactionBody](#FileAppendTransactionBody) | Add bytes to the end of the contents of a file | |
+| | fileCreate | [FileCreateTransactionBody](#FileCreateTransactionBody) | Create a new file | |
+| | fileDelete | [FileDeleteTransactionBody](#FileDeleteTransactionBody) | Delete a file (remove contents and mark as deleted until it expires) | |
+| | fileUpdate | [FileUpdateTransactionBody](#FileUpdateTransactionBody) | Modify information such as the expiration date for a file | |
+| | systemDelete | [SystemDeleteTransactionBody](#SystemDeleteTransactionBody) | Hedera administrative deletion of a file or smart contract | |
+| | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) | To undelete an entity deleted by SystemDelete | |
+| | freeze | [FreezeTransactionBody](#FreezeTransactionBody) | Freeze the nodes | |
+| | consensusCreateTopic | [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody) | Creates a topic | |
+| | consensusUpdateTopic | [ConsensusUpdateTopicTransactionBody](#ConsensusUpdateTopicTransactionBody) | Updates a topic | |
+| | consensusDeleteTopic | [ConsensusDeleteTopicTransactionBody](#ConsensusDeleteTopicTransactionBody) | Deletes a topic | |
+| | consensusSubmitMessage | [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody) | Submits message to a topic | |
+| | tokenCreation | [TokenCreateTransactionBody](#TokenCreateTransactionBody) | Creates a token instance | |
+| | tokenFreeze | [TokenFreezeAccountTransactionBody](#TokenFreezeAccountTransactionBody) | Freezes account not to be able to transact with a token | |
+| | tokenUnfreeze | [TokenUnfreezeAccountTransactionBody](#TokenUnfreezeAccountTransactionBody) | Unfreezes account for a token | |
+| | tokenGrantKyc | [TokenGrantKycTransactionBody](#TokenGrantKycTransactionBody) | Grants KYC to an account for a token | |
+| | tokenRevokeKyc | [TokenRevokeKycTransactionBody](#TokenRevokeKycTransactionBody) | Revokes KYC of an account for a token | |
+| | tokenDeletion | [TokenDeleteTransactionBody](#TokenDeleteTransactionBody) | Deletes a token instance | |
+| | tokenUpdate | [TokenUpdateTransactionBody](#TokenUpdateTransactionBody) | Updates a token instance | |
+| | tokenMint | [TokenMintTransactionBody](#TokenMintTransactionBody) | Mints new tokens to a token's treasury account | |
+| | tokenBurn | [TokenBurnTransactionBody](#TokenBurnTransactionBody) | Burns tokens from a token's treasury account | |
+| | tokenWipe | [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody) | Wipes amount of tokens from an account | |
+| | tokenAssociate | [TokenAssociateTransactionBody](#TokenAssociateTransactionBody) | Associate tokens to an account | |
+| | tokenDissociate | [TokenDissociateTransactionBody](#TokenDissociateTransactionBody) | Dissociate tokens from an account | |
+| | scheduleDelete | [ScheduleDeleteTransactionBody](#ScheduleDeleteTransactionBody) | Marks a schedule in the network's action queue as deleted, preventing it from executing | |
+
+
+<a name="ScheduleCreate.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ScheduleCreate.proto
+
+<a name="ScheduleCreateTransactionBody"></a>
+
+### ScheduleCreateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| scheduledTransactionBody | [SchedulableTransactionBody](#SchedulableTransactionBody) | The scheduled transaction | |
+| memo |  | An optional memo with a UTF-8 encoding of no more than 100 bytes which does not contain the zero byte | |
+| adminKey | [Key](#Key) | An optional Hedera key which can be used to sign a ScheduleDelete and remove the schedule | |
+| payerAccountID | [AccountID](#AccountID) | An optional id of the account to be charged the service fee for the scheduled transaction at the consensus time that it executes (if ever); defaults to the ScheduleCreate payer if not given | |
+
+
+<a name="ScheduleDelete.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ScheduleDelete.proto
+
+<a name="ScheduleDeleteTransactionBody"></a>
+
+### ScheduleDeleteTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| scheduleID | [ScheduleID](#ScheduleID) | The ID of the Scheduled Entity | |
+
+
+<a name="ScheduleGetInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ScheduleGetInfo.proto
+
+<a name="ScheduleGetInfoQuery"></a>
+
+### ScheduleGetInfoQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) | standard info sent from client to node including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+| scheduleID | [ScheduleID](#ScheduleID) | The id of the schedule to interrogate | |
+
+
+<a name="ScheduleGetInfoResponse"></a>
+
+### ScheduleGetInfoResponse
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| scheduleInfo | [ScheduleInfo](#ScheduleInfo) | The information requested about this schedule instance | |
+
+
+<a name="ScheduleInfo"></a>
+
+### ScheduleInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| scheduleID | [ScheduleID](#ScheduleID) | The id of the schedule | |
+| data | oneof |  | |
+| | deletion_time | [Timestamp](#Timestamp) | If the schedule has been deleted, the consensus time when this occurred | |
+| | execution_time | [Timestamp](#Timestamp) | If the schedule has been executed, the consensus time when this occurred | |
+| expirationTime | [Timestamp](#Timestamp) | The time at which the schedule will expire | |
+| scheduledTransactionBody | [SchedulableTransactionBody](#SchedulableTransactionBody) | The scheduled transaction | |
+| memo |  | The publicly visible memo of the schedule | |
+| adminKey | [Key](#Key) | The key used to delete the schedule from state | |
+| signers | [KeyList](#KeyList) | The Ed25519 keys the network deems to have signed the scheduled transaction | |
+| creatorAccountID | [AccountID](#AccountID) | The id of the account that created the schedule | |
+| payerAccountID | [AccountID](#AccountID) | The id of the account responsible for the service fee of the scheduled transaction | |
+| scheduledTransactionID | [TransactionID](#TransactionID) | The transaction id that will be used in the record of the scheduled transaction (if it executes) | |
+
+
+<a name="ScheduleService.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ScheduleService.proto
+
+<a name="ScheduleService"></a>
+
+### ScheduleService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| createSchedule  | Transaction | TransactionResponse |  Creates a new Schedule by submitting the transaction |
+| signSchedule  | Transaction | TransactionResponse |  Signs a new Schedule by submitting the transaction |
+| deleteSchedule  | Transaction | TransactionResponse |  Deletes a new Schedule by submitting the transaction |
+| getScheduleInfo  | Query | Response |  Retrieves the metadata of a schedule entity |
+
+
+<a name="ScheduleSign.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ScheduleSign.proto
+
+<a name="ScheduleSignTransactionBody"></a>
+
+### ScheduleSignTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| scheduleID | [ScheduleID](#ScheduleID) | The id of the schedule to add signing keys to | |
+
+
 <a name="SmartContractService.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -2251,10 +2650,8 @@
 | contractCallLocalMethod  | Query | Response |  Calls a smart contract to be run on a single node |
 | ContractGetBytecode  | Query | Response |  Retrieves the byte code of a contract |
 | getBySolidityID  | Query | Response |  Retrieves a contract by its Solidity address |
-| getTxRecordByContractID  | Query | Response |  Retrieves the 25-hour records stored for a contract |
-| deleteContract  | Transaction | TransactionResponse |  Deletes a contract instance and transfers any remaining hbars to a specified receiver |
-| systemDelete  | Transaction | TransactionResponse |  Deletes a contract if the submitting account has network admin privileges |
-| systemUndelete  | Transaction | TransactionResponse |  Undeletes a contract if the submitting account has network admin privileges |
+| getTxRecordByContractID  | Query | Response) { Always returns an empty record list, as contract accounts are never effective payers for transactions |
+| option deprecated  =  true; |
 
 
 <a name="SystemDelete.proto"></a>
@@ -2290,6 +2687,46 @@
 | id | oneof |  | |
 | | fileID | [FileID](#FileID) | The file ID to undelete, in the format used in transactions | |
 | | contractID | [ContractID](#ContractID) | The contract ID instance to undelete, in the format used in transactions | |
+
+
+<a name="ThrottleDefinitions.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ThrottleDefinitions.proto
+
+ A set of operations which should be collectively throttled at a given milli-ops-per-second limit. 
+
+<a name="ThrottleBucket"></a>
+
+### ThrottleBucket
+ A list of throttle groups that should all compete for the same internal bucket. 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| name |  | A name for this bucket (primarily for use in logs) | |
+| burstPeriodMs |  | The number of milliseconds required for this bucket to drain completely when full. The product of this number and the least common multiple of the milliOpsPerSec values in this bucket must not exceed 9223372036. | |
+| throttleGroups | [ThrottleGroup](#ThrottleGroup) | The throttle groups competing for this bucket | |
+
+
+<a name="ThrottleDefinitions"></a>
+
+### ThrottleDefinitions
+ A list of throttle buckets which, simultaneously enforced, define the system's throttling policy.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| throttleBuckets | [ThrottleBucket](#ThrottleBucket) |  | |
+
+
+<a name="ThrottleGroup"></a>
+
+### ThrottleGroup
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| operations | [HederaFunctionality](#HederaFunctionality) | The operations to be throttled | |
+| milliOpsPerSec |  | The number of total operations per second across the entire network, multiplied by 1000. So, to choose 3 operations per second (which on a network of 30 nodes is a tenth of an operation per second for each node), set milliOpsPerSec = 3000. And to choose 3.6 ops per second, use milliOpsPerSec = 3600. Minimum allowed value is 1, and maximum allowed value is 9223372. | |
 
 
 <a name="Timestamp.proto"></a>
@@ -2335,7 +2772,7 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | account | [AccountID](#AccountID) | The account to be associated with the provided tokens | |
-| tokens | [TokenID](#TokenID) | The tokens to be associated with the provided account | |
+| tokens | [TokenID](#TokenID) | The tokens to be associated with the provided account. In the case of NON_FUNGIBLE_UNIQUE Type, once an account is associated, it can hold any number of NFTs (serial numbers) of that token type | |
 
 
 <a name="TokenBurn.proto"></a>
@@ -2351,7 +2788,8 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | token | [TokenID](#TokenID) | The token for which to burn tokens. If token does not exist, transaction results in INVALID_TOKEN_ID | |
-| amount |  | The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination. | |
+| amount |  | Applicable to tokens of type FUNGIBLE_COMMON. The amount to burn from the Treasury Account. Amount must be a positive non-zero number, not bigger than the token balance of the treasury account (0; balance], represented in the lowest denomination. | |
+| serialNumbers |  | Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to be burned. | |
 
 
 <a name="TokenCreate.proto"></a>
@@ -2366,20 +2804,24 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| name |  | The publicly visible name of the token, specified as a string of only ASCII characters | |
-| symbol |  | The publicly visible token symbol. It is UTF-8 capitalized alphabetical string identifying the token | |
-| decimals |  | The number of decimal places a token is divisible by. This field can never be changed! | |
-| initialSupply |  | Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible. | |
-| treasury | [AccountID](#AccountID) | The account which will act as a treasury for the token. This account will receive the specified initial supply | |
+| name |  | The publicly visible name of the token, limited to a UTF-8 encoding of length <tt>tokens.maxSymbolUtf8Bytes</tt>. | |
+| symbol |  | The publicly visible token symbol, limited to a UTF-8 encoding of length <tt>tokens.maxTokenNameUtf8Bytes</tt>. | |
+| decimals |  | For tokens of type FUNGIBLE_COMMON - the number of decimal places a token is divisible by. For tokens of type NON_FUNGIBLE_UNIQUE - value must be 0 | |
+| initialSupply |  | Specifies the initial supply of tokens to be put in circulation. The initial supply is sent to the Treasury Account. The supply is in the lowest denomination possible. In the case for NON_FUNGIBLE_UNIQUE Type the value must be 0 | |
+| treasury | [AccountID](#AccountID) | The account which will act as a treasury for the token. This account will receive the specified initial supply or the newly minted NFTs in the case for NON_FUNGIBLE_UNIQUE Type | |
 | adminKey | [Key](#Key) | The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted) | |
 | kycKey | [Key](#Key) | The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible. | |
 | freezeKey | [Key](#Key) | The key which can sign to freeze or unfreeze an account for token transactions. If empty, freezing is not possible | |
 | wipeKey | [Key](#Key) | The key which can wipe the token balance of an account. If empty, wipe is not possible | |
 | supplyKey | [Key](#Key) | The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations | |
 | freezeDefault |  | The default Freeze status (frozen or unfrozen) of Hedera accounts relative to this token. If true, an account must be unfrozen before it can receive the token | |
-| expiry |  | The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod | |
+| expiry | [Timestamp](#Timestamp) | The epoch second at which the token should expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod | |
 | autoRenewAccount | [AccountID](#AccountID) | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval | |
-| autoRenewPeriod |  | The interval at which the auto-renew account will be charged to extend the token's expiry | |
+| autoRenewPeriod | [Duration](#Duration) | The interval at which the auto-renew account will be charged to extend the token's expiry | |
+| memo |  | The memo associated with the token (UTF-8 encoding max 100 bytes) | |
+| tokenType | [TokenType](#TokenType) | IWA compatibility. Specifies the token type. Defaults to FUNGIBLE_COMMON | |
+| supplyType | [TokenSupplyType](#TokenSupplyType) | IWA compatibility. Specified the token supply type. Defaults to INFINITE | |
+| maxSupply |  | IWA Compatibility. Depends on TokenSupplyType. For tokens of type FUNGIBLE_COMMON - the maximum number of tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be minted. This field can never be changed! | |
 
 
 <a name="TokenDelete.proto"></a>
@@ -2433,6 +2875,37 @@
 | account | [AccountID](#AccountID) | The account to be frozen | |
 
 
+<a name="TokenGetAccountNftInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenGetAccountNftInfo.proto
+
+ Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M owned by the specified accountId.<BR>Example: If Account A owns 5 NFTs (might be of different Token Entity), having start=0 and end=5 will return all of the NFTs
+
+<a name="TokenGetAccountNftInfoQuery"></a>
+
+### TokenGetAccountNftInfoQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+| accountID | [AccountID](#AccountID) | The Account for which information is requested | |
+| start |  | Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1] | |
+| end |  | Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs] | |
+
+
+<a name="TokenGetAccountNftInfoResponse"></a>
+
+### TokenGetAccountNftInfoResponse
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| nfts | [TokenNftInfo](#TokenNftInfo) | List of NFTs associated to the account | |
+
+
 <a name="TokenGetInfo.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -2472,8 +2945,8 @@
 | tokenId | [TokenID](#TokenID) | ID of the token instance | |
 | name |  | The name of the token. It is a string of ASCII only characters | |
 | symbol |  | The symbol of the token. It is a UTF-8 capitalized alphabetical string | |
-| decimals |  | The number of decimal places a token is divisible by | |
-| totalSupply |  | The total supply of tokens that are currently in circulation | |
+| decimals |  | The number of decimal places a token is divisible by. Always 0 for tokens of type NON_FUNGIBLE_UNIQUE | |
+| totalSupply |  | For tokens of type FUNGIBLE_COMMON - the total supply of tokens that are currently in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the number of NFTs created of this token instance | |
 | treasury | [AccountID](#AccountID) | The ID of the account which is set as Treasury | |
 | adminKey | [Key](#Key) | The key which can perform update/delete operations on the token. If empty, the token can be perceived as immutable (not being able to be updated/deleted) | |
 | kycKey | [Key](#Key) | The key which can grant or revoke KYC of an account for the token's transactions. If empty, KYC is not required, and KYC grant or revoke operations are not possible. | |
@@ -2482,10 +2955,99 @@
 | supplyKey | [Key](#Key) | The key which can change the supply of a token. The key is used to sign Token Mint/Burn operations | |
 | defaultFreezeStatus | [TokenFreezeStatus](#TokenFreezeStatus) | The default Freeze status (not applicable, frozen or unfrozen) of Hedera accounts relative to this token. FreezeNotApplicable is returned if Token Freeze Key is empty. Frozen is returned if Token Freeze Key is set and defaultFreeze is set to true. Unfrozen is returned if Token Freeze Key is set and defaultFreeze is set to false | |
 | defaultKycStatus | [TokenKycStatus](#TokenKycStatus) | The default KYC status (KycNotApplicable or Revoked) of Hedera accounts relative to this token. KycNotApplicable is returned if KYC key is not set, otherwise Revoked | |
-| isDeleted |  | Specifies whether the token was deleted or not | |
+| deleted |  | Specifies whether the token was deleted or not | |
 | autoRenewAccount | [AccountID](#AccountID) | An account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval | |
-| autoRenewPeriod |  | The interval at which the auto-renew account will be charged to extend the token's expiry | |
-| expiry |  | The epoch second at which the token will expire; if an auto-renew account and period are specified, this is coerced to the current epoch second plus the autoRenewPeriod | |
+| autoRenewPeriod | [Duration](#Duration) | The interval at which the auto-renew account will be charged to extend the token's expiry | |
+| expiry | [Timestamp](#Timestamp) | The epoch second at which the token will expire | |
+| memo |  | The memo associated with the token | |
+| tokenType | [TokenType](#TokenType) | The token type | |
+| supplyType | [TokenSupplyType](#TokenSupplyType) | The token supply type | |
+| maxSupply |  | For tokens of type FUNGIBLE_COMMON - The Maximum number of fungible tokens that can be in circulation. For tokens of type NON_FUNGIBLE_UNIQUE - the maximum number of NFTs (serial numbers) that can be in circulation | |
+
+
+<a name="TokenGetNftInfo.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenGetNftInfo.proto
+
+ Represents an NFT on the Ledger 
+
+<a name="NftID"></a>
+
+### NftID
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| tokenID | [TokenID](#TokenID) | The (non-fungible) token of which this NFT is an instance | |
+| serialNumber |  | The unique identifier of this instance | |
+
+
+<a name="TokenGetNftInfoQuery"></a>
+
+### TokenGetNftInfoQuery
+ Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of type NON_FUNGIBLE_UNIQUE) and serial number 
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+| nftID | [NftID](#NftID) | The ID of the NFT | |
+
+
+<a name="TokenGetNftInfoResponse"></a>
+
+### TokenGetNftInfoResponse
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| nft | [TokenNftInfo](#TokenNftInfo) | The information about this NFT | |
+
+
+<a name="TokenNftInfo"></a>
+
+### TokenNftInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| nftID | [NftID](#NftID) | The ID of the NFT | |
+| accountID | [AccountID](#AccountID) | The current owner of the NFT | |
+| creationTime | [Timestamp](#Timestamp) | The effective consensus timestamp at which the NFT was minted | |
+| metadata |  | Represents the unique metadata of the NFT | |
+
+
+<a name="TokenGetNftInfos.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## TokenGetNftInfos.proto
+
+ Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on NFTs N through M on the list of NFTs associated with a given NON_FUNGIBLE_UNIQUE Token.<BR>Example: If there are 10 NFTs issued, having start=0 and end=5 will query for the first 5 NFTs. Querying +all 10 NFTs will require start=0 and end=10
+
+<a name="TokenGetNftInfosQuery"></a>
+
+### TokenGetNftInfosQuery
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [QueryHeader](#QueryHeader) | Standard info sent from client to node, including the signed payment, and what kind of response is requested (cost, state proof, both, or neither). | |
+| tokenID | [TokenID](#TokenID) | The ID of the token for which information is requested | |
+| start |  | Specifies the start index (inclusive) of the range of NFTs to query for. Value must be in the range [0; ownedNFTs-1] | |
+| end |  | Specifies the end index (exclusive) of the range of NFTs to query for. Value must be in the range (start; ownedNFTs] | |
+
+
+<a name="TokenGetNftInfosResponse"></a>
+
+### TokenGetNftInfosResponse
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| header | [ResponseHeader](#ResponseHeader) | Standard response from node to client, including the requested fields: cost, or state proof, or both, or neither | |
+| tokenID | [TokenID](#TokenID) | The Token with type NON_FUNGIBLE that this record is for | |
+| nfts | [TokenNftInfo](#TokenNftInfo) | List of NFTs associated to the specified token | |
 
 
 <a name="TokenGrantKyc.proto"></a>
@@ -2519,7 +3081,8 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | token | [TokenID](#TokenID) | The token for which to mint tokens. If token does not exist, transaction results in INVALID_TOKEN_ID | |
-| amount |  | The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63. | |
+| amount |  | Applicable to tokens of type FUNGIBLE_COMMON. The amount to mint to the Treasury Account. Amount must be a positive non-zero number represented in the lowest denomination of the token. The new supply must be lower than 2^63. | |
+| metadata |  | Applicable to tokens of type NON_FUNGIBLE_UNIQUE. A list of metadata that are being created. Maximum allowed size of each metadata is 100 bytes | |
 
 
 <a name="TokenRevokeKyc.proto"></a>
@@ -2558,33 +3121,18 @@
 | updateToken  | Transaction | TransactionResponse |  Updates the account by submitting the transaction |
 | mintToken  | Transaction | TransactionResponse |  Mints an amount of the token to the defined treasury account |
 | burnToken  | Transaction | TransactionResponse |  Burns an amount of the token from the defined treasury account |
-| deleteToken  | Transaction | TransactionResponse |  (NOT CURRENTLY SUPPORTED) Deletes a Token |
+| deleteToken  | Transaction | TransactionResponse |  Deletes a Token |
 | wipeTokenAccount  | Transaction | TransactionResponse |  Wipes the provided amount of tokens from the specified Account ID |
 | freezeTokenAccount  | Transaction | TransactionResponse |  Freezes the transfer of tokens to or from the specified Account ID |
 | unfreezeTokenAccount  | Transaction | TransactionResponse |  Unfreezes the transfer of tokens to or from the specified Account ID |
 | grantKycToTokenAccount  | Transaction | TransactionResponse |  Flags the provided Account ID as having gone through KYC |
 | revokeKycFromTokenAccount  | Transaction | TransactionResponse |  Removes the KYC flag of the provided Account ID |
-| transferTokens  | Transaction | TransactionResponse |  Initiates a Token transfer by submitting the transaction |
 | associateTokens  | Transaction | TransactionResponse |  Associates tokens to an account |
 | dissociateTokens  | Transaction | TransactionResponse |  Dissociates tokens from an account |
 | getTokenInfo  | Query | Response |  Retrieves the metadata of a token |
-
-
-<a name="TokenTransfer.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## TokenTransfer.proto
-
- Transfer tokens from some accounts to other accounts. Each negative amount is withdrawn from the corresponding account (a sender), and each positive one is added to the corresponding account (a receiver). All amounts must have sum of zero.
-
-<a name="TokenTransfersTransactionBody"></a>
-
-### TokenTransfersTransactionBody
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| tokenTransfers | [TokenTransferList](#TokenTransferList) |  | |
+| getAccountNftInfo  | Query | Response |  Gets info on NFTs N through M on the list of NFTs associated with a given account |
+| getTokenNftInfo  | Query | Response |  Retrieves the metadata of an NFT by TokenID and serial number |
+| getTokenNftInfos  | Query | Response |  Gets info on NFTs N through M on the list of NFTs associated with a given Token of type NON_FUNGIBLE |
 
 
 <a name="TokenUnfreezeAccount.proto"></a>
@@ -2610,7 +3158,7 @@
 
 ## TokenUpdate.proto
 
- Updates an already created Token.
+ At consensus, updates an already created token to the given values.
 
 <a name="TokenUpdateTransactionBody"></a>
 
@@ -2620,17 +3168,18 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | token | [TokenID](#TokenID) | The Token to be updated | |
-| symbol |  | The new Symbol of the Token. Must be UTF-8 capitalized alphabetical string identifying the token. | |
-| name |  | The new Name of the Token. Must be a string of ASCII characters. | |
+| symbol |  | The new publicly visible Token symbol, limited to a UTF-8 encoding of length <tt>tokens.maxTokenNameUtf8Bytes</tt>. | |
+| name |  | The new publicly visible name of the Token, limited to a UTF-8 encoding of length <tt>tokens.maxSymbolUtf8Bytes</tt>. | |
 | treasury | [AccountID](#AccountID) | The new Treasury account of the Token. If the provided treasury account is not existing or deleted, the response will be INVALID_TREASURY_ACCOUNT_FOR_TOKEN. If successful, the Token balance held in the previous Treasury Account is transferred to the new one. | |
-| adminKey | [Key](#Key) | The new Admin key of the Token. If Token is immutable, transaction will resolve to TOKEN_IS_IMMUTABlE. | |
+| adminKey | [Key](#Key) | The new admin key of the Token. If Token is immutable, transaction will resolve to TOKEN_IS_IMMUTABlE. | |
 | kycKey | [Key](#Key) | The new KYC key of the Token. If Token does not have currently a KYC key, transaction will resolve to TOKEN_HAS_NO_KYC_KEY. | |
 | freezeKey | [Key](#Key) | The new Freeze key of the Token. If the Token does not have currently a Freeze key, transaction will resolve to TOKEN_HAS_NO_FREEZE_KEY. | |
 | wipeKey | [Key](#Key) | The new Wipe key of the Token. If the Token does not have currently a Wipe key, transaction will resolve to TOKEN_HAS_NO_WIPE_KEY. | |
 | supplyKey | [Key](#Key) | The new Supply key of the Token. If the Token does not have currently a Supply key, transaction will resolve to TOKEN_HAS_NO_SUPPLY_KEY. | |
 | autoRenewAccount | [AccountID](#AccountID) | The new account which will be automatically charged to renew the token's expiration, at autoRenewPeriod interval. | |
-| autoRenewPeriod |  | The new interval at which the auto-renew account will be charged to extend the token's expiry. | |
-| expiry |  | The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME | |
+| autoRenewPeriod | [Duration](#Duration) | The new interval at which the auto-renew account will be charged to extend the token's expiry. | |
+| expiry | [Timestamp](#Timestamp) | The new expiry time of the token. Expiry can be updated even if admin key is not set. If the provided expiry is earlier than the current token expiry, transaction wil resolve to INVALID_EXPIRATION_TIME | |
+| memo | [google.protobuf.StringValue](#google.protobuf.StringValue) | If set, the new memo to be associated with the token (UTF-8 encoding max 100 bytes) | |
 
 
 <a name="TokenWipeAccount.proto"></a>
@@ -2649,7 +3198,8 @@
 | ----- | ---- | ----------- | - |
 | token | [TokenID](#TokenID) | The token for which the account will be wiped. If token does not exist, transaction results in INVALID_TOKEN_ID | |
 | account | [AccountID](#AccountID) | The account to be wiped | |
-| amount |  | The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance] | |
+| amount |  | Applicable to tokens of type FUNGIBLE_COMMON. The amount of tokens to wipe from the specified account. Amount must be a positive non-zero number in the lowest denomination possible, not bigger than the token balance of the account (0; balance] | |
+| serialNumbers |  | Applicable to tokens of type NON_FUNGIBLE_UNIQUE. The list of serial numbers to be wiped. | |
 
 
 <a name="Transaction.proto"></a>
@@ -2715,7 +3265,6 @@
 | | consensusSubmitMessage | [ConsensusSubmitMessageTransactionBody](#ConsensusSubmitMessageTransactionBody) | Submits message to a topic | |
 | | uncheckedSubmit | [UncheckedSubmitBody](#UncheckedSubmitBody) |  | |
 | | tokenCreation | [TokenCreateTransactionBody](#TokenCreateTransactionBody) | Creates a token instance | |
-| | tokenTransfers | [TokenTransfersTransactionBody](#TokenTransfersTransactionBody) | Transfers tokens between accounts | |
 | | tokenFreeze | [TokenFreezeAccountTransactionBody](#TokenFreezeAccountTransactionBody) | Freezes account not to be able to transact with a token | |
 | | tokenUnfreeze | [TokenUnfreezeAccountTransactionBody](#TokenUnfreezeAccountTransactionBody) | Unfreezes account for a token | |
 | | tokenGrantKyc | [TokenGrantKycTransactionBody](#TokenGrantKycTransactionBody) | Grants KYC to an account for a token | |
@@ -2727,6 +3276,9 @@
 | | tokenWipe | [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody) | Wipes amount of tokens from an account | |
 | | tokenAssociate | [TokenAssociateTransactionBody](#TokenAssociateTransactionBody) | Associate tokens to an account | |
 | | tokenDissociate | [TokenDissociateTransactionBody](#TokenDissociateTransactionBody) | Dissociate tokens from an account | |
+| | scheduleCreate | [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody) | Creates a schedule in the network's action queue | |
+| | scheduleDelete | [ScheduleDeleteTransactionBody](#ScheduleDeleteTransactionBody) | Deletes a schedule from the network's action queue | |
+| | scheduleSign | [ScheduleSignTransactionBody](#ScheduleSignTransactionBody) | Adds one or more Ed25519 keys to the affirmed signers of a scheduled transaction | |
 
 
 <a name="TransactionContents.proto"></a>
@@ -2734,7 +3286,7 @@
 
 ## TransactionContents.proto
 
--<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2020 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
+-<BR>‌<BR>Hedera Network Services Protobuf<BR>​<BR>Copyright (C) 2018 - 2021 Hedera Hashgraph, LLC<BR>​<BR>Licensed under the Apache License, Version 2.0 (the "License");<BR>you may not use this file except in compliance with the License.<BR>You may obtain a copy of the License at<BR>http:www.apache.org/licenses/LICENSE-2.0<BR>Unless required by applicable law or agreed to in writing, software<BR>distributed under the License is distributed on an "AS IS" BASIS,<BR>WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.<BR>See the License for the specific language governing permissions and<BR>limitations under the License.<BR>‍
 
 <a name="SignedTransaction"></a>
 
@@ -2859,7 +3411,11 @@
 | topicSequenceNumber |  |  In the receipt of a ConsensusSubmitMessage, the new sequence number of the topic that received the message | |
 | topicRunningHash |  |  In the receipt of a ConsensusSubmitMessage, the new running hash of the topic that received the message.<BR>This 48-byte field is the output of a particular SHA-384 digest whose input data are determined by the<BR>value of the topicRunningHashVersion below. The bytes of each uint64 or uint32 are to be in Big-Endian<BR>format.<BR><BR>IF the topicRunningHashVersion is '0' or '1', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topic's shard (8 bytes)<BR>3. The topic's realm (8 bytes)<BR>4. The topic's number (8 bytes)<BR>5. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>6. The number of nanoseconds since 5. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>7. The topicSequenceNumber from above (8 bytes)<BR>8. The message bytes from the ConsensusSubmitMessage (variable).<BR><BR>IF the topicRunningHashVersion is '2', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The topic's shard (8 bytes)<BR>4. The topic's realm (8 bytes)<BR>5. The topic's number (8 bytes)<BR>6. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>7. The number of nanoseconds since 6. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>8. The topicSequenceNumber from above (8 bytes)<BR>9. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes)<BR><BR>Otherwise, IF the topicRunningHashVersion is '3', then the input data to the SHA-384 digest are, in order:<BR>---<BR>1. The previous running hash of the topic (48 bytes)<BR>2. The topicRunningHashVersion below (8 bytes)<BR>3. The payer account's shard (8 bytes)<BR>4. The payer account's realm (8 bytes)<BR>5. The payer account's number (8 bytes)<BR>6. The topic's shard (8 bytes)<BR>7. The topic's realm (8 bytes)<BR>8. The topic's number (8 bytes)<BR>9. The number of seconds since the epoch before the ConsensusSubmitMessage reached consensus (8 bytes)<BR>10. The number of nanoseconds since 9. before the ConsensusSubmitMessage reached consensus (4 bytes)<BR>11. The topicSequenceNumber from above (8 bytes)<BR>12. The output of the SHA-384 digest of the message bytes from the consensusSubmitMessage (48 bytes) | |
 | topicRunningHashVersion |  |  In the receipt of a ConsensusSubmitMessage, the version of the SHA-384 digest used to update the running hash. | |
-| tokenId | [TokenID](#TokenID) |  In the receipt of a CreateToken, the id of the newly created token | |
+| tokenID | [TokenID](#TokenID) |  In the receipt of a CreateToken, the id of the newly created token | |
+| newTotalSupply |  |  In the receipt of TokenMint, TokenWipe, TokenBurn, the current total supply of this token | |
+| scheduleID | [ScheduleID](#ScheduleID) |  In the receipt of a ScheduleCreate, the id of the newly created Scheduled Entity | |
+| scheduledTransactionID | [TransactionID](#TransactionID) |  In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the TransactionID that should be used to query for the receipt or record of the relevant scheduled transaction | |
+| serialNumbers |  |  In the receipt of a TokenMint for tokens of type NON_FUNGIBLE_UNIQUE, the serial numbers of the newly created NFTs | |
 
 
 <a name="TransactionRecord.proto"></a>
@@ -2887,6 +3443,7 @@
 | | contractCreateResult | [ContractFunctionResult](#ContractFunctionResult) | Record of the value returned by the smart contract constructor (if it completed and didn't fail) from ContractCreateTransaction | |
 | transferList | [TransferList](#TransferList) | All hbar transfers as a result of this transaction, such as fees, or transfers performed by the transaction, or by a smart contract it calls, or by the creation of threshold records that it triggers. | |
 | tokenTransferLists | [TokenTransferList](#TokenTransferList) | All Token transfers as a result of this transaction | |
+| scheduleRef | [ScheduleID](#ScheduleID) | Reference to the scheduled transaction ID that this transaction record represent | |
 
 
 <a name="TransactionResponse.proto"></a>
