@@ -940,6 +940,7 @@
 | ----- | ---- | ----------- | - |
 | hederaFunctionality | [HederaFunctionality](#HederaFunctionality) |  A particular transaction or query | |
 | feeData | [FeeData](#FeeData) |  Resource price coefficients | |
+| feeDataList | [FeeData](#FeeData) |  Resource price coefficients. Supports subtype price definition. | |
 
 
 <a name="TransactionID"></a>
