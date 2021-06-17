@@ -176,9 +176,9 @@ enum TokenKycStatus {
  *
  * A Key can be a smart contract ID, which means that smart contract is to authorize operations as if it had signed with a key that it owned. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key.
  *
- * A key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.
+ * A Key can be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements.
  *
- * A Key can be a list of keys. Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key.
+ *A Key can be a "key list" where all keys in the list must sign unless specified otherwise in the documentation for a specific transaction type (e.g. FileDeleteTransactionBody).  Their use is dependent on context. For example, a Hedera file is created with a list of keys, where all of them must sign a transaction to create or modify the file, but only one of them is needed to sign a transaction to delete the file. So it's a single list that sometimes acts as a 1-of-M threshold key, and sometimes acts as an M-of-M threshold key. A key list is always an M-of-M, unless specified otherwise in documentation. A key list can have nested key lists or threshold keys. Nested key lists are always M-of-M. A key list can have repeated Ed25519 public keys, but all repeated keys are only required to sign once.
  *
  * A Key can contain a ThresholdKey or KeyList, which in turn contain a Key, so this mutual recursion would allow nesting arbitrarily deep. A ThresholdKey which contains a list of primitive keys (e.g., ed25519) has 3 levels: ThresholdKey -> KeyList -> Key. A KeyList which contains several primitive keys (e.g., ed25519) has 2 levels: KeyList -> Key. A Key with 2 levels of nested ThresholdKeys has 7 levels: Key -> ThresholdKey -> KeyList -> Key -> ThresholdKey -> KeyList -> Key.
  *
@@ -201,14 +201,14 @@ message ThresholdKey {
     KeyList keys = 2; // List of all the keys that can sign
 }
 
-/* A list of keys */
+/* A list of keys that requires all keys (M-of-M) to sign unless otherwise specified in documentation. A KeyList may contain repeated keys, but all repeated keys are only required to sign once. */
 message KeyList {
     repeated Key keys = 1; // list of keys
 }
 
 /* A Signature corresponding to a Key. It is a sequence of bytes holding a public key signature from one of the three supported systems (ed25519, RSA-3072,  ECDSA with p384). Or, it can be a list of signatures corresponding to a single threshold key. Or, it can be the ID of a smart contract instance, which is authorized to act as if it had a key. If an account has an ed25519 key associated with it, then the corresponding private key must sign any transaction to transfer cryptocurrency out of it. If it has a smart contract ID associated with it, then that smart contract is allowed to transfer cryptocurrency out of it. The smart contract doesn't actually have a key, and  doesn't actually sign a transaction. But it's as if a virtual transaction were created, and the smart contract signed it with a private key. A key can also be a "threshold key", which means a list of M keys, any N of which must sign in order for the threshold signature to be considered valid. The keys within a threshold signature may themselves be threshold signatures, to allow complex signature requirements (this nesting is not supported in the currently, but will be supported in a future version of API). If a Signature message is missing the "signature" field, then this is considered to be a null signature. That is useful in cases such as threshold signatures, where some of the signatures can be null.
  * The definition of Key uses mutual recursion, so it allows nesting that is arbitrarily deep. But the current API only accepts Key messages up to 3 levels deep, such as a list of threshold keys, each of which is a list of primitive keys. Therefore, the matching Signature will have the same limitation. This restriction may be relaxed in future versions of the API, to allow deeper nesting.
- * This message is deprecated and succeeded by SignaturePair and SignatureMap messages. 
+ * This message is deprecated and succeeded by SignaturePair and SignatureMap messages.
  */
 message Signature {
     option deprecated = true;
@@ -391,7 +391,7 @@ message CurrentAndNextFeeSchedule {
     FeeSchedule nextFeeSchedule = 2; // Contains next Fee Schedule
 }
 
-/* 
+/*
 Contains the IP address and the port representing a service endpoint of a Node in a network. Used to reach the Hedera API and submit transactions to the network.
 */
 message ServiceEndpoint {
@@ -399,12 +399,12 @@ message ServiceEndpoint {
     int32 port = 2; // The port of the node
 }
 
-/* 
-The data about a node, including its service endpoints and the Hedera account to be paid for services 
-provided by the node (that is, queries answered and transactions submitted.) 
+/*
+The data about a node, including its service endpoints and the Hedera account to be paid for services
+provided by the node (that is, queries answered and transactions submitted.)
 
 If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the (deprecated)
-<tt>ipAddress</tt> and <tt>portno</tt> fields should be used. 
+<tt>ipAddress</tt> and <tt>portno</tt> fields should be used.
 
 All fields are populated in the 0.0.102 address book file while only fields that start with # are populated in the 0.0.101 address book file.
 */
