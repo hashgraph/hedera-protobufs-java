@@ -110,6 +110,6 @@ message TransactionReceipt {
     // In the receipt of a ScheduleCreate or ScheduleSign that resolves to SUCCESS, the TransactionID that should be used to query for the receipt or record of the relevant scheduled transaction
     TransactionID scheduledTransactionID = 13;
 
-    // In the receipt of a TokenMint for tokens of type NON_FUNGIBLE_UNIQUE, the serial numbers of the newly created NFTs
+    // In the receipt of TokenMint, TokenWipe, TokenBurn, For fungible tokens - the current total supply of this token. For non fungible tokens - the total number of NFTs issued for a given tokenID
     repeated int64 serialNumbers = 14;
 }
