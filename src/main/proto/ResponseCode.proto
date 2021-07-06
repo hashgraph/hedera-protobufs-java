@@ -254,4 +254,6 @@ enum ResponseCodeEnum {
   INVALID_CUSTOM_FRACTIONAL_FEES_SUM = 242; // The sum of all custom fractional fees must be strictly less than 1
   FRACTIONAL_FEE_MAX_AMOUNT_LESS_THAN_MIN_AMOUNT = 243; // Each fractional custom fee must have its maximum_amount, if specified, at least its minimum_amount
   CUSTOM_SCHEDULE_ALREADY_HAS_NO_FEES = 244; // A fee schedule update tried to clear the custom fees from a token whose fee schedule was already empty
+  INVALID_TOKEN_MINT_METADATA = 245; // The requested token mint metadata was invalid
+  INVALID_TOKEN_BURN_METADATA = 246; // The requested token burn metadata was invalid
 }
