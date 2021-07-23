@@ -54,6 +54,7 @@
     <protobuf-java.version>3.8.0</protobuf-java.version>
     <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
     <grpc.version>1.39.0</grpc.version>
+    <netty.version>4.1.65.Final</netty.version>
 
     <maven-jar.version>3.2.0</maven-jar.version>
     <maven-source.version>3.2.0</maven-source.version>
@@ -93,6 +94,16 @@
       <groupId>io.grpc</groupId>
       <artifactId>grpc-testing</artifactId>
       <version>${grpc.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-codec-http2</artifactId>
+      <version>${netty.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>io.netty</groupId>
+      <artifactId>netty-handler-proxy</artifactId>
+      <version>${netty.version}</version>
     </dependency>
     <dependency>
       <groupId>com.google.protobuf</groupId>
