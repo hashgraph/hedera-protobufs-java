@@ -30,20 +30,30 @@ import "query_header.proto";
 import "response_header.proto";
 
 /**
- * Get the deployed versions of Hedera Services and the HAPI proto in semantic version format
+ * Gets the time in nanoseconds spent in <tt>handleTransaction</tt> for one or more 
+ * TransactionIDs (assuming they have reached consensus "recently", since only a limited 
+ * number of execution times are kept in-memory, depending on the value of the node-local 
+ * property <tt>stats.executionTimesToTrack</tt>).
  */
-message NetworkGetVersionInfoQuery {
-    /**
-     * Standard info sent from client to node, including the signed payment, and what kind of
-     * response is requested (cost, state proof, both, or neither).
-     */
-    QueryHeader header = 1;
+message NetworkGetExecutionTimeQuery {
+  /**
+   * standard info sent from client to node including the signed payment, and what kind of response
+   * is requested (cost, state proof, both, or neither).
+   */
+  QueryHeader header = 1;
+
+  /**
+   * The id(s) of the transactions to get the execution time(s) of
+   */
+  repeated TransactionID transaction_ids = 2;
 }
 
 /**
- * Response when the client sends the node NetworkGetVersionInfoQuery
+ * Response when the client sends the node NetworkGetExecutionTimeQuery; returns
+ * INVALID_TRANSACTION_ID if any of the given TransactionIDs do not have available
+ * execution times in the answering node.
  */
-message NetworkGetVersionInfoResponse {
+message NetworkGetExecutionTimeResponse {
     /**
      * Standard response from node to client, including the requested fields: cost, or state proof,
      * or both, or neither
@@ -51,12 +61,7 @@ message NetworkGetVersionInfoResponse {
     ResponseHeader header = 1;
 
     /**
-     * The Hedera API (HAPI) protobuf version recognized by the responding node.
+     * The execution time(s) of the requested TransactionIDs, if available
      */
-    SemanticVersion hapiProtoVersion = 2;
-
-    /**
-     * The version of the Hedera Services software deployed on the responding node.
-     */
-    SemanticVersion hederaServicesVersion = 3;
+    repeated uint64 execution_times = 2;
 }
