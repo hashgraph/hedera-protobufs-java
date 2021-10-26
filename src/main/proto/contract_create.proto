@@ -27,6 +27,7 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "duration.proto";
+import "access_list_entry.proto";
 
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in
@@ -147,4 +148,6 @@ message ContractCreateTransactionBody {
      * the memo that was submitted as part of the contract (max 100 bytes)
      */
     string memo = 13;
+
+    repeated AccessListEntry accessList = 14;
 }
