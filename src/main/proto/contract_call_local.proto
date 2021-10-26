@@ -28,6 +28,7 @@ option java_multiple_files = true;
 import "basic_types.proto";
 import "query_header.proto";
 import "response_header.proto";
+import "access_list_entry.proto";
 
 /**
  * The log information for an event returned by a smart contract function call. One function call
@@ -134,6 +135,8 @@ message ContractCallLocalQuery {
      * max number of bytes that the result might include. The run will fail if it would have returned more than this number of bytes.
      */
     int64 maxResultSize = 5;
+
+    repeated AccessListEntry accessList = 6;
 }
 
 /**
