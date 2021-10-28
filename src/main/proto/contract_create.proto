@@ -27,7 +27,6 @@ option java_multiple_files = true;
 
 import "basic_types.proto";
 import "duration.proto";
-import "access_list_entry.proto";
 
 /**
  * Start a new smart contract instance. After the instance is created, the ContractID for it is in

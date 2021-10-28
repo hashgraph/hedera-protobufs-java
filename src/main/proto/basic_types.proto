@@ -341,7 +341,7 @@ enum TokenType {
  */
 enum SubType {
     /**
-     * The resource prices have no special scope 
+     * The resource prices have no special scope
      */
     DEFAULT = 0;
 
@@ -1210,9 +1210,9 @@ message NodeAddress {
     bytes memo = 3 [deprecated=true];
 
     /**
-     * The node's X509 RSA public key used to sign stream files (e.g., record stream 
-     * files). Precisely, this field is a string of hexadecimal characters which, 
-     * translated to binary, are the public key's DER encoding.  
+     * The node's X509 RSA public key used to sign stream files (e.g., record stream
+     * files). Precisely, this field is a string of hexadecimal characters which,
+     * translated to binary, are the public key's DER encoding.
      */
     string RSA_PubKey = 4;
 
@@ -1227,9 +1227,9 @@ message NodeAddress {
     AccountID nodeAccountId = 6;
 
     /**
-     * # Hash of the node's TLS certificate. Precisely, this field is a string of 
-     * hexadecimal characters which, translated to binary, are the SHA-384 hash of 
-     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be 
+     * # Hash of the node's TLS certificate. Precisely, this field is a string of
+     * hexadecimal characters which, translated to binary, are the SHA-384 hash of
+     * the UTF-8 NFKD encoding of the node's TLS cert in PEM format. Its value can be
      * used to verify the node's certificate it presents during TLS negotiations.
      */
     bytes nodeCertHash = 7;
@@ -1414,4 +1414,16 @@ message TokenBalances {
 message TokenAssociation {
     TokenID token_id = 1;  // The token involved in the association
     AccountID account_id = 2; // The account involved in the association
+}
+
+message AccessListEntry {
+
+  oneof entity {
+
+    AccountID accountID = 1;
+
+    ContractID contractID = 2;
+  }
+
+  repeated bytes storageKeys = 3;
 }

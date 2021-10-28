@@ -26,7 +26,6 @@ option java_package = "com.hederahashgraph.api.proto.java";
 option java_multiple_files = true;
 
 import "basic_types.proto";
-import "access_list_entry.proto";
 
 /**
  * Call a function of the given smart contract instance, giving it functionParameters as its inputs.
