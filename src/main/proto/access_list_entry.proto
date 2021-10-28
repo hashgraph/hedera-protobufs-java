@@ -28,6 +28,13 @@ option java_multiple_files = true;
 import "basic_types.proto";
 
 message AccessListEntry {
-  ContractID contract = 1;
-  repeated bytes storageKeys = 2;
+
+  oneof obtainers {
+
+    AccountID warmUpAccountID = 1;
+
+    ContractID warmUpContractID = 2;
+  }
+
+  repeated bytes storageKeys = 3;
 }
