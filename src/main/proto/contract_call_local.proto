@@ -113,7 +113,7 @@ message ContractFunctionResult {
  * It will not have a consensus timestamp. It cannot generate a record or a receipt. The response will contain the output
  * returned by the function call.  This is useful for calling getter functions, which purely read the state and don't change it.
  * It is faster and cheaper than a normal call, because it is purely local to a single  node.
- *
+ * 
  * Unlike a ContractCall transaction, the node will consume the entire amount of provided gas in determining
  * the fee for this query.
  */
