@@ -31,6 +31,7 @@ import "custom_fees.proto";
 import "transaction_receipt.proto";
 import "crypto_transfer.proto";
 import "contract_call_local.proto";
+import "transaction_body.proto";
 
 /**
  * Response when the client sends the node TransactionGetRecordResponse

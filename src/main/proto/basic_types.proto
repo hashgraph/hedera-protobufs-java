@@ -1117,6 +1117,11 @@ enum HederaFunctionality {
      * Adjust allowances for a spender relative to the payer account
      */
     CryptoAdjustAllowance = 82;
+    
+    /**
+     * Ethereum Transaction
+     */
+    EthereumTransaction = 83;
 }
 
 /**
