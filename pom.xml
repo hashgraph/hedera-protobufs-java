@@ -5,7 +5,7 @@
   <groupId>com.hedera.hashgraph</groupId>
   <artifactId>hedera-protobuf-java-api</artifactId>
   <packaging>jar</packaging>
-  <version>0.25.0-alpha.1</version>
+  <version>0.25.0-alpha.2-SNAPSHOT</version>
 
   <name>hedera-protobuf-java-api</name>
   <description>Hedera Protobuf Java API</description>
@@ -30,7 +30,7 @@
     <connection>scm:git:git@github.com:hashgraph/hedera-protobuf.git</connection>
     <developerConnection>scm:git:git@github.com:hashgraph/hedera-protobuf.git</developerConnection>
     <url>https://github.com/hashgraph/hedera-protobuf</url>
-    <tag>v0.225.0-alpha.1</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <distributionManagement>
