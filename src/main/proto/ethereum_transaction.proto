@@ -36,23 +36,12 @@ message EthereumTransactionBody {
   bytes ethereumData = 1;
 
   /**
-   * The Hedera account ID for the transaction.  The account must have an alias 
-   * corresponding to the public key that signed the ethereumData transaction.
-   */
-  AccountID senderId = 2;
-
-  /**
-   * The nonce from the ethereumData.  Repeated for quick indexing and validation.
-   */
-  int64 nonce = 3;
-
-  /**
    * For large transactions (for example contract create) this is the callData
    * of the ethereumData. The data in the ethereumData will be re-written with 
    * the callData element as a zero length string with the original contents in 
    * the referenced file at time of execution. The ethereumData will need to be 
    * "rehydrated" with the callData for signature validation to pass.
    */
-  FileID callData = 4;
+  FileID callData = 2;
 
 }
