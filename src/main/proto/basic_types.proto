@@ -1126,7 +1126,7 @@ enum HederaFunctionality {
     /**
      * Ethereum Transaction
      */
-    EthereumTransaction = 83;
+    EthereumTransaction = 84;
 }
 
 /**

@@ -191,7 +191,7 @@ message TransactionBody {
     /**
      * An Ethereum encoded transaction.
      */
-    EthereumTransactionBody ethereumTransaction = 50;
+    EthereumTransactionBody ethereumTransaction = 51;
 
     /**
      * Add bytes to the end of the contents of a file
