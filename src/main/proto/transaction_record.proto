@@ -31,7 +31,6 @@ import "custom_fees.proto";
 import "transaction_receipt.proto";
 import "crypto_transfer.proto";
 import "contract_call_local.proto";
-import "transaction_body.proto";
 
 /**
  * Response when the client sends the node TransactionGetRecordResponse
@@ -135,4 +134,10 @@ message TransactionRecord {
      * transaction. This field will only be populated for CryptoAdjustAllowanceTransaction.
      */
     repeated TokenAllowance token_adjustments = 18;
+    
+    /**
+     * The keccak256 hash of the ethereumData. This field will only be populated for 
+     * EthereumTransaction.
+     */
+    bytes ethereum_hash = 19;
 }
