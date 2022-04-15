@@ -1231,4 +1231,44 @@ enum ResponseCodeEnum {
    * granted on token-owner.
    */
   DELEGATING_SPENDER_DOES_NOT_HAVE_APPROVE_FOR_ALL = 305;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was too far in the future.
+   */
+  SCHEDULE_EXPIRATION_TIME_TOO_FAR_IN_FUTURE = 306;
+
+  /**
+   * The scheduled transaction could not be created because it's expiration_time was less than or equal to the consensus time.
+   */
+  SCHEDULE_EXPIRATION_TIME_MUST_BE_HIGHER_THAN_CONSENSUS_TIME = 307;
+
+  /**
+   * The scheduled transaction could not be created because it would cause throttles to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_THROTTLE_EXCEEDED = 308;
+
+  /**
+   * The scheduled transaction could not be created because it would cause the gas limit to be violated on the specified expiration_time.
+   */
+  SCHEDULE_FUTURE_GAS_LIMIT_EXCEEDED = 309;
+
+  /**
+   * The ethereum transaction either failed parsing or failed signature validation, or some other EthereumTransaction error not covered by another response code.
+   */
+  INVALID_ETHEREUM_TRANSACTION = 310;
+
+  /**
+   * EthereumTransaction was signed against a chainId that this network does not support.
+   */
+  WRONG_CHAIN_ID = 311;
+  
+  /**
+   * This transaction specified an ethereumNonce that is not the current ethereumNonce of the account.
+   */
+  WRONG_NONCE = 312;
+  
+  /**
+   * The ethereum transaction specified an access list, which the network does not support.
+   */
+  ACCESS_LIST_UNSUPPORTED = 313;
 }
