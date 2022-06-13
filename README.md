@@ -8,18 +8,16 @@ The protobuf files themselves contain detailed comments which help understand no
 
 The `/docs` folder of this project contains automatically generated documents in html and markdown format to help navigate through the message definitions.
 
-[NestedDoc.html](https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NestedDoc.html) - nested HTML document to help navigate messages that contain other message definitions (large document that takes a while to open)
-[NotNestedDoc.html](https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NotNestedDoc.html) - flat HTML document
-[NotNestedDoc.md](https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NotNestedDoc.md) - flat markdown document
-
-__Note__: the HAPI.html document is a large document and may take a few seconds to load in a browser.
+* [NestedDoc.html](https://htmlpreview.github.io/?https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NestedDoc.html) - nested HTML document to help navigate messages that contain other message definitions (large document that takes a while to open)
+* [NotNestedDoc.html](https://htmlpreview.github.io/?https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NotNestedDoc.html) - flat HTML document
+* [NotNestedDoc.md](https://github.com/hashgraph/hedera-protobuf/blob/master/docs/NotNestedDoc.md) - flat markdown document
 
 ## Additional resources
 
 If you are unfamiliar with protocol buffers (or need a refresher), you may consult the following web resources:
 
-- Protocol Buffers : https://developers.google.com/protocol-buffers/
-- gRPC : https://grpc.io
+- [Protocol Buffers](https://developers.google.com/protocol-buffers/)
+- [gRPC](https://grpc.io)
 
 ## Deploy to Maven
 
