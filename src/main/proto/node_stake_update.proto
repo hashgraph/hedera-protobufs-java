@@ -38,14 +38,9 @@ message NodeStakeUpdateTransactionBody {
   Timestamp end_of_staking_period = 1;
 
   /**
-   * The daily reward rate for this staking period in tinybars
-   */
-  int64 reward_rate = 2;
-
-  /**
    * Staking info of each node at the beginning of the new staking period
    */
-  repeated NodeStake node_stake = 3;
+  repeated NodeStake node_stake = 2;
 }
 
 /**
