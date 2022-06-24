@@ -1261,12 +1261,12 @@ enum ResponseCodeEnum {
    * EthereumTransaction was signed against a chainId that this network does not support.
    */
   WRONG_CHAIN_ID = 311;
-  
+
   /**
    * This transaction specified an ethereumNonce that is not the current ethereumNonce of the account.
    */
   WRONG_NONCE = 312;
-  
+
   /**
    * The ethereum transaction specified an access list, which the network does not support.
    */
@@ -1285,7 +1285,7 @@ enum ResponseCodeEnum {
   /**
    * A selfdestruct or ContractDelete targeted a contract with non-zero token balances.
    */
-  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;  
+  CONTRACT_HAS_NON_ZERO_TOKEN_BALANCES = 316;
 
   /**
    * A contract referenced by a transaction is "detached"; that is, expired and lacking any
@@ -1323,4 +1323,34 @@ enum ResponseCodeEnum {
    * Native staking, while implemented, has not yet enabled by the council.
    */
   STAKING_NOT_ENABLED = 323;
+
+  /**
+   * The full prefix signature for transfer precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_TRANSFER_PRECOMPILE = 324;
+
+  /**
+   * The full prefix signature for associate precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_ASSOCIATE_PRECOMPILE = 325;
+
+  /**
+   * The full prefix signature for dissociate precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_DISSOCIATE_PRECOMPILE = 326;
+
+  /**
+   * The full prefix signature for burn precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_BURN_PRECOMPILE = 327;
+
+  /**
+   * The full prefix signature for mint precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_MINT_PRECOMPILE = 328;
+
+  /**
+   * The full prefix signature for token create precompile is not valid
+   */
+  INVALID_FULL_PREFIX_SIGNATURE_FOR_TOKEN_CREATE_PRECOMPILE = 329;
 }
