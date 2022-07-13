@@ -1,4 +1,6 @@
 # Hedera Hashgraph Protocol Buffer API Message Definitions
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs-java.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs-java?ref=badge_shield)
+
 
 The Hedera Hashgraph API is implemented with protocol buffers, Google's language-neutral, platform-neutral, extensible mechanism for serializing structured data. This repository contains the current version of the files used to define the API.
 
@@ -45,3 +47,7 @@ Commit all changes to github
 `mvn release:perform`
 
 navigate to Nexus Repository Manager https://oss.sonatype.org/index.html#stagingRepositories and release the newly created repository.
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs-java.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fhashgraph%2Fhedera-protobufs-java?ref=badge_large)
