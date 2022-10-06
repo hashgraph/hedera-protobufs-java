@@ -197,6 +197,9 @@
               <addClasspath>true</addClasspath>
               <classpathPrefix>lib/</classpathPrefix>
             </manifest>
+            <manifestEntries>
+              <Automatic-Module-Name>com.hedera.hashgraph.protobuf.java.api</Automatic-Module-Name>
+            </manifestEntries>
           </archive>
         </configuration>
       </plugin>
