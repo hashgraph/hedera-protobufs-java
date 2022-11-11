@@ -6,3 +6,6 @@
 .settings/
 .project
 javadoc/
+/build/
+.gradle
+.idea
