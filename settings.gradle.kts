@@ -19,9 +19,9 @@ gitRepositories {
     include("hedera-protobufs") {
         autoInclude.set(false)
         uri.set("https://github.com/hashgraph/hedera-protobufs.git")
-        // optional, set what branch to use
+        // ===================================================================================
+        // CHANGE ME - choose branch or tag on HAPI you would like to build with
 //        branch.set("main")
-        // you can also use a tag
         tag.set("v0.31.0")
     }
 }
