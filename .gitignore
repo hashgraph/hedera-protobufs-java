@@ -9,3 +9,10 @@ javadoc/
 /build/
 .gradle
 .idea
+/src/main/proto/
+/checkouts/
+/checkouts/hedera-protobufs/
+/checkouts/hedera-protobufs/.gradle/file-system.probe
+/checkouts/hedera-protobufs/mirror/.gradle/file-system.probe
+/checkouts/hedera-protobufs/services/.gradle/file-system.probe
+/checkouts/hedera-protobufs/streams/.gradle/file-system.probe

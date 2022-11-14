@@ -32,16 +32,37 @@ java {
     withSourcesJar()
 }
 
+tasks.clean {
+    doFirst {
+        delete("${rootDir}/src/main/proto")
+    }
+}
+
+sourceSets {
+    main {
+        proto {
+            srcDir("checkouts/hedera-protobufs/streams")
+            srcDir("checkouts/hedera-protobufs/services")
+            srcDir("checkouts/hedera-protobufs/mirror")
+            exclude { file: FileTreeElement ->
+                return@exclude file.file.endsWith("mirror/consensus_service.proto")
+            }
+        }
+    }
+}
+
 protobuf {
+    protoc{
+        artifact = "com.google.protobuf:protoc:3.21.0"
+    }
+
     plugins {
         create("grpc").artifact = "io.grpc:protoc-gen-grpc-java:1.50.2"
     }
 
     generateProtoTasks {
         all().forEach { task: GenerateProtoTask ->
-//            task.builtins["java"].options.add("lite")
             task.plugins.create("grpc")
-//            task.plugins.create("grpc").options.add("lite")
         }
     }
 }
