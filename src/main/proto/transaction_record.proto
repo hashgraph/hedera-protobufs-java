@@ -145,4 +145,9 @@ message TransactionRecord {
          */
         int32 prng_number = 20;
     }
+
+    /**
+     * Virtual address updated info, if virtual address is specified in the CryptoUpdate transaction. At most one update can be performed at a time.
+     */
+    VirtualAddressUpdate virtualAddressUpdate = 21;
 }
