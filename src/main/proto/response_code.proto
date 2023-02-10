@@ -23,6 +23,7 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.base">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
@@ -1367,4 +1368,9 @@ enum ResponseCodeEnum {
    * The account cannot be modified. Account's key is not set
    */
   ACCOUNT_IS_IMMUTABLE = 331;
+
+  /**
+   * An alias that is assigned to an account or contract cannot be assigned to another account or contract.
+   */
+  ALIAS_ALREADY_ASSIGNED = 332;
 }

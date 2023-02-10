@@ -23,6 +23,7 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
@@ -154,10 +155,4 @@ message CryptoUpdateTransactionBody {
      * If true, the account declines receiving a staking reward. The default value is false.
      */
     google.protobuf.BoolValue decline_reward = 18;
-
-    /**
-     * If set to the sentinel <tt>0.0.0</tt> AccountID, this field removes the account's auto-renew 
-     * account. Otherwise it updates the account's auto-renew account to the referenced account.
-     */
-    AccountID auto_renew_account = 19;
 }
