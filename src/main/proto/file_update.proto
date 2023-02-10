@@ -23,10 +23,10 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
+// <<<pbj.java_package = "com.hedera.hapi.node.file">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 import "basic_types.proto";
-import "duration.proto";
 import "timestamp.proto";
 import "google/protobuf/wrappers.proto";
 
@@ -64,15 +64,4 @@ message FileUpdateTransactionBody {
      * If set, the new memo to be associated with the file (UTF-8 encoding max 100 bytes)
      */
     google.protobuf.StringValue memo = 5;
-
-    /**
-     * If set to the sentinel <tt>0.0.0</tt> AccountID, this field removes the file's auto-renew 
-     * account. Otherwise it updates the file's auto-renew account to the referenced account.
-     */
-    AccountID auto_renew_account = 6;
-
-    /**
-     * If an auto-renew account is in use, the lifetime to be added by each auto-renewal.
-     */
-    Duration auto_renew_period = 7;
 }
