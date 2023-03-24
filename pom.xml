@@ -5,7 +5,7 @@
   <groupId>com.hedera.hashgraph</groupId>
   <artifactId>hedera-protobuf-java-api</artifactId>
   <packaging>jar</packaging>
-  <version>0.33.0-modularization-SNAPSHOT</version>
+  <version>0.36.0</version>
 
   <name>hedera-protobuf-java-api</name>
   <description>Hedera Protobuf Java API</description>
@@ -51,9 +51,9 @@
     <app.name>hedera-protobuf-java-api</app.name>
 
     <eddsa.version>0.3.0</eddsa.version>
-    <protobuf-java.version>3.16.1</protobuf-java.version>
+    <protobuf-java.version>3.21.12</protobuf-java.version>
     <javax.annotation-api.version>1.3.2</javax.annotation-api.version>
-    <grpc.version>1.39.0</grpc.version>
+    <grpc.version>1.53.0</grpc.version>
     <netty.version>4.1.66.Final</netty.version>
 
     <maven-jar.version>3.2.0</maven-jar.version>
@@ -71,7 +71,7 @@
     <nexus-staging.version>1.6.8</nexus-staging.version>
     <os.plugin.version>1.6.0</os.plugin.version>
     <protobuf.plugin.version>0.6.1</protobuf.plugin.version>
-    <protoc.version>3.8.0</protoc.version>
+    <protoc.version>3.21.12</protoc.version>
   </properties>
 
   <dependencies>
