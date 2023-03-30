@@ -23,21 +23,51 @@ package proto;
  */
 
 import "basic_types.proto";
-import "state/token/account.proto";
-import "state/token/token.proto";
 
 option java_package = "com.hederahashgraph.api.proto.java";
 // <<<pbj.java_package = "com.hedera.hapi.node.state.token">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
-
+/**
+ * First-draft representation of a Hedera Token Service token relationship entity in the network Merkle tree.
+ *
+ * As with all network entities, a token relationship has a unique entity number pair, which is represented
+ * with the account and the token involved in the relationship.
+ */
 message TokenRelation {
-    Token token = 1;
-    Account account = 2;
+    /**
+     * The token involved in this relation.
+     */
+    uint64 token_number = 1;
+    /**
+     * The account involved in this association.
+     */
+    uint64 account_number = 2;
+    /**
+     * The balance of the token relationship.
+     */
     int64 balance = 3;
+    /**
+     * The flags of the token relationship.
+     */
     bool frozen = 4;
-    bool kycGranted = 5;
+    /**
+     * The flag indicating if the token relationship has been granted KYC.
+     */
+    bool kyc_granted = 5;
+    /**
+     * The flag indicating if the token relationship was deleted.
+     */
     bool deleted = 6;
-    bool notYetPersisted = 7;
-    bool automaticAssociation = 8;
-    bool fungibleBalanceChange = 9;
+    /**
+     * The flag indicating if the token relationship was created using automatic association.
+     */
+    bool automatic_association = 8;
+    /**
+     * The previous token number of account's association linked list
+     */
+    uint64 previous_token = 9;
+    /**
+     * The next token number of account's association linked list
+     */
+    uint64 next_token = 10;
 }
