@@ -32,17 +32,19 @@ option java_multiple_files = true;
 /**
  * First-draft representation of a Hedera Token Service account entity in the network Merkle tree.
  *
- * As with all network entities, an account has a unique entity number, which is usually given along
- * with the network's shard and realm in the form of a shard.realm.number id.
+ * As with all network entities, account has an unique entity number represented as shard.realm.X.
+ * X can be an alias public key or an EVM address or a number.
+ *
  */
 
 message Account {
     /**
-     * The unique entity number of the account.
+     * The unique entity number of the account. The shard and realm numbers are implied, based on the network
+     * this entity came from.
      */
     int64 account_number = 1;
     /**
-     * The public key bytes to be used as the account's alias, if any.
+     * The alias to use for this account, if any.
      */
     bytes alias = 2;
     /**
@@ -56,9 +58,9 @@ message Account {
     /**
      * The balance of the account, in tiny-bars.
      */
-    int64 hbar_balance = 5;
+    int64 tinybar_balance = 5;
     /**
-     * An optional description of the topic with UTF-8 encoding up to 100 bytes.
+     * An optional description of the account with UTF-8 encoding up to 100 bytes.
      */
     string memo = 6;
     /**
@@ -121,8 +123,8 @@ message Account {
      */
     int64 stake_at_start_of_last_rewarded_period = 20;
     /**
-     * (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that
-     * has signed a transaction allowing the network to use its balance to automatically extend the topic's
+     * (Optional) The number of an auto-renew account, in the same shard and realm as the account, that
+     * has signed a transaction allowing the network to use its balance to automatically extend the account's
      * expiration time when it passes.
      */
     int64 auto_renew_account_number = 21;
@@ -151,15 +153,15 @@ message Account {
     /**
      * The token ID of the head of the linked list from token relations map for the account.
      */
-    uint64 head_token_number = 27;
+    int64 head_token_number = 27;
     /**
      * The NftId of the head of the linked list from unique tokens map for the account.
      */
-    uint64 head_nft_id = 28;
+    int64 head_nft_id = 28;
     /**
       * The serial number of the head NftId of the linked list from unique tokens map for the account.
       */
-    uint64 head_nft_serial_number = 29;
+    int64 head_nft_serial_number = 29;
     /**
      * The number of tokens for which this account is treasury
      */
