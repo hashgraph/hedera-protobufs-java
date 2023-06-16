@@ -6,9 +6,10 @@
 
 - [account.proto](#account.proto)
   - [Account](#Account)
+  - [AccountApprovalForAllAllowance](#AccountApprovalForAllAllowance)
   - [AccountCryptoAllowance](#AccountCryptoAllowance)
   - [AccountFungibleTokenAllowance](#AccountFungibleTokenAllowance)
-  - [AccountTokenAllowance](#AccountTokenAllowance)
+  - [Int256Value](#Int256Value)
 
 - [account_balance_file.proto](#account_balance_file.proto)
   - [AllAccountBalances](#AllAccountBalances)
@@ -291,6 +292,9 @@
   - [RecordStreamItem](#RecordStreamItem)
   - [SidecarMetadata](#SidecarMetadata)
   - [SidecarType](#SidecarType) (Enum)
+
+- [recordcache.proto](#recordcache.proto)
+  - [TransactionRecordEntry](#TransactionRecordEntry)
 
 - [response.proto](#response.proto)
   - [Response](#Response)
@@ -582,7 +586,7 @@
 | NFT | [*](#*) |  | |
 | Allowances | [*](#*) |  | |
 |  | [](#) |  | |
-| approve_for_all_nft_allowances | [AccountTokenAllowance](#AccountTokenAllowance) |  | |
+| approve_for_all_nft_allowances | [AccountApprovalForAllAllowance](#AccountApprovalForAllAllowance) |  | |
 | (Optional) | [*](#*) |  | |
 | It | [*](#*) |  | |
 | It | [*](#*) |  | |
@@ -599,39 +603,68 @@
 | and | [*](#*) |  | |
 |  | [](#) |  | |
 | expired_and_pending_removal |  |  | |
+| The | [*](#*) |  | |
+| It | [*](#*) |  | |
+|  | [](#) |  | |
+| first_contract_storage_key | [Int256Value](#Int256Value) |  | |
+
+
+<a name="AccountApprovalForAllAllowance"></a>
+
+### AccountApprovalForAllAllowance
+<BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token number.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token_num |  |  | |
+| spender_num |  |  | |
 
 
 <a name="AccountCryptoAllowance"></a>
 
 ### AccountCryptoAllowance
-<BR>Allowance granted by this account to another account for an amount of hbars.
+<BR>Allowance granted by this account to another account for an amount of hbars.<BR>This allows spender to spend the amount of hbars approved for the account.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| account_num |  |  | |
+| spender_num |  |  | |
 | amount |  |  | |
 
 
 <a name="AccountFungibleTokenAllowance"></a>
 
 ### AccountFungibleTokenAllowance
-<BR>Allowance granted by this account to another account for a specific fungible token.<BR>This also contains the amount of the token that is approved for the account.
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| token_allowance_key | [AccountTokenAllowance](#AccountTokenAllowance) |  | |
-| amount |  |  | |
-
-
-<a name="AccountTokenAllowance"></a>
-
-### AccountTokenAllowance
-<BR>Allowance granted by this account to another account for a specific token.
+<BR>Allowance granted by this account to another account for a specific fungible token.<BR>This also contains the amount of the token that is approved for the account.<BR>This allows spender to spend the amount of tokens approved for the account.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | token_num |  |  | |
-| account_num |  |  | |
+| spender_num |  |  | |
+| amount |  |  | |
+
+
+<a name="Int256Value"></a>
+
+### Int256Value
+<BR>Message representing a uint256 value.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| non_zero_bits |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| first_long |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| second_long |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| third_long |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| fourth_long |  |  | |
 
 
 <a name="account_balance_file.proto"></a>
@@ -3930,7 +3963,6 @@
 |  | [](#) |  | |
 | expiration_time |  |  | |
 | All | [*](#*) |  | |
-| the | [*](#*) |  | |
 |  | [](#) |  | |
 | keys | [KeyList](#KeyList) |  | |
 | The | [*](#*) |  | |
@@ -5036,6 +5068,34 @@
 | CONTRACT_STATE_CHANGE |  |
 | CONTRACT_ACTION |  |
 | CONTRACT_BYTECODE |  |
+
+
+<a name="recordcache.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## recordcache.proto
+
+<BR>As transactions are handled and records and receipts are created, they are stored in state for a configured time<BR>limit (perhaps, for example, 3 minutes). During this time window, any client can query the node and get the record<BR>or receipt for the transaction. The TransactionRecordEntry is the object stored in state with this information.
+
+<a name="TransactionRecordEntry"></a>
+
+### TransactionRecordEntry
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| address | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+| ID | [*](#*) |  | |
+|  | [](#) |  | |
+| payer_account_id | [AccountID](#AccountID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| transaction_record | [TransactionRecord](#TransactionRecord) |  | |
 
 
 <a name="response.proto"></a>
@@ -7690,7 +7750,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| the | [*](#*) |  | |
+| The | [*](#*) |  | |
 |  | [](#) |  | |
 | body | [TransactionBody](#TransactionBody) |  | |
 | The | [*](#*) |  | |

@@ -8,11 +8,13 @@
 <li>
 <a href="#Account"><span class="badge">M</span>Account</a></li>
 <li>
+<a href="#AccountApprovalForAllAllowance"><span class="badge">M</span>AccountApprovalForAllAllowance</a></li>
+<li>
 <a href="#AccountCryptoAllowance"><span class="badge">M</span>AccountCryptoAllowance</a></li>
 <li>
 <a href="#AccountFungibleTokenAllowance"><span class="badge">M</span>AccountFungibleTokenAllowance</a></li>
 <li>
-<a href="#AccountTokenAllowance"><span class="badge">M</span>AccountTokenAllowance</a></li>
+<a href="#Int256Value"><span class="badge">M</span>Int256Value</a></li>
 </ul>
 <a href=#account_balance_file.proto>account_balance_file.proto</a>
 <ul>
@@ -516,6 +518,11 @@
 <a href="#SidecarMetadata"><span class="badge">M</span>SidecarMetadata</a></li>
 <li>
 <a href="#SidecarType"><span class="badge">E</span>SidecarType</a></li>
+</ul>
+<a href=#recordcache.proto>recordcache.proto</a>
+<ul>
+<li>
+<a href="#TransactionRecordEntry"><span class="badge">M</span>TransactionRecordEntry</a></li>
 </ul>
 <a href=#response.proto>response.proto</a>
 <ul>
@@ -1448,7 +1455,7 @@
 
 <TR>
 <TD>approve_for_all_nft_allowances</TD>
-<TD><a href="#AccountTokenAllowance">AccountTokenAllowance</a> (repeated)</TD>
+<TD><a href="#AccountApprovalForAllAllowance">AccountApprovalForAllAllowance</a> (repeated)</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1548,63 +1555,35 @@
 <TD><P></P></TD>
 </TR>
 
-<tbody>
-</TABLE>
-
-<H3 id="AccountCryptoAllowance"><span class="BigBadge">Message</span>AccountCryptoAllowance</H3>
-<P><BR>Allowance granted by this account to another account for an amount of hbars.</P>
-<table class="field-table">
-<thead>
 <TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>account_num</TD>
-<TD>int64</TD>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>amount</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="AccountFungibleTokenAllowance"><span class="BigBadge">Message</span>AccountFungibleTokenAllowance</H3>
-<P><BR>Allowance granted by this account to another account for a specific fungible token.<BR>This also contains the amount of the token that is approved for the account.</P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>token_allowance_key</TD>
-<TD><a href="#AccountTokenAllowance">AccountTokenAllowance</a></TD>
+<TD>It</TD>
+<TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>amount</TD>
-<TD>int64</TD>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>first_contract_storage_key</TD>
+<TD><a href="#Int256Value">Int256Value</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <tbody>
 </TABLE>
 
-<H3 id="AccountTokenAllowance"><span class="BigBadge">Message</span>AccountTokenAllowance</H3>
-<P><BR>Allowance granted by this account to another account for a specific token.</P>
+<H3 id="AccountApprovalForAllAllowance"><span class="BigBadge">Message</span>AccountApprovalForAllAllowance</H3>
+<P><BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token number.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1621,7 +1600,169 @@
 </TR>
 
 <TR>
-<TD>account_num</TD>
+<TD>spender_num</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="AccountCryptoAllowance"><span class="BigBadge">Message</span>AccountCryptoAllowance</H3>
+<P><BR>Allowance granted by this account to another account for an amount of hbars.<BR>This allows spender to spend the amount of hbars approved for the account.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>spender_num</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="AccountFungibleTokenAllowance"><span class="BigBadge">Message</span>AccountFungibleTokenAllowance</H3>
+<P><BR>Allowance granted by this account to another account for a specific fungible token.<BR>This also contains the amount of the token that is approved for the account.<BR>This allows spender to spend the amount of tokens approved for the account.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token_num</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>spender_num</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>amount</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="Int256Value"><span class="BigBadge">Message</span>Int256Value</H3>
+<P><BR>Message representing a uint256 value.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>non_zero_bits</TD>
+<TD>int32</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>first_long</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>second_long</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>third_long</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>fourth_long</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -15217,12 +15358,6 @@
 </TR>
 
 <TR>
-<TD>the</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
 <TD></TD>
 <TD><a href="#"></a></TD>
 <TD><P></P></TD>
@@ -19271,6 +19406,97 @@
 
 <TR>
 <TD>CONTRACT_BYTECODE</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="recordcache.proto">recordcache.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>As transactions are handled and records and receipts are created, they are stored in state for a configured time<BR>limit (perhaps, for example, 3 minutes). During this time window, any client can query the node and get the record<BR>or receipt for the transaction. The TransactionRecordEntry is the object stored in state with this information.</P>
+<H3 id="TransactionRecordEntry"><span class="BigBadge">Message</span>TransactionRecordEntry</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>address</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_id</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ID</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>payer_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>transaction_record</TD>
+<TD><a href="#TransactionRecord">TransactionRecord</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -30705,7 +30931,7 @@
 </thead>
 <tbody>
 <TR>
-<TD>the</TD>
+<TD>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
