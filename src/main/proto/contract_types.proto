@@ -23,27 +23,25 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.state.common">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.contract">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
-/**
- * A single 64-bit number identifying a Hedera native entity.
- */
-message EntityNumber {
-    int64 number = 1;
-}
+import "basic_types.proto";
 
+import "google/protobuf/wrappers.proto";
 /**
- * Identifier for a unique token (or "NFT"), used by both contract and token services.
+ * Info about a contract account's nonce value.
+ * A nonce of a contract is only incremented when that contract creates another contract.
  */
-message UniqueTokenId {
-  /**
-   * The number of the unique token type this NFT is an instance of.
-   */
-  int64 token_type_number = 1;
+message ContractNonceInfo {
 
   /**
-   * The serial number of this NFT within its token type.
+   * Id of the contract
    */
-  int64 serial_number = 2;
+  ContractID contract_id = 1;
+
+  /**
+   * The current value of the contract account's nonce property
+   */
+  int64 nonce = 2;
 }

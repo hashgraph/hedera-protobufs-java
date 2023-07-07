@@ -23,27 +23,28 @@ package proto;
  */
 
 option java_package = "com.hederahashgraph.api.proto.java";
-// <<<pbj.java_package = "com.hedera.hapi.node.state.common">>> This comment is special code for setting PBJ Compiler java package
+// <<<pbj.java_package = "com.hedera.hapi.node.state.blockrecords">>> This comment is special code for setting PBJ Compiler java package
 option java_multiple_files = true;
 
 /**
- * A single 64-bit number identifying a Hedera native entity.
+ * The running hash of a transaction records and the previous 3 running hashes. All hashes are 48 bytes SHA384 hashes. If the
+ * running hashes do not exist yet then they will be default values witch is empty bytes object or zero length byte array.
  */
-message EntityNumber {
-    int64 number = 1;
-}
-
-/**
- * Identifier for a unique token (or "NFT"), used by both contract and token services.
- */
-message UniqueTokenId {
+message RunningHashes {
   /**
-   * The number of the unique token type this NFT is an instance of.
+   * A running hash of all record stream items
    */
-  int64 token_type_number = 1;
-
+  bytes running_hash = 1;
   /**
-   * The serial number of this NFT within its token type.
+   * The previous running hash of all record stream items
    */
-  int64 serial_number = 2;
+  bytes n_minus_1_running_hash = 2;
+  /**
+   * The previous, previous running hash of all record stream items
+   */
+  bytes n_minus_2_running_hash = 3;
+  /**
+   * The previous, previous, previous running hash of all record stream items
+   */
+  bytes n_minus_3_running_hash = 4;
 }
