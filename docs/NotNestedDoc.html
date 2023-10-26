@@ -13,8 +13,6 @@
 <a href="#AccountCryptoAllowance"><span class="badge">M</span>AccountCryptoAllowance</a></li>
 <li>
 <a href="#AccountFungibleTokenAllowance"><span class="badge">M</span>AccountFungibleTokenAllowance</a></li>
-<li>
-<a href="#Int256Value"><span class="badge">M</span>Int256Value</a></li>
 </ul>
 <a href=#account_balance_file.proto>account_balance_file.proto</a>
 <ul>
@@ -51,6 +49,8 @@
 <a href="#Key"><span class="badge">M</span>Key</a></li>
 <li>
 <a href="#KeyList"><span class="badge">M</span>KeyList</a></li>
+<li>
+<a href="#NftID"><span class="badge">M</span>NftID</a></li>
 <li>
 <a href="#NftTransfer"><span class="badge">M</span>NftTransfer</a></li>
 <li>
@@ -117,6 +117,28 @@
 <a href="#TransactionID"><span class="badge">M</span>TransactionID</a></li>
 <li>
 <a href="#TransferList"><span class="badge">M</span>TransferList</a></li>
+</ul>
+<a href=#block_info.proto>block_info.proto</a>
+<ul>
+<li>
+<a href="#BlockInfo"><span class="badge">M</span>BlockInfo</a></li>
+</ul>
+<a href=#bytecode.proto>bytecode.proto</a>
+<ul>
+<li>
+<a href="#Bytecode"><span class="badge">M</span>Bytecode</a></li>
+</ul>
+<a href=#common.proto>common.proto</a>
+<ul>
+<li>
+<a href="#EntityIDPair"><span class="badge">M</span>EntityIDPair</a></li>
+<li>
+<a href="#EntityNumber"><span class="badge">M</span>EntityNumber</a></li>
+</ul>
+<a href=#congestion_level_starts.proto>congestion_level_starts.proto</a>
+<ul>
+<li>
+<a href="#CongestionLevelStarts"><span class="badge">M</span>CongestionLevelStarts</a></li>
 </ul>
 <a href=#consensus_create_topic.proto>consensus_create_topic.proto</a>
 <ul>
@@ -230,6 +252,11 @@
 <a href="#ContractStateChanges"><span class="badge">M</span>ContractStateChanges</a></li>
 <li>
 <a href="#StorageChange"><span class="badge">M</span>StorageChange</a></li>
+</ul>
+<a href=#contract_types.proto>contract_types.proto</a>
+<ul>
+<li>
+<a href="#ContractNonceInfo"><span class="badge">M</span>ContractNonceInfo</a></li>
 </ul>
 <a href=#contract_update.proto>contract_update.proto</a>
 <ul>
@@ -489,12 +516,35 @@
 <li>
 <a href="#NetworkService"><span class="badge">S</span>NetworkService</a></li>
 </ul>
+<a href=#network_staking_rewards.proto>network_staking_rewards.proto</a>
+<ul>
+<li>
+<a href="#NetworkStakingRewards"><span class="badge">M</span>NetworkStakingRewards</a></li>
+</ul>
+<a href=#nft.proto>nft.proto</a>
+<ul>
+<li>
+<a href="#Nft"><span class="badge">M</span>Nft</a></li>
+</ul>
 <a href=#node_stake_update.proto>node_stake_update.proto</a>
 <ul>
 <li>
 <a href="#NodeStake"><span class="badge">M</span>NodeStake</a></li>
 <li>
 <a href="#NodeStakeUpdateTransactionBody"><span class="badge">M</span>NodeStakeUpdateTransactionBody</a></li>
+</ul>
+<a href=#primitives.proto>primitives.proto</a>
+<ul>
+<li>
+<a href="#ProtoBoolean"><span class="badge">M</span>ProtoBoolean</a></li>
+<li>
+<a href="#ProtoBytes"><span class="badge">M</span>ProtoBytes</a></li>
+<li>
+<a href="#ProtoInteger"><span class="badge">M</span>ProtoInteger</a></li>
+<li>
+<a href="#ProtoLong"><span class="badge">M</span>ProtoLong</a></li>
+<li>
+<a href="#ProtoString"><span class="badge">M</span>ProtoString</a></li>
 </ul>
 <a href=#query.proto>query.proto</a>
 <ul>
@@ -539,10 +589,22 @@
 <li>
 <a href="#ResponseHeader"><span class="badge">M</span>ResponseHeader</a></li>
 </ul>
+<a href=#running_hashes.proto>running_hashes.proto</a>
+<ul>
+<li>
+<a href="#RunningHashes"><span class="badge">M</span>RunningHashes</a></li>
+</ul>
 <a href=#schedulable_transaction_body.proto>schedulable_transaction_body.proto</a>
 <ul>
 <li>
 <a href="#SchedulableTransactionBody"><span class="badge">M</span>SchedulableTransactionBody</a></li>
+</ul>
+<a href=#schedule.proto>schedule.proto</a>
+<ul>
+<li>
+<a href="#Schedule"><span class="badge">M</span>Schedule</a></li>
+<li>
+<a href="#ScheduleList"><span class="badge">M</span>ScheduleList</a></li>
 </ul>
 <a href=#schedule_create.proto>schedule_create.proto</a>
 <ul>
@@ -594,6 +656,18 @@
 <li>
 <a href="#SmartContractService"><span class="badge">S</span>SmartContractService</a></li>
 </ul>
+<a href=#staking_node_info.proto>staking_node_info.proto</a>
+<ul>
+<li>
+<a href="#StakingNodeInfo"><span class="badge">M</span>StakingNodeInfo</a></li>
+</ul>
+<a href=#storage_slot.proto>storage_slot.proto</a>
+<ul>
+<li>
+<a href="#SlotKey"><span class="badge">M</span>SlotKey</a></li>
+<li>
+<a href="#SlotValue"><span class="badge">M</span>SlotValue</a></li>
+</ul>
 <a href=#system_delete.proto>system_delete.proto</a>
 <ul>
 <li>
@@ -612,6 +686,13 @@
 <a href="#ThrottleDefinitions"><span class="badge">M</span>ThrottleDefinitions</a></li>
 <li>
 <a href="#ThrottleGroup"><span class="badge">M</span>ThrottleGroup</a></li>
+</ul>
+<a href=#throttle_usage_snapshots.proto>throttle_usage_snapshots.proto</a>
+<ul>
+<li>
+<a href="#ThrottleUsageSnapshot"><span class="badge">M</span>ThrottleUsageSnapshot</a></li>
+<li>
+<a href="#ThrottleUsageSnapshots"><span class="badge">M</span>ThrottleUsageSnapshots</a></li>
 </ul>
 <a href=#timestamp.proto>timestamp.proto</a>
 <ul>
@@ -678,8 +759,6 @@
 </ul>
 <a href=#token_get_nft_info.proto>token_get_nft_info.proto</a>
 <ul>
-<li>
-<a href="#NftID"><span class="badge">M</span>NftID</a></li>
 <li>
 <a href="#TokenGetNftInfoQuery"><span class="badge">M</span>TokenGetNftInfoQuery</a></li>
 <li>
@@ -829,7 +908,7 @@
 <H2 id="account.proto">account.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>First-draft representation of a Hedera Token Service account entity in the network Merkle tree.<BR>As with all network entities, account has an unique entity number represented as shard.realm.X.<BR>X can be an alias public key or an EVM address or a number.</P>
+<P><BR>Representation of a Hedera Token Service account entity in the network Merkle tree.<BR>As with all network entities, account has a unique entity number represented as shard.realm.X.<BR>X can be an alias public key or an EVM address or a number.</P>
 <H3 id="Account"><span class="BigBadge">Message</span>Account</H3>
 <P></P>
 <table class="field-table">
@@ -848,20 +927,14 @@
 </TR>
 
 <TR>
-<TD>this</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
 <TD></TD>
 <TD><a href="#"></a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>account_number</TD>
-<TD>int64</TD>
+<TD>account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -926,7 +999,7 @@
 </TR>
 
 <TR>
-<TD>expiry</TD>
+<TD>expiration_second</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -1028,19 +1101,7 @@
 </TR>
 
 <TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>It</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>When</TD>
+<TD>ID</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -1052,11 +1113,73 @@
 </TR>
 
 <TR>
-<TD>staked_number</TD>
+<TD>staked_id</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>ID</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>this</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>staked_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ID</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>removes</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>staked_node_id</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
 
+<tbody>
+</TABLE>
 <TR>
 <TD>A</TD>
 <TD><a href="#*">*</a></TD>
@@ -1106,8 +1229,8 @@
 </TR>
 
 <TR>
-<TD>head_token_number</TD>
-<TD>int64</TD>
+<TD>head_token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1125,7 +1248,7 @@
 
 <TR>
 <TD>head_nft_id</TD>
-<TD>int64</TD>
+<TD><a href="#NftID">NftID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1328,8 +1451,8 @@
 </TR>
 
 <TR>
-<TD>auto_renew_account_number</TD>
-<TD>int64</TD>
+<TD>auto_renew_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1364,7 +1487,7 @@
 </TR>
 
 <TR>
-<TD>auto_renew_secs</TD>
+<TD>auto_renew_seconds</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -1575,7 +1698,7 @@
 
 <TR>
 <TD>first_contract_storage_key</TD>
-<TD><a href="#Int256Value">Int256Value</a></TD>
+<TD>bytes</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1583,7 +1706,7 @@
 </TABLE>
 
 <H3 id="AccountApprovalForAllAllowance"><span class="BigBadge">Message</span>AccountApprovalForAllAllowance</H3>
-<P><BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token number.</P>
+<P><BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token id.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -1594,14 +1717,14 @@
 </thead>
 <tbody>
 <TR>
-<TD>token_num</TD>
-<TD>int64</TD>
+<TD>token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>spender_num</TD>
-<TD>int64</TD>
+<TD>spender_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1620,8 +1743,8 @@
 </thead>
 <tbody>
 <TR>
-<TD>spender_num</TD>
-<TD>int64</TD>
+<TD>spender_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -1646,123 +1769,19 @@
 </thead>
 <tbody>
 <TR>
-<TD>token_num</TD>
-<TD>int64</TD>
+<TD>token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>spender_num</TD>
-<TD>int64</TD>
+<TD>spender_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
 <TD>amount</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="Int256Value"><span class="BigBadge">Message</span>Int256Value</H3>
-<P><BR>Message representing a uint256 value.</P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>non_zero_bits</TD>
-<TD>int32</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>first_long</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>second_long</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>third_long</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>fourth_long</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -2731,7 +2750,7 @@
 </TABLE>
 
 <H3 id="FeeData"><span class="BigBadge">Message</span>FeeData</H3>
-<P><BR>The total fee charged for a transaction. It is composed of three components – a node fee that<BR>compensates the specific node that submitted the transaction, a network fee that compensates the<BR>network for assigning the transaction a consensus timestamp, and a service fee that compensates<BR>the network for the ongoing maintenance of the consequences of the transaction.</P>
+<P><BR>The total fee charged for a transaction. It is composed of three components - a node fee that<BR>compensates the specific node that submitted the transaction, a network fee that compensates the<BR>network for assigning the transaction a consensus timestamp, and a service fee that compensates<BR>the network for the ongoing maintenance of the consequences of the transaction.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -4101,6 +4120,21 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TransactionGetFastRecord</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -4344,6 +4378,62 @@
 <TR>
 <TD>keys</TD>
 <TD><a href="#Key">Key</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="NftID"><span class="BigBadge">Message</span>NftID</H3>
+<P><BR>Identifier for a unique token (or "NFT"), used by both contract and token services.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>for</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_ID</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>serial_number</TD>
+<TD>int64</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -6939,6 +7029,240 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="block_info.proto">block_info.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Information about the most recently completed and last 256 blocks.</P>
+<H3 id="BlockInfo"><span class="BigBadge">Message</span>BlockInfo</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>last_block_number</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>first_cons_time_of_last_block</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SHA384</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>First</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Last</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>block_hashes</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="bytecode.proto">bytecode.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>The bytecode for a contract id.</P>
+<H3 id="Bytecode"><span class="BigBadge">Message</span>Bytecode</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>code</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="common.proto">common.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A single 64-bit number identifying a Hedera native entity.</P>
+<H3 id="EntityIDPair"><span class="BigBadge">Message</span>EntityIDPair</H3>
+<P><BR>Pair of AccountID and TokenID to represent TokenRelation</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="EntityNumber"><span class="BigBadge">Message</span>EntityNumber</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>number</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="congestion_level_starts.proto">congestion_level_starts.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> <<<pbj.java_package = "com.hedera.hapi.node.state.congestion">>> This comment is special code for setting PBJ Compiler java package</P>
+<H3 id="CongestionLevelStarts"><span class="BigBadge">Message</span>CongestionLevelStarts</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>Timestamps</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>generic_level_starts</TD>
+<TD><a href="#Timestamp">Timestamp</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Timestamps</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gas_level_starts</TD>
+<TD><a href="#Timestamp">Timestamp</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="consensus_create_topic.proto">consensus_create_topic.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -8677,7 +9001,7 @@
 <H2 id="contract_call.proto">contract_call.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>Call a function of the given smart contract instance, giving it functionParameters as its inputs.<BR>The call can use at maximum the given amount of gas – the paying account will not be charged for<BR>any unspent gas.<BR>If this function results in data being stored, an amount of gas is calculated that reflects this<BR>storage burden.<BR>The amount of gas used, as well as other attributes of the transaction, e.g. size, number of<BR>signatures to be verified, determine the fee for the transaction – which is charged to the paying<BR>account.</P>
+<P><BR>Call a function of the given smart contract instance, giving it functionParameters as its inputs.<BR>The call can use at maximum the given amount of gas - the paying account will not be charged for<BR>any unspent gas.<BR>If this function results in data being stored, an amount of gas is calculated that reflects this<BR>storage burden.<BR>The amount of gas used, as well as other attributes of the transaction, e.g. size, number of<BR>signatures to be verified, determine the fee for the transaction - which is charged to the paying<BR>account.</P>
 <H3 id="ContractCallTransactionBody"><span class="BigBadge">Message</span>ContractCallTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -9399,6 +9723,30 @@
 <TR>
 <TD>sender_id</TD>
 <TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>contract_nonces</TD>
+<TD><a href="#ContractNonceInfo">ContractNonceInfo</a> (repeated)</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -11033,6 +11381,61 @@
 <TR>
 <TD>value_written</TD>
 <TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="contract_types.proto">contract_types.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Info about a contract account's nonce value.<BR>A nonce of a contract is only incremented when that contract creates another contract.</P>
+<H3 id="ContractNonceInfo"><span class="BigBadge">Message</span>ContractNonceInfo</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>Id</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>contract_id</TD>
+<TD><a href="#ContractID">ContractID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nonce</TD>
+<TD>int64</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -15303,7 +15706,7 @@
 <H2 id="file.proto">file.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>First-draft representation of a Hedera Token Service file in the network Merkle tree.<BR>As with all network entities, a file has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.</P>
+<P><BR>Representation of a Hedera Token Service file in the network Merkle tree.<BR>As with all network entities, a file has a unique entity number, which is given along<BR>with the network's shard and realm in the form of a shard.realm.number id.</P>
 <H3 id="File"><span class="BigBadge">Message</span>File</H3>
 <P></P>
 <table class="field-table">
@@ -15328,8 +15731,8 @@
 </TR>
 
 <TR>
-<TD>file_number</TD>
-<TD>int64</TD>
+<TD>file_id</TD>
+<TD><a href="#FileID">FileID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -15346,7 +15749,7 @@
 </TR>
 
 <TR>
-<TD>expiration_time</TD>
+<TD>expiration_second</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -15420,6 +15823,24 @@
 <TR>
 <TD>deleted</TD>
 <TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>pre_system_delete_expiration_second</TD>
+<TD>int64</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -18143,6 +18564,302 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="network_staking_rewards.proto">network_staking_rewards.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Representation of a Hedera Token Service staking reward entity in the network Merkle tree.<BR>This consists of all the information needed to calculate the staking rewards for all nodes in the network. It is<BR>calculated at the beginning of each staking period for all nodes and is needed to have same values<BR>for reconnect.<BR>As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.</P>
+<H3 id="NetworkStakingRewards"><span class="BigBadge">Message</span>NetworkStakingRewards</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>Whether</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>reaches</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>staking_rewards_activated</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Total</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>beginning</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>total_staked_reward_start</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Total</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>staking</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>total_staked_start</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>pending_rewards</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="nft.proto">nft.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Representation of a Hedera Token Service NFT in the network Merkle tree.</P>
+<H3 id="Nft"><span class="BigBadge">Message</span>Nft</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nft_id</TD>
+<TD><a href="#NftID">NftID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>owner_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>spender_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>mint_time</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>in</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>owner_previous_nft_id</TD>
+<TD><a href="#NftID">NftID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>owner_next_nft_id</TD>
+<TD><a href="#NftID">NftID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="node_stake_update.proto">node_stake_update.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -18383,6 +19100,12 @@
 </TR>
 
 <TR>
+<TD>staking</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD></TD>
 <TD><a href="#"></a></TD>
 <TD><P></P></TD>
@@ -18503,7 +19226,13 @@
 </TR>
 
 <TR>
-<TD>The</TD>
+<TD>(DEPRECATED)</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ending</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -18517,6 +19246,249 @@
 <TR>
 <TD>staking_reward_rate</TD>
 <TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>have</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>reserved_staking_rewards</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>used</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>unreserved_staking_reward_balance</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>rate</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>reward_balance_threshold</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>per-hbar</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>max_stake_rewarded</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>applying</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>field</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>mirror</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake_rewarded</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>max_total_reward</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="primitives.proto">primitives.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A single 64-bit number with no particular meaning.</P>
+<H3 id="ProtoBoolean"><span class="BigBadge">Message</span>ProtoBoolean</H3>
+<P><BR>A single boolean with no particular meaning.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>value</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ProtoBytes"><span class="BigBadge">Message</span>ProtoBytes</H3>
+<P><BR>A single byte array with no particular meaning.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>value</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ProtoInteger"><span class="BigBadge">Message</span>ProtoInteger</H3>
+<P><BR>A single 32-bit number with no particular meaning.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>value</TD>
+<TD>int32</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ProtoLong"><span class="BigBadge">Message</span>ProtoLong</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>value</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ProtoString"><span class="BigBadge">Message</span>ProtoString</H3>
+<P><BR>A single string with no particular meaning.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>value</TD>
+<TD>string</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -24315,6 +25287,97 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="running_hashes.proto">running_hashes.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>The running hash of a transaction records and the previous 3 running hashes. All hashes are 48 bytes SHA384 hashes. If the<BR>running hashes do not exist yet then they will be default values witch is empty bytes object or zero length byte array.</P>
+<H3 id="RunningHashes"><span class="BigBadge">Message</span>RunningHashes</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>running_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>n_minus_1_running_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>n_minus_2_running_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>n_minus_3_running_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="schedulable_transaction_body.proto">schedulable_transaction_body.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -25088,6 +26151,453 @@
 
 <tbody>
 </TABLE>
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="schedule.proto">schedule.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Representation of a Hedera Schedule entry in the network Merkle tree.<BR>As with all network entities, a schedule has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.</P>
+<H3 id="Schedule"><span class="BigBadge">Message</span>Schedule</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedule_id</TD>
+<TD><a href="#ScheduleID">ScheduleID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>deleted</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>executed</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>this</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>reaches</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>required</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Note</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>was</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>wait_for_expiry</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>memo</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ScheduleCreate</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>scheduler_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>payer_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>admin_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedule_valid_start</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>provided_expiration_second</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>expiration</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>time</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>calculated_expiration_second</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>resolution_time</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>scheduled_transaction</TD>
+<TD><a href="#SchedulableTransactionBody">SchedulableTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedule</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>which</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>original_create_transaction</TD>
+<TD><a href="#TransactionBody">TransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>All</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>sufficient</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>signatories</TD>
+<TD><a href="#Key">Key</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ScheduleList"><span class="BigBadge">Message</span>ScheduleList</H3>
+<P><BR>A message for storing a list of schedules in state.<BR>This is used to store lists of schedules that expire at a particular time or that have the same<BR>simplified hash code.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>a</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedules</TD>
+<TD><a href="#Schedule">Schedule</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -26299,6 +27809,406 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="staking_node_info.proto">staking_node_info.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Representation of a Hedera Token Service staking info entity in the network Merkle tree.<BR>As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.</P>
+<H3 id="StakingNodeInfo"><span class="BigBadge">Message</span>StakingNodeInfo</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>this</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_number</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>participate</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>min_stake</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>max_stake</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake_to_reward</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake_to_not_reward</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake_to_reward</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake_reward_start</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Tracks</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>unclaimed_stake_reward_start</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>stake</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>is</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>reward_sum_history</TD>
+<TD>int64 (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>at</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Sum</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(node</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>weight</TD>
+<TD>int32</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="storage_slot.proto">storage_slot.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>The key of a storage slot. A slot is scoped to a specific contract number.<BR>For each contract, its EVM storage is a mapping of 256-bit keys (or "words") to 256-bit values.</P>
+<H3 id="SlotKey"><span class="BigBadge">Message</span>SlotKey</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>contract_number</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>key</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="SlotValue"><span class="BigBadge">Message</span>SlotValue</H3>
+<P><BR>The value of a contract storage slot. For the EVM, this is a single word.<BR>Because we iterate through all the storage slots for an expired contract<BR>when purging it from state, our slot values also include the words<BR>of the previous and next keys in this contract's storage "list".</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>value</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>previous_key</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>next_key</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="system_delete.proto">system_delete.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -26640,6 +28550,111 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="throttle_usage_snapshots.proto">throttle_usage_snapshots.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P> <<<pbj.java_package = "com.hedera.hapi.node.state.throttles">>> This comment is special code for setting PBJ Compiler java package</P>
+<H3 id="ThrottleUsageSnapshot"><span class="BigBadge">Message</span>ThrottleUsageSnapshot</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>Used</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>used</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>last_decision_time</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ThrottleUsageSnapshots"><span class="BigBadge">Message</span>ThrottleUsageSnapshots</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>Snapshots</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tps_throttles</TD>
+<TD><a href="#ThrottleUsageSnapshot">ThrottleUsageSnapshot</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Snapshots</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gas_throttle</TD>
+<TD><a href="#ThrottleUsageSnapshot">ThrottleUsageSnapshot</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="timestamp.proto">timestamp.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -26730,7 +28745,7 @@
 <H2 id="token.proto">token.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>First-draft representation of a Hedera Token Service token entity in the network Merkle tree.<BR>As with all network entities, a token has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.</P>
+<P><BR>Representation of a Hedera Token Service token entity in the network Merkle tree.<BR>As with all network entities, a token has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.</P>
 <H3 id="Token"><span class="BigBadge">Message</span>Token</H3>
 <P></P>
 <table class="field-table">
@@ -26755,8 +28770,8 @@
 </TR>
 
 <TR>
-<TD>token_number</TD>
-<TD>int64</TD>
+<TD>token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -26875,8 +28890,8 @@
 </TR>
 
 <TR>
-<TD>treasury_account_number</TD>
-<TD>int64</TD>
+<TD>treasury_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -27163,8 +29178,8 @@
 </TR>
 
 <TR>
-<TD>auto_renew_account_number</TD>
-<TD>int64</TD>
+<TD>auto_renew_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -27199,7 +29214,7 @@
 </TR>
 
 <TR>
-<TD>auto_renew_secs</TD>
+<TD>auto_renew_seconds</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -27217,7 +29232,7 @@
 </TR>
 
 <TR>
-<TD>expiry</TD>
+<TD>expiration_second</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -29092,59 +31107,9 @@
 <H2 id="token_get_nft_info.proto">token_get_nft_info.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>Represents an NFT on the Ledger</P>
-<H3 id="NftID"><span class="BigBadge">Message</span>NftID</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>tokenID</TD>
-<TD><a href="#TokenID">TokenID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>serialNumber</TD>
-<TD>int64</TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<H3 id="TokenGetNftInfoQuery"><span class="BigBadge">Message</span>TokenGetNftInfoQuery</H3>
 <P><BR>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of<BR>type NON_FUNGIBLE_UNIQUE) and serial number</P>
+<H3 id="TokenGetNftInfoQuery"><span class="BigBadge">Message</span>TokenGetNftInfoQuery</H3>
+<P></P>
 <table class="field-table">
 <thead>
 <TR>
@@ -29759,7 +31724,7 @@
 <H2 id="token_relation.proto">token_relation.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>First-draft representation of a Hedera Token Service token relationship entity in the network Merkle tree.<BR>As with all network entities, a token relationship has a unique entity number pair, which is represented<BR>with the account and the token involved in the relationship.</P>
+<P><BR>Representation of a Hedera Token Service token relationship entity in the network Merkle tree.<BR>As with all network entities, a token relationship has a unique entity number pair, which is represented<BR>with the account and the token involved in the relationship.</P>
 <H3 id="TokenRelation"><span class="BigBadge">Message</span>TokenRelation</H3>
 <P></P>
 <table class="field-table">
@@ -29784,8 +31749,8 @@
 </TR>
 
 <TR>
-<TD>token_number</TD>
-<TD>int64</TD>
+<TD>token_id</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -29802,8 +31767,8 @@
 </TR>
 
 <TR>
-<TD>account_number</TD>
-<TD>int64</TD>
+<TD>account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -29911,7 +31876,7 @@
 
 <TR>
 <TD>previous_token</TD>
-<TD>int64</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -29929,7 +31894,7 @@
 
 <TR>
 <TD>next_token</TD>
-<TD>int64</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -30671,7 +32636,7 @@
 <H2 id="topic.proto">topic.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>First-draft representation of a Hedera Consensus Service topic in the network Merkle tree.<BR>As with all network entities, a topic has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.<BR>A topic consists of just two pieces of data:<BR>1. The total number of messages sent to the topic; and,<BR>2. The running hash of all those messages.<BR>It also has several metadata elements:<BR>1. A consensus expiration time in seconds since the epoch.<BR>2. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that<BR>has signed a transaction allowing the network to use its balance to automatically extend the topic's<BR>expiration time when it passes.<BR>3. The number of seconds the network should automatically extend the topic's expiration by, if the<BR>topic has a valid auto-renew account, and is not deleted upon expiration.<BR>4. A boolean marking if the topic has been deleted.<BR>5. A memo string whose UTF-8 encoding is at most 100 bytes.<BR>6. (Optional) An admin key whose signature must be active for the topic's metadata to be updated.<BR>7. (Optional) A submit key whose signature must be active for the topic to receive a message.</P>
+<P><BR>Representation of a Hedera Consensus Service topic in the network Merkle tree.<BR>As with all network entities, a topic has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.<BR>A topic consists of just two pieces of data:<BR>1. The total number of messages sent to the topic; and,<BR>2. The running hash of all those messages.<BR>It also has several metadata elements:<BR>1. A consensus expiration time in seconds since the epoch.<BR>2. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that<BR>has signed a transaction allowing the network to use its balance to automatically extend the topic's<BR>expiration time when it passes.<BR>3. The number of seconds the network should automatically extend the topic's expiration by, if the<BR>topic has a valid auto-renew account, and is not deleted upon expiration.<BR>4. A boolean marking if the topic has been deleted.<BR>5. A memo string whose UTF-8 encoding is at most 100 bytes.<BR>6. (Optional) An admin key whose signature must be active for the topic's metadata to be updated.<BR>7. (Optional) A submit key whose signature must be active for the topic to receive a message.</P>
 <H3 id="Topic"><span class="BigBadge">Message</span>Topic</H3>
 <P></P>
 <table class="field-table">
@@ -30696,8 +32661,8 @@
 </TR>
 
 <TR>
-<TD>topic_number</TD>
-<TD>int64</TD>
+<TD>topic_id</TD>
+<TD><a href="#TopicID">TopicID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -30732,7 +32697,7 @@
 </TR>
 
 <TR>
-<TD>expiry</TD>
+<TD>expiration_second</TD>
 <TD>int64</TD>
 <TD><P></P></TD>
 </TR>
@@ -30780,8 +32745,8 @@
 </TR>
 
 <TR>
-<TD>auto_renew_account_number</TD>
-<TD>int64</TD>
+<TD>auto_renew_account_id</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
 <TD><P></P></TD>
 </TR>
 
