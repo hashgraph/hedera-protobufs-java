@@ -9,7 +9,6 @@
   - [AccountApprovalForAllAllowance](#AccountApprovalForAllAllowance)
   - [AccountCryptoAllowance](#AccountCryptoAllowance)
   - [AccountFungibleTokenAllowance](#AccountFungibleTokenAllowance)
-  - [Int256Value](#Int256Value)
 
 - [account_balance_file.proto](#account_balance_file.proto)
   - [AllAccountBalances](#AllAccountBalances)
@@ -29,6 +28,7 @@
   - [HederaFunctionality](#HederaFunctionality) (Enum)
   - [Key](#Key)
   - [KeyList](#KeyList)
+  - [NftID](#NftID)
   - [NftTransfer](#NftTransfer)
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
@@ -62,6 +62,19 @@
   - [TransactionFeeSchedule](#TransactionFeeSchedule)
   - [TransactionID](#TransactionID)
   - [TransferList](#TransferList)
+
+- [block_info.proto](#block_info.proto)
+  - [BlockInfo](#BlockInfo)
+
+- [bytecode.proto](#bytecode.proto)
+  - [Bytecode](#Bytecode)
+
+- [common.proto](#common.proto)
+  - [EntityIDPair](#EntityIDPair)
+  - [EntityNumber](#EntityNumber)
+
+- [congestion_level_starts.proto](#congestion_level_starts.proto)
+  - [CongestionLevelStarts](#CongestionLevelStarts)
 
 - [consensus_create_topic.proto](#consensus_create_topic.proto)
   - [ConsensusCreateTopicTransactionBody](#ConsensusCreateTopicTransactionBody)
@@ -127,6 +140,9 @@
   - [ContractStateChange](#ContractStateChange)
   - [ContractStateChanges](#ContractStateChanges)
   - [StorageChange](#StorageChange)
+
+- [contract_types.proto](#contract_types.proto)
+  - [ContractNonceInfo](#ContractNonceInfo)
 
 - [contract_update.proto](#contract_update.proto)
   - [ContractUpdateTransactionBody](#ContractUpdateTransactionBody)
@@ -276,9 +292,22 @@
 - [network_service.proto](#network_service.proto)
   - [NetworkService](#NetworkService) (Service)
 
+- [network_staking_rewards.proto](#network_staking_rewards.proto)
+  - [NetworkStakingRewards](#NetworkStakingRewards)
+
+- [nft.proto](#nft.proto)
+  - [Nft](#Nft)
+
 - [node_stake_update.proto](#node_stake_update.proto)
   - [NodeStake](#NodeStake)
   - [NodeStakeUpdateTransactionBody](#NodeStakeUpdateTransactionBody)
+
+- [primitives.proto](#primitives.proto)
+  - [ProtoBoolean](#ProtoBoolean)
+  - [ProtoBytes](#ProtoBytes)
+  - [ProtoInteger](#ProtoInteger)
+  - [ProtoLong](#ProtoLong)
+  - [ProtoString](#ProtoString)
 
 - [query.proto](#query.proto)
   - [Query](#Query)
@@ -305,8 +334,15 @@
 - [response_header.proto](#response_header.proto)
   - [ResponseHeader](#ResponseHeader)
 
+- [running_hashes.proto](#running_hashes.proto)
+  - [RunningHashes](#RunningHashes)
+
 - [schedulable_transaction_body.proto](#schedulable_transaction_body.proto)
   - [SchedulableTransactionBody](#SchedulableTransactionBody)
+
+- [schedule.proto](#schedule.proto)
+  - [Schedule](#Schedule)
+  - [ScheduleList](#ScheduleList)
 
 - [schedule_create.proto](#schedule_create.proto)
   - [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody)
@@ -337,6 +373,13 @@
 - [smart_contract_service.proto](#smart_contract_service.proto)
   - [SmartContractService](#SmartContractService) (Service)
 
+- [staking_node_info.proto](#staking_node_info.proto)
+  - [StakingNodeInfo](#StakingNodeInfo)
+
+- [storage_slot.proto](#storage_slot.proto)
+  - [SlotKey](#SlotKey)
+  - [SlotValue](#SlotValue)
+
 - [system_delete.proto](#system_delete.proto)
   - [SystemDeleteTransactionBody](#SystemDeleteTransactionBody)
 
@@ -347,6 +390,10 @@
   - [ThrottleBucket](#ThrottleBucket)
   - [ThrottleDefinitions](#ThrottleDefinitions)
   - [ThrottleGroup](#ThrottleGroup)
+
+- [throttle_usage_snapshots.proto](#throttle_usage_snapshots.proto)
+  - [ThrottleUsageSnapshot](#ThrottleUsageSnapshot)
+  - [ThrottleUsageSnapshots](#ThrottleUsageSnapshots)
 
 - [timestamp.proto](#timestamp.proto)
   - [Timestamp](#Timestamp)
@@ -386,7 +433,6 @@
   - [TokenInfo](#TokenInfo)
 
 - [token_get_nft_info.proto](#token_get_nft_info.proto)
-  - [NftID](#NftID)
   - [TokenGetNftInfoQuery](#TokenGetNftInfoQuery)
   - [TokenGetNftInfoResponse](#TokenGetNftInfoResponse)
   - [TokenNftInfo](#TokenNftInfo)
@@ -475,7 +521,7 @@
 
 ## account.proto
 
-<BR>First-draft representation of a Hedera Token Service account entity in the network Merkle tree.<BR>As with all network entities, account has an unique entity number represented as shard.realm.X.<BR>X can be an alias public key or an EVM address or a number.
+<BR>Representation of a Hedera Token Service account entity in the network Merkle tree.<BR>As with all network entities, account has a unique entity number represented as shard.realm.X.<BR>X can be an alias public key or an EVM address or a number.
 
 <a name="Account"></a>
 
@@ -485,9 +531,8 @@
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
-| this | [*](#*) |  | |
 |  | [](#) |  | |
-| account_number |  |  | |
+| account_id | [AccountID](#AccountID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | alias |  |  | |
@@ -498,7 +543,7 @@
 | key | [Key](#Key) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| expiry |  |  | |
+| expiration_second |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | tinybar_balance |  |  | |
@@ -515,11 +560,17 @@
 | be | [*](#*) |  | |
 |  | [](#) |  | |
 | stake_period_start |  |  | |
-| The | [*](#*) |  | |
-| It | [*](#*) |  | |
-| When | [*](#*) |  | |
+| ID | [*](#*) |  | |
 |  | [](#) |  | |
-| staked_number |  |  | |
+| staked_id | oneof |  | |
+| | ID | [*](#*) |  | |
+| | this | [*](#*) |  | |
+| |  | [](#) |  | |
+| | staked_account_id | [AccountID](#AccountID) |  | |
+| | ID | [*](#*) |  | |
+| | removes | [*](#*) |  | |
+| |  | [](#) |  | |
+| | staked_node_id |  |  | |
 | A | [*](#*) |  | |
 |  | [](#) |  | |
 | decline_reward |  |  | |
@@ -528,10 +579,10 @@
 | receiver_sig_required |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| head_token_number |  |  | |
+| head_token_id | [TokenID](#TokenID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| head_nft_id |  |  | |
+| head_nft_id | [NftID](#NftID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | head_nft_serial_number |  |  | |
@@ -565,13 +616,13 @@
 | has | [*](#*) |  | |
 | expiration | [*](#*) |  | |
 |  | [](#) |  | |
-| auto_renew_account_number |  |  | |
+| auto_renew_account_id | [AccountID](#AccountID) |  | |
 | The | [*](#*) |  | |
 | account | [*](#*) |  | |
 | If | [*](#*) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| auto_renew_secs |  |  | |
+| auto_renew_seconds |  |  | |
 | If | [*](#*) |  | |
 | This | [*](#*) |  | |
 |  | [](#) |  | |
@@ -606,18 +657,18 @@
 | The | [*](#*) |  | |
 | It | [*](#*) |  | |
 |  | [](#) |  | |
-| first_contract_storage_key | [Int256Value](#Int256Value) |  | |
+| first_contract_storage_key |  |  | |
 
 
 <a name="AccountApprovalForAllAllowance"></a>
 
 ### AccountApprovalForAllAllowance
-<BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token number.
+<BR>Allowance granted by this account to a spender for a specific non-fungible token<BR>using ApproveForAll. This allows spender to spend all serial numbers for the given<BR>non-fungible token id.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token_num |  |  | |
-| spender_num |  |  | |
+| token_id | [TokenID](#TokenID) |  | |
+| spender_id | [AccountID](#AccountID) |  | |
 
 
 <a name="AccountCryptoAllowance"></a>
@@ -627,7 +678,7 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| spender_num |  |  | |
+| spender_id | [AccountID](#AccountID) |  | |
 | amount |  |  | |
 
 
@@ -638,33 +689,9 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| token_num |  |  | |
-| spender_num |  |  | |
+| token_id | [TokenID](#TokenID) |  | |
+| spender_id | [AccountID](#AccountID) |  | |
 | amount |  |  | |
-
-
-<a name="Int256Value"></a>
-
-### Int256Value
-<BR>Message representing a uint256 value.
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| non_zero_bits |  |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| first_long |  |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| second_long |  |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| third_long |  |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| fourth_long |  |  | |
 
 
 <a name="account_balance_file.proto"></a>
@@ -891,7 +918,7 @@
 <a name="FeeData"></a>
 
 ### FeeData
-<BR>The total fee charged for a transaction. It is composed of three components – a node fee that<BR>compensates the specific node that submitted the transaction, a network fee that compensates the<BR>network for assigning the transaction a consensus timestamp, and a service fee that compensates<BR>the network for the ongoing maintenance of the consequences of the transaction.
+<BR>The total fee charged for a transaction. It is composed of three components - a node fee that<BR>compensates the specific node that submitted the transaction, a network fee that compensates the<BR>network for assigning the transaction a consensus timestamp, and a service fee that compensates<BR>the network for the ongoing maintenance of the consequences of the transaction.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1185,6 +1212,9 @@
 | * |  |
 |  |  |
 | UtilPrng |  |
+| * |  |
+|  |  |
+| TransactionGetFastRecord |  |
 
 
 <a name="Key"></a>
@@ -1237,6 +1267,22 @@
 | list | [*](#*) |  | |
 |  | [](#) |  | |
 | keys | [Key](#Key) |  | |
+
+
+<a name="NftID"></a>
+
+### NftID
+<BR>Identifier for a unique token (or "NFT"), used by both contract and token services.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| for | [*](#*) |  | |
+|  | [](#) |  | |
+| token_ID | [TokenID](#TokenID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| serial_number |  |  | |
 
 
 <a name="NftTransfer"></a>
@@ -1895,6 +1941,103 @@
 | accountAmounts | [AccountAmount](#AccountAmount) |  | |
 
 
+<a name="block_info.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_info.proto
+
+<BR>Information about the most recently completed and last 256 blocks.
+
+<a name="BlockInfo"></a>
+
+### BlockInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| last_block_number |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| first_cons_time_of_last_block | [Timestamp](#Timestamp) |  | |
+| SHA384 | [*](#*) |  | |
+| First | [*](#*) |  | |
+| Last | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| block_hashes |  |  | |
+
+
+<a name="bytecode.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## bytecode.proto
+
+<BR>The bytecode for a contract id.
+
+<a name="Bytecode"></a>
+
+### Bytecode
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| code |  |  | |
+
+
+<a name="common.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## common.proto
+
+<BR>A single 64-bit number identifying a Hedera native entity.
+
+<a name="EntityIDPair"></a>
+
+### EntityIDPair
+<BR>Pair of AccountID and TokenID to represent TokenRelation
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| account_id | [AccountID](#AccountID) |  | |
+| token_id | [TokenID](#TokenID) |  | |
+
+
+<a name="EntityNumber"></a>
+
+### EntityNumber
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| number |  |  | |
+
+
+<a name="congestion_level_starts.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## congestion_level_starts.proto
+
+ <<<pbj.java_package = "com.hedera.hapi.node.state.congestion">>> This comment is special code for setting PBJ Compiler java package
+
+<a name="CongestionLevelStarts"></a>
+
+### CongestionLevelStarts
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Timestamps | [*](#*) |  | |
+|  | [](#) |  | |
+| generic_level_starts | [Timestamp](#Timestamp) |  | |
+| Timestamps | [*](#*) |  | |
+|  | [](#) |  | |
+| gas_level_starts | [Timestamp](#Timestamp) |  | |
+
+
 <a name="consensus_create_topic.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -2339,7 +2482,7 @@
 
 ## contract_call.proto
 
-<BR>Call a function of the given smart contract instance, giving it functionParameters as its inputs.<BR>The call can use at maximum the given amount of gas – the paying account will not be charged for<BR>any unspent gas.<BR>If this function results in data being stored, an amount of gas is calculated that reflects this<BR>storage burden.<BR>The amount of gas used, as well as other attributes of the transaction, e.g. size, number of<BR>signatures to be verified, determine the fee for the transaction – which is charged to the paying<BR>account.
+<BR>Call a function of the given smart contract instance, giving it functionParameters as its inputs.<BR>The call can use at maximum the given amount of gas - the paying account will not be charged for<BR>any unspent gas.<BR>If this function results in data being stored, an amount of gas is calculated that reflects this<BR>storage burden.<BR>The amount of gas used, as well as other attributes of the transaction, e.g. size, number of<BR>signatures to be verified, determine the fee for the transaction - which is charged to the paying<BR>account.
 
 <a name="ContractCallTransactionBody"></a>
 
@@ -2493,6 +2636,10 @@
 | ContractCreateTransactionBody | [*](#*) |  | |
 |  | [](#) |  | |
 | sender_id | [AccountID](#AccountID) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| contract_nonces | [ContractNonceInfo](#ContractNonceInfo) |  | |
 
 
 <a name="ContractLoginfo"></a>
@@ -2882,6 +3029,28 @@
 | If | [*](#*) |  | |
 |  | [](#) |  | |
 | value_written | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+
+
+<a name="contract_types.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## contract_types.proto
+
+<BR>Info about a contract account's nonce value.<BR>A nonce of a contract is only incremented when that contract creates another contract.
+
+<a name="ContractNonceInfo"></a>
+
+### ContractNonceInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Id | [*](#*) |  | |
+|  | [](#) |  | |
+| contract_id | [ContractID](#ContractID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| nonce |  |  | |
 
 
 <a name="contract_update.proto"></a>
@@ -3947,7 +4116,7 @@
 
 ## file.proto
 
-<BR>First-draft representation of a Hedera Token Service file in the network Merkle tree.<BR>As with all network entities, a file has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.
+<BR>Representation of a Hedera Token Service file in the network Merkle tree.<BR>As with all network entities, a file has a unique entity number, which is given along<BR>with the network's shard and realm in the form of a shard.realm.number id.
 
 <a name="File"></a>
 
@@ -3958,10 +4127,10 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| file_number |  |  | |
+| file_id | [FileID](#FileID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| expiration_time |  |  | |
+| expiration_second |  |  | |
 | All | [*](#*) |  | |
 |  | [](#) |  | |
 | keys | [KeyList](#KeyList) |  | |
@@ -3974,6 +4143,9 @@
 | Whether | [*](#*) |  | |
 |  | [](#) |  | |
 | deleted |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| pre_system_delete_expiration_second |  |  | |
 
 
 <a name="file_append.proto"></a>
@@ -4773,6 +4945,81 @@
 | getAccountDetails  | Query | Response | <BR>Get all the information about an account, including balance and allowances. This does not get the list of<BR>account records. |
 
 
+<a name="network_staking_rewards.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## network_staking_rewards.proto
+
+<BR>Representation of a Hedera Token Service staking reward entity in the network Merkle tree.<BR>This consists of all the information needed to calculate the staking rewards for all nodes in the network. It is<BR>calculated at the beginning of each staking period for all nodes and is needed to have same values<BR>for reconnect.<BR>As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.
+
+<a name="NetworkStakingRewards"></a>
+
+### NetworkStakingRewards
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Whether | [*](#*) |  | |
+| reaches | [*](#*) |  | |
+|  | [](#) |  | |
+| staking_rewards_activated |  |  | |
+| Total | [*](#*) |  | |
+| beginning | [*](#*) |  | |
+|  | [](#) |  | |
+| total_staked_reward_start |  |  | |
+| Total | [*](#*) |  | |
+| staking | [*](#*) |  | |
+|  | [](#) |  | |
+| total_staked_start |  |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_rewards |  |  | |
+
+
+<a name="nft.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## nft.proto
+
+<BR>Representation of a Hedera Token Service NFT in the network Merkle tree.
+
+<a name="Nft"></a>
+
+### Nft
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| nft_id | [NftID](#NftID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| owner_id | [AccountID](#AccountID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| spender_id | [AccountID](#AccountID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| mint_time | [Timestamp](#Timestamp) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata |  |  | |
+| If | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [](#) |  | |
+| owner_previous_nft_id | [NftID](#NftID) |  | |
+| If | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| owner_next_nft_id | [NftID](#NftID) |  | |
+
+
 <a name="node_stake_update.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -4831,6 +5078,7 @@
 |  | [](#) |  | |
 | node_stake | [NodeStake](#NodeStake) |  | |
 | The | [*](#*) |  | |
+| staking | [*](#*) |  | |
 |  | [](#) |  | |
 | max_staking_reward_rate_per_hbar |  |  | |
 | The | [*](#*) |  | |
@@ -4851,9 +5099,90 @@
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | staking_start_threshold |  |  | |
-| The | [*](#*) |  | |
+| (DEPRECATED) | [*](#*) |  | |
+| ending | [*](#*) |  | |
 |  | [](#) |  | |
 | staking_reward_rate |  |  | |
+| The | [*](#*) |  | |
+| have | [*](#*) |  | |
+|  | [](#) |  | |
+| reserved_staking_rewards |  |  | |
+| The | [*](#*) |  | |
+| used | [*](#*) |  | |
+|  | [](#) |  | |
+| unreserved_staking_reward_balance |  |  | |
+| The | [*](#*) |  | |
+| rate | [*](#*) |  | |
+|  | [](#) |  | |
+| reward_balance_threshold |  |  | |
+| The | [*](#*) |  | |
+| per-hbar | [*](#*) |  | |
+|  | [](#) |  | |
+| max_stake_rewarded |  |  | |
+| The | [*](#*) |  | |
+| applying | [*](#*) |  | |
+| field | [*](#*) |  | |
+| mirror | [*](#*) |  | |
+| stake_rewarded | [*](#*) |  | |
+|  | [](#) |  | |
+| max_total_reward |  |  | |
+
+
+<a name="primitives.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## primitives.proto
+
+<BR>A single 64-bit number with no particular meaning.
+
+<a name="ProtoBoolean"></a>
+
+### ProtoBoolean
+<BR>A single boolean with no particular meaning.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value |  |  | |
+
+
+<a name="ProtoBytes"></a>
+
+### ProtoBytes
+<BR>A single byte array with no particular meaning.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value |  |  | |
+
+
+<a name="ProtoInteger"></a>
+
+### ProtoInteger
+<BR>A single 32-bit number with no particular meaning.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value |  |  | |
+
+
+<a name="ProtoLong"></a>
+
+### ProtoLong
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value |  |  | |
+
+
+<a name="ProtoString"></a>
+
+### ProtoString
+<BR>A single string with no particular meaning.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value |  |  | |
 
 
 <a name="query.proto"></a>
@@ -6076,6 +6405,34 @@
 | stateProof |  |  | |
 
 
+<a name="running_hashes.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## running_hashes.proto
+
+<BR>The running hash of a transaction records and the previous 3 running hashes. All hashes are 48 bytes SHA384 hashes. If the<BR>running hashes do not exist yet then they will be default values witch is empty bytes object or zero length byte array.
+
+<a name="RunningHashes"></a>
+
+### RunningHashes
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| running_hash |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| n_minus_1_running_hash |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| n_minus_2_running_hash |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| n_minus_3_running_hash |  |  | |
+
+
 <a name="schedulable_transaction_body.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -6214,6 +6571,100 @@
 | | Generates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | util_prng | [UtilPrngTransactionBody](#UtilPrngTransactionBody) |  | |
+
+
+<a name="schedule.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## schedule.proto
+
+<BR>Representation of a Hedera Schedule entry in the network Merkle tree.<BR>As with all network entities, a schedule has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.
+
+<a name="Schedule"></a>
+
+### Schedule
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| schedule_id | [ScheduleID](#ScheduleID) |  | |
+| The | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| deleted |  |  | |
+| The | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| executed |  |  | |
+| The | [*](#*) |  | |
+| A | [*](#*) |  | |
+| this | [*](#*) |  | |
+| reaches | [*](#*) |  | |
+| required | [*](#*) |  | |
+| the | [*](#*) |  | |
+| Note | [*](#*) |  | |
+| was | [*](#*) |  | |
+|  | [](#) |  | |
+| wait_for_expiry |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| memo |  |  | |
+| The | [*](#*) |  | |
+| ScheduleCreate | [*](#*) |  | |
+|  | [](#) |  | |
+| scheduler_account_id | [AccountID](#AccountID) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| payer_account_id | [AccountID](#AccountID) |  | |
+| The | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [Key](#Key) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| schedule_valid_start | [Timestamp](#Timestamp) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| provided_expiration_second |  |  | |
+| The | [*](#*) |  | |
+| expiration | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| time | [*](#*) |  | |
+|  | [](#) |  | |
+| calculated_expiration_second |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| resolution_time | [Timestamp](#Timestamp) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| scheduled_transaction | [SchedulableTransactionBody](#SchedulableTransactionBody) |  | |
+| The | [*](#*) |  | |
+| schedule | [*](#*) |  | |
+| which | [*](#*) |  | |
+|  | [](#) |  | |
+| original_create_transaction | [TransactionBody](#TransactionBody) |  | |
+| All | [*](#*) |  | |
+| The | [*](#*) |  | |
+| sufficient | [*](#*) |  | |
+|  | [](#) |  | |
+| signatories | [Key](#Key) |  | |
+
+
+<a name="ScheduleList"></a>
+
+### ScheduleList
+<BR>A message for storing a list of schedules in state.<BR>This is used to store lists of schedules that expire at a particular time or that have the same<BR>simplified hash code.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| a | [*](#*) |  | |
+|  | [](#) |  | |
+| schedules | [Schedule](#Schedule) |  | |
 
 
 <a name="schedule_create.proto"></a>
@@ -6553,6 +7004,105 @@
 | option deprecated  =  true; |
 
 
+<a name="staking_node_info.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## staking_node_info.proto
+
+<BR>Representation of a Hedera Token Service staking info entity in the network Merkle tree.<BR>As with all network entities, staking info is per node and has a unique entity number represented as shard.realm.X.
+
+<a name="StakingNodeInfo"></a>
+
+### StakingNodeInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| this | [*](#*) |  | |
+|  | [](#) |  | |
+| node_number |  |  | |
+| The | [*](#*) |  | |
+| participate | [*](#*) |  | |
+|  | [](#) |  | |
+| min_stake |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| max_stake |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| stake_to_reward |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| stake_to_not_reward |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| stake_to_reward | [*](#*) |  | |
+|  | [](#) |  | |
+| stake_reward_start |  |  | |
+| Tracks | [*](#*) |  | |
+| metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| unclaimed_stake_reward_start |  |  | |
+| The | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| stake |  |  | |
+| An | [*](#*) |  | |
+| is | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| reward_sum_history |  |  | |
+| The | [*](#*) |  | |
+| at | [*](#*) |  | |
+| Sum | [*](#*) |  | |
+| If | [*](#*) |  | |
+| (node | [*](#*) |  | |
+|  | [](#) |  | |
+| weight |  |  | |
+
+
+<a name="storage_slot.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## storage_slot.proto
+
+<BR>The key of a storage slot. A slot is scoped to a specific contract number.<BR>For each contract, its EVM storage is a mapping of 256-bit keys (or "words") to 256-bit values.
+
+<a name="SlotKey"></a>
+
+### SlotKey
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| contract_number |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| key |  |  | |
+
+
+<a name="SlotValue"></a>
+
+### SlotValue
+<BR>The value of a contract storage slot. For the EVM, this is a single word.<BR>Because we iterate through all the storage slots for an expired contract<BR>when purging it from state, our slot values also include the words<BR>of the previous and next keys in this contract's storage "list".
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| value |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| previous_key |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| next_key |  |  | |
+
+
 <a name="system_delete.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -6657,6 +7207,43 @@
 | milliOpsPerSec |  |  | |
 
 
+<a name="throttle_usage_snapshots.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## throttle_usage_snapshots.proto
+
+ <<<pbj.java_package = "com.hedera.hapi.node.state.throttles">>> This comment is special code for setting PBJ Compiler java package
+
+<a name="ThrottleUsageSnapshot"></a>
+
+### ThrottleUsageSnapshot
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Used | [*](#*) |  | |
+|  | [](#) |  | |
+| used |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| last_decision_time | [Timestamp](#Timestamp) |  | |
+
+
+<a name="ThrottleUsageSnapshots"></a>
+
+### ThrottleUsageSnapshots
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Snapshots | [*](#*) |  | |
+|  | [](#) |  | |
+| tps_throttles | [ThrottleUsageSnapshot](#ThrottleUsageSnapshot) |  | |
+| Snapshots | [*](#*) |  | |
+|  | [](#) |  | |
+| gas_throttle | [ThrottleUsageSnapshot](#ThrottleUsageSnapshot) |  | |
+
+
 <a name="timestamp.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -6696,7 +7283,7 @@
 
 ## token.proto
 
-<BR>First-draft representation of a Hedera Token Service token entity in the network Merkle tree.<BR>As with all network entities, a token has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.
+<BR>Representation of a Hedera Token Service token entity in the network Merkle tree.<BR>As with all network entities, a token has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.
 
 <a name="Token"></a>
 
@@ -6707,7 +7294,7 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| token_number |  |  | |
+| token_id | [TokenID](#TokenID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | name |  |  | |
@@ -6727,7 +7314,7 @@
 | tokens | [*](#*) |  | |
 | of | [*](#*) |  | |
 |  | [](#) |  | |
-| treasury_account_number |  |  | |
+| treasury_account_id | [AccountID](#AccountID) |  | |
 | (Optional) | [*](#*) |  | |
 | A | [*](#*) |  | |
 | If | [*](#*) |  | |
@@ -6775,16 +7362,16 @@
 | The | [*](#*) |  | |
 | token's | [*](#*) |  | |
 |  | [](#) |  | |
-| auto_renew_account_number |  |  | |
+| auto_renew_account_id | [AccountID](#AccountID) |  | |
 | The | [*](#*) |  | |
 | token | [*](#*) |  | |
 | If | [*](#*) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| auto_renew_secs |  |  | |
+| auto_renew_seconds |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| expiry |  |  | |
+| expiration_second |  |  | |
 | An | [*](#*) |  | |
 |  | [](#) |  | |
 | memo |  |  | |
@@ -7238,27 +7825,12 @@
 
 ## token_get_nft_info.proto
 
-<BR>Represents an NFT on the Ledger
-
-<a name="NftID"></a>
-
-### NftID
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| tokenID | [TokenID](#TokenID) |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| serialNumber |  |  | |
-
+<BR>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of<BR>type NON_FUNGIBLE_UNIQUE) and serial number
 
 <a name="TokenGetNftInfoQuery"></a>
 
 ### TokenGetNftInfoQuery
-<BR>Applicable only to tokens of type NON_FUNGIBLE_UNIQUE. Gets info on a NFT for a given TokenID (of<BR>type NON_FUNGIBLE_UNIQUE) and serial number
+
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -7440,7 +8012,7 @@
 
 ## token_relation.proto
 
-<BR>First-draft representation of a Hedera Token Service token relationship entity in the network Merkle tree.<BR>As with all network entities, a token relationship has a unique entity number pair, which is represented<BR>with the account and the token involved in the relationship.
+<BR>Representation of a Hedera Token Service token relationship entity in the network Merkle tree.<BR>As with all network entities, a token relationship has a unique entity number pair, which is represented<BR>with the account and the token involved in the relationship.
 
 <a name="TokenRelation"></a>
 
@@ -7451,10 +8023,10 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| token_number |  |  | |
+| token_id | [TokenID](#TokenID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| account_number |  |  | |
+| account_id | [AccountID](#AccountID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | balance |  |  | |
@@ -7472,10 +8044,10 @@
 | automatic_association |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| previous_token |  |  | |
+| previous_token | [TokenID](#TokenID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| next_token |  |  | |
+| next_token | [TokenID](#TokenID) |  | |
 
 
 <a name="token_revoke_kyc.proto"></a>
@@ -7687,7 +8259,7 @@
 
 ## topic.proto
 
-<BR>First-draft representation of a Hedera Consensus Service topic in the network Merkle tree.<BR>As with all network entities, a topic has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.<BR>A topic consists of just two pieces of data:<BR>1. The total number of messages sent to the topic; and,<BR>2. The running hash of all those messages.<BR>It also has several metadata elements:<BR>1. A consensus expiration time in seconds since the epoch.<BR>2. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that<BR>has signed a transaction allowing the network to use its balance to automatically extend the topic's<BR>expiration time when it passes.<BR>3. The number of seconds the network should automatically extend the topic's expiration by, if the<BR>topic has a valid auto-renew account, and is not deleted upon expiration.<BR>4. A boolean marking if the topic has been deleted.<BR>5. A memo string whose UTF-8 encoding is at most 100 bytes.<BR>6. (Optional) An admin key whose signature must be active for the topic's metadata to be updated.<BR>7. (Optional) A submit key whose signature must be active for the topic to receive a message.
+<BR>Representation of a Hedera Consensus Service topic in the network Merkle tree.<BR>As with all network entities, a topic has a unique entity number, which is usually given along<BR>with the network's shard and realm in the form of a shard.realm.number id.<BR>A topic consists of just two pieces of data:<BR>1. The total number of messages sent to the topic; and,<BR>2. The running hash of all those messages.<BR>It also has several metadata elements:<BR>1. A consensus expiration time in seconds since the epoch.<BR>2. (Optional) The number of an auto-renew account, in the same shard and realm as the topic, that<BR>has signed a transaction allowing the network to use its balance to automatically extend the topic's<BR>expiration time when it passes.<BR>3. The number of seconds the network should automatically extend the topic's expiration by, if the<BR>topic has a valid auto-renew account, and is not deleted upon expiration.<BR>4. A boolean marking if the topic has been deleted.<BR>5. A memo string whose UTF-8 encoding is at most 100 bytes.<BR>6. (Optional) An admin key whose signature must be active for the topic's metadata to be updated.<BR>7. (Optional) A submit key whose signature must be active for the topic to receive a message.
 
 <a name="Topic"></a>
 
@@ -7698,13 +8270,13 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| topic_number |  |  | |
+| topic_id | [TopicID](#TopicID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | sequence_number |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| expiry |  |  | |
+| expiration_second |  |  | |
 | The | [*](#*) |  | |
 | upon | [*](#*) |  | |
 |  | [](#) |  | |
@@ -7712,7 +8284,7 @@
 | The | [*](#*) |  | |
 | topic's | [*](#*) |  | |
 |  | [](#) |  | |
-| auto_renew_account_number |  |  | |
+| auto_renew_account_id | [AccountID](#AccountID) |  | |
 | Whether | [*](#*) |  | |
 |  | [](#) |  | |
 | deleted |  |  | |
