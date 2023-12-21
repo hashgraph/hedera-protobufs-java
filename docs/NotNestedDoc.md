@@ -1946,7 +1946,7 @@
 
 ## block_info.proto
 
-<BR>Information about the most recently completed and last 256 blocks.
+<BR>Information about ongoing, most recently completed, and last 256 blocks.
 
 <a name="BlockInfo"></a>
 
@@ -1967,6 +1967,16 @@
 | If | [*](#*) |  | |
 |  | [](#) |  | |
 | block_hashes |  |  | |
+| The | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| handled | [*](#*) |  | |
+|  | [](#) |  | |
+| cons_time_of_last_handled_txn | [Timestamp](#Timestamp) |  | |
+| A | [*](#*) |  | |
+| immediately | [*](#*) |  | |
+| should | [*](#*) |  | |
+|  | [](#) |  | |
+| migration_records_streamed |  |  | |
 
 
 <a name="bytecode.proto"></a>
