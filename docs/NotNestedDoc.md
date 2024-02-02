@@ -468,6 +468,9 @@
 - [token_update.proto](#token_update.proto)
   - [TokenUpdateTransactionBody](#TokenUpdateTransactionBody)
 
+- [token_update_nft.proto](#token_update_nft.proto)
+  - [TokenUpdateNftTransactionBody](#TokenUpdateNftTransactionBody)
+
 - [token_wipe_account.proto](#token_wipe_account.proto)
   - [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody)
 
@@ -1977,6 +1980,10 @@
 | should | [*](#*) |  | |
 |  | [](#) |  | |
 | migration_records_streamed |  |  | |
+| The | [*](#*) |  | |
+| when | [*](#*) |  | |
+|  | [](#) |  | |
+| first_cons_time_of_current_block | [Timestamp](#Timestamp) |  | |
 
 
 <a name="bytecode.proto"></a>
@@ -2650,6 +2657,10 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | contract_nonces | [ContractNonceInfo](#ContractNonceInfo) |  | |
+| If | [*](#*) |  | |
+| For | [*](#*) |  | |
+|  | [](#) |  | |
+| signer_nonce | [google.protobuf.Int64Value](#google.protobuf.Int64Value) |  | |
 
 
 <a name="ContractLoginfo"></a>
@@ -7071,6 +7082,15 @@
 | (node | [*](#*) |  | |
 |  | [](#) |  | |
 | weight |  |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+| When | [*](#*) |  | |
+| to | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_rewards |  |  | |
+| True | [*](#*) |  | |
+|  | [](#) |  | |
+| deleted |  |  | |
 
 
 <a name="storage_slot.proto"></a>
@@ -7089,7 +7109,7 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| contract_number |  |  | |
+| contractID | [ContractID](#ContractID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | key |  |  | |
@@ -7552,6 +7572,13 @@
 | If | [*](#*) |  | |
 |  | [](#) |  | |
 | pause_key | [Key](#Key) |  | |
+| Metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata |  |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
 
 
 <a name="token_delete.proto"></a>
@@ -8231,6 +8258,35 @@
 | transaction | [*](#*) |  | |
 |  | [](#) |  | |
 | pause_key | [Key](#Key) |  | |
+| Metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
+
+
+<a name="token_update_nft.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_update_nft.proto
+
+<BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is,<BR>a token without an admin key), only the expiry may be updated. Setting any other field in that<BR>case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.
+
+<a name="TokenUpdateNftTransactionBody"></a>
+
+### TokenUpdateNftTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| nft_id | [NftID](#NftID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
 
 
 <a name="token_wipe_account.proto"></a>
