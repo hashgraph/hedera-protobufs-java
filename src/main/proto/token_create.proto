@@ -198,4 +198,8 @@ message TokenCreateTransactionBody {
      * If Empty the token pause status defaults to PauseNotApplicable, otherwise Unpaused.
      */
     Key pause_key = 22;
+
+    /** Metadata of the created token definition.
+    */
+    bytes metadata = 23;
 }
