@@ -468,6 +468,12 @@
 - [token_update.proto](#token_update.proto)
   - [TokenUpdateTransactionBody](#TokenUpdateTransactionBody)
 
+- [token_update_nft.proto](#token_update_nft.proto)
+  - [TokenUpdateNftTransactionBody](#TokenUpdateNftTransactionBody)
+
+- [token_update_nfts.proto](#token_update_nfts.proto)
+  - [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody)
+
 - [token_wipe_account.proto](#token_wipe_account.proto)
   - [TokenWipeAccountTransactionBody](#TokenWipeAccountTransactionBody)
 
@@ -1215,6 +1221,9 @@
 | * |  |
 |  |  |
 | TransactionGetFastRecord |  |
+| * |  |
+|  |  |
+| TokenUpdateNfts |  |
 
 
 <a name="Key"></a>
@@ -1977,6 +1986,10 @@
 | should | [*](#*) |  | |
 |  | [](#) |  | |
 | migration_records_streamed |  |  | |
+| The | [*](#*) |  | |
+| when | [*](#*) |  | |
+|  | [](#) |  | |
+| first_cons_time_of_current_block | [Timestamp](#Timestamp) |  | |
 
 
 <a name="bytecode.proto"></a>
@@ -2650,6 +2663,10 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | contract_nonces | [ContractNonceInfo](#ContractNonceInfo) |  | |
+| If | [*](#*) |  | |
+| For | [*](#*) |  | |
+|  | [](#) |  | |
+| signer_nonce | [google.protobuf.Int64Value](#google.protobuf.Int64Value) |  | |
 
 
 <a name="ContractLoginfo"></a>
@@ -6382,6 +6399,18 @@
 | * |  |
 |  |  |
 | ALIAS_ALREADY_ASSIGNED |  |
+| * |  |
+|  |  |
+| INVALID_METADATA_KEY |  |
+| * |  |
+|  |  |
+| TOKEN_HAS_NO_METADATA_KEY |  |
+| * |  |
+|  |  |
+| MISSING_TOKEN_METADATA |  |
+| * |  |
+|  |  |
+| MISSING_SERIAL_NUMBERS |  |
 
 
 <a name="response_header.proto"></a>
@@ -6581,6 +6610,9 @@
 | | Generates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | util_prng | [UtilPrngTransactionBody](#UtilPrngTransactionBody) |  | |
+| | Update | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
 
 
 <a name="schedule.proto"></a>
@@ -7071,6 +7103,15 @@
 | (node | [*](#*) |  | |
 |  | [](#) |  | |
 | weight |  |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+| When | [*](#*) |  | |
+| to | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_rewards |  |  | |
+| True | [*](#*) |  | |
+|  | [](#) |  | |
+| deleted |  |  | |
 
 
 <a name="storage_slot.proto"></a>
@@ -7089,7 +7130,7 @@
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| contract_number |  |  | |
+| contractID | [ContractID](#ContractID) |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | key |  |  | |
@@ -7400,6 +7441,13 @@
 | (Optional) | [*](#*) |  | |
 |  | [](#) |  | |
 | custom_fees | [CustomFee](#CustomFee) |  | |
+| Metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata |  |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
 
 
 <a name="token_associate.proto"></a>
@@ -7552,6 +7600,13 @@
 | If | [*](#*) |  | |
 |  | [](#) |  | |
 | pause_key | [Key](#Key) |  | |
+| Metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata |  |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
 
 
 <a name="token_delete.proto"></a>
@@ -7828,6 +7883,13 @@
 | The | [*](#*) | github.com/hashgraph/hedera-improvement-proposal/blob/master/HIP/hip-198.md">HIP-198</a> for the network-specific IDs. | |
 |  | [](#) |  | |
 | ledger_id |  |  | |
+| Represents | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata |  |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
 
 
 <a name="token_get_nft_info.proto"></a>
@@ -8231,6 +8293,62 @@
 | transaction | [*](#*) |  | |
 |  | [](#) |  | |
 | pause_key | [Key](#Key) |  | |
+| Metadata | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| The | [*](#*) |  | |
+| (token | [*](#*) |  | |
+| If | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata_key | [Key](#Key) |  | |
+
+
+<a name="token_update_nft.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_update_nft.proto
+
+<BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is,<BR>a token without an admin key), only the expiry may be updated. Setting any other field in that<BR>case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.
+
+<a name="TokenUpdateNftTransactionBody"></a>
+
+### TokenUpdateNftTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| nft_id | [NftID](#NftID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+
+
+<a name="token_update_nfts.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_update_nfts.proto
+
+<BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged.<BR>Only certain fields such as metadata can be updated.<BR>Updating the metadata of an NFT does not affect its ownership or transferability.<BR>This operation is intended for updating attributes of individual NFTs in a collection.<BR>--- Signing Requirements ---<BR>1. To update metadata of an NFT, the metadata_key of the token should sign the transaction.
+
+<a name="TokenUpdateNftsTransactionBody"></a>
+
+### TokenUpdateNftsTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| token | [TokenID](#TokenID) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| serial_numbers |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
 
 
 <a name="token_wipe_account.proto"></a>
@@ -8524,6 +8642,9 @@
 | | Generates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | util_prng | [UtilPrngTransactionBody](#UtilPrngTransactionBody) |  | |
+| | Update | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
 
 
 <a name="transaction_contents.proto"></a>

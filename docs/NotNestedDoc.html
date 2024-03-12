@@ -818,6 +818,16 @@
 <li>
 <a href="#TokenUpdateTransactionBody"><span class="badge">M</span>TokenUpdateTransactionBody</a></li>
 </ul>
+<a href=#token_update_nft.proto>token_update_nft.proto</a>
+<ul>
+<li>
+<a href="#TokenUpdateNftTransactionBody"><span class="badge">M</span>TokenUpdateNftTransactionBody</a></li>
+</ul>
+<a href=#token_update_nfts.proto>token_update_nfts.proto</a>
+<ul>
+<li>
+<a href="#TokenUpdateNftsTransactionBody"><span class="badge">M</span>TokenUpdateNftsTransactionBody</a></li>
+</ul>
 <a href=#token_wipe_account.proto>token_wipe_account.proto</a>
 <ul>
 <li>
@@ -4135,6 +4145,21 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenUpdateNfts</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -7176,6 +7201,30 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>when</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>first_cons_time_of_current_block</TD>
+<TD><a href="#Timestamp">Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -9807,6 +9856,30 @@
 <TR>
 <TD>contract_nonces</TD>
 <TD><a href="#ContractNonceInfo">ContractNonceInfo</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>For</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>signer_nonce</TD>
+<TD><a href="#google.protobuf.Int64Value">google.protobuf.Int64Value</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -25234,6 +25307,66 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_METADATA_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_METADATA_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MISSING_TOKEN_METADATA</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MISSING_SERIAL_NUMBERS</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -26206,6 +26339,24 @@
 <TR>
 <TD>util_prng</TD>
 <TD><a href="#UtilPrngTransactionBody">UtilPrngTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Update</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_update_nfts</TD>
+<TD><a href="#TokenUpdateNftsTransactionBody">TokenUpdateNftsTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -28142,6 +28293,60 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>When</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>to</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>pending_rewards</TD>
+<TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>True</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>deleted</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -28174,8 +28379,8 @@
 </TR>
 
 <TR>
-<TD>contract_number</TD>
-<TD>int64</TD>
+<TD>contractID</TD>
+<TD><a href="#ContractID">ContractID</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -29405,6 +29610,48 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>Metadata</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -30082,6 +30329,48 @@
 
 <TR>
 <TD>pause_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Metadata</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata_key</TD>
 <TD><a href="#Key">Key</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -31157,6 +31446,48 @@
 <TR>
 <TD>ledger_id</TD>
 <TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Represents</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata_key</TD>
+<TD><a href="#Key">Key</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -32577,6 +32908,188 @@
 <TR>
 <TD>pause_key</TD>
 <TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Metadata</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>transaction</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="token_update_nft.proto">token_update_nft.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is,<BR>a token without an admin key), only the expiry may be updated. Setting any other field in that<BR>case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.</P>
+<H3 id="TokenUpdateNftTransactionBody"><span class="BigBadge">Message</span>TokenUpdateNftTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nft_id</TD>
+<TD><a href="#NftID">NftID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="token_update_nfts.proto">token_update_nfts.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged.<BR>Only certain fields such as metadata can be updated.<BR>Updating the metadata of an NFT does not affect its ownership or transferability.<BR>This operation is intended for updating attributes of individual NFTs in a collection.<BR>--- Signing Requirements ---<BR>1. To update metadata of an NFT, the metadata_key of the token should sign the transaction.</P>
+<H3 id="TokenUpdateNftsTransactionBody"><span class="BigBadge">Message</span>TokenUpdateNftsTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>serial_numbers</TD>
+<TD>int64 (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>metadata</TD>
+<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -34039,6 +34552,24 @@
 <TR>
 <TD>util_prng</TD>
 <TD><a href="#UtilPrngTransactionBody">UtilPrngTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Update</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_update_nfts</TD>
+<TD><a href="#TokenUpdateNftsTransactionBody">TokenUpdateNftsTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
