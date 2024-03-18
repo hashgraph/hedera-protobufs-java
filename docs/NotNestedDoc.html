@@ -818,11 +818,6 @@
 <li>
 <a href="#TokenUpdateTransactionBody"><span class="badge">M</span>TokenUpdateTransactionBody</a></li>
 </ul>
-<a href=#token_update_nft.proto>token_update_nft.proto</a>
-<ul>
-<li>
-<a href="#TokenUpdateNftTransactionBody"><span class="badge">M</span>TokenUpdateNftTransactionBody</a></li>
-</ul>
 <a href=#token_update_nfts.proto>token_update_nfts.proto</a>
 <ul>
 <li>
@@ -32962,61 +32957,6 @@
 <TR>
 <TD>metadata_key</TD>
 <TD><a href="#Key">Key</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<tbody>
-</TABLE>
-
-<div class="file-heading">
-<H2 id="token_update_nft.proto">token_update_nft.proto</H2>
-<a href="#title">Top</a>
-</div>
-<P><BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is,<BR>a token without an admin key), only the expiry may be updated. Setting any other field in that<BR>case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.</P>
-<H3 id="TokenUpdateNftTransactionBody"><span class="BigBadge">Message</span>TokenUpdateNftTransactionBody</H3>
-<P></P>
-<table class="field-table">
-<thead>
-<TR>
-<TD>Field</TD>
-<TD>Type</TD>
-<TD>Description</TD>
-</TR>
-</thead>
-<tbody>
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>nft_id</TD>
-<TD><a href="#NftID">NftID</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>metadata</TD>
-<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
 <TD><P></P></TD>
 </TR>
 

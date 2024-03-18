@@ -468,9 +468,6 @@
 - [token_update.proto](#token_update.proto)
   - [TokenUpdateTransactionBody](#TokenUpdateTransactionBody)
 
-- [token_update_nft.proto](#token_update_nft.proto)
-  - [TokenUpdateNftTransactionBody](#TokenUpdateNftTransactionBody)
-
 - [token_update_nfts.proto](#token_update_nfts.proto)
   - [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody)
 
@@ -8302,28 +8299,6 @@
 | transaction | [*](#*) |  | |
 |  | [](#) |  | |
 | metadata_key | [Key](#Key) |  | |
-
-
-<a name="token_update_nft.proto"></a>
-<p align="right"><a href="#top">Top</a></p>
-
-## token_update_nft.proto
-
-<BR>At consensus, updates an already created Non Fungible Token to the given values.<BR>If no value is given for a field, that field is left unchanged. For an immutable tokens (that is,<BR>a token without an admin key), only the expiry may be updated. Setting any other field in that<BR>case will cause the transaction status to resolve to TOKEN_IS_IMMUTABLE.
-
-<a name="TokenUpdateNftTransactionBody"></a>
-
-### TokenUpdateNftTransactionBody
-
-
-| Field | Type | Description |   |
-| ----- | ---- | ----------- | - |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| nft_id | [NftID](#NftID) |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
-| metadata | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
 
 
 <a name="token_update_nfts.proto"></a>
