@@ -8107,9 +8107,6 @@
 | kyc_granted |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
-| deleted |  |  | |
-| The | [*](#*) |  | |
-|  | [](#) |  | |
 | automatic_association |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
