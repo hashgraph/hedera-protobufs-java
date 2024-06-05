@@ -52,6 +52,7 @@
   - [TokenBalances](#TokenBalances)
   - [TokenFreezeStatus](#TokenFreezeStatus) (Enum)
   - [TokenID](#TokenID)
+  - [TokenKeyValidation](#TokenKeyValidation) (Enum)
   - [TokenKycStatus](#TokenKycStatus) (Enum)
   - [TokenPauseStatus](#TokenPauseStatus) (Enum)
   - [TokenRelationship](#TokenRelationship)
@@ -1739,6 +1740,21 @@
 | A | [*](#*) |  | |
 |  | [](#) |  | |
 | tokenNum |  |  | |
+
+
+<a name="TokenKeyValidation"></a>
+
+### TokenKeyValidation
+<BR>Types of validation strategies for token keys.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+|  |  |
+| FULL_VALIDATION |  |
+| * |  |
+|  |  |
+| NO_VALIDATION |  |
 
 
 <a name="TokenKycStatus"></a>
@@ -6408,6 +6424,9 @@
 | * |  |
 |  |  |
 | MISSING_SERIAL_NUMBERS |  |
+| * |  |
+|  |  |
+| TOKEN_HAS_NO_ADMIN_KEY |  |
 
 
 <a name="response_header.proto"></a>
@@ -8296,6 +8315,9 @@
 | transaction | [*](#*) |  | |
 |  | [](#) |  | |
 | metadata_key | [Key](#Key) |  | |
+| Determines | [*](#*) |  | |
+|  | [](#) |  | |
+| key_verification_mode | [TokenKeyValidation](#TokenKeyValidation) |  | |
 
 
 <a name="token_update_nfts.proto"></a>
