@@ -98,6 +98,8 @@
 <li>
 <a href="#TokenID"><span class="badge">M</span>TokenID</a></li>
 <li>
+<a href="#TokenKeyValidation"><span class="badge">E</span>TokenKeyValidation</a></li>
+<li>
 <a href="#TokenKycStatus"><span class="badge">E</span>TokenKycStatus</a></li>
 <li>
 <a href="#TokenPauseStatus"><span class="badge">E</span>TokenPauseStatus</a></li>
@@ -6245,6 +6247,49 @@
 <TR>
 <TD>tokenNum</TD>
 <TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TokenKeyValidation"><span class="BigBadge">Enum</span>TokenKeyValidation</H3>
+<P><BR>Types of validation strategies for token keys.</P>
+<table class="enum-table">
+<thead>
+<TR>
+<TD>Enum Name</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>FULL_VALIDATION</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NO_VALIDATION</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -25362,6 +25407,21 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_HAS_NO_ADMIN_KEY</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -32939,6 +32999,24 @@
 <TR>
 <TD>metadata_key</TD>
 <TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Determines</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>key_verification_mode</TD>
+<TD><a href="#TokenKeyValidation">TokenKeyValidation</a></TD>
 <TD><P></P></TD>
 </TR>
 
