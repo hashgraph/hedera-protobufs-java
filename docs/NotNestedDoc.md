@@ -3351,7 +3351,11 @@
 |  | [](#) |  | |
 | memo |  |  | |
 | The | [*](#*) |  | |
-| and | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| By | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations |  |  | |
 | ID | [*](#*) |  | |
@@ -3920,8 +3924,12 @@
 | If | [*](#*) |  | |
 |  | [](#) |  | |
 | memo | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
-| The | [*](#*) |  | |
-| including | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations | [google.protobuf.Int32Value](#google.protobuf.Int32Value) |  | |
 | ID | [*](#*) |  | |
@@ -6427,6 +6435,10 @@
 | * |  |
 |  |  |
 | TOKEN_HAS_NO_ADMIN_KEY |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_MAX_AUTO_ASSOCIATIONS |  |
 
 
 <a name="response_header.proto"></a>
