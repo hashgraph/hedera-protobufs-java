@@ -262,7 +262,7 @@
          <artifactId>maven-release-plugin</artifactId>
          <configuration>
            <autoVersionSubmodules>true</autoVersionSubmodules>
-           <!--<pushChanges>false</pushChanges>-->
+           <pushChanges>false</pushChanges>
            <useReleaseProfile>false</useReleaseProfile>
            <releaseProfiles>release</releaseProfiles>
            <goals>deploy</goals>
