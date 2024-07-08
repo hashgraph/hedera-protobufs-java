@@ -23,6 +23,11 @@
 <li>
 <a href="#TokenUnitBalance"><span class="badge">M</span>TokenUnitBalance</a></li>
 </ul>
+<a href=#address_book_service.proto>address_book_service.proto</a>
+<ul>
+<li>
+<a href="#AddressBookService"><span class="badge">S</span>AddressBookService</a></li>
+</ul>
 <a href=#basic_types.proto>basic_types.proto</a>
 <ul>
 <li>
@@ -528,12 +533,32 @@
 <li>
 <a href="#Nft"><span class="badge">M</span>Nft</a></li>
 </ul>
+<a href=#node.proto>node.proto</a>
+<ul>
+<li>
+<a href="#Node"><span class="badge">M</span>Node</a></li>
+</ul>
+<a href=#node_create.proto>node_create.proto</a>
+<ul>
+<li>
+<a href="#NodeCreateTransactionBody"><span class="badge">M</span>NodeCreateTransactionBody</a></li>
+</ul>
+<a href=#node_delete.proto>node_delete.proto</a>
+<ul>
+<li>
+<a href="#NodeDeleteTransactionBody"><span class="badge">M</span>NodeDeleteTransactionBody</a></li>
+</ul>
 <a href=#node_stake_update.proto>node_stake_update.proto</a>
 <ul>
 <li>
 <a href="#NodeStake"><span class="badge">M</span>NodeStake</a></li>
 <li>
 <a href="#NodeStakeUpdateTransactionBody"><span class="badge">M</span>NodeStakeUpdateTransactionBody</a></li>
+</ul>
+<a href=#node_update.proto>node_update.proto</a>
+<ul>
+<li>
+<a href="#NodeUpdateTransactionBody"><span class="badge">M</span>NodeUpdateTransactionBody</a></li>
 </ul>
 <a href=#primitives.proto>primitives.proto</a>
 <ul>
@@ -789,6 +814,13 @@
 <ul>
 <li>
 <a href="#TokenPauseTransactionBody"><span class="badge">M</span>TokenPauseTransactionBody</a></li>
+</ul>
+<a href=#token_reject.proto>token_reject.proto</a>
+<ul>
+<li>
+<a href="#TokenReference"><span class="badge">M</span>TokenReference</a></li>
+<li>
+<a href="#TokenRejectTransactionBody"><span class="badge">M</span>TokenRejectTransactionBody</a></li>
 </ul>
 <a href=#token_relation.proto>token_relation.proto</a>
 <ul>
@@ -1982,6 +2014,38 @@
 <TD>balance</TD>
 <TD>uint64</TD>
 <TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="address_book_service.proto">address_book_service.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>The Address Book service provides the ability for Hedera network node<BR>administrators to add, update, and remove consensus nodes. This addition,<BR>update, or removal of a consensus node requires governing council approval,<BR>but each node operator may update their own operational attributes without<BR>additional approval, reducing overhead for routine operations.<BR>Most operations are `privileged operations` and require governing council<BR>approval.<BR>### For a node creation transaction.<BR>- The node operator SHALL create a `createNode` transaction.<BR>- The node operator SHALL sign this transaction with the active `key` for<BR>the account to be assigned as the "node account".<BR>- The node operator MUST deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node creation transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Validate the signature of the active `key` for the account to be<BR>assigned as the "node account".<BR>- Create the new node in state, this new node SHALL NOT be active in the<BR>network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and bring the<BR>new node to an active status within the network. The node to be added<BR>SHALL be active in the network following this upgrade.<BR>### For a node deletion transaction.<BR>- The node operator or Hedera council representative SHALL create a<BR>`deleteNode` transaction.<BR>- If the node operator creates the transaction<BR>- The node operator MUST sign this transaction with the active `key`<BR>for the account assigned as the "node account".<BR>- The node operator SHALL deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node deletion transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Remove the existing node from network state. The node SHALL still<BR>be active in the network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and remove the<BR>node to be deleted from the network. The node to be deleted SHALL NOT<BR>be active in the network following this upgrade.<BR>### For a node update transaction.<BR>- The node operator or Hedera council representative SHALL create an<BR>`updateNode` transaction.<BR>- If the node operator creates the transaction<BR>- The node operator MUST sign this transaction with the active `key`<BR>for the account assigned as the current "node account".<BR>- If the transaction changes the value of the "node account" the<BR>node operator MUST _also_ sign this transaction with the active `key`<BR>for the account to be assigned as the new "node account".<BR>- The node operator SHALL submit the transaction to the<BR>network.  Hedera council approval SHALL NOT be sought for this<BR>transaction<BR>- If the Hedera council representative creates the transaction<BR>- The Hedera council representative SHALL arrange for council members<BR>to review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node update transaction the network<BR>software SHALL<BR>- If the transaction is signed by the Hedera governing council<BR>- Validate the threshold signature for the Hedera governing council<BR>- If the transaction is signed by the active `key` for the node account<BR>- Validate the signature of the active `key` for the account assigned<BR>as the "node account".<BR>- If the transaction modifies the value of the "node account",<BR>- Validate the signature of the _new_ `key` for the account to be<BR>assigned as the new "node account".<BR>- Modify the node information held in network state with the changes<BR>requested in the update transaction. The node changes SHALL NOT be<BR>applied to network configuration, and SHALL NOT affect network<BR>operation at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration according to the<BR>modified information in network state. The requested changes SHALL<BR>affect network operation following this upgrade.</P>
+<H3 id="AddressBookService"><span class="BigBadge">Service</span>AddressBookService</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>RPC</TD>
+<TD>Request</TD>
+<TD>Response</TD>
+<TD>Comments</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>createNode </TD><TD>proto.Transaction</TD><TD>proto.TransactionResponse</TD><TD><P><BR>A transaction to create a new consensus node in the network.<BR>address book.<BR><p><BR>This transaction, once complete, SHALL add a new consensus node to the<BR>network state.<br/><BR>The new consensus node SHALL remain in state, but SHALL NOT participate<BR>in network consensus until the network updates the network configuration.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction.</P></TD>
+</TR>
+
+<TR>
+<TD>deleteNode </TD><TD>proto.Transaction</TD><TD>proto.TransactionResponse</TD><TD><P><BR>A transaction to remove a consensus node from the network address<BR>book.<BR><p><BR>This transaction, once complete, SHALL remove the identified consensus<BR>node from the network state.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction.</P></TD>
+</TR>
+
+<TR>
+<TD>updateNode </TD><TD>proto.Transaction</TD><TD>proto.TransactionResponse</TD><TD><P><BR>A transaction to update an existing consensus node from the network<BR>address book.<BR><p><BR>This transaction, once complete, SHALL modify the identified consensus<BR>node state as requested.<BR><p><BR>This transaction MAY be authorized by either the node operator OR the<BR>Hedera governing council.</P></TD>
 </TR>
 
 <tbody>
@@ -4157,6 +4221,66 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NodeCreate</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NodeUpdate</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NodeDelete</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TokenReject</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -4555,7 +4679,7 @@
 </TABLE>
 
 <H3 id="NodeAddress"><span class="BigBadge">Message</span>NodeAddress</H3>
-<P><BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the<BR>(deprecated) <tt>ipAddress</tt> and <tt>portno</tt> fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.</P>
+<P><BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the `serviceEndpoint` list is not set, or empty, then the endpoint given by the<BR>(deprecated) `ipAddress` and `portno` fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -5075,7 +5199,7 @@
 </TABLE>
 
 <H3 id="ServiceEndpoint"><span class="BigBadge">Message</span>ServiceEndpoint</H3>
-<P><BR>Contains the IP address and the port representing a service endpoint of a Node in a network. Used<BR>to reach the Hedera API and submit transactions to the network.</P>
+<P><BR>Contains the IP address and the port representing a service endpoint of<BR>a Node in a network. Used to reach the Hedera API and submit transactions<BR>to the network.<BR>When the `domain_name` field is set, the `ipAddressV4` field<BR>MUST NOT be set.<br/><BR>When the `ipAddressV4` field is set, the `domain_name` field<BR>MUST NOT be set.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -5092,7 +5216,7 @@
 </TR>
 
 <TR>
-<TD>as</TD>
+<TD>(e.g.</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -5124,6 +5248,54 @@
 <TR>
 <TD>port</TD>
 <TD>int32</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>domain_name</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>When</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>When</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>domain_name</TD>
+<TD>string</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -10367,7 +10539,31 @@
 </TR>
 
 <TR>
-<TD>with</TD>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MUST</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>By</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -11826,7 +12022,31 @@
 </TR>
 
 <TR>
-<TD>automatically</TD>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MUST</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -19081,6 +19301,1095 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="node.proto">node.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A single address book node in the network state.<BR>Each node in the network address book SHALL represent a single actual<BR>consensus node that is eligible to participate in network consensus.<BR>Address book nodes SHALL NOT be _globally_ uniquely identified. A given node<BR>is only valid within a single realm and shard combination, so the identifier<BR>for a network node SHALL only be unique within a single realm and shard<BR>combination.</P>
+<H3 id="Node"><span class="BigBadge">Message</span>Node</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Node</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>but</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>therefore</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_id</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>are</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account_id</TD>
+<TD><a href="#proto.AccountID">proto.AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>description</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>all</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>then</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SHALL</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>all</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>All</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>may</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Endpoints</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NOT</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>service_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_ca_certificate</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>during</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>be</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>grpc_certificate_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>weight</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>update</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>be</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>deleted</TD>
+<TD>bool</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>admin_key</TD>
+<TD><a href="#proto.Key">proto.Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="node_create.proto">node_create.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A transaction body to add a new consensus node to the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>This message supports a transaction to create a new node in the network<BR>address book. The transaction, once complete, enables a new consensus node<BR>to join the network, and requires governing council authorization.<BR>- A `NodeCreateTransactionBody` MUST be signed by the governing council.<BR>- A `NodeCreateTransactionBody` MUST be signed by the `Key` assigned to the<BR>`admin_key` field.<BR>- The newly created node information SHALL be added to the network address<BR>book information in the network state.<BR>- The new entry SHALL be created in "state" but SHALL NOT participate in<BR>network consensus and SHALL NOT be present in network "configuration"<BR>until the next "upgrade" transaction (as noted below).<BR>- All new address book entries SHALL be added to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the newly assigned `node_id` SHALL be in the transaction<BR>receipt.</P>
+<H3 id="NodeCreateTransactionBody"><span class="BigBadge">Message</span>NodeCreateTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Multiple</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account_id</TD>
+<TD><a href="#proto.AccountID">proto.AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>description</TD>
+<TD>string</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>all</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>All</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>all</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>then</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MUST</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>clients</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Endpoints</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NOT</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>service_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_ca_certificate</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>during</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>encoded</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>grpc_certificate_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>admin_key</TD>
+<TD><a href="#proto.Key">proto.Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="node_delete.proto">node_delete.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A transaction body to delete a node from the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>- A `NodeDeleteTransactionBody` MUST be signed by the governing council.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Record Stream Effects<BR>Upon completion the "deleted" `node_id` SHALL be in the transaction<BR>receipt.</P>
+<H3 id="NodeDeleteTransactionBody"><span class="BigBadge">Message</span>NodeDeleteTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_id</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="node_stake_update.proto">node_stake_update.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -19605,6 +20914,625 @@
 <TR>
 <TD>max_total_reward</TD>
 <TD>int64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="node_update.proto">node_update.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the `node_id` for the updated entry SHALL be in the<BR>transaction receipt.</P>
+<H3 id="NodeUpdateTransactionBody"><span class="BigBadge">Message</span>NodeUpdateTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_id</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>account_id</TD>
+<TD><a href="#proto.AccountID">proto.AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>description</TD>
+<TD><a href="#google.protobuf.StringValue">google.protobuf.StringValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>all</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>All</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Hedera</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>permit</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Mainnet</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>address</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Solo,</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>may</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>These</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>service_endpoint</TD>
+<TD><a href="#proto.ServiceEndpoint">proto.ServiceEndpoint</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>gossip_ca_certificate</TD>
+<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>during</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>encoded</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>grpc_certificate_hash</TD>
+<TD><a href="#google.protobuf.BytesValue">google.protobuf.BytesValue</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>update</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>admin_key</TD>
+<TD><a href="#proto.Key">proto.Key</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -25486,7 +27414,447 @@
 </TR>
 
 <TR>
+<TD>NODE_DELETED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_NODE_ID</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_GOSSIP_ENDPOINT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_NODE_ACCOUNT_ID</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_NODE_DESCRIPTION</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_SERVICE_ENDPOINT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_GOSSIP_CA_CERTIFICATE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_GRPC_CERTIFICATE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD>INVALID_MAX_AUTO_ASSOCIATIONS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MAX_NODES_CREATED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>FQDN_SIZE_TOO_LARGE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_ENDPOINT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>GOSSIP_ENDPOINTS_EXCEEDED_LIMIT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_REFERENCE_REPEATED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_OWNER_ID</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TOKEN_REFERENCE_LIST_SIZE_LIMIT_EXCEEDED</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SERVICE_ENDPOINTS_EXCEEDED_LIMIT</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_IPV4_ADDRESS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>EMPTY_TOKEN_REFERENCE_LIST</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>UPDATE_NODE_ACCOUNT_NOT_ALLOWED</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -26480,6 +28848,162 @@
 <TR>
 <TD>token_update_nfts</TD>
 <TD><a href="#TokenUpdateNftsTransactionBody">TokenUpdateNftsTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Transaction</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeCreate</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody">com.hedera.hapi.node.addressbook.NodeCreateTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Transaction</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeUpdate</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody">com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Transaction</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeDelete</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody">com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>balances</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>for</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>When</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>rejected</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Custom</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SHALL</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenReject</TD>
+<TD><a href="#TokenRejectTransactionBody">TokenRejectTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -32235,6 +34759,167 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="token_reject.proto">token_reject.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>Reject undesired token(s).<br/><BR>Transfer one or more token balances held by the requesting account to the treasury for each<BR>token type.<br/><BR>Each transfer SHALL be one of the following<BR>- A single non-fungible/unique token.<BR>- The full balance held for a fungible/common token type.<BR>A single tokenReject transaction SHALL support a maximum of 10 transfers.<BR>### Transaction Record Effects<BR>- Each successful transfer from `payer` to `treasury` SHALL be recorded in `token_transfer_list` for the transaction record.</P>
+<H3 id="TokenReference"><span class="BigBadge">Message</span>TokenReference</H3>
+<P><BR>A union token identifier.<BR>Identify a fungible/common token type, or a single non-fungible/unique token serial.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>token_identifier</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>fungible_token</TD>
+<TD><a href="#TokenID">TokenID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nft</TD>
+<TD><a href="#NftID">NftID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+<tbody>
+</TABLE>
+
+<H3 id="TokenRejectTransactionBody"><span class="BigBadge">Message</span>TokenRejectTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>owner</TD>
+<TD><a href="#AccountID">AccountID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>On</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>After</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>if</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>rejections</TD>
+<TD><a href="#TokenReference">TokenReference</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="token_relation.proto">token_relation.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -33868,42 +36553,6 @@
 </TR>
 
 <TR>
-<TD>Delete</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>contractDeleteInstance</TD>
-<TD><a href="#ContractDeleteTransactionBody">ContractDeleteTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>An</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>ethereumTransaction</TD>
-<TD><a href="#EthereumTransactionBody">EthereumTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
 <TD>Attach</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
@@ -33918,42 +36567,6 @@
 <TR>
 <TD>cryptoAddLiveHash</TD>
 <TD><a href="#CryptoAddLiveHashTransactionBody">CryptoAddLiveHashTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Adds</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>cryptoApproveAllowance</TD>
-<TD><a href="#CryptoApproveAllowanceTransactionBody">CryptoApproveAllowanceTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Deletes</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>cryptoDeleteAllowance</TD>
-<TD><a href="#CryptoDeleteAllowanceTransactionBody">CryptoDeleteAllowanceTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -34152,6 +36765,24 @@
 <TR>
 <TD>systemUndelete</TD>
 <TD><a href="#SystemUndeleteTransactionBody">SystemUndeleteTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Delete</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>contractDeleteInstance</TD>
+<TD><a href="#ContractDeleteTransactionBody">ContractDeleteTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -34480,60 +37111,6 @@
 </TR>
 
 <TR>
-<TD>Updates</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>token_fee_schedule_update</TD>
-<TD><a href="#TokenFeeScheduleUpdateTransactionBody">TokenFeeScheduleUpdateTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Pauses</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>token_pause</TD>
-<TD><a href="#TokenPauseTransactionBody">TokenPauseTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Unpauses</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>token_unpause</TD>
-<TD><a href="#TokenUnpauseTransactionBody">TokenUnpauseTransactionBody</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
 <TD>Creates</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
@@ -34600,6 +37177,114 @@
 </TR>
 
 <TR>
+<TD>token_fee_schedule_update</TD>
+<TD><a href="#TokenFeeScheduleUpdateTransactionBody">TokenFeeScheduleUpdateTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Pauses</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_pause</TD>
+<TD><a href="#TokenPauseTransactionBody">TokenPauseTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Unpauses</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token_unpause</TD>
+<TD><a href="#TokenUnpauseTransactionBody">TokenUnpauseTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Adds</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>cryptoApproveAllowance</TD>
+<TD><a href="#CryptoApproveAllowanceTransactionBody">CryptoApproveAllowanceTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Deletes</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>cryptoDeleteAllowance</TD>
+<TD><a href="#CryptoDeleteAllowanceTransactionBody">CryptoDeleteAllowanceTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ethereumTransaction</TD>
+<TD><a href="#EthereumTransactionBody">EthereumTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Updates</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD>node_stake_update</TD>
 <TD><a href="#NodeStakeUpdateTransactionBody">NodeStakeUpdateTransactionBody</a></TD>
 <TD><P></P></TD>
@@ -34638,6 +37323,216 @@
 <TR>
 <TD>token_update_nfts</TD>
 <TD><a href="#TokenUpdateNftsTransactionBody">TokenUpdateNftsTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>that</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeCreate</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody">com.hedera.hapi.node.addressbook.NodeCreateTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeUpdate</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody">com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>nodeDelete</TD>
+<TD><a href="#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody">com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>balances</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>for</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>token</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>When</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>rejected</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Custom</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SHALL</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tokenReject</TD>
+<TD><a href="#TokenRejectTransactionBody">TokenRejectTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -35496,31 +38391,49 @@
 </TR>
 
 <TR>
-<TD>the</TD>
+<TD>received</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>data</TD>
+<TD>This</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>uint64</TD>
+<TD>value</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>All</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
 <TD></TD>
-<TD><a href="#"></a></TD>
+<TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>IF</TD>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35538,43 +38451,31 @@
 </TR>
 
 <TR>
-<TD>1.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>2.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>3.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>4.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>5.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>consensus</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>6.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35586,25 +38487,25 @@
 </TR>
 
 <TR>
-<TD>7.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>8.</TD>
+<TD>consensus</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>IF</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35622,85 +38523,109 @@
 </TR>
 
 <TR>
-<TD>1.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>2.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>3.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>4.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>5.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>6.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>consensus</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>7.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>consensus</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>8.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>9.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>consensusSubmitMessage</TD>
+<TD>If</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
 <TD></TD>
-<TD><a href="#"></a></TD>
+<TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>Otherwise,</TD>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>consensus</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(48</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35718,67 +38643,55 @@
 </TR>
 
 <TR>
-<TD>1.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>2.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>3.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>4.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>5.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>6.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>7.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>8.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>9.</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>consensus</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>10.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35790,19 +38703,37 @@
 </TR>
 
 <TR>
-<TD>11.</TD>
+<TD><li>The</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>12.</TD>
+<TD>consensus</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>consensusSubmitMessage</TD>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD><li>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>(48</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -35960,6 +38891,54 @@
 <TR>
 <TD>serialNumbers</TD>
 <TD>int64 (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>In</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>node_id</TD>
+<TD>uint64</TD>
 <TD><P></P></TD>
 </TR>
 

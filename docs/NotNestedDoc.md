@@ -15,6 +15,9 @@
   - [SingleAccountBalances](#SingleAccountBalances)
   - [TokenUnitBalance](#TokenUnitBalance)
 
+- [address_book_service.proto](#address_book_service.proto)
+  - [AddressBookService](#AddressBookService) (Service)
+
 - [basic_types.proto](#basic_types.proto)
   - [AccountAmount](#AccountAmount)
   - [AccountID](#AccountID)
@@ -299,9 +302,21 @@
 - [nft.proto](#nft.proto)
   - [Nft](#Nft)
 
+- [node.proto](#node.proto)
+  - [Node](#Node)
+
+- [node_create.proto](#node_create.proto)
+  - [NodeCreateTransactionBody](#NodeCreateTransactionBody)
+
+- [node_delete.proto](#node_delete.proto)
+  - [NodeDeleteTransactionBody](#NodeDeleteTransactionBody)
+
 - [node_stake_update.proto](#node_stake_update.proto)
   - [NodeStake](#NodeStake)
   - [NodeStakeUpdateTransactionBody](#NodeStakeUpdateTransactionBody)
+
+- [node_update.proto](#node_update.proto)
+  - [NodeUpdateTransactionBody](#NodeUpdateTransactionBody)
 
 - [primitives.proto](#primitives.proto)
   - [ProtoBoolean](#ProtoBoolean)
@@ -450,6 +465,10 @@
 
 - [token_pause.proto](#token_pause.proto)
   - [TokenPauseTransactionBody](#TokenPauseTransactionBody)
+
+- [token_reject.proto](#token_reject.proto)
+  - [TokenReference](#TokenReference)
+  - [TokenRejectTransactionBody](#TokenRejectTransactionBody)
 
 - [token_relation.proto](#token_relation.proto)
   - [TokenRelation](#TokenRelation)
@@ -754,6 +773,25 @@
 | NFTs | [*](#*) |  | |
 |  | [](#) |  | |
 | balance |  |  | |
+
+
+<a name="address_book_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## address_book_service.proto
+
+<BR>The Address Book service provides the ability for Hedera network node<BR>administrators to add, update, and remove consensus nodes. This addition,<BR>update, or removal of a consensus node requires governing council approval,<BR>but each node operator may update their own operational attributes without<BR>additional approval, reducing overhead for routine operations.<BR>Most operations are `privileged operations` and require governing council<BR>approval.<BR>### For a node creation transaction.<BR>- The node operator SHALL create a `createNode` transaction.<BR>- The node operator SHALL sign this transaction with the active `key` for<BR>the account to be assigned as the "node account".<BR>- The node operator MUST deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node creation transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Validate the signature of the active `key` for the account to be<BR>assigned as the "node account".<BR>- Create the new node in state, this new node SHALL NOT be active in the<BR>network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and bring the<BR>new node to an active status within the network. The node to be added<BR>SHALL be active in the network following this upgrade.<BR>### For a node deletion transaction.<BR>- The node operator or Hedera council representative SHALL create a<BR>`deleteNode` transaction.<BR>- If the node operator creates the transaction<BR>- The node operator MUST sign this transaction with the active `key`<BR>for the account assigned as the "node account".<BR>- The node operator SHALL deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node deletion transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Remove the existing node from network state. The node SHALL still<BR>be active in the network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and remove the<BR>node to be deleted from the network. The node to be deleted SHALL NOT<BR>be active in the network following this upgrade.<BR>### For a node update transaction.<BR>- The node operator or Hedera council representative SHALL create an<BR>`updateNode` transaction.<BR>- If the node operator creates the transaction<BR>- The node operator MUST sign this transaction with the active `key`<BR>for the account assigned as the current "node account".<BR>- If the transaction changes the value of the "node account" the<BR>node operator MUST _also_ sign this transaction with the active `key`<BR>for the account to be assigned as the new "node account".<BR>- The node operator SHALL submit the transaction to the<BR>network.  Hedera council approval SHALL NOT be sought for this<BR>transaction<BR>- If the Hedera council representative creates the transaction<BR>- The Hedera council representative SHALL arrange for council members<BR>to review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node update transaction the network<BR>software SHALL<BR>- If the transaction is signed by the Hedera governing council<BR>- Validate the threshold signature for the Hedera governing council<BR>- If the transaction is signed by the active `key` for the node account<BR>- Validate the signature of the active `key` for the account assigned<BR>as the "node account".<BR>- If the transaction modifies the value of the "node account",<BR>- Validate the signature of the _new_ `key` for the account to be<BR>assigned as the new "node account".<BR>- Modify the node information held in network state with the changes<BR>requested in the update transaction. The node changes SHALL NOT be<BR>applied to network configuration, and SHALL NOT affect network<BR>operation at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration according to the<BR>modified information in network state. The requested changes SHALL<BR>affect network operation following this upgrade.
+
+<a name="AddressBookService"></a>
+
+### AddressBookService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| createNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to create a new consensus node in the network.<BR>address book.<BR><p><BR>This transaction, once complete, SHALL add a new consensus node to the<BR>network state.<br/><BR>The new consensus node SHALL remain in state, but SHALL NOT participate<BR>in network consensus until the network updates the network configuration.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction. |
+| deleteNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to remove a consensus node from the network address<BR>book.<BR><p><BR>This transaction, once complete, SHALL remove the identified consensus<BR>node from the network state.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction. |
+| updateNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to update an existing consensus node from the network<BR>address book.<BR><p><BR>This transaction, once complete, SHALL modify the identified consensus<BR>node state as requested.<BR><p><BR>This transaction MAY be authorized by either the node operator OR the<BR>Hedera governing council. |
 
 
 <a name="basic_types.proto"></a>
@@ -1222,6 +1260,18 @@
 | * |  |
 |  |  |
 | TokenUpdateNfts |  |
+| * |  |
+|  |  |
+| NodeCreate |  |
+| * |  |
+|  |  |
+| NodeUpdate |  |
+| * |  |
+|  |  |
+| NodeDelete |  |
+| * |  |
+|  |  |
+| TokenReject |  |
 
 
 <a name="Key"></a>
@@ -1317,7 +1367,7 @@
 <a name="NodeAddress"></a>
 
 ### NodeAddress
-<BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the<BR>(deprecated) <tt>ipAddress</tt> and <tt>portno</tt> fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.
+<BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the `serviceEndpoint` list is not set, or empty, then the endpoint given by the<BR>(deprecated) `ipAddress` and `portno` fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1437,17 +1487,25 @@
 <a name="ServiceEndpoint"></a>
 
 ### ServiceEndpoint
-<BR>Contains the IP address and the port representing a service endpoint of a Node in a network. Used<BR>to reach the Hedera API and submit transactions to the network.
+<BR>Contains the IP address and the port representing a service endpoint of<BR>a Node in a network. Used to reach the Hedera API and submit transactions<BR>to the network.<BR>When the `domain_name` field is set, the `ipAddressV4` field<BR>MUST NOT be set.<br/><BR>When the `ipAddressV4` field is set, the `domain_name` field<BR>MUST NOT be set.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
-| as | [*](#*) |  | |
+| (e.g. | [*](#*) |  | |
 |  | [](#) |  | |
 | ipAddressV4 |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | port |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| domain_name | [*](#*) |  | |
+| When | [*](#*) |  | |
+| When | [*](#*) |  | |
+|  | [](#) |  | |
+| domain_name |  |  | |
 
 
 <a name="ServicesConfigurationList"></a>
@@ -2771,7 +2829,11 @@
 |  | [](#) |  | |
 | memo |  |  | |
 | The | [*](#*) |  | |
-| with | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| By | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations |  |  | |
 | An | [*](#*) |  | |
@@ -3137,7 +3199,11 @@
 | |  | [](#) |  | |
 | | memoWrapper | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
 | If | [*](#*) |  | |
-| automatically | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations | [google.protobuf.Int32Value](#google.protobuf.Int32Value) |  | |
 | If | [*](#*) |  | |
@@ -5068,6 +5134,226 @@
 | owner_next_nft_id | [NftID](#NftID) |  | |
 
 
+<a name="node.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node.proto
+
+<BR>A single address book node in the network state.<BR>Each node in the network address book SHALL represent a single actual<BR>consensus node that is eligible to participate in network consensus.<BR>Address book nodes SHALL NOT be _globally_ uniquely identified. A given node<BR>is only valid within a single realm and shard combination, so the identifier<BR>for a network node SHALL only be unique within a single realm and shard<BR>combination.
+
+<a name="Node"></a>
+
+### Node
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Node | [*](#*) |  | |
+| but | [*](#*) |  | |
+| therefore | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| are | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| description |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| If | [*](#*) |  | |
+| all | [*](#*) |  | |
+| If | [*](#*) |  | |
+| then | [*](#*) |  | |
+| SHALL | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| may | [*](#*) |  | |
+| These | [*](#*) |  | |
+| Endpoints | [*](#*) |  | |
+| NOT | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| be | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+| Consensus | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [](#) |  | |
+| weight |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| update | [*](#*) |  | |
+| If | [*](#*) |  | |
+| be | [*](#*) |  | |
+| If | [*](#*) |  | |
+| node | [*](#*) |  | |
+|  | [](#) |  | |
+| deleted |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
+
+
+<a name="node_create.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_create.proto
+
+<BR>A transaction body to add a new consensus node to the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>This message supports a transaction to create a new node in the network<BR>address book. The transaction, once complete, enables a new consensus node<BR>to join the network, and requires governing council authorization.<BR>- A `NodeCreateTransactionBody` MUST be signed by the governing council.<BR>- A `NodeCreateTransactionBody` MUST be signed by the `Key` assigned to the<BR>`admin_key` field.<BR>- The newly created node information SHALL be added to the network address<BR>book information in the network state.<BR>- The new entry SHALL be created in "state" but SHALL NOT participate in<BR>network consensus and SHALL NOT be present in network "configuration"<BR>until the next "upgrade" transaction (as noted below).<BR>- All new address book entries SHALL be added to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the newly assigned `node_id` SHALL be in the transaction<BR>receipt.
+
+<a name="NodeCreateTransactionBody"></a>
+
+### NodeCreateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| Multiple | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| description |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| all | [*](#*) |  | |
+| If | [*](#*) |  | |
+| then | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| clients | [*](#*) |  | |
+| These | [*](#*) |  | |
+| Endpoints | [*](#*) |  | |
+| NOT | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| encoded | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
+
+
+<a name="node_delete.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_delete.proto
+
+<BR>A transaction body to delete a node from the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>- A `NodeDeleteTransactionBody` MUST be signed by the governing council.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Record Stream Effects<BR>Upon completion the "deleted" `node_id` SHALL be in the transaction<BR>receipt.
+
+<a name="NodeDeleteTransactionBody"></a>
+
+### NodeDeleteTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+
+
 <a name="node_stake_update.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -5174,6 +5460,122 @@
 | stake_rewarded | [*](#*) |  | |
 |  | [](#) |  | |
 | max_total_reward |  |  | |
+
+
+<a name="node_update.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_update.proto
+
+<BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the `node_id` for the updated entry SHALL be in the<BR>transaction receipt.
+
+<a name="NodeUpdateTransactionBody"></a>
+
+### NodeUpdateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| description | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Hedera | [*](#*) |  | |
+| permit | [*](#*) |  | |
+| Mainnet | [*](#*) |  | |
+| address | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Solo, | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| may | [*](#*) |  | |
+| These | [*](#*) |  | |
+| These | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| encoded | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| update | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
 
 
 <a name="primitives.proto"></a>
@@ -6438,7 +6840,95 @@
 | * |  |
 | * |  |
 |  |  |
+| NODE_DELETED |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_ID |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GOSSIP_ENDPOINT |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_ACCOUNT_ID |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_DESCRIPTION |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_SERVICE_ENDPOINT |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GOSSIP_CA_CERTIFICATE |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GRPC_CERTIFICATE |  |
+| * |  |
+| * |  |
+|  |  |
 | INVALID_MAX_AUTO_ASSOCIATIONS |  |
+| * |  |
+|  |  |
+| MAX_NODES_CREATED |  |
+| * |  |
+|  |  |
+| IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT |  |
+| * |  |
+|  |  |
+| GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN |  |
+| * |  |
+|  |  |
+| FQDN_SIZE_TOO_LARGE |  |
+| * |  |
+|  |  |
+| INVALID_ENDPOINT |  |
+| * |  |
+|  |  |
+| GOSSIP_ENDPOINTS_EXCEEDED_LIMIT |  |
+| * |  |
+| * |  |
+|  |  |
+| TOKEN_REFERENCE_REPEATED |  |
+| * |  |
+|  |  |
+| INVALID_OWNER_ID |  |
+| * |  |
+|  |  |
+| TOKEN_REFERENCE_LIST_SIZE_LIMIT_EXCEEDED |  |
+| * |  |
+|  |  |
+| SERVICE_ENDPOINTS_EXCEEDED_LIMIT |  |
+| * |  |
+|  |  |
+| INVALID_IPV4_ADDRESS |  |
+| * |  |
+|  |  |
+| EMPTY_TOKEN_REFERENCE_LIST |  |
+| * |  |
+|  |  |
+| UPDATE_NODE_ACCOUNT_NOT_ALLOWED |  |
 
 
 <a name="response_header.proto"></a>
@@ -6641,6 +7131,32 @@
 | | Update | [*](#*) |  | |
 | |  | [](#) |  | |
 | | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeCreate | [com.hedera.hapi.node.addressbook.NodeCreateTransactionBody](#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeUpdate | [com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody](#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeDelete | [com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody](#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | balances | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Each | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>A | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | token | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | When | [*](#*) |  | |
+| | rejected | [*](#*) |  | |
+| | Custom | [*](#*) |  | |
+| | SHALL | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenReject | [TokenRejectTransactionBody](#TokenRejectTransactionBody) |  | |
 
 
 <a name="schedule.proto"></a>
@@ -8107,6 +8623,50 @@
 | token | [TokenID](#TokenID) |  | |
 
 
+<a name="token_reject.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_reject.proto
+
+<BR>Reject undesired token(s).<br/><BR>Transfer one or more token balances held by the requesting account to the treasury for each<BR>token type.<br/><BR>Each transfer SHALL be one of the following<BR>- A single non-fungible/unique token.<BR>- The full balance held for a fungible/common token type.<BR>A single tokenReject transaction SHALL support a maximum of 10 transfers.<BR>### Transaction Record Effects<BR>- Each successful transfer from `payer` to `treasury` SHALL be recorded in `token_transfer_list` for the transaction record.
+
+<a name="TokenReference"></a>
+
+### TokenReference
+<BR>A union token identifier.<BR>Identify a fungible/common token type, or a single non-fungible/unique token serial.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token_identifier | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | fungible_token | [TokenID](#TokenID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nft | [NftID](#NftID) |  | |
+
+
+<a name="TokenRejectTransactionBody"></a>
+
+### TokenRejectTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| owner | [AccountID](#AccountID) |  | |
+| A | [*](#*) |  | |
+| On | [*](#*) |  | |
+| the | [*](#*) |  | |
+| After | [*](#*) |  | |
+| if | [*](#*) |  | |
+|  | [](#) |  | |
+| rejections | [TokenReference](#TokenReference) |  | |
+
+
 <a name="token_relation.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -8522,21 +9082,9 @@
 | | Updates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | contractUpdateInstance | [ContractUpdateTransactionBody](#ContractUpdateTransactionBody) |  | |
-| | Delete | [*](#*) |  | |
-| |  | [](#) |  | |
-| | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) |  | |
-| | An | [*](#*) |  | |
-| |  | [](#) |  | |
-| | ethereumTransaction | [EthereumTransactionBody](#EthereumTransactionBody) |  | |
 | | Attach | [*](#*) |  | |
 | |  | [](#) |  | |
 | | cryptoAddLiveHash | [CryptoAddLiveHashTransactionBody](#CryptoAddLiveHashTransactionBody) |  | |
-| | Adds | [*](#*) |  | |
-| |  | [](#) |  | |
-| | cryptoApproveAllowance | [CryptoApproveAllowanceTransactionBody](#CryptoApproveAllowanceTransactionBody) |  | |
-| | Deletes | [*](#*) |  | |
-| |  | [](#) |  | |
-| | cryptoDeleteAllowance | [CryptoDeleteAllowanceTransactionBody](#CryptoDeleteAllowanceTransactionBody) |  | |
 | | Create | [*](#*) |  | |
 | |  | [](#) |  | |
 | | cryptoCreateAccount | [CryptoCreateTransactionBody](#CryptoCreateTransactionBody) |  | |
@@ -8570,6 +9118,9 @@
 | | To | [*](#*) |  | |
 | |  | [](#) |  | |
 | | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) |  | |
+| | Delete | [*](#*) |  | |
+| |  | [](#) |  | |
+| | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) |  | |
 | | Freeze | [*](#*) |  | |
 | |  | [](#) |  | |
 | | freeze | [FreezeTransactionBody](#FreezeTransactionBody) |  | |
@@ -8624,15 +9175,6 @@
 | | Dissociate | [*](#*) |  | |
 | |  | [](#) |  | |
 | | tokenDissociate | [TokenDissociateTransactionBody](#TokenDissociateTransactionBody) |  | |
-| | Updates | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_fee_schedule_update | [TokenFeeScheduleUpdateTransactionBody](#TokenFeeScheduleUpdateTransactionBody) |  | |
-| | Pauses | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_pause | [TokenPauseTransactionBody](#TokenPauseTransactionBody) |  | |
-| | Unpauses | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_unpause | [TokenUnpauseTransactionBody](#TokenUnpauseTransactionBody) |  | |
 | | Creates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | scheduleCreate | [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody) |  | |
@@ -8644,6 +9186,24 @@
 | | scheduleSign | [ScheduleSignTransactionBody](#ScheduleSignTransactionBody) |  | |
 | | Updates | [*](#*) |  | |
 | |  | [](#) |  | |
+| | token_fee_schedule_update | [TokenFeeScheduleUpdateTransactionBody](#TokenFeeScheduleUpdateTransactionBody) |  | |
+| | Pauses | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_pause | [TokenPauseTransactionBody](#TokenPauseTransactionBody) |  | |
+| | Unpauses | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_unpause | [TokenUnpauseTransactionBody](#TokenUnpauseTransactionBody) |  | |
+| | Adds | [*](#*) |  | |
+| |  | [](#) |  | |
+| | cryptoApproveAllowance | [CryptoApproveAllowanceTransactionBody](#CryptoApproveAllowanceTransactionBody) |  | |
+| | Deletes | [*](#*) |  | |
+| |  | [](#) |  | |
+| | cryptoDeleteAllowance | [CryptoDeleteAllowanceTransactionBody](#CryptoDeleteAllowanceTransactionBody) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | ethereumTransaction | [EthereumTransactionBody](#EthereumTransactionBody) |  | |
+| | Updates | [*](#*) |  | |
+| |  | [](#) |  | |
 | | node_stake_update | [NodeStakeUpdateTransactionBody](#NodeStakeUpdateTransactionBody) |  | |
 | | Generates | [*](#*) |  | |
 | |  | [](#) |  | |
@@ -8651,6 +9211,41 @@
 | | Update | [*](#*) |  | |
 | |  | [](#) |  | |
 | | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | that | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeCreate | [com.hedera.hapi.node.addressbook.NodeCreateTransactionBody](#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeUpdate | [com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody](#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeDelete | [com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody](#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | balances | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Each | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>A | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | token | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | When | [*](#*) |  | |
+| | rejected | [*](#*) |  | |
+| | Custom | [*](#*) |  | |
+| | SHALL | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenReject | [TokenRejectTransactionBody](#TokenRejectTransactionBody) |  | |
 
 
 <a name="transaction_contents.proto"></a>
@@ -8890,58 +9485,64 @@
 |  | [](#) |  | |
 | topicSequenceNumber |  |  | |
 | In | [*](#*) |  | |
-| the | [*](#*) |  | |
-| data | [*](#*) |  | |
-| uint64 | [*](#*) |  | |
-|  | [](#) |  | |
-| IF | [*](#*) |  | |
+| received | [*](#*) |  | |
+| This | [*](#*) |  | |
+| value | [*](#*) |  | |
+| All | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
 | in | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 6. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 7. | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-|  | [](#) |  | |
-| IF | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 |  | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
-| 6. | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 7. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-| 9. | [*](#*) |  | |
-| consensusSubmitMessage | [*](#*) |  | |
-|  | [](#) |  | |
-| Otherwise, | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| (48 | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
 | are, | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
-| 6. | [*](#*) |  | |
-| 7. | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-| 9. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 10. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 11. | [*](#*) |  | |
-| 12. | [*](#*) |  | |
-| consensusSubmitMessage | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| (48 | [*](#*) |  | |
+|  | [*](#*) |  | |
 |  | [](#) |  | |
 | topicRunningHash |  |  | |
 | In | [*](#*) |  | |
@@ -8968,6 +9569,14 @@
 | the | [*](#*) |  | |
 |  | [](#) |  | |
 | serialNumbers |  |  | |
+| In | [*](#*) |  | |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
 
 
 <a name="transaction_record.proto"></a>
