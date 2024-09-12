@@ -1,7 +1,7 @@
 #########################
 #####  Global Rule  #####
 #########################
-*                                                       @hashgraph/developer-advocates
+*                                                       @hashgraph/hedera-base @hashgraph/hedera-services
 #########################
 #####  Core Files  ######
 #########################
@@ -9,18 +9,18 @@
 # NOTE: Must be placed last to ensure enforcement over all other rules
 
 # Protection Rules for Github Configuration Files and Actions Workflows
-/.github/                                               @hashgraph/devops-ci @hashgraph/release-engineering-managers
+/.github/                                               @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/release-engineering-managers
 
 # Self-protection for root CODEOWNERS files (this file should not exist and should definitely require approval)
 /CODEOWNERS                                             @hashgraph/release-engineering-managers
 
 # Protect the repository root files
-/README.md                                              @hashgraph/devops-ci @hashgraph/release-engineering-managers @hashgraph/developer-advocates
+/README.md                                              @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/release-engineering-managers @hashgraph/hedera-base @hashgraph/hedera-services
 **/LICENSE                                              @hashgraph/release-engineering-managers
 
 # CodeCov configuration
-**/codecov.yml                                          @hashgraph/devops-ci @hashgraph/release-engineering-managers
+**/codecov.yml                                          @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/release-engineering-managers
 
 # Git Ignore definitions
-**/.gitignore                                           @hashgraph/devops-ci @hashgraph/developer-advocates
-**/.gitignore.*                                         @hashgraph/developer-advocates
+**/.gitignore                                           @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/hedera-base @hashgraph/hedera-services
+**/.gitignore.*                                         @hashgraph/devops-ci @hashgraph/devops-ci-committers @hashgraph/hedera-base @hashgraph/hedera-services

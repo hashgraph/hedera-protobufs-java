@@ -6,3 +6,4 @@
 .settings/
 .project
 javadoc/
+**.idea/
