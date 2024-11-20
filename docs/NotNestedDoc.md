@@ -15,9 +15,16 @@
   - [SingleAccountBalances](#SingleAccountBalances)
   - [TokenUnitBalance](#TokenUnitBalance)
 
+- [account_pending_airdrop.proto](#account_pending_airdrop.proto)
+  - [AccountPendingAirdrop](#AccountPendingAirdrop)
+
+- [address_book_service.proto](#address_book_service.proto)
+  - [AddressBookService](#AddressBookService) (Service)
+
 - [basic_types.proto](#basic_types.proto)
   - [AccountAmount](#AccountAmount)
   - [AccountID](#AccountID)
+  - [BlockHashAlgorithm](#BlockHashAlgorithm) (Enum)
   - [ContractID](#ContractID)
   - [CurrentAndNextFeeSchedule](#CurrentAndNextFeeSchedule)
   - [FeeComponents](#FeeComponents)
@@ -32,6 +39,8 @@
   - [NftTransfer](#NftTransfer)
   - [NodeAddress](#NodeAddress)
   - [NodeAddressBook](#NodeAddressBook)
+  - [PendingAirdropId](#PendingAirdropId)
+  - [PendingAirdropValue](#PendingAirdropValue)
   - [RealmID](#RealmID)
   - [ScheduleID](#ScheduleID)
   - [SemanticVersion](#SemanticVersion)
@@ -64,8 +73,51 @@
   - [TransactionID](#TransactionID)
   - [TransferList](#TransferList)
 
+- [block.proto](#block.proto)
+  - [Block](#Block)
+
+- [block_header.proto](#block_header.proto)
+  - [BlockHeader](#BlockHeader)
+
 - [block_info.proto](#block_info.proto)
   - [BlockInfo](#BlockInfo)
+
+- [block_item.proto](#block_item.proto)
+  - [BlockItem](#BlockItem)
+  - [FilteredItemHash](#FilteredItemHash)
+
+- [block_proof.proto](#block_proof.proto)
+  - [BlockProof](#BlockProof)
+  - [MerkleSiblingHash](#MerkleSiblingHash)
+
+- [block_service.proto](#block_service.proto)
+  - [BlockAccessService](#BlockAccessService) (Service)
+  - [BlockItemSet](#BlockItemSet)
+  - [BlockNodeService](#BlockNodeService) (Service)
+  - [BlockStreamService](#BlockStreamService) (Service)
+  - [PublishStreamEndCode](#PublishStreamEndCode) (Enum)
+  - [PublishStreamRequest](#PublishStreamRequest)
+  - [PublishStreamResponse](#PublishStreamResponse)
+  - [PublishStreamResponse.Acknowledgement](#PublishStreamResponse.Acknowledgement)
+  - [PublishStreamResponse.BlockAcknowledgement](#PublishStreamResponse.BlockAcknowledgement)
+  - [PublishStreamResponse.EndOfStream](#PublishStreamResponse.EndOfStream)
+  - [PublishStreamResponse.ItemAcknowledgement](#PublishStreamResponse.ItemAcknowledgement)
+  - [PublishStreamResponseCode](#PublishStreamResponseCode) (Enum)
+  - [ServerStatusRequest {}.BlockNodeVersions](#ServerStatusRequest {}.BlockNodeVersions)
+  - [ServerStatusRequest {}.ServerStatusResponse](#ServerStatusRequest {}.ServerStatusResponse)
+  - [SingleBlockRequest](#SingleBlockRequest)
+  - [SingleBlockResponse](#SingleBlockResponse)
+  - [SingleBlockResponseCode](#SingleBlockResponseCode) (Enum)
+  - [StateService](#StateService) (Service)
+  - [StateSnapshotRequest](#StateSnapshotRequest)
+  - [StateSnapshotResponse](#StateSnapshotResponse)
+  - [StateSnapshotResponseCode](#StateSnapshotResponseCode) (Enum)
+  - [SubscribeStreamRequest](#SubscribeStreamRequest)
+  - [SubscribeStreamResponse](#SubscribeStreamResponse)
+  - [SubscribeStreamResponseCode](#SubscribeStreamResponseCode) (Enum)
+
+- [block_stream_info.proto](#block_stream_info.proto)
+  - [BlockStreamInfo](#BlockStreamInfo)
 
 - [bytecode.proto](#bytecode.proto)
   - [Bytecode](#Bytecode)
@@ -86,6 +138,9 @@
 - [consensus_get_topic_info.proto](#consensus_get_topic_info.proto)
   - [ConsensusGetTopicInfoQuery](#ConsensusGetTopicInfoQuery)
   - [ConsensusGetTopicInfoResponse](#ConsensusGetTopicInfoResponse)
+
+- [consensus_service.proto](#consensus_service.proto)
+  - [RunningHashVersion](#RunningHashVersion) (Enum)
 
 - [consensus_service.proto](#consensus_service.proto)
   - [ConsensusService](#ConsensusService) (Service)
@@ -197,6 +252,9 @@
 - [crypto_service.proto](#crypto_service.proto)
   - [CryptoService](#CryptoService) (Service)
 
+- [crypto_service.proto](#crypto_service.proto)
+  - [ApproveAllowanceOutput {}.CryptoTransferOutput](#ApproveAllowanceOutput {}.CryptoTransferOutput)
+
 - [crypto_transfer.proto](#crypto_transfer.proto)
   - [CryptoTransferTransactionBody](#CryptoTransferTransactionBody)
 
@@ -215,6 +273,21 @@
 
 - [ethereum_transaction.proto](#ethereum_transaction.proto)
   - [EthereumTransactionBody](#EthereumTransactionBody)
+
+- [event_consensus_data.proto](#event_consensus_data.proto)
+  - [EventConsensusData](#EventConsensusData)
+
+- [event_core.proto](#event_core.proto)
+  - [EventCore](#EventCore)
+
+- [event_descriptor.proto](#event_descriptor.proto)
+  - [EventDescriptor](#EventDescriptor)
+
+- [event_metadata.proto](#event_metadata.proto)
+  - [EventHeader](#EventHeader)
+
+- [event_transaction.proto](#event_transaction.proto)
+  - [EventTransaction](#EventTransaction)
 
 - [exchange_rate.proto](#exchange_rate.proto)
   - [ExchangeRate](#ExchangeRate)
@@ -241,6 +314,8 @@
   - [FileGetInfoQuery](#FileGetInfoQuery)
   - [FileGetInfoResponse](#FileGetInfoResponse)
   - [FileGetInfoResponse.FileInfo](#FileGetInfoResponse.FileInfo)
+
+- [file_service.proto](#file_service.proto)
 
 - [file_service.proto](#file_service.proto)
   - [FileService](#FileService) (Service)
@@ -274,9 +349,17 @@
   - [GetBySolidityIDQuery](#GetBySolidityIDQuery)
   - [GetBySolidityIDResponse](#GetBySolidityIDResponse)
 
+- [gossip_event.proto](#gossip_event.proto)
+  - [GossipEvent](#GossipEvent)
+
 - [hash_object.proto](#hash_object.proto)
   - [HashAlgorithm](#HashAlgorithm) (Enum)
   - [HashObject](#HashObject)
+
+- [ledger_id.proto](#ledger_id.proto)
+  - [LedgerId](#LedgerId)
+  - [NodeSignature](#NodeSignature)
+  - [RosterSignatures](#RosterSignatures)
 
 - [mirror_network_service.proto](#mirror_network_service.proto)
   - [AddressBookQuery](#AddressBookQuery)
@@ -293,15 +376,37 @@
 - [network_service.proto](#network_service.proto)
   - [NetworkService](#NetworkService) (Service)
 
+- [network_service.proto](#network_service.proto)
+
 - [network_staking_rewards.proto](#network_staking_rewards.proto)
   - [NetworkStakingRewards](#NetworkStakingRewards)
 
 - [nft.proto](#nft.proto)
   - [Nft](#Nft)
 
+- [node.proto](#node.proto)
+  - [Node](#Node)
+
+- [node_create.proto](#node_create.proto)
+  - [NodeCreateTransactionBody](#NodeCreateTransactionBody)
+
+- [node_delete.proto](#node_delete.proto)
+  - [NodeDeleteTransactionBody](#NodeDeleteTransactionBody)
+
 - [node_stake_update.proto](#node_stake_update.proto)
   - [NodeStake](#NodeStake)
   - [NodeStakeUpdateTransactionBody](#NodeStakeUpdateTransactionBody)
+
+- [node_update.proto](#node_update.proto)
+  - [NodeUpdateTransactionBody](#NodeUpdateTransactionBody)
+
+- [platform_state.proto](#platform_state.proto)
+  - [Address](#Address)
+  - [AddressBook](#AddressBook)
+  - [ConsensusSnapshot](#ConsensusSnapshot)
+  - [MinimumJudgeInfo](#MinimumJudgeInfo)
+  - [NodeId](#NodeId)
+  - [PlatformState](#PlatformState)
 
 - [primitives.proto](#primitives.proto)
   - [ProtoBoolean](#ProtoBoolean)
@@ -317,6 +422,9 @@
   - [QueryHeader](#QueryHeader)
   - [ResponseType](#ResponseType) (Enum)
 
+- [record_file_item.proto](#record_file_item.proto)
+  - [RecordFileItem](#RecordFileItem)
+
 - [record_stream_file.proto](#record_stream_file.proto)
   - [RecordStreamFile](#RecordStreamFile)
   - [RecordStreamItem](#RecordStreamItem)
@@ -324,6 +432,8 @@
   - [SidecarType](#SidecarType) (Enum)
 
 - [recordcache.proto](#recordcache.proto)
+  - [TransactionReceiptEntries](#TransactionReceiptEntries)
+  - [TransactionReceiptEntry](#TransactionReceiptEntry)
   - [TransactionRecordEntry](#TransactionRecordEntry)
 
 - [response.proto](#response.proto)
@@ -334,6 +444,17 @@
 
 - [response_header.proto](#response_header.proto)
   - [ResponseHeader](#ResponseHeader)
+
+- [roster.proto](#roster.proto)
+  - [Roster](#Roster)
+  - [RosterEntry](#RosterEntry)
+
+- [roster_state.proto](#roster_state.proto)
+  - [RosterState](#RosterState)
+  - [RoundRosterPair](#RoundRosterPair)
+
+- [round_header.proto](#round_header.proto)
+  - [RoundHeader](#RoundHeader)
 
 - [running_hashes.proto](#running_hashes.proto)
   - [RunningHashes](#RunningHashes)
@@ -359,6 +480,10 @@
 - [schedule_service.proto](#schedule_service.proto)
   - [ScheduleService](#ScheduleService) (Service)
 
+- [schedule_service.proto](#schedule_service.proto)
+  - [CreateScheduleOutput](#CreateScheduleOutput)
+  - [DeleteScheduleOutput {}.SignScheduleOutput](#DeleteScheduleOutput {}.SignScheduleOutput)
+
 - [schedule_sign.proto](#schedule_sign.proto)
   - [ScheduleSignTransactionBody](#ScheduleSignTransactionBody)
 
@@ -372,10 +497,33 @@
   - [SignatureType](#SignatureType) (Enum)
 
 - [smart_contract_service.proto](#smart_contract_service.proto)
+  - [CallContractOutput](#CallContractOutput)
+  - [CreateContractOutput](#CreateContractOutput)
+  - [UpdateContractOutput {}.EthereumOutput](#UpdateContractOutput {}.EthereumOutput)
+
+- [smart_contract_service.proto](#smart_contract_service.proto)
   - [SmartContractService](#SmartContractService) (Service)
 
 - [staking_node_info.proto](#staking_node_info.proto)
   - [StakingNodeInfo](#StakingNodeInfo)
+
+- [state_changes.proto](#state_changes.proto)
+  - [MapChangeKey](#MapChangeKey)
+  - [MapChangeValue](#MapChangeValue)
+  - [MapDeleteChange](#MapDeleteChange)
+  - [MapUpdateChange](#MapUpdateChange)
+  - [NewStateChange](#NewStateChange)
+  - [NewStateType](#NewStateType) (Enum)
+  - [QueuePopChange](#QueuePopChange)
+  - [QueuePushChange](#QueuePushChange)
+  - [RemovedStateChange](#RemovedStateChange)
+  - [SingletonUpdateChange](#SingletonUpdateChange)
+  - [StateChange](#StateChange)
+  - [StateChanges](#StateChanges)
+  - [StateIdentifier](#StateIdentifier) (Enum)
+
+- [state_signature_transaction.proto](#state_signature_transaction.proto)
+  - [StateSignatureTransaction](#StateSignatureTransaction)
 
 - [storage_slot.proto](#storage_slot.proto)
   - [SlotKey](#SlotKey)
@@ -403,11 +551,20 @@
 - [token.proto](#token.proto)
   - [Token](#Token)
 
+- [token_airdrop.proto](#token_airdrop.proto)
+  - [TokenAirdropTransactionBody](#TokenAirdropTransactionBody)
+
 - [token_associate.proto](#token_associate.proto)
   - [TokenAssociateTransactionBody](#TokenAssociateTransactionBody)
 
 - [token_burn.proto](#token_burn.proto)
   - [TokenBurnTransactionBody](#TokenBurnTransactionBody)
+
+- [token_cancel_airdrop.proto](#token_cancel_airdrop.proto)
+  - [TokenCancelAirdropTransactionBody](#TokenCancelAirdropTransactionBody)
+
+- [token_claim_airdrop.proto](#token_claim_airdrop.proto)
+  - [TokenClaimAirdropTransactionBody](#TokenClaimAirdropTransactionBody)
 
 - [token_create.proto](#token_create.proto)
   - [TokenCreateTransactionBody](#TokenCreateTransactionBody)
@@ -451,11 +608,18 @@
 - [token_pause.proto](#token_pause.proto)
   - [TokenPauseTransactionBody](#TokenPauseTransactionBody)
 
+- [token_reject.proto](#token_reject.proto)
+  - [TokenReference](#TokenReference)
+  - [TokenRejectTransactionBody](#TokenRejectTransactionBody)
+
 - [token_relation.proto](#token_relation.proto)
   - [TokenRelation](#TokenRelation)
 
 - [token_revoke_kyc.proto](#token_revoke_kyc.proto)
   - [TokenRevokeKycTransactionBody](#TokenRevokeKycTransactionBody)
+
+- [token_service.proto](#token_service.proto)
+  - [CreateTokenOutput {}.TokenAirdropOutput](#CreateTokenOutput {}.TokenAirdropOutput)
 
 - [token_service.proto](#token_service.proto)
   - [TokenService](#TokenService) (Service)
@@ -502,14 +666,33 @@
 - [transaction_list.proto](#transaction_list.proto)
   - [TransactionList](#TransactionList)
 
+- [transaction_output.proto](#transaction_output.proto)
+  - [TransactionOutput](#TransactionOutput)
+
 - [transaction_receipt.proto](#transaction_receipt.proto)
   - [TransactionReceipt](#TransactionReceipt)
 
 - [transaction_record.proto](#transaction_record.proto)
+  - [PendingAirdropRecord](#PendingAirdropRecord)
   - [TransactionRecord](#TransactionRecord)
 
 - [transaction_response.proto](#transaction_response.proto)
   - [TransactionResponse](#TransactionResponse)
+
+- [transaction_result.proto](#transaction_result.proto)
+  - [TransactionResult](#TransactionResult)
+
+- [tss_message.proto](#tss_message.proto)
+  - [TssMessageTransactionBody](#TssMessageTransactionBody)
+
+- [tss_message_map_key.proto](#tss_message_map_key.proto)
+  - [TssMessageMapKey](#TssMessageMapKey)
+
+- [tss_vote.proto](#tss_vote.proto)
+  - [TssVoteTransactionBody](#TssVoteTransactionBody)
+
+- [tss_vote_map_key.proto](#tss_vote_map_key.proto)
+  - [TssVoteMapKey](#TssVoteMapKey)
 
 - [unchecked_submit.proto](#unchecked_submit.proto)
   - [UncheckedSubmitBody](#UncheckedSubmitBody)
@@ -519,6 +702,9 @@
 
 - [util_service.proto](#util_service.proto)
   - [UtilService](#UtilService) (Service)
+
+- [util_service.proto](#util_service.proto)
+  - [UtilPrngOutput](#UtilPrngOutput)
 
 <a name="account.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
@@ -662,6 +848,19 @@
 | It | [*](#*) |  | |
 |  | [](#) |  | |
 | first_contract_storage_key |  |  | |
+| A | [*](#*) |  | |
+| from | [*](#*) |  | |
+| The | [*](#*) |  | |
+| `PendingAirdropID` | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| pending | [*](#*) |  | |
+|  | [](#) |  | |
+| head_pending_airdrop_id | [PendingAirdropId](#PendingAirdropId) |  | |
+| The | [*](#*) |  | |
+| for | [*](#*) |  | |
+|  | [](#) |  | |
+| number_pending_airdrops |  |  | |
 
 
 <a name="AccountApprovalForAllAllowance"></a>
@@ -756,6 +955,62 @@
 | balance |  |  | |
 
 
+<a name="account_pending_airdrop.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## account_pending_airdrop.proto
+
+<BR>A node within a doubly linked list of pending airdrop references.<br/><BR>This internal state message forms the entries in a doubly-linked list<BR>of references to pending airdrop entries that are "owed" by a particular<BR>account as "sender".<BR>Each entry in this list MUST refer to an existing pending airdrop.<br/><BR>The pending airdrop MUST NOT be claimed.<br/><BR>The pending airdrop MUST NOT be canceled.<br/><BR>The pending airdrop `sender` account's `head_pending_airdrop_id` field<BR>MUST match the `pending_airdrop_id` field in this message.<BR>### Record Stream Effects<BR>This value is not currently published in the record stream.
+
+<a name="AccountPendingAirdrop"></a>
+
+### AccountPendingAirdrop
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_airdrop_value | [PendingAirdropValue](#PendingAirdropValue) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| within | [*](#*) |  | |
+| account | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [](#) |  | |
+| previous_airdrop | [PendingAirdropId](#PendingAirdropId) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| within | [*](#*) |  | |
+| account | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [](#) |  | |
+| next_airdrop | [PendingAirdropId](#PendingAirdropId) |  | |
+
+
+<a name="address_book_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## address_book_service.proto
+
+<BR>The Address Book service provides the ability for Hedera network node<BR>administrators to add, update, and remove consensus nodes. This addition,<BR>update, or removal of a consensus node requires governing council approval,<BR>but each node operator may update their own operational attributes without<BR>additional approval, reducing overhead for routine operations.<BR>Most operations are `privileged operations` and require governing council<BR>approval.<BR>### For a node creation transaction.<BR>- The node operator SHALL create a `createNode` transaction.<BR>- The node operator SHALL sign this transaction with the active `key` for<BR>the account to be assigned as the "node account".<BR>- The node operator MUST deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node creation transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Validate the signature of the active `key` for the account to be<BR>assigned as the "node account".<BR>- Create the new node in state, this new node SHALL NOT be active in the<BR>network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and bring the<BR>new node to an active status within the network. The node to be added<BR>SHALL be active in the network following this upgrade.<BR>### For a node deletion transaction.<BR>- The node operator or Hedera council representative SHALL create a<BR>`deleteNode` transaction.<BR>- If the node operator creates the transaction<BR>- The node operator MUST sign this transaction with the active `key`<BR>for the account assigned as the "node account".<BR>- The node operator SHALL deliver the signed transaction to the Hedera<BR>council representative.<BR>- The Hedera council representative SHALL arrange for council members to<BR>review and sign the transaction.<BR>- Once sufficient council members have signed the transaction, the<BR>Hedera council representative SHALL submit the transaction to the<BR>network.<BR>- Upon receipt of a valid and signed node deletion transaction the network<BR>software SHALL<BR>- Validate the threshold signature for the Hedera governing council<BR>- Remove the existing node from network state. The node SHALL still<BR>be active in the network at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration and remove the<BR>node to be deleted from the network. The node to be deleted SHALL NOT<BR>be active in the network following this upgrade.<BR>### For a node update transaction.<BR>- The node operator SHALL create an `updateNode` transaction.<BR>- The node operator MUST sign this transaction with the active `key`<BR>assigned as the `admin_key`.<BR>- The node operator SHALL submit the transaction to the<BR>network.  Hedera council approval SHALL NOT be sought for this<BR>transaction<BR>- Upon receipt of a valid and signed node update transaction the network<BR>software SHALL<BR>- If the transaction modifies the value of the "node account",<BR>- Validate the signature of the active `key` for the account<BR>assigned as the _current_ "node account".<BR>- Validate the signature of the active `key` for the account to be<BR>assigned as the _new_ "node account".<BR>- Modify the node information held in network state with the changes<BR>requested in the update transaction. The node changes SHALL NOT be<BR>applied to network configuration, and SHALL NOT affect network<BR>operation at this time.<BR>- When executing the next `freeze` transaction with `freeze_type` set to<BR>`PREPARE_UPGRADE`, update network configuration according to the<BR>modified information in network state. The requested changes SHALL<BR>affect network operation following this upgrade.
+
+<a name="AddressBookService"></a>
+
+### AddressBookService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| createNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to create a new consensus node in the network.<BR>address book.<BR><p><BR>This transaction, once complete, SHALL add a new consensus node to the<BR>network state.<br/><BR>The new consensus node SHALL remain in state, but SHALL NOT participate<BR>in network consensus until the network updates the network configuration.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction. |
+| deleteNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to remove a consensus node from the network address<BR>book.<BR><p><BR>This transaction, once complete, SHALL remove the identified consensus<BR>node from the network state.<BR><p><BR>Hedera governing council authorization is REQUIRED for this transaction. |
+| updateNode  | proto.Transaction | proto.TransactionResponse | <BR>A transaction to update an existing consensus node from the network<BR>address book.<BR><p><BR>This transaction, once complete, SHALL modify the identified consensus<BR>node state as requested.<BR><p><BR>This transaction is authorized by the node operator |
+
+
 <a name="basic_types.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -823,6 +1078,22 @@
 | | that | [*](#*) |  | |
 | |  | [](#) |  | |
 | | alias |  |  | |
+
+
+<a name="BlockHashAlgorithm"></a>
+
+### BlockHashAlgorithm
+<BR>A specific hash algorithm.<BR>We did not reuse Record Stream `HashAlgorithm` here because in all cases,<BR>currently, this will be `SHA2_384` and if that is the default value then<BR>we can save space by not serializing it, whereas `HASH_ALGORITHM_UNKNOWN`<BR>is the default for Record Stream `HashAlgorithm`.<BR>Note that enum values here MUST NOT match the name of any other enum value<BR>in the same `package`, as protobuf follows `C++` scope rules and all enum<BR>_names_ are treated as global constants within the `package`.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| SHA2_384 |  |
 
 
 <a name="ContractID"></a>
@@ -1222,6 +1493,33 @@
 | * |  |
 |  |  |
 | TokenUpdateNfts |  |
+| * |  |
+|  |  |
+| NodeCreate |  |
+| * |  |
+|  |  |
+| NodeUpdate |  |
+| * |  |
+|  |  |
+| NodeDelete |  |
+| * |  |
+|  |  |
+| TokenReject |  |
+| * |  |
+|  |  |
+| TokenAirdrop |  |
+| * |  |
+|  |  |
+| TokenCancelAirdrop |  |
+| * |  |
+|  |  |
+| TokenClaimAirdrop |  |
+| * |  |
+|  |  |
+| TssMessage |  |
+| * |  |
+|  |  |
+| TssVote |  |
 
 
 <a name="Key"></a>
@@ -1317,7 +1615,7 @@
 <a name="NodeAddress"></a>
 
 ### NodeAddress
-<BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the <tt>serviceEndpoint</tt> list is not set, or empty, then the endpoint given by the<BR>(deprecated) <tt>ipAddress</tt> and <tt>portno</tt> fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.
+<BR>The data about a node, including its service endpoints and the Hedera account to be paid for<BR>services provided by the node (that is, queries answered and transactions submitted.)<BR>If the `serviceEndpoint` list is not set, or empty, then the endpoint given by the<BR>(deprecated) `ipAddress` and `portno` fields should be used.<BR>All fields are populated in the 0.0.102 address book file while only fields that start with # are<BR>populated in the 0.0.101 address book file.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
@@ -1370,6 +1668,56 @@
 | Metadata | [*](#*) |  | |
 |  | [](#) |  | |
 | nodeAddress | [NodeAddress](#NodeAddress) |  | |
+
+
+<a name="PendingAirdropId"></a>
+
+### PendingAirdropId
+<BR>A unique, composite, identifier for a pending airdrop.<BR>Each pending airdrop SHALL be uniquely identified by a PendingAirdropId.<BR>A PendingAirdropId SHALL be recorded when created and MUST be provided in any transaction<BR>that would modify that pending airdrop (such as a `claimAirdrop` or `cancelAirdrop`).
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sender_id | [AccountID](#AccountID) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| receiver_id | [AccountID](#AccountID) |  | |
+| token_reference | oneof |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | non-fungible/unique | [*](#*) |  | |
+| |  | [](#) |  | |
+| | fungible_token_type | [TokenID](#TokenID) |  | |
+| | The | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | fungible/common | [*](#*) |  | |
+| |  | [](#) |  | |
+| | non_fungible_token | [NftID](#NftID) |  | |
+
+
+<a name="PendingAirdropValue"></a>
+
+### PendingAirdropValue
+<BR>A single pending airdrop value.<BR>This message SHALL record the airdrop amount for a fungible/common token.<br/><BR>This message SHOULD be null for a non-fungible/unique token.<br/><BR>If a non-null `PendingAirdropValue` is set for a non-fungible/unique token, the amount<BR>field MUST be `0`.<BR>It is RECOMMENDED that implementations store pending airdrop information as a key-value map<BR>from `PendingAirdropId` to `PendingAirdropValue`, with a `null` value used for non-fungible<BR>pending airdrops.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| (i.e. | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| set, | [*](#*) |  | |
+|  | [](#) |  | |
+| amount |  |  | |
 
 
 <a name="RealmID"></a>
@@ -1437,17 +1785,25 @@
 <a name="ServiceEndpoint"></a>
 
 ### ServiceEndpoint
-<BR>Contains the IP address and the port representing a service endpoint of a Node in a network. Used<BR>to reach the Hedera API and submit transactions to the network.
+<BR>Contains the IP address and the port representing a service endpoint of<BR>a Node in a network. Used to reach the Hedera API and submit transactions<BR>to the network.<BR>When the `domain_name` field is set, the `ipAddressV4` field<BR>MUST NOT be set.<br/><BR>When the `ipAddressV4` field is set, the `domain_name` field<BR>MUST NOT be set.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
 | The | [*](#*) |  | |
-| as | [*](#*) |  | |
+| (e.g. | [*](#*) |  | |
 |  | [](#) |  | |
 | ipAddressV4 |  |  | |
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | port |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| domain_name | [*](#*) |  | |
+| When | [*](#*) |  | |
+| When | [*](#*) |  | |
+|  | [](#) |  | |
+| domain_name |  |  | |
 
 
 <a name="ServicesConfigurationList"></a>
@@ -1963,6 +2319,143 @@
 | accountAmounts | [AccountAmount](#AccountAmount) |  | |
 
 
+<a name="block.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block.proto
+
+<BR>A single complete Hedera block chain block.<BR>This is a single block structure and SHALL NOT represent the primary<BR>mechanism to transmit a block stream.<br/><BR>The primary mechanism for transmitting block stream data SHALL be to<BR>stream individual block items to the block node(s).<br/><BR>The only delimiter between blocks when streamed SHALL be the `BlockHeader`<BR>item and `BlockProof` item.<BR>This block SHALL be verifiable as correct using only data in the block,<BR>including the `BlockProof`, and public keys for the consensus nodes.
+
+<a name="Block"></a>
+
+### Block
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| Items | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Items | [*](#*) |  | |
+| If | [*](#*) |  | |
+| `FilteredBlockItem` | [*](#*) |  | |
+|  | [](#) |  | |
+| items | [BlockItem](#BlockItem) |  | |
+
+
+<a name="block_header.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_header.proto
+
+<BR>A Block Header.<BR>Each block in the block stream SHALL begin with a block header.<br/><BR>The block header SHALL provide the base minimum information needed to<BR>correctly interpret and process that block, or stop processing<BR>if appropriate.<br/><BR>The block header MUST describe, at minimum, the following items.<BR>- The version of the block stream data<BR>- The block number<BR>- The hash of the previous block<BR>- The hash algorithm used to generate the block hash<BR>All fields of this message are REQUIRED, with the exception that<BR>`hash_algorithm` MAY be _transmitted_ as a default value to improve<BR>data efficiency.
+
+<a name="BlockHeader"></a>
+
+### BlockHeader
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hapi_proto_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| within | [*](#*) |  | |
+|  | [](#) |  | |
+| software_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| Client | [*](#*) |  | |
+| reverse | [*](#*) |  | |
+| encountered | [*](#*) |  | |
+|  | [](#) |  | |
+| number |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| block | [*](#*) |  | |
+| This | [*](#*) |  | |
+| for | [*](#*) |  | |
+| Client | [*](#*) |  | |
+| `previous_block_proof_hash` | [*](#*) |  | |
+| previous | [*](#*) |  | |
+| loss, | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| creating | [*](#*) |  | |
+| that | [*](#*) |  | |
+| The | [*](#*) |  | |
+| structured | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| internal | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| two | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| single | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| merkle | [*](#*) |  | |
+| the | [*](#*) |  | |
+| Input | [*](#*) |  | |
+| and | [*](#*) |  | |
+| Leaf | [*](#*) |  | |
+| same | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| two | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| merkle | [*](#*) |  | |
+| the | [*](#*) |  | |
+| Output | [*](#*) |  | |
+| output, | [*](#*) |  | |
+| Leaf | [*](#*) |  | |
+| same | [*](#*) |  | |
+| in | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| network | [*](#*) |  | |
+| 48-byte | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| previous_block_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| algorithm | [*](#*) |  | |
+|  | [](#) |  | |
+| first_transaction_consensus_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hash_algorithm | [proto.BlockHashAlgorithm](#proto.BlockHashAlgorithm) |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| key(s) | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| address_book_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+
+
 <a name="block_info.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -2003,6 +2496,1045 @@
 | when | [*](#*) |  | |
 |  | [](#) |  | |
 | first_cons_time_of_current_block | [Timestamp](#Timestamp) |  | |
+
+
+<a name="block_item.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_item.proto
+
+<BR>A single item within a block stream.<BR>Each item in the block stream SHALL be self-contained and independent,<BR>with the following constraints applicable to the _unfiltered_ stream.<BR>- A block SHALL start with a `header`.<BR>- A block SHALL end with a `state_proof`.<BR>- A `block_header` SHALL be followed by an `event_header`.<BR>- An `event_header` SHALL be followed by one or more<BR>`event_transaction` items.<BR>- An `event_transaction` SHALL be followed by a `transaction_result`.<BR>- A `transaction_result` MAY be followed by a `transaction_output`.<BR>- A `transaction_result` (or a `transaction_output`, if present) MAY be<BR>followed by one or more `state_changes`.<BR>This forms the following required sequence for each block, which is then<BR>repeated within the block stream, indefinitely.  Note that there is no<BR>container structure in the stream, the indentation below is only to<BR>highlight repeated subsequences.<br/><BR>The order of items within each block below is REQUIRED and SHALL NOT change.<BR>```text<BR>header<BR>repeated {<BR>start_event<BR>repeated {<BR>event_transaction<BR>transaction_result<BR>(optional) transaction_output<BR>(optional) repeated state_changes<BR>}<BR>}<BR>state_proof<BR>```<BR>A filtered stream may exclude some items above, depending on filter<BR>criteria. A filtered item is replaced with a merkle path and hash value<BR>to maintain block stream verifiability.<BR>A BlockItem SHALL be individually and directly processed to create the<BR>item hash.<br/><BR>Items to be hashed MUST NOT be contained within another item.<br/><BR>Items which might be filtered out of the stream MUST NOT be<BR>contained in other items.
+
+<a name="BlockItem"></a>
+
+### BlockItem
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| item | oneof |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_header | [com.hedera.hapi.block.stream.output.BlockHeader](#com.hedera.hapi.block.stream.output.BlockHeader) |  | |
+| | An | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | gossip | [*](#*) |  | |
+| |  | [](#) |  | |
+| | event_header | [com.hedera.hapi.block.stream.input.EventHeader](#com.hedera.hapi.block.stream.input.EventHeader) |  | |
+| | An | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | consensus | [*](#*) |  | |
+| |  | [](#) |  | |
+| | round_header | [com.hedera.hapi.block.stream.input.RoundHeader](#com.hedera.hapi.block.stream.input.RoundHeader) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | single | [*](#*) |  | |
+| | Each | [*](#*) |  | |
+| | an | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | `SignedTransaction` | [*](#*) |  | |
+| |  | [](#) |  | |
+| | event_transaction | [com.hedera.hapi.platform.event.EventTransaction](#com.hedera.hapi.platform.event.EventTransaction) |  | |
+| | The | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | `event_transaction` | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | replaced | [*](#*) |  | |
+| |  | [](#) |  | |
+| | transaction_result | [com.hedera.hapi.block.stream.output.TransactionResult](#com.hedera.hapi.block.stream.output.TransactionResult) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | an | [*](#*) |  | |
+| | If | [*](#*) |  | |
+| | in | [*](#*) |  | |
+| | `transaction_result` | [*](#*) |  | |
+| |  | [](#) |  | |
+| | transaction_output | [com.hedera.hapi.block.stream.output.TransactionOutput](#com.hedera.hapi.block.stream.output.TransactionOutput) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | All | [*](#*) |  | |
+| | stream | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | `reason` | [*](#*) |  | |
+| |  | [](#) |  | |
+| | state_changes | [com.hedera.hapi.block.stream.output.StateChanges](#com.hedera.hapi.block.stream.output.StateChanges) |  | |
+| | Verification | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | part | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Items | [*](#*) |  | |
+| | block | [*](#*) |  | |
+| | Items | [*](#*) |  | |
+| | (filtered) | [*](#*) |  | |
+| | Presence | [*](#*) |  | |
+| | of | [*](#*) |  | |
+| | consensus | [*](#*) |  | |
+| |  | [](#) |  | |
+| | filtered_item_hash | [FilteredItemHash](#FilteredItemHash) |  | |
+| | A | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | a | [*](#*) |  | |
+| | root, | [*](#*) |  | |
+| | a | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | MUST | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_proof | [BlockProof](#BlockProof) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | and | [*](#*) |  | |
+| | If | [*](#*) |  | |
+| | REQUIRED | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| | of | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| |  | [](#) |  | |
+| | record_file | [RecordFileItem](#RecordFileItem) |  | |
+
+
+<a name="FilteredItemHash"></a>
+
+### FilteredItemHash
+<BR>Verification data for an item filtered from the stream.<BR>Items of this type SHALL NOT be present in the full (unfiltered) block<BR>stream.<br/><BR>Items of this type SHALL replace any item removed from a partial (filtered)<BR>block stream.<br/><BR>Presence of `filtered_item` entries SHALL NOT prevent verification<BR>of a block, but MAY preclude verification or reconstruction<BR>of consensus state.<br/>
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| item_hash |  |  | |
+| A | [*](#*) |  | |
+| from | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| merkle | [*](#*) |  | |
+| item | [*](#*) |  | |
+|  | [](#) |  | |
+| filtered_path |  |  | |
+
+
+<a name="block_proof.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_proof.proto
+
+<BR>A cryptographic proof for the "Block Merkle Tree".<BR>This message SHALL offer a proof for the "Block Merkle Tree".<BR>The information in the "Block Merkle Tree" SHALL be used to validate the<BR>full content of the most recent block, and, with chained validation,<BR>all prior blocks.<BR>### Block Merkle Tree<BR>The Block Hash of any block is a merkle root hash comprised of a 4 leaf<BR>binary merkle tree. The 4 leaves represent<BR>1. Previous block proof hash<BR>1. Merkle root of transaction inputs tree<BR>1. Merkle root of transaction outputs tree<BR>1. Merkle rook of state tree<BR>#### Computing the hash<BR>The process for computing a block hash is somewhat complex, and involves<BR>creating a "virtual" merkle tree to obtain the root merkle hash of<BR>that virtual tree.<br/><BR>The merkle tree SHALL have a 4 part structure with 2 internal nodes,<BR>structured in a strictly binary tree.<BR>- The merkle tree root SHALL be the parent of both<BR>internal nodes.<BR>1. The first "internal" node SHALL be the parent of the<BR>two "left-most" nodes.<BR>1. The first leaf MUST be the previous block hash, and is a<BR>single 48-byte value.<BR>1. The second leaf MUST be the root of a, strictly binary, merkle tree<BR>composed of all "input" block items in the block.<br/><BR>Input items SHALL be transactions, system transactions,<BR>and events.<br/><BR>Leaf nodes in this subtree SHALL be ordered in the same order<BR>that the block items are encountered in the stream.<BR>1. The second "internal" node SHALL be the parent of the two<BR>"right-most" nodes.<BR>1. The third leaf MUST be the root of a, strictly binary, merkle tree<BR>composed of all "output" block items in the block.<br/><BR>Output items SHALL be transaction result, transaction<BR>output, and state changes.<br/><BR>Leaf nodes in this subtree SHALL be ordered in the same order that<BR>the block items are encountered in the stream.<BR>1. The fourth leaf MUST be the merkle tree root hash for network state<BR>at the start of the block, and is a single 48-byte value.<BR>- The block hash SHALL be the hash calculated for the root of this merkle<BR>tree.<BR>- The hash algorithm used SHALL be the algorithm specified in the<BR>corresponding block header.<BR>The "inputs" and "outputs" subtrees SHALL be "complete" binary merkle trees,<BR>with nodes that would otherwise be missing replaced by a "null" hash<BR>leaf.
+
+<a name="BlockProof"></a>
+
+### BlockProof
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| We | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| under | [*](#*) |  | |
+|  | [](#) |  | |
+| block |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| previous | [*](#*) |  | |
+| The | [*](#*) |  | |
+| block | [*](#*) |  | |
+|  | [](#) |  | |
+| previous_block_root_hash |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| that | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| of | [*](#*) |  | |
+| State | [*](#*) |  | |
+| independently | [*](#*) |  | |
+| State | [*](#*) |  | |
+| for | [*](#*) |  | |
+| _following_ | [*](#*) |  | |
+| Compliant | [*](#*) |  | |
+| only | [*](#*) |  | |
+| network | [*](#*) |  | |
+| the | [*](#*) |  | |
+| Stateless | [*](#*) |  | |
+| construct | [*](#*) |  | |
+|  | [](#) |  | |
+| start_of_block_state_root_hash |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| signatures | [*](#*) |  | |
+| current | [*](#*) |  | |
+| cryptographic | [*](#*) |  | |
+| single | [*](#*) |  | |
+| but | [*](#*) |  | |
+| threshold | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| which | [*](#*) |  | |
+| This | [*](#*) |  | |
+| that | [*](#*) |  | |
+| The | [*](#*) |  | |
+| tracked, | [*](#*) |  | |
+| threshold | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| block_signature |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| correctly | [*](#*) |  | |
+| hash | [*](#*) |  | |
+|  | [*](#*) |  | |
+| A | [*](#*) |  | |
+| a | [*](#*) |  | |
+| node | [*](#*) |  | |
+| block | [*](#*) |  | |
+| blocks | [*](#*) |  | |
+| proof | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| this | [*](#*) |  | |
+| root | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| first | [*](#*) |  | |
+| of | [*](#*) |  | |
+| paying | [*](#*) |  | |
+| merkle | [*](#*) |  | |
+| "secondary" | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| sibling_hashes | [MerkleSiblingHash](#MerkleSiblingHash) |  | |
+
+
+<a name="MerkleSiblingHash"></a>
+
+### MerkleSiblingHash
+<BR>A hash of a "sibling" to an entry in a Merkle tree.<BR>When constructing a binary merkle tree, each internal node is a hash<BR>constructed from the hash of two "descendant" nodes. Those two nodes<BR>are "siblings" and the order (first, second) in which the two hash values<BR>are combined affects the parent hash.<br/><BR>This may be used to reconstruct a portion of a merkle tree starting from<BR>a node of interest up to the root of the tree.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| sibling | [*](#*) |  | |
+| If | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [](#) |  | |
+| is_first |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| contains | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sibling_hash |  |  | |
+
+
+<a name="block_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_service.proto
+
+<BR>Publish a stream of block items.<BR>Each request in the stream MUST contain at least one `BlockItem`.<br/><BR>Each request MAY contain more than one `BlockItem`.<br/><BR>A single request MUST NOT contain `BlockItem`s from more than one block.<br/><BR>Each request MAY contain a variable number of `BlockItem`s.<br/><BR>Each Block MUST begin with a single `BlockHeader` block item.<br/><BR>If a `BlockHeader` is present in a request, it MUST be the first `BlockItem`<BR>in the `block_items` list.<br/><BR>The block node SHALL append each `BlockItem` to an internal structure<BR>to reconstruct full blocks.<br/><BR>The block node MUST verify the block proof for each block before sending a<BR>response message acknowledging that block.<br/><BR>Each Block MUST end with a single `BlockProof` block item.<br/><BR>If a `BlockProof` is present in a request, it MUST be the last `BlockItem`<BR>in the `block_items` list.<br/><BR>The block node MUST verify each Block using the `BlockProof` to<BR>ensure all data was received and processed correctly.
+
+<a name="BlockAccessService"></a>
+
+### BlockAccessService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| singleBlock | SingleBlockRequest | SingleBlockResponse | <BR>Read a single block from the block node.<BR><p><BR>The request SHALL describe the block number of the block to retrieve. |
+
+
+<a name="BlockItemSet"></a>
+
+### BlockItemSet
+<BR>A wrapper around a repeated BlockItem.<br/><BR>This message is required so that we can include ordered lists of block<BR>items as `oneof` alternatives in streams.<BR>Each `BlockItemSet` MUST contain at least one `BlockItem`,<BR>and MAY contain up to one full block.<br/><BR>A single `BlockItemSet` SHALL NOT contain block items from<BR>more than one block.<br/><BR>If a `BlockHeader` is present in a `BlockItemSet`, that item<BR>MUST be the first item in the list.<br/><BR>If a `BlockProof` is present in a `BlockItemSet`, that item<BR>MUST be the last item in the list.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| for | [*](#*) |  | |
+|  | [](#) |  | |
+| block_items | [com.hedera.hapi.block.stream.BlockItem](#com.hedera.hapi.block.stream.BlockItem) |  | |
+
+
+<a name="BlockNodeService"></a>
+
+### BlockNodeService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| serverStatus | ServerStatusRequest | ServerStatusResponse | <BR>Read the status of this block node server.<BR><p><BR>A client SHOULD request server status prior to requesting block stream<BR>data or a state snapshot. |
+
+
+<a name="BlockStreamService"></a>
+
+### BlockStreamService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| publishBlockStream  | stream PublishStreamRequest | stream PublishStreamResponse | <BR>Publish a stream of blocks.<BR><p><BR>Each item in the stream MUST contain one `BlockItem`.<br/><BR>Each Block MUST begin with a single `BlockHeader` block item.<br/><BR>The block node SHALL append each `BlockItem` to an internal structure<BR>to construct full blocks.<br/><BR>Each Block MUST end with a single `BlockStateProof` block item.<br/><BR>It is RECOMMENDED that the implementations verify the Block using the<BR>`BlockStateProof` to validate all data was received correctly.<br/><BR>This API SHOULD, generally, be restricted based on mTLS authentication<BR>to a limited set of source (i.e. consensus node) systems. |
+| subscribeBlockStream | SubscribeStreamRequest | stream SubscribeStreamResponse | <BR>Subscribe to a stream of blocks.<BR><p><BR>Each item in the stream SHALL contain one `BlockItem` or a<BR>response code.<br/><BR>The request message MUST specify start and end block numbers<BR>to return/<br/><BR>The block node SHALL stream the full contents of the blocks<BR>requested.<br/><BR>The block items SHALL be streamed in order originally produced within<BR>a block.<br/><BR>The blocks shall be streamed in ascending order by `block_number`.<br/><BR>The block node SHALL end the stream when the last requested block,<BR>if set, has been sent.<br/><BR>A request with an end block of `0` SHALL be interpreted to indicate the<BR>stream has no end. The block node SHALL continue to stream new blocks<BR>as soon as each becomes available.<br/><BR>The block node SHALL end the stream with response code containing a<BR>status of SUCCESS when the stream is complete.<br/><BR>The block node SHALL end the stream with a response code containing a<BR>status of `READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block<BR>number is greater than the end block number.<br/><BR>The block node SHALL end the stream with a response code containing a<BR>status of `READ_STREAM_PAYMENT_INSUFFICIENT` if insufficient payment<BR>remains to complete the requested stream.<br/><BR>The block node SHALL make every reasonable effort to fulfill as much<BR>of the request as possible in the event payment is not sufficient to<BR>complete the request. |
+
+
+<a name="PublishStreamEndCode"></a>
+
+### PublishStreamEndCode
+<BR>An enumeration indicating why a publisher ended a stream.<BR>This enumeration describes the reason a block stream<BR>(sent via `publishBlockStream`) was ended by the publisher.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_END_UNKNOWN |  |
+| * |  |
+| * |  |
+|  |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_END_RESET |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_END_TIMEOUT |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_END_ERROR |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_END_TOO_FAR_BEHIND |  |
+
+
+<a name="PublishStreamRequest"></a>
+
+### PublishStreamRequest
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| request | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | followed | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_items | [BlockItemSet](#BlockItemSet) |  | |
+
+
+<a name="PublishStreamResponse"></a>
+
+### PublishStreamResponse
+<BR>A response to writing a block stream.<BR>This message is sent in response to each Block in a block stream sent<BR>to a block node. The block stream is sent as a stream of messages, and each<BR>message MAY be acknowledged with a message of this type.<br/><BR>Each `BlockItem` MAY be acknowledged with an `Acknowledgement`<BR>response. Item acknowledgement is an OPTIONAL feature.<br/><BR>Each completed block SHALL be acknowledged with an `Acknowledgement`<BR>response. Block acknowledgement is a REQUIRED feature.<br/><BR>A final response SHALL be sent with an `EndOfStream` status result after<BR>the last block stream item is received, or when the receiving system<BR>must end the stream for any reason.<br/><BR>If a failure is detected (which may include a block or block item that<BR>fails validation) an `EndOfStream` response SHALL be sent with a<BR>relevant error status.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| response | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | acknowledgement | [Acknowledgement](#Acknowledgement) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | status | [EndOfStream](#EndOfStream) |  | |
+| A | [*](#*) |  | |
+| or | [*](#*) |  | |
+|  | [](#) |  | |
+| Acknowledgement | [*](#*) |  | |
+| Most | [*](#*) |  | |
+| debugging | [*](#*) |  | |
+|  | [](#) |  | |
+| If | [*](#*) |  | |
+| send | [*](#*) |  | |
+| and | [*](#*) |  | |
+|  | [](#) |  | |
+| Acknowledgement | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| This | [*](#*) |  | |
+| received | [*](#*) |  | |
+| The | [*](#*) |  | |
+| each | [*](#*) |  | |
+| The | [*](#*) |  | |
+| `ItemAcknowledgement` | [*](#*) |  | |
+| at | [*](#*) |  | |
+|  | [](#) |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| This | [*](#*) |  | |
+| stream | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| this | [*](#*) |  | |
+| the | [*](#*) |  | |
+| A | [*](#*) |  | |
+| last | [*](#*) |  | |
+| here | [*](#*) |  | |
+|  | [](#) |  | |
+
+
+<a name="PublishStreamResponse.Acknowledgement"></a>
+
+### PublishStreamResponse.Acknowledgement
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| acknowledgements | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | All | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_ack | [BlockAcknowledgement](#BlockAcknowledgement) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | only | [*](#*) |  | |
+| |  | [](#) |  | |
+| | item_ack | [ItemAcknowledgement](#ItemAcknowledgement) |  | |
+
+
+<a name="PublishStreamResponse.BlockAcknowledgement"></a>
+
+### PublishStreamResponse.BlockAcknowledgement
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| block_number |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| root | [*](#*) |  | |
+| system | [*](#*) |  | |
+|  | [](#) |  | |
+| block_root_hash |  |  | |
+| A | [*](#*) |  | |
+| existing | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| true | [*](#*) |  | |
+| returned | [*](#*) |  | |
+| system, | [*](#*) |  | |
+| after | [*](#*) |  | |
+|  | [](#) |  | |
+| block_already_exists |  |  | |
+
+
+<a name="PublishStreamResponse.EndOfStream"></a>
+
+### PublishStreamResponse.EndOfStream
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| status | [PublishStreamResponseCode](#PublishStreamResponseCode) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Nodes | [*](#*) |  | |
+| the | [*](#*) |  | |
+| If | [*](#*) |  | |
+| stream | [*](#*) |  | |
+| (e.g. | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| block_number |  |  | |
+
+
+<a name="PublishStreamResponse.ItemAcknowledgement"></a>
+
+### PublishStreamResponse.ItemAcknowledgement
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| A | [*](#*) |  | |
+| calculated | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| items_hash |  |  | |
+
+
+<a name="PublishStreamResponseCode"></a>
+
+### PublishStreamResponseCode
+<BR>An enumeration indicating the status of this request.<BR>This enumeration SHALL describe the reason a block stream<BR>(sent via `publishBlockStream`) ended.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_UNKNOWN |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_SUCCESS |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_TIMEOUT |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_OUT_OF_ORDER |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_BAD_STATE_PROOF |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_BEHIND |  |
+
+
+<a name="ServerStatusRequest {}.BlockNodeVersions"></a>
+
+### ServerStatusRequest {}.BlockNodeVersions
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| this | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| Block | [*](#*) |  | |
+|  | [](#) |  | |
+| address_book_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Implementations | [*](#*) |  | |
+| released | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| stream_proto_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| software_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+
+
+<a name="ServerStatusRequest {}.ServerStatusResponse"></a>
+
+### ServerStatusRequest {}.ServerStatusResponse
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Any | [*](#*) |  | |
+| with | [*](#*) |  | |
+|  | [](#) |  | |
+| first_available_block |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Any | [*](#*) |  | |
+| value | [*](#*) |  | |
+|  | [](#) |  | |
+| last_available_block |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [](#) |  | |
+| only_latest_state |  |  | |
+| Version | [*](#*) |  | |
+| Versions | [*](#*) |  | |
+| buffer | [*](#*) |  | |
+|  | [](#) |  | |
+| version_information | [BlockNodeVersions](#BlockNodeVersions) |  | |
+
+
+<a name="SingleBlockRequest"></a>
+
+### SingleBlockRequest
+<BR>A request to read a single block.<BR>A client system SHALL send this message to request a single block,<BR>including the block state proof.<br/><BR>A client MAY request that the block be sent without verification.<BR>A compliant Block Node MAY respond to requests that allow unverified<BR>responses by returning the full requested block before verifying<BR>the included block proof.<br/><BR>A compliant Block Node MAY support _only_ requests that allow unverified<BR>blocks, but MUST clearly document that limitation, and MUST respond to<BR>a request that does not allow unverified blocks with the<BR>`ALLOW_UNVERIFIED_REQUIRED` response code.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| unset | [*](#*) |  | |
+|  | [](#) |  | |
+| block_number |  |  | |
+| A | [*](#*) |  | |
+| verifying | [*](#*) |  | |
+| This | [*](#*) |  | |
+| verification | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| block | [*](#*) |  | |
+| If | [*](#*) |  | |
+| fully | [*](#*) |  | |
+| the | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| allow_unverified |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| SHALL | [*](#*) |  | |
+|  | [](#) |  | |
+| retrieve_latest |  |  | |
+
+
+<a name="SingleBlockResponse"></a>
+
+### SingleBlockResponse
+<BR>A response to a `singleBlock` request.<BR>This message SHALL be sent in response to a request, and SHALL contain at<BR>least a valid `status`.<br/><BR>If `status` is `READ_BLOCK_SUCCESS`, the response SHALL contain the<BR>requested block in the `block` field.<BR>> Note<BR>>> A block can become quite large. A client MUST be prepared to receive the<BR>>> full content of the block, perhaps many megabytes of data.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| a | [*](#*) |  | |
+|  | [](#) |  | |
+| status | [SingleBlockResponseCode](#SingleBlockResponseCode) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| for | [*](#*) |  | |
+| The | [*](#*) |  | |
+| as | [*](#*) |  | |
+| The | [*](#*) |  | |
+| a | [*](#*) |  | |
+|  | [](#) |  | |
+| block | [com.hedera.hapi.block.stream.Block](#com.hedera.hapi.block.stream.Block) |  | |
+
+
+<a name="SingleBlockResponseCode"></a>
+
+### SingleBlockResponseCode
+<BR>An enumeration indicating the status of this request.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_BLOCK_UNKNOWN |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_BLOCK_INSUFFICIENT_BALANCE |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_BLOCK_SUCCESS |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_BLOCK_NOT_FOUND |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_BLOCK_NOT_AVAILABLE |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| ALLOW_UNVERIFIED_REQUIRED |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| VERIFIED_BLOCK_UNAVAILABLE |  |
+
+
+<a name="StateService"></a>
+
+### StateService
+
+
+| RPC | Request | Response | Comments |
+| --- | ------- | -------- | -------- |
+| stateSnapshot | StateSnapshotRequest | StateSnapshotResponse | <BR>Read a state snapshot from the block node.<BR><p><BR>The request SHALL describe the last block number present in the<BR>snapshot.<br/><BR>Block node implementations MAY decline a request for a snapshot older<BR>than the latest available, but MUST clearly document this behavior. |
+
+
+<a name="StateSnapshotRequest"></a>
+
+### StateSnapshotRequest
+<BR>A request to read a state snapshot.<BR>A state snapshot is a full copy of the network state at the completion of a<BR>particular block.<BR>This request MUST contain a block number that has already reached this block<BR>node and completed verification, or request the "latest" snapshot.<br/><BR>This request MAY specify the "latest" snapshot, and the block node SHALL<BR>respond with a reference to a snapshot containing the most recent contents<BR>of the network state known to that block node.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| and | [*](#*) |  | |
+| A | [*](#*) |  | |
+| value | [*](#*) |  | |
+|  | [](#) |  | |
+| last_block_number |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| set | [*](#*) |  | |
+| A | [*](#*) |  | |
+| set | [*](#*) |  | |
+|  | [](#) |  | |
+| retrieve_latest |  |  | |
+
+
+<a name="StateSnapshotResponse"></a>
+
+### StateSnapshotResponse
+<BR>A response to a request for a state snapshot.<BR>This message SHALL deliver a _reference_ to the requested snapshot<BR>data if successful.<br/><BR>This message SHALL deliver a code indicating the reason for failure<BR>if unsuccessful.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| reason | [*](#*) |  | |
+|  | [](#) |  | |
+| status | [StateSnapshotResponseCode](#StateSnapshotResponseCode) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| state | [*](#*) |  | |
+|  | [](#) |  | |
+| last_block_number |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <blockquote>REVIEW | [*](#*) |  | |
+| This | [*](#*) |  | |
+| be | [*](#*) |  | |
+| another | [*](#*) |  | |
+| node | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| snapshot_reference |  |  | |
+
+
+<a name="StateSnapshotResponseCode"></a>
+
+### StateSnapshotResponseCode
+<BR>An enumeration indicating the status of a StateSnapshotResponse request.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STATE_SNAPSHOT_UNKNOWN |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STATE_SNAPSHOT_INSUFFICIENT_BALANCE |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| STATE_SNAPSHOT_SUCCESS |  |
+
+
+<a name="SubscribeStreamRequest"></a>
+
+### SubscribeStreamRequest
+<BR>A request to stream block items from block node to a client.<BR>The block node SHALL respond to this request with a stream of<BR>`SubscribeStreamResponse` messages.<br/><BR>The block node SHALL stream the full contents of the blocks requested.<br/><BR>The block items SHALL be streamed in order originally produced within<BR>a block.<br/><BR>The blocks SHALL be streamed in ascending order by `block_number`.<br/><BR>The block node SHALL end the stream when the last requested block has<BR>been sent.<br/><BR>The block node SHALL end the stream with a response code status of SUCCESS<BR>when the stream is complete.<br/><BR>The client SHOULD call the `serverStatus` rpc prior to constructing this<BR>request to determine the available start and end blocks.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| block | [*](#*) |  | |
+|  | [](#) |  | |
+| start_block_number |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| indefinitely, | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>This | [*](#*) |  | |
+| <li>This | [*](#*) |  | |
+| <li>This | [*](#*) |  | |
+| from | [*](#*) |  | |
+| <li>A | [*](#*) |  | |
+| requested | [*](#*) |  | |
+| <li>A | [*](#*) |  | |
+| that | [*](#*) |  | |
+| <li>A | [*](#*) |  | |
+| <li>Block | [*](#*) |  | |
+| "future" | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| end_block_number |  |  | |
+| A | [*](#*) |  | |
+| verifying | [*](#*) |  | |
+| This | [*](#*) |  | |
+| verification | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| blocks | [*](#*) |  | |
+| If | [*](#*) |  | |
+| fully | [*](#*) |  | |
+| If | [*](#*) |  | |
+| blocks | [*](#*) |  | |
+| a | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| allow_unverified |  |  | |
+
+
+<a name="SubscribeStreamResponse"></a>
+
+### SubscribeStreamResponse
+<BR>One item in a stream of `subscribeBlockStream` responses.<BR>The block node SHALL respond to a `subscribeBlockStream` request with a<BR>stream of `SubscribeStreamResponse` messages.<br/><BR>The block node SHALL stream the full contents of the blocks requested.<br/><BR>The block items SHALL be streamed in order originally produced within<BR>a block.<br/><BR>The blocks SHALL be streamed in ascending order by `block_number`.<br/><BR>The block node SHALL end the stream when the last requested block has<BR>been sent.<br/><BR>The block node SHALL end the stream with a response code status of SUCCESS<BR>when the stream is complete.<br/><BR>The block node SHALL end the stream with a response code status of<BR>`READ_STREAM_INVALID_START_BLOCK_NUMBER` if the start block number is<BR>greater than the end block number.<br/><BR>The block node SHALL end the stream with a response code status of<BR>`READ_STREAM_INSUFFICIENT_BALANCE` if insufficient balance remains to<BR>complete the requested stream.<BR>The block node SHALL make every reasonable effort to fulfill as much of the<BR>request as available balance supports, in the event balance is not<BR>sufficient to complete the request.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| response | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| |  | [](#) |  | |
+| | status | [SubscribeStreamResponseCode](#SubscribeStreamResponseCode) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | followed | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_items | [BlockItemSet](#BlockItemSet) |  | |
+
+
+<a name="SubscribeStreamResponseCode"></a>
+
+### SubscribeStreamResponseCode
+<BR>An enumeration indicating the status of this request.<BR>This response code SHALL be the last message in the stream of responses.<BR>This code SHALL represent the final status of the full request.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_UNKNOWN |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_INSUFFICIENT_BALANCE |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_SUCCESS |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_INVALID_START_BLOCK_NUMBER |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_INVALID_END_BLOCK_NUMBER |  |
+
+
+<a name="block_stream_info.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## block_stream_info.proto
+
+<BR>A message stored in state to maintain block stream parameters.<br/><BR>Nodes use this information for three purposes.<BR>1. To maintain hash chain continuity at restart and reconnect boundaries.<BR>1. To store historical hashes for implementation of the EVM `BLOCKHASH`<BR>and `PREVRANDAO` opcodes.<BR>1. To track the amount of consensus time that has passed between blocks.<BR>This value MUST be updated for every block.<br/><BR>This value MUST be transmitted in the "state changes" section of<BR>_each_ block, but MUST be updated at the beginning of the _next_ block.<br/><BR>This value SHALL contain the block hash up to, and including, the<BR>immediately prior completed block.<br/><BR>The state change to update this singleton MUST be the last<BR>block item in this block.
+
+<a name="BlockStreamInfo"></a>
+
+### BlockStreamInfo
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| block_number |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| and | [*](#*) |  | |
+| important | [*](#*) |  | |
+| This | [*](#*) |  | |
+| block | [*](#*) |  | |
+|  | [](#) |  | |
+| block_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| is | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| trailing_output_hashes |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| hash | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| ### | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| trailing_block_hashes |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| input_tree_root_hash |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| start_of_block_state_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| num_preceding_output_items |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| `BlockItem`s | [*](#*) |  | |
+|  | [](#) |  | |
+| rightmost_preceding_output_tree_hashes |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| block_end_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| Whether | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| after | [*](#*) |  | |
+|  | [](#) |  | |
+| post_upgrade_work_done |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| creation_software_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| at | [*](#*) |  | |
+|  | [](#) |  | |
+| last_interval_process_time | [proto.Timestamp](#proto.Timestamp) |  | |
 
 
 <a name="bytecode.proto"></a>
@@ -2176,6 +3708,81 @@
 | Current | [*](#*) |  | |
 |  | [](#) |  | |
 | topicInfo | [ConsensusTopicInfo](#ConsensusTopicInfo) |  | |
+
+
+<a name="consensus_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## consensus_service.proto
+
+<BR>Block Stream data for a `createTopic` transaction.<BR>This message SHALL NOT duplicate information already contained in the<BR>original transaction.
+
+<a name="RunningHashVersion"></a>
+
+### RunningHashVersion
+
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| WITH_MESSAGE_DIGEST_AND_PAYER |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| WITH_MESSAGE_DIGEST |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| WITH_FULL_MESSAGE |  |
 
 
 <a name="consensus_service.proto"></a>
@@ -2771,7 +4378,11 @@
 |  | [](#) |  | |
 | memo |  |  | |
 | The | [*](#*) |  | |
-| with | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| By | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations |  |  | |
 | An | [*](#*) |  | |
@@ -3137,7 +4748,11 @@
 | |  | [](#) |  | |
 | | memoWrapper | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
 | If | [*](#*) |  | |
-| automatically | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
 |  | [](#) |  | |
 | max_automatic_token_associations | [google.protobuf.Int32Value](#google.protobuf.Int32Value) |  | |
 | If | [*](#*) |  | |
@@ -3830,6 +5445,27 @@
 | getStakersByAccountID  | Query | Response | <BR>(NOT CURRENTLY SUPPORTED) Retrieves the stakers for a node by account id |
 
 
+<a name="crypto_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## crypto_service.proto
+
+<BR>Block Stream data for a `approveAllowances` transaction.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+<a name="ApproveAllowanceOutput {}.CryptoTransferOutput"></a>
+
+### ApproveAllowanceOutput {}.CryptoTransferOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Custom | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+|  | [](#) |  | |
+| assessed_custom_fees | [proto.AssessedCustomFee](#proto.AssessedCustomFee) |  | |
+
+
 <a name="crypto_transfer.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -4119,6 +5755,172 @@
 | max_gas_allowance |  |  | |
 
 
+<a name="event_consensus_data.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event_consensus_data.proto
+
+<BR>Event Consensus Data.<br/><BR>This message records the critical values produced by consensus for an event.
+
+<a name="EventConsensusData"></a>
+
+### EventConsensusData
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_timestamp | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+| A | [*](#*) |  | |
+| since | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_order |  |  | |
+
+
+<a name="event_core.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event_core.proto
+
+<BR>Contains information about an event and its parents.
+
+<a name="EventCore"></a>
+
+### EventCore
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| creator_node_id |  |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| birth_round |  |  | |
+| The | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| time_created | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| parents | [EventDescriptor](#EventDescriptor) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| format | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| version | [proto.SemanticVersion](#proto.SemanticVersion) | This field is temporary until birth_round migration is complete. Field number 17 chosen to avoid polluting cheaper 1 byte field numbers 1-16 | |
+
+
+<a name="event_descriptor.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event_descriptor.proto
+
+<BR>Unique identifier for an event.
+
+<a name="EventDescriptor"></a>
+
+### EventDescriptor
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| 1. | [*](#*) |  | |
+| 2. | [*](#*) |  | |
+|  | [](#) |  | |
+| hash |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| creator_node_id |  |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| birth_round |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| generation |  | This field is temporary until birth_round migration is complete. Field number 17 chosen to avoid polluting cheaper 1 byte field numbers 1-16 | |
+
+
+<a name="event_metadata.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event_metadata.proto
+
+<BR>A header for a single event.<br/><BR>This message delivers information about an event and its parents.
+
+<a name="EventHeader"></a>
+
+### EventHeader
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| "parents". | [*](#*) |  | |
+|  | [](#) |  | |
+| event_core | [com.hedera.hapi.platform.event.EventCore](#com.hedera.hapi.platform.event.EventCore) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| signature |  |  | |
+
+
+<a name="event_transaction.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## event_transaction.proto
+
+<BR>An Event Transaction gossiped between nodes as part of events.<BR>Each node MUST extract this transaction and process according to the type<BR>of transaction encoded.<br/><BR>Both the platform and the application built on that platform MAY define event<BR>transactions.<br/><BR>The encoded data MUST be a serialized protobuf message.
+
+<a name="EventTransaction"></a>
+
+### EventTransaction
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| transaction | oneof |  | |
+| | An | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | subsystem | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| |  | [](#) |  | |
+| | application_transaction |  |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| |  | [](#) |  | |
+| | state_signature_transaction | [StateSignatureTransaction](#StateSignatureTransaction) |  | |
+
+
 <a name="exchange_rate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -4398,6 +6200,13 @@
 |  | [](#) |  | |
 | ledger_id |  |  | |
 
+
+<a name="file_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## file_service.proto
+
+<BR>Block Stream data for a `fileAppend` transaction.<BR>This message SHALL NOT duplicate information already contained<BR>in the original transaction.
 
 <a name="file_service.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
@@ -4827,6 +6636,42 @@
 | contractID | [ContractID](#ContractID) |  | |
 
 
+<a name="gossip_event.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## gossip_event.proto
+
+<BR>An event that is sent and received via gossip
+
+<a name="GossipEvent"></a>
+
+### GossipEvent
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| event_core | [EventCore](#EventCore) |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| 1. | [*](#*) |  | |
+| 2. | [*](#*) |  | |
+|  | [](#) |  | |
+| signature |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| event_transaction | [EventTransaction](#EventTransaction) |  | |
+
+
 <a name="hash_object.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -4861,6 +6706,89 @@
 | Specifies | [*](#*) |  | |
 |  | [](#) |  | |
 | hash |  |  | |
+
+
+<a name="ledger_id.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## ledger_id.proto
+
+<BR>A ledger identifier.<br/><BR>This message identifies a ledger and is used to verify ledger<BR>signatures in a Threshold Signature Scheme (TSS).<BR>A ledger identifier SHALL be a public key defined according to the TSS<BR>process.<br/><BR>A ledger identifier SHOULD NOT change, but MAY do so in rare<BR>circumstances.<br/><BR>Clients SHOULD always check for the correct ledger identifier, according to<BR>the network roster, before attempting to verify any state proof or other<BR>ledger signature.<BR>### Block Stream Effects<BR>Every block in the Block Stream `BlockProof` SHALL be signed via TSS and<BR>MUST be verified with the ledger identifier current at the _start_ of that<BR>block.<BR>If the ledger identifier changes, the new value MUST be used to validate<BR>Block Proof items after the change.<BR>A change to the ledger identifier SHALL be reported in a State Change for<BR>the block containing that change, which SHALL be verified with the _prior_<BR>ledger identifier.
+
+<a name="LedgerId"></a>
+
+### LedgerId
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| ledger_id |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| round |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| to | [*](#*) |  | |
+|  | [](#) |  | |
+| ledger_signature |  |  | |
+| The | [*](#*) |  | |
+| ledger | [*](#*) |  | |
+| These | [*](#*) |  | |
+| ledger | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| id | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_signatures | [RosterSignatures](#RosterSignatures) |  | |
+
+
+<a name="NodeSignature"></a>
+
+### NodeSignature
+<BR>A pair of a _RSA_ signature and the node id of the node that created the<BR>signature.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_signature |  |  | |
+
+
+<a name="RosterSignatures"></a>
+
+### RosterSignatures
+<BR>A collection of signatures from nodes in a roster.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_hash |  |  | |
+| A | [*](#*) |  | |
+| NodeSignature | [*](#*) |  | |
+|  | [](#) |  | |
+| node_signatures | [NodeSignature](#NodeSignature) |  | |
 
 
 <a name="mirror_network_service.proto"></a>
@@ -4993,6 +6921,13 @@
 | getAccountDetails  | Query | Response | <BR>Get all the information about an account, including balance and allowances. This does not get the list of<BR>account records. |
 
 
+<a name="network_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## network_service.proto
+
+ <<<pbj.java_package = "com.hedera.hapi.block.stream.output">>> This comment is special code for setting PBJ Compiler java package
+
 <a name="network_staking_rewards.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -5066,6 +7001,226 @@
 | the | [*](#*) |  | |
 |  | [](#) |  | |
 | owner_next_nft_id | [NftID](#NftID) |  | |
+
+
+<a name="node.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node.proto
+
+<BR>A single address book node in the network state.<BR>Each node in the network address book SHALL represent a single actual<BR>consensus node that is eligible to participate in network consensus.<BR>Address book nodes SHALL NOT be _globally_ uniquely identified. A given node<BR>is only valid within a single realm and shard combination, so the identifier<BR>for a network node SHALL only be unique within a single realm and shard<BR>combination.
+
+<a name="Node"></a>
+
+### Node
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Node | [*](#*) |  | |
+| but | [*](#*) |  | |
+| therefore | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| are | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| description |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| If | [*](#*) |  | |
+| all | [*](#*) |  | |
+| If | [*](#*) |  | |
+| then | [*](#*) |  | |
+| SHALL | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| may | [*](#*) |  | |
+| These | [*](#*) |  | |
+| Endpoints | [*](#*) |  | |
+| NOT | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| be | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| The | [*](#*) |  | |
+| of | [*](#*) |  | |
+| Consensus | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [](#) |  | |
+| weight |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| update | [*](#*) |  | |
+| If | [*](#*) |  | |
+| be | [*](#*) |  | |
+| If | [*](#*) |  | |
+| node | [*](#*) |  | |
+|  | [](#) |  | |
+| deleted |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
+
+
+<a name="node_create.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_create.proto
+
+<BR>A transaction body to add a new consensus node to the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>This message supports a transaction to create a new node in the network<BR>address book. The transaction, once complete, enables a new consensus node<BR>to join the network, and requires governing council authorization.<BR>- A `NodeCreateTransactionBody` MUST be signed by the governing council.<BR>- A `NodeCreateTransactionBody` MUST be signed by the `Key` assigned to the<BR>`admin_key` field.<BR>- The newly created node information SHALL be added to the network address<BR>book information in the network state.<BR>- The new entry SHALL be created in "state" but SHALL NOT participate in<BR>network consensus and SHALL NOT be present in network "configuration"<BR>until the next "upgrade" transaction (as noted below).<BR>- All new address book entries SHALL be added to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the newly assigned `node_id` SHALL be in the transaction<BR>receipt.
+
+<a name="NodeCreateTransactionBody"></a>
+
+### NodeCreateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| Multiple | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| description |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| all | [*](#*) |  | |
+| If | [*](#*) |  | |
+| then | [*](#*) |  | |
+| MUST | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| clients | [*](#*) |  | |
+| These | [*](#*) |  | |
+| Endpoints | [*](#*) |  | |
+| NOT | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| encoded | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
+
+
+<a name="node_delete.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_delete.proto
+
+<BR>A transaction body to delete a node from the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>- A `NodeDeleteTransactionBody` MUST be signed by the governing council.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Record Stream Effects<BR>Upon completion the "deleted" `node_id` SHALL be in the transaction<BR>receipt.
+
+<a name="NodeDeleteTransactionBody"></a>
+
+### NodeDeleteTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
 
 
 <a name="node_stake_update.proto"></a>
@@ -5174,6 +7329,367 @@
 | stake_rewarded | [*](#*) |  | |
 |  | [](#) |  | |
 | max_total_reward |  |  | |
+
+
+<a name="node_update.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## node_update.proto
+
+<BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the `node_id` for the updated entry SHALL be in the<BR>transaction receipt.
+
+<a name="NodeUpdateTransactionBody"></a>
+
+### NodeUpdateTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| account_id | [proto.AccountID](#proto.AccountID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| description | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| all | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Hedera | [*](#*) |  | |
+| permit | [*](#*) |  | |
+| Mainnet | [*](#*) |  | |
+| address | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Solo, | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| may | [*](#*) |  | |
+| These | [*](#*) |  | |
+| These | [*](#*) |  | |
+| These | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| service_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| during | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| encoded | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| grpc_certificate_hash | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| update | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| admin_key | [proto.Key](#proto.Key) |  | |
+
+
+<a name="platform_state.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## platform_state.proto
+
+<BR>The current state of platform consensus.<br/><BR>This message stores the current consensus data for the platform<BR>in network state.<BR>The platform state SHALL represent the latest round's consensus.<br/><BR>This data SHALL be used to ensure consistency and provide critical data for<BR>restart and reconnect.
+
+<a name="Address"></a>
+
+### Address
+<BR>A single network address.<BR>This is one address in the network address book, including all required<BR>information to include that consensus node in the consensus gossip.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| id | [NodeId](#NodeId) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| nickname |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| self_name |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+|  | [](#) |  | |
+| weight |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| interface | [*](#*) |  | |
+| DNS | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hostname_internal |  |  | |
+| Network | [*](#*) |  | |
+| This | [*](#*) |  | |
+| network | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| port_internal |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| interface | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hostname_external |  |  | |
+| Network | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| port_external |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| signing_certificate |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| agreement_certificate |  |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| memo |  |  | |
+
+
+<a name="AddressBook"></a>
+
+### AddressBook
+<BR>A network address book.<br/><BR>The address book records the address of every known consensus node that<BR>participates in the network, including `0 weight` nodes.<br/>
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| round |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| All | [*](#*) |  | |
+|  | [](#) |  | |
+| next_node_id | [NodeId](#NodeId) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| addresses | [Address](#Address) |  | |
+
+
+<a name="ConsensusSnapshot"></a>
+
+### ConsensusSnapshot
+<BR>A consensus snapshot.<br/><BR>This is a snapshot of the consensus state for a particular round.<BR>This message SHALL record consensus data necessary for restart<BR>and reconnect.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| round |  |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| judge_hashes |  |  | |
+| A | [*](#*) |  | |
+| These | [*](#*) |  | |
+|  | [](#) |  | |
+| minimum_judge_info_list | [MinimumJudgeInfo](#MinimumJudgeInfo) |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| next_consensus_number |  |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Depending | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>if | [*](#*) |  | |
+| <li>if | [*](#*) |  | |
+| <li>if | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| "wall | [*](#*) |  | |
+| Consensus | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_timestamp | [proto.Timestamp](#proto.Timestamp) |  | |
+
+
+<a name="MinimumJudgeInfo"></a>
+
+### MinimumJudgeInfo
+<BR>Records the minimum ancient indicator for all judges in a particular round.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| round |  |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| round | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| generation-based | [*](#*) |  | |
+|  | [](#) |  | |
+| minimum_judge_ancient_threshold |  |  | |
+
+
+<a name="NodeId"></a>
+
+### NodeId
+<BR>A consensus node identifier.<br/><BR>This value uniquely identifies a single consensus node within the network.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| id |  |  | |
+
+
+<a name="PlatformState"></a>
+
+### PlatformState
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| creation_software_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| rounds_non_ancient |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_snapshot | [ConsensusSnapshot](#ConsensusSnapshot) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+| match | [*](#*) |  | |
+|  | [](#) |  | |
+| freeze_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| last_frozen_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| legacy_running_event_hash |  |  Fields below are to be deprecated in the foreseeable future.<BR>A running event hash.<br/><BR>This is computed by the consensus event stream.<BR><p><BR>This will be _removed_ and the field number reserved once the consensus<BR>event stream is retired. | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| lowest_judge_generation_before_birth_round_mode |  |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| Will | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| last_round_before_birth_round_mode |  |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| If | [*](#*) |  | |
+| version | [*](#*) |  | |
+|  | [](#) |  | |
+| first_version_in_birth_round_mode | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| address_book | [AddressBook](#AddressBook) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| most | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| previous_address_book | [AddressBook](#AddressBook) |  | |
 
 
 <a name="primitives.proto"></a>
@@ -5370,6 +7886,53 @@
 | COST_ANSWER_STATE_PROOF |  |
 
 
+<a name="record_file_item.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## record_file_item.proto
+
+<BR>A Block Item for record files.<BR>A `RecordFileItem` contains data produced before the innovation of the<BR>Block Stream, when data was stored in files and validated by individual<BR>signature files rather than a block proof.<br/><BR>This item enables a single format, the Block Stream, to carry both<BR>historical and current data; eliminating the need to search two sources for<BR>block and block chain data.<br/><BR>Any block containing this item requires special handling.<BR>- The block SHALL NOT have a `BlockHeader`.<BR>- The block SHALL NOT have a `BlockProof`.<BR>- The block SHALL contain _exactly one_ `RecordFileItem`.<BR>- The block SHALL NOT contain any item other than a `RecordFileItem`.<BR>- The content of the `RecordFileItem` MUST be validated using the<BR>signature data and content provided herein according to the<BR>process used for Record Files prior to the creation of Block Stream.<BR>- This block item only replaces the requirement to read several<BR>individual files from cloud storage services.
+
+<a name="RecordFileItem"></a>
+
+### RecordFileItem
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| Client | [*](#*) |  | |
+| reverse | [*](#*) |  | |
+| encountered | [*](#*) |  | |
+|  | [](#) |  | |
+| number |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| creation_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| record_file_contents |  |  | |
+| The | [*](#*) |  | |
+| Each | [*](#*) |  | |
+|  | [](#) |  | |
+| sidecar_file_contents |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hash_algorithm | [proto.BlockHashAlgorithm](#proto.BlockHashAlgorithm) |  | |
+| A | [*](#*) |  | |
+| These | [*](#*) |  | |
+|  | [](#) |  | |
+| record_file_hash_signatures |  |  | |
+
+
 <a name="record_stream_file.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -5452,7 +8015,42 @@
 
 ## recordcache.proto
 
-<BR>As transactions are handled and records and receipts are created, they are stored in state for a configured time<BR>limit (perhaps, for example, 3 minutes). During this time window, any client can query the node and get the record<BR>or receipt for the transaction. The TransactionRecordEntry is the object stored in state with this information.
+<BR>As transactions are handled and records and receipts are created, they are<BR>stored in state for a configured time period (for example, 3 minutes).<BR>During this time, any client can query the node and get the record or receipt<BR>for the transaction. The `TransactionRecordEntry` is the object stored in<BR>state with this information.
+
+<a name="TransactionReceiptEntries"></a>
+
+### TransactionReceiptEntries
+<BR>A cache of transaction receipts.<br/><BR>As transactions are handled and receipts are created, they are stored in<BR>state for a configured time limit (perhaps, for example, 3 minutes).<BR>During this time window, any client can query the node and get the receipt<BR>for the transaction. The `TransactionReceiptEntries` is the object stored in<BR>state with this information.<BR>This message SHALL contain a list of `TransactionReceiptEntry` objects.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| entries | [TransactionReceiptEntry](#TransactionReceiptEntry) |  | |
+
+
+<a name="TransactionReceiptEntry"></a>
+
+### TransactionReceiptEntry
+<BR>An entry in the record cache with the receipt for a transaction.<BR>This is the entry stored in state that enables returning the receipt<BR>information when queried by clients.<BR>When a transaction is handled a receipt SHALL be created.<br/><BR>This receipt MUST be stored in state for a configured time limit<BR>(e.g. 3 minutes).<br/><BR>While a receipt is stored, a client MAY query the node and retrieve<BR>the receipt.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Valid | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| transaction_id | [TransactionID](#TransactionID) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| status | [ResponseCodeEnum](#ResponseCodeEnum) |  | |
+
 
 <a name="TransactionRecordEntry"></a>
 
@@ -5461,16 +8059,22 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| The | [*](#*) |  | |
-| address | [*](#*) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| submitted | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
 |  | [](#) |  | |
 | node_id |  |  | |
-| The | [*](#*) |  | |
-| of | [*](#*) |  | |
-| ID | [*](#*) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| record, | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+| not | [*](#*) |  | |
 |  | [](#) |  | |
 | payer_account_id | [AccountID](#AccountID) |  | |
-| The | [*](#*) |  | |
+| A | [*](#*) |  | |
 |  | [](#) |  | |
 | transaction_record | [TransactionRecord](#TransactionRecord) |  | |
 
@@ -6438,7 +9042,139 @@
 | * |  |
 | * |  |
 |  |  |
+| NODE_DELETED |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_ID |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GOSSIP_ENDPOINT |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_ACCOUNT_ID |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_NODE_DESCRIPTION |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_SERVICE_ENDPOINT |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GOSSIP_CA_CERTIFICATE |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_GRPC_CERTIFICATE |  |
+| * |  |
+| * |  |
+|  |  |
 | INVALID_MAX_AUTO_ASSOCIATIONS |  |
+| * |  |
+|  |  |
+| MAX_NODES_CREATED |  |
+| * |  |
+|  |  |
+| IP_FQDN_CANNOT_BE_SET_FOR_SAME_ENDPOINT |  |
+| * |  |
+|  |  |
+| GOSSIP_ENDPOINT_CANNOT_HAVE_FQDN |  |
+| * |  |
+|  |  |
+| FQDN_SIZE_TOO_LARGE |  |
+| * |  |
+|  |  |
+| INVALID_ENDPOINT |  |
+| * |  |
+|  |  |
+| GOSSIP_ENDPOINTS_EXCEEDED_LIMIT |  |
+| * |  |
+| * |  |
+|  |  |
+| TOKEN_REFERENCE_REPEATED |  |
+| * |  |
+|  |  |
+| INVALID_OWNER_ID |  |
+| * |  |
+|  |  |
+| TOKEN_REFERENCE_LIST_SIZE_LIMIT_EXCEEDED |  |
+| * |  |
+|  |  |
+| SERVICE_ENDPOINTS_EXCEEDED_LIMIT |  |
+| * |  |
+|  |  |
+| INVALID_IPV4_ADDRESS |  |
+| * |  |
+|  |  |
+| EMPTY_TOKEN_REFERENCE_LIST |  |
+| * |  |
+|  |  |
+| UPDATE_NODE_ACCOUNT_NOT_ALLOWED |  |
+| * |  |
+|  |  |
+| TOKEN_HAS_NO_METADATA_OR_SUPPLY_KEY |  |
+| * |  |
+|  |  |
+| EMPTY_PENDING_AIRDROP_ID_LIST |  |
+| * |  |
+|  |  |
+| PENDING_AIRDROP_ID_REPEATED |  |
+| * |  |
+|  |  |
+| PENDING_AIRDROP_ID_LIST_TOO_LONG |  |
+| * |  |
+|  |  |
+| PENDING_NFT_AIRDROP_ALREADY_EXISTS |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| ACCOUNT_HAS_PENDING_AIRDROPS |  |
+| * |  |
+| * |  |
+|  |  |
+| THROTTLED_AT_CONSENSUS |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_PENDING_AIRDROP_ID |  |
+| * |  |
+| * |  |
+|  |  |
+| TOKEN_AIRDROP_WITH_FALLBACK_ROYALTY |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| INVALID_TOKEN_IN_PENDING_AIRDROP |  |
 
 
 <a name="response_header.proto"></a>
@@ -6470,6 +9206,152 @@
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | stateProof |  |  | |
+
+
+<a name="roster.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## roster.proto
+
+<BR>A single roster in the network state.<BR><p><BR>The roster SHALL be a list of `RosterEntry` objects.
+
+<a name="Roster"></a>
+
+### Roster
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| List | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_entries | [RosterEntry](#RosterEntry) |  | |
+
+
+<a name="RosterEntry"></a>
+
+### RosterEntry
+<BR>A single roster entry in the network state.<BR>Each roster entry SHALL encapsulate the elements required<BR>to manage node participation in the Threshold Signature Scheme (TSS).<br/><BR>All fields except tss_encryption_key are REQUIRED.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Node | [*](#*) |  | |
+| and | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| The | [*](#*) |  | |
+| and | [*](#*) |  | |
+|  | [](#) |  | |
+| weight |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_ca_certificate |  |  | |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| type | [*](#*) |  | |
+| if | [*](#*) |  | |
+| we | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| See | [*](#*) | eips.ethereum.org/EIPS/eip-196#encoding'>EIP-196</a> and | |
+| <a | [*](#*) | eips.ethereum.org/EIPS/eip-197#encoding'>EIP-197</a><br/> | |
+| This | [*](#*) |  | |
+| but | [*](#*) |  | |
+|  | [](#) |  | |
+| tss_encryption_key |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| consensus | [*](#*) |  | |
+| If | [*](#*) |  | |
+| all | [*](#*) |  | |
+| If | [*](#*) |  | |
+| then | [*](#*) |  | |
+| SHALL | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| gossip_endpoint | [proto.ServiceEndpoint](#proto.ServiceEndpoint) |  | |
+
+
+<a name="roster_state.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## roster_state.proto
+
+<BR>The current state of platform rosters.<br/><BR>This message stores a roster data for the platform in network state.<BR>The roster state SHALL encapsulate the incoming candidate roster's hash,<BR>and a list of pairs of round number and active roster hash.<br/><BR>This data SHALL be used to track round numbers and the rosters used in determining the consensus.<br/>
+
+<a name="RosterState"></a>
+
+### RosterState
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| for | [*](#*) |  | |
+| A | [*](#*) |  | |
+| at | [*](#*) |  | |
+|  | [](#) |  | |
+| candidate_roster_hash |  |  | |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| round_roster_pairs | [RoundRosterPair](#RoundRosterPair) |  | |
+
+
+<a name="RoundRosterPair"></a>
+
+### RoundRosterPair
+<BR>A pair of round number and active roster hash.<BR><p><BR>This message SHALL encapsulate the round number and the hash of the<BR>active roster used for that round.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| round_number |  |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| active_roster_hash |  |  | |
+
+
+<a name="round_header.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## round_header.proto
+
+<BR>A header for a single round.<br/><BR>This message delivers information about a consensus round.
+
+<a name="RoundHeader"></a>
+
+### RoundHeader
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| round_number |  |  | |
 
 
 <a name="running_hashes.proto"></a>
@@ -6641,6 +9523,41 @@
 | | Update | [*](#*) |  | |
 | |  | [](#) |  | |
 | | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeCreate | [com.hedera.hapi.node.addressbook.NodeCreateTransactionBody](#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeUpdate | [com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody](#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeDelete | [com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody](#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | balances | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Each | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>A | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | token | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | When | [*](#*) |  | |
+| | rejected | [*](#*) |  | |
+| | Custom | [*](#*) |  | |
+| | SHALL | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenReject | [TokenRejectTransactionBody](#TokenRejectTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenCancelAirdrop | [TokenCancelAirdropTransactionBody](#TokenCancelAirdropTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenClaimAirdrop | [TokenClaimAirdropTransactionBody](#TokenClaimAirdropTransactionBody) |  | |
+| | Transaction | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenAirdrop | [TokenAirdropTransactionBody](#TokenAirdropTransactionBody) |  | |
 
 
 <a name="schedule.proto"></a>
@@ -6930,6 +9847,65 @@
 | getScheduleInfo  | Query | Response | <BR>Retrieves the metadata of a schedule entity |
 
 
+<a name="schedule_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## schedule_service.proto
+
+<BR>Block Stream data for a `createSchedule` transaction.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+<a name="CreateScheduleOutput"></a>
+
+### CreateScheduleOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
+| set | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+| value | [*](#*) |  | |
+| is | [*](#*) |  | |
+| other | [*](#*) |  | |
+|  | [](#) |  | |
+| schedule_id | [proto.ScheduleID](#proto.ScheduleID) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| child | [*](#*) |  | |
+| signatures | [*](#*) |  | |
+| This | [*](#*) |  | |
+| executed | [*](#*) |  | |
+| This | [*](#*) |  | |
+| was | [*](#*) |  | |
+| for | [*](#*) |  | |
+|  | [](#) |  | |
+| scheduled_transaction_id | [proto.TransactionID](#proto.TransactionID) |  | |
+
+
+<a name="DeleteScheduleOutput {}.SignScheduleOutput"></a>
+
+### DeleteScheduleOutput {}.SignScheduleOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| child | [*](#*) |  | |
+| signatures | [*](#*) |  | |
+| This | [*](#*) |  | |
+| executed | [*](#*) |  | |
+| This | [*](#*) |  | |
+| was | [*](#*) |  | |
+| requirements | [*](#*) |  | |
+|  | [](#) |  | |
+| scheduled_transaction_id | [proto.TransactionID](#proto.TransactionID) |  | |
+
+
 <a name="schedule_sign.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -7054,6 +10030,87 @@
 
 ## smart_contract_service.proto
 
+<BR>Block Stream data for a `contractCallMethod` transaction.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+<a name="CallContractOutput"></a>
+
+### CallContractOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| contract | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+| This | [*](#*) |  | |
+| produce | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sidecars | [proto.TransactionSidecarRecord](#proto.TransactionSidecarRecord) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| call | [*](#*) |  | |
+|  | [](#) |  | |
+| contract_call_result | [proto.ContractFunctionResult](#proto.ContractFunctionResult) |  | |
+
+
+<a name="CreateContractOutput"></a>
+
+### CreateContractOutput
+<BR>Block Stream data for a `createContract` transaction.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| contract | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+| This | [*](#*) |  | |
+| produce | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sidecars | [proto.TransactionSidecarRecord](#proto.TransactionSidecarRecord) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| create | [*](#*) |  | |
+|  | [](#) |  | |
+| contract_create_result | [proto.ContractFunctionResult](#proto.ContractFunctionResult) |  | |
+
+
+<a name="UpdateContractOutput {}.EthereumOutput"></a>
+
+### UpdateContractOutput {}.EthereumOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| contract | [*](#*) |  | |
+| transaction | [*](#*) |  | |
+| This | [*](#*) |  | |
+| produce | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sidecars | [proto.TransactionSidecarRecord](#proto.TransactionSidecarRecord) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| ethereum_hash |  |  | |
+
+
+<a name="smart_contract_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## smart_contract_service.proto
+
 <BR>Transactions and queries for the file service.
 
 <a name="SmartContractService"></a>
@@ -7140,6 +10197,572 @@
 | True | [*](#*) |  | |
 |  | [](#) |  | |
 | deleted |  |  | |
+
+
+<a name="state_changes.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## state_changes.proto
+
+<BR>A set of state changes.<BR>Each set of changes in the network deterministically mutates the<BR>current state to a new state, and all nodes MUST apply the same<BR>changes in the same order.<br/><BR>Each change set described in the block stream SHALL describe an<BR>ordered set of mutations which mutate the previous valid state to<BR>produce a new valid state.<br/><BR>The order of state change sets SHALL be determined by the<BR>`consensus_timestamp`, which is a strictly ascending value<BR>determined by network consensus.<BR>### Consensus Timestamp<BR>This value enables a consumer of the block stream to order state<BR>changes by a consistent ascending value that is determined by network<BR>consensus. A primary use case would be to enter state changes in a<BR>time-series database.<br/><BR>This value depends on the cause of the state change.<BR>1. For transactions, this is the transaction consensus timestamp.<BR>1. For events without transactions, this is the consensus timestamp of<BR>the event (round?).<BR>1. For changes that are not the result of a transaction, but still follow<BR>a transaction within an event, this is the consensus timestamp of the<BR>preceding transaction.
+
+<a name="MapChangeKey"></a>
+
+### MapChangeKey
+<BR>A key identifying a specific entry in a key-value "virtual map".
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| key_choice | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | account_id_key | [proto.AccountID](#proto.AccountID) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | token | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_relationship_key | [proto.TokenAssociation](#proto.TokenAssociation) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | full | [*](#*) |  | |
+| |  | [](#) |  | |
+| | entity_number_key | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | file_id_key | [proto.FileID](#proto.FileID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nft_id_key | [proto.NftID](#proto.NftID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_bytes_key | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_long_key | [google.protobuf.Int64Value](#google.protobuf.Int64Value) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_string_key | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | schedule_id_key | [proto.ScheduleID](#proto.ScheduleID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | slot_key_key | [proto.SlotKey](#proto.SlotKey) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_id_key | [proto.TokenID](#proto.TokenID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | topic_id_key | [proto.TopicID](#proto.TopicID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | contract_id_key | [proto.ContractID](#proto.ContractID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | pending_airdrop_id_key | [proto.PendingAirdropId](#proto.PendingAirdropId) |  | |
+
+
+<a name="MapChangeValue"></a>
+
+### MapChangeValue
+<BR>A value updated in, or added to, a virtual map.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value_choice | oneof |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | account_value | [proto.Account](#proto.Account) |  | |
+| | An | [*](#*) |  | |
+| | In | [*](#*) |  | |
+| | to | [*](#*) |  | |
+| |  | [](#) |  | |
+| | account_id_value | [proto.AccountID](#proto.AccountID) |  | |
+| | Compiled | [*](#*) |  | |
+| |  | [](#) |  | |
+| | bytecode_value | [proto.Bytecode](#proto.Bytecode) |  | |
+| | An | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <blockquote>REVIEW | [*](#*) |  | |
+| | A | [*](#*) |  | |
+| | Do | [*](#*) |  | |
+| | Perhaps | [*](#*) |  | |
+| | just | [*](#*) |  | |
+| | allow | [*](#*) |  | |
+| | and | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| |  | [](#) |  | |
+| | file_value | [proto.File](#proto.File) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nft_value | [proto.Nft](#proto.Nft) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_string_value | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | schedule_value | [proto.Schedule](#proto.Schedule) |  | |
+| | A | [*](#*) |  | |
+| | An | [*](#*) |  | |
+| | scheduled | [*](#*) |  | |
+| |  | [](#) |  | |
+| | schedule_list_value | [proto.ScheduleList](#proto.ScheduleList) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | slot_value_value | [proto.SlotValue](#proto.SlotValue) |  | |
+| | An | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | staking_node_info_value | [proto.StakingNodeInfo](#proto.StakingNodeInfo) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_value | [proto.Token](#proto.Token) |  | |
+| | A | [*](#*) |  | |
+| | These | [*](#*) |  | |
+| | in | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_relation_value | [proto.TokenRelation](#proto.TokenRelation) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | topic_value | [proto.Topic](#proto.Topic) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | node_value | [com.hedera.hapi.node.state.addressbook.Node](#com.hedera.hapi.node.state.addressbook.Node) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | account_pending_airdrop_value | [proto.AccountPendingAirdrop](#proto.AccountPendingAirdrop) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | roster_value | [com.hedera.hapi.node.state.roster.Roster](#com.hedera.hapi.node.state.roster.Roster) |  | |
+
+
+<a name="MapDeleteChange"></a>
+
+### MapDeleteChange
+<BR>A removal of a single item from a `VirtualMap`.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| key | [MapChangeKey](#MapChangeKey) |  | |
+
+
+<a name="MapUpdateChange"></a>
+
+### MapUpdateChange
+<BR>An update to a single item in a `VirtualMap`.<br/><BR>Each update consists of a "key" and a "value".<BR>Keys are often identifiers or scalar values.<BR>Values are generally full messages or byte arrays.<BR>The key presented here is not mutable, we do not update map keys.<br/><BR>The value associated to the key provided is updated, or the value is<BR>added and associated with that key.<br/><BR>A change of key would be expressed as removal of the prior key and<BR>an addition for the new key.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| key | [MapChangeKey](#MapChangeKey) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| _after_ | [*](#*) |  | |
+| This | [*](#*) |  | |
+| from | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| value | [MapChangeValue](#MapChangeValue) |  | |
+
+
+<a name="NewStateChange"></a>
+
+### NewStateChange
+<BR>An addition of a new named state.<BR>Adding a new named state SHALL only require the name and type.<br/><BR>The content of the new state SHALL be filled in via subsequent<BR>state change items specific to the type of state<BR>(e.g. SingletonUpdateChange or MapUpdateChange).
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| state_type | [NewStateType](#NewStateType) |  | |
+
+
+<a name="NewStateType"></a>
+
+### NewStateType
+<BR>An enumeration of the types of named states.<br/><BR>The default, Singleton, is the type of state most frequently<BR>added and removed.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| SINGLETON |  |
+| VIRTUAL_MAP |  |
+| QUEUE |  |
+
+
+<a name="QueuePopChange"></a>
+
+### QueuePopChange
+<BR>Removal of an item from a `Queue` state.<br/><BR>The item removed SHALL be the current "front" (or "head") of the queue.<br/><BR>Removing from a queue "head" does not, currently, require additional<BR>information beyond the state name common to all state changes.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+
+
+<a name="QueuePushChange"></a>
+
+### QueuePushChange
+<BR>Addition of an item to a `Queue` state.<br/><BR>The new item SHALL be added after the current "last" element in the<BR>queue.<br/><BR>The new item MUST be the same type of value as all other items in the queue.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| value | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_bytes_element | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | proto_string_element | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| | All | [*](#*) |  | |
+| |  | [](#) |  | |
+| | transaction_receipt_entries_element | [proto.TransactionReceiptEntries](#proto.TransactionReceiptEntries) |  | |
+
+
+<a name="RemovedStateChange"></a>
+
+### RemovedStateChange
+<BR>A removal of a named state.<BR>Removing a named state does not, currently, require additional<BR>information beyond the state name common to all state changes.<br/><BR>A named state, other than a singleton, SHOULD be empty before it is removed.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+
+
+<a name="SingletonUpdateChange"></a>
+
+### SingletonUpdateChange
+<BR>An update to a `Singleton` state.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| new_value | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | SHALL | [*](#*) |  | |
+| | <blockquote>REVIEW | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | necessary | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_info_value | [proto.BlockInfo](#proto.BlockInfo) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | general | [*](#*) |  | |
+| |  | [](#) |  | |
+| | congestion_level_starts_value | [proto.CongestionLevelStarts](#proto.CongestionLevelStarts) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | identifier | [*](#*) |  | |
+| | to | [*](#*) |  | |
+| |  | [](#) |  | |
+| | entity_number_value | [google.protobuf.UInt64Value](#google.protobuf.UInt64Value) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | rate, | [*](#*) |  | |
+| | during | [*](#*) |  | |
+| |  | [](#) |  | |
+| | exchange_rate_set_value | [proto.ExchangeRateSet](#proto.ExchangeRateSet) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Network | [*](#*) |  | |
+| |  | [](#) |  | |
+| | network_staking_rewards_value | [proto.NetworkStakingRewards](#proto.NetworkStakingRewards) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | array | [*](#*) |  | |
+| |  | [](#) |  | |
+| | bytes_value | [google.protobuf.BytesValue](#google.protobuf.BytesValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <dl><dt>Note</dt><dd>There | [*](#*) |  | |
+| | singleton | [*](#*) |  | |
+| |  | [](#) |  | |
+| | string_value | [google.protobuf.StringValue](#google.protobuf.StringValue) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Running | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <blockquote>REVIEW | [*](#*) |  | |
+| | Running | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| | as | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| | this, | [*](#*) |  | |
+| | to | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| |  | [](#) |  | |
+| | running_hashes_value | [proto.RunningHashes](#proto.RunningHashes) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Throttle | [*](#*) |  | |
+| | to | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| |  | [](#) |  | |
+| | throttle_usage_snapshots_value | [proto.ThrottleUsageSnapshots](#proto.ThrottleUsageSnapshots) |  | |
+| | A | [*](#*) |  | |
+| | An | [*](#*) |  | |
+| | "network | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | timestamp_value | [proto.Timestamp](#proto.Timestamp) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | information | [*](#*) |  | |
+| |  | [](#) |  | |
+| | block_stream_info_value | [com.hedera.hapi.node.state.blockstream.BlockStreamInfo](#com.hedera.hapi.node.state.blockstream.BlockStreamInfo) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | platform_state_value | [com.hedera.hapi.platform.state.PlatformState](#com.hedera.hapi.platform.state.PlatformState) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | roster_state_value | [com.hedera.hapi.node.state.roster.RosterState](#com.hedera.hapi.node.state.roster.RosterState) |  | |
+
+
+<a name="StateChange"></a>
+
+### StateChange
+<BR>A change to any item in the merkle tree.<BR>A State change SHALL represent one mutation of the network state merkle<BR>tree. The state changes published in the block stream MAY be combined<BR>into an ordered set of state mutations that transform the tree from any<BR>initial state to a destination state.<br/><BR>When the full set of state change items from the block stream for a round<BR>is applied to the network state at the start of that round the result<BR>SHALL match the network state at the end of the round.<BR>TODO: Need documentation for how the merkle tree is constructed.<BR>Need to reference that document, stored in platform docs?, here.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+| better | [*](#*) |  | |
+| block | [*](#*) |  | |
+| to | [*](#*) |  | |
+| protobuf | [*](#*) |  | |
+| parsed | [*](#*) |  | |
+| enum | [*](#*) |  | |
+| requires | [*](#*) |  | |
+| field | [*](#*) |  | |
+| as | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| often | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| state_id |  |  | |
+| change_operation | oneof |  | |
+| | Addition | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| |  | [](#) |  | |
+| | state_add | [NewStateChange](#NewStateChange) |  | |
+| | Removal | [*](#*) |  | |
+| | The | [*](#*) |  | |
+| | and | [*](#*) |  | |
+| |  | [](#) |  | |
+| | state_remove | [RemovedStateChange](#RemovedStateChange) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | singleton_update | [SingletonUpdateChange](#SingletonUpdateChange) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | map_update | [MapUpdateChange](#MapUpdateChange) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | map_delete | [MapDeleteChange](#MapDeleteChange) |  | |
+| | Addition | [*](#*) |  | |
+| |  | [](#) |  | |
+| | queue_push | [QueuePushChange](#QueuePushChange) |  | |
+| | Removal | [*](#*) |  | |
+| |  | [](#) |  | |
+| | queue_pop | [QueuePopChange](#QueuePopChange) |  | |
+
+
+<a name="StateChanges"></a>
+
+### StateChanges
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_timestamp | [proto.Timestamp](#proto.Timestamp) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+| a | [*](#*) |  | |
+|  | [](#) |  | |
+| state_changes | [StateChange](#StateChange) |  | |
+
+
+<a name="StateIdentifier"></a>
+
+### StateIdentifier
+<BR>An informational enumeration of all known states.<BR>This enumeration is included here So that people know the mapping from<BR>integer to state "name".<BR>State changes are expressed in terms of changes to named states at the<BR>high level conceptual model of the state type like map key/values or<BR>queue appends. To say which state the change is on we will include an<BR>`integer` number for the state name. This is done for performance and<BR>efficiency as there will be 10s of thousands of state changes in a block.<BR>We use an integer, and provide this enumeration, for the following reasons.<BR>- If we have a extra 8-10 bytes per state change at 40-50K state changes<BR>per second then that is an extra 2.5-4 megabits of bandwidth. Compression<BR>should help a lot but that is not guaranteed.<BR>- When the state name is used as part of complex key in the big state<BR>merkle map. The smaller the key is, in bytes, the more efficient the<BR>database is, because more keys can fit in a single disk page.<BR>- When parsing keys, parsing a UTF-8 string to a Java String is a many<BR>times more expensive than parsing a VARINT to an integer.<BR>Note: This enumeration is never transmitted directly in the block stream.<BR>This enumeration is provided for clients to _interpret_ the value<BR>of the `StateChange`.`state_id` field.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+|  |  |
+| STATE_ID_TOPICS |  |
+| * |  |
+|  |  |
+| STATE_ID_ENTITY_ID |  |
+| * |  |
+|  |  |
+| STATE_ID_ACCOUNTS |  |
+| * |  |
+|  |  |
+| STATE_ID_ALIASES |  |
+| * |  |
+|  |  |
+| STATE_ID_CONTRACT_STORAGE |  |
+| * |  |
+|  |  |
+| STATE_ID_CONTRACT_BYTECODE |  |
+| * |  |
+|  |  |
+| STATE_ID_FILES |  |
+| * |  |
+|  |  |
+| STATE_ID_TOKENS |  |
+| * |  |
+|  |  |
+| STATE_ID_NFTS |  |
+| * |  |
+|  |  |
+| STATE_ID_TOKEN_RELATIONS |  |
+| * |  |
+|  |  |
+| STATE_ID_STAKING_INFO |  |
+| * |  |
+|  |  |
+| STATE_ID_NETWORK_REWARDS |  |
+| * |  |
+|  |  |
+| STATE_ID_THROTTLE_USAGE |  |
+| * |  |
+|  |  |
+| STATE_ID_CONGESTION_STARTS |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULES_BY_ID |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULES_BY_EXPIRY |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULES_BY_EQUALITY |  |
+| * |  |
+|  |  |
+| STATE_ID_MIDNIGHT_RATES |  |
+| * |  |
+|  |  |
+| STATE_ID_RUNNING_HASHES |  |
+| * |  |
+|  |  |
+| STATE_ID_BLOCK_INFO |  |
+| * |  |
+|  |  |
+| STATE_ID_NODES |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_FILE |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_FILE_HASH |  |
+| * |  |
+|  |  |
+| STATE_ID_FREEZE_TIME |  |
+| * |  |
+|  |  |
+| STATE_ID_BLOCK_STREAM_INFO |  |
+| * |  |
+|  |  |
+| STATE_ID_PENDING_AIRDROPS |  |
+| * |  |
+|  |  |
+| STATE_ID_PLATFORM_STATE |  |
+| * |  |
+|  |  |
+| STATE_ID_ROSTER_STATE |  |
+| * |  |
+|  |  |
+| STATE_ID_ROSTERS |  |
+| * |  |
+|  |  |
+| STATE_ID_TRANSACTION_RECEIPTS_QUEUE |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_150 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_151 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_152 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_153 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_154 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_155 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_156 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_157 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_158 |  |
+| * |  |
+|  |  |
+| STATE_ID_UPGRADE_DATA_159 |  |
+
+
+<a name="state_signature_transaction.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## state_signature_transaction.proto
+
+<BR>An signature of a state snapshot gossiped to other nodes.<BR>Each node SHALL hash the root of the merkle tree of a state snapshot every<BR>round. Once this hash is calculated, it SHOULD be signed with the nodes<BR>private signing key. This signature, together with the hash SHOULD be added<BR>to an event as a StateSignatureTransaction.
+
+<a name="StateSignatureTransaction"></a>
+
+### StateSignatureTransaction
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+| being | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| round |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| signature |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| hash |  |  | |
 
 
 <a name="storage_slot.proto"></a>
@@ -7478,6 +11101,34 @@
 | metadata_key | [Key](#Key) |  | |
 
 
+<a name="token_airdrop.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_airdrop.proto
+
+<BR>Airdrop one or more tokens to one or more accounts.<BR>### Effects<BR>This distributes tokens from the balance of one or more sending account(s) to the balance<BR>of one or more recipient accounts. Accounts MAY receive the tokens in one of four ways.<BR>- An account already associated to the token to be distributed SHALL receive the<BR>airdropped tokens immediately to the recipient account balance.<br/><BR>The fee for this transfer SHALL include the transfer, the airdrop fee, and any custom fees.<BR>- An account with available automatic association slots SHALL be automatically<BR>associated to the token, and SHALL immediately receive the airdropped tokens to the<BR>recipient account balance.<br/><BR>The fee for this transfer SHALL include the transfer, the association, the cost to renew<BR>that association once, the airdrop fee, and any custom fees.<BR>- An account with "receiver signature required" set SHALL have a "Pending Airdrop" created<BR>and must claim that airdrop with a `claimAirdrop` transaction.<br/><BR>The fee for this transfer SHALL include the transfer, the association, the cost to renew<BR>that association once, the airdrop fee, and any custom fees. If the pending airdrop is not<BR>claimed immediately, the `sender` SHALL pay the cost to renew the token association, and<BR>the cost to maintain the pending airdrop, until the pending airdrop is claimed or cancelled.<BR>- An account with no available automatic association slots SHALL have a "Pending Airdrop"<BR>created and must claim that airdrop with a `claimAirdrop` transaction.<br/><BR>The fee for this transfer SHALL include the transfer, the association, the cost to renew<BR>that association once, the airdrop fee, and any custom fees. If the pending airdrop is not<BR>claimed immediately, the `sender` SHALL pay the cost to renew the token association, and<BR>the cost to maintain the pending airdrop, until the pending airdrop is claimed or cancelled.<BR>If an airdrop would create a pending airdrop for a fungible/common token, and a pending airdrop<BR>for the same sender, receiver, and token already exists, the existing pending airdrop<BR>SHALL be updated to add the new amount to the existing airdrop, rather than creating a new<BR>pending airdrop.<BR>Any airdrop that completes immediately SHALL be irreversible. Any airdrop that results in a<BR>"Pending Airdrop" MAY be canceled via a `cancelAirdrop` transaction.<BR>All transfer fees (including custom fees and royalties), as well as the rent cost for the<BR>first auto-renewal period for any automatic-association slot occupied by the airdropped<BR>tokens, SHALL be charged to the account paying for this transaction.<BR>### Record Stream Effects<BR>- Each successful transfer SHALL be recorded in `token_transfer_list` for the transaction record.<BR>- Each successful transfer that consumes an automatic association slot SHALL populate the<BR>`automatic_association` field for the record.<BR>- Each pending transfer _created_ SHALL be added to the `pending_airdrops` field for the record.<BR>- Each pending transfer _updated_ SHALL be added to the `pending_airdrops` field for the record.
+
+<a name="TokenAirdropTransactionBody"></a>
+
+### TokenAirdropTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| All | [*](#*) |  | |
+| for | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| Note | [*](#*) |  | |
+| a | [*](#*) |  | |
+| TokenTransferList | [*](#*) |  | |
+|  | [](#) |  | |
+| token_transfers | [TokenTransferList](#TokenTransferList) |  | |
+
+
 <a name="token_associate.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -7528,6 +11179,57 @@
 | Applicable | [*](#*) |  | |
 |  | [](#) |  | |
 | serialNumbers |  |  | |
+
+
+<a name="token_cancel_airdrop.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_cancel_airdrop.proto
+
+<BR>Token cancel airdrop<br/><BR>Remove one or more pending airdrops from state on behalf of the sender(s)<BR>for each airdrop.<BR>Each pending airdrop canceled SHALL be removed from state and SHALL NOT be available to claim.<br/><BR>Each cancellation SHALL be represented in the transaction body and SHALL NOT be restated<BR>in the record file.<br/><BR>All cancellations MUST succeed for this transaction to succeed.
+
+<a name="TokenCancelAirdropTransactionBody"></a>
+
+### TokenCancelAirdropTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| wishes | [*](#*) |  | |
+| will | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| each | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_airdrops | [PendingAirdropId](#PendingAirdropId) |  | |
+
+
+<a name="token_claim_airdrop.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_claim_airdrop.proto
+
+<BR>Token claim airdrop<br/><BR>Complete one or more pending transfers on behalf of the<BR>recipient(s) for an airdrop.<BR>The sender MUST have sufficient balance to fulfill the airdrop at the<BR>time of claim. If the sender does not have sufficient balance, the<BR>claim SHALL fail.<br/><BR>Each pending airdrop successfully claimed SHALL be removed from state and<BR>SHALL NOT be available to claim again.<br/><BR>Each claim SHALL be represented in the transaction body and<BR>SHALL NOT be restated in the record file.<br/><BR>All claims MUST succeed for this transaction to succeed.<BR>### Record Stream Effects<BR>The completed transfers SHALL be present in the transfer list.
+
+<a name="TokenClaimAirdropTransactionBody"></a>
+
+### TokenClaimAirdropTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_airdrops | [PendingAirdropId](#PendingAirdropId) |  | |
 
 
 <a name="token_create.proto"></a>
@@ -8107,6 +11809,50 @@
 | token | [TokenID](#TokenID) |  | |
 
 
+<a name="token_reject.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_reject.proto
+
+<BR>Reject undesired token(s).<br/><BR>Transfer one or more token balances held by the requesting account to the treasury for each<BR>token type.<br/><BR>Each transfer SHALL be one of the following<BR>- A single non-fungible/unique token.<BR>- The full balance held for a fungible/common token type.<BR>A single tokenReject transaction SHALL support a maximum of 10 transfers.<BR>### Transaction Record Effects<BR>- Each successful transfer from `payer` to `treasury` SHALL be recorded in `token_transfer_list` for the transaction record.
+
+<a name="TokenReference"></a>
+
+### TokenReference
+<BR>A union token identifier.<BR>Identify a fungible/common token type, or a single non-fungible/unique token serial.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| token_identifier | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | fungible_token | [TokenID](#TokenID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nft | [NftID](#NftID) |  | |
+
+
+<a name="TokenRejectTransactionBody"></a>
+
+### TokenRejectTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+| If | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [](#) |  | |
+| owner | [AccountID](#AccountID) |  | |
+| A | [*](#*) |  | |
+| On | [*](#*) |  | |
+| the | [*](#*) |  | |
+| After | [*](#*) |  | |
+| if | [*](#*) |  | |
+|  | [](#) |  | |
+| rejections | [TokenReference](#TokenReference) |  | |
+
+
 <a name="token_relation.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -8168,6 +11914,27 @@
 | The | [*](#*) |  | |
 |  | [](#) |  | |
 | account | [AccountID](#AccountID) |  | |
+
+
+<a name="token_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## token_service.proto
+
+<BR>Block Stream data for a `createToken` transaction.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+<a name="CreateTokenOutput {}.TokenAirdropOutput"></a>
+
+### CreateTokenOutput {}.TokenAirdropOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| Custom | [*](#*) |  | |
+|  | [*](#*) |  | |
+| These | [*](#*) |  | |
+|  | [](#) |  | |
+| assessed_custom_fees | [proto.AssessedCustomFee](#proto.AssessedCustomFee) |  | |
 
 
 <a name="token_service.proto"></a>
@@ -8522,21 +12289,9 @@
 | | Updates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | contractUpdateInstance | [ContractUpdateTransactionBody](#ContractUpdateTransactionBody) |  | |
-| | Delete | [*](#*) |  | |
-| |  | [](#) |  | |
-| | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) |  | |
-| | An | [*](#*) |  | |
-| |  | [](#) |  | |
-| | ethereumTransaction | [EthereumTransactionBody](#EthereumTransactionBody) |  | |
 | | Attach | [*](#*) |  | |
 | |  | [](#) |  | |
 | | cryptoAddLiveHash | [CryptoAddLiveHashTransactionBody](#CryptoAddLiveHashTransactionBody) |  | |
-| | Adds | [*](#*) |  | |
-| |  | [](#) |  | |
-| | cryptoApproveAllowance | [CryptoApproveAllowanceTransactionBody](#CryptoApproveAllowanceTransactionBody) |  | |
-| | Deletes | [*](#*) |  | |
-| |  | [](#) |  | |
-| | cryptoDeleteAllowance | [CryptoDeleteAllowanceTransactionBody](#CryptoDeleteAllowanceTransactionBody) |  | |
 | | Create | [*](#*) |  | |
 | |  | [](#) |  | |
 | | cryptoCreateAccount | [CryptoCreateTransactionBody](#CryptoCreateTransactionBody) |  | |
@@ -8570,6 +12325,9 @@
 | | To | [*](#*) |  | |
 | |  | [](#) |  | |
 | | systemUndelete | [SystemUndeleteTransactionBody](#SystemUndeleteTransactionBody) |  | |
+| | Delete | [*](#*) |  | |
+| |  | [](#) |  | |
+| | contractDeleteInstance | [ContractDeleteTransactionBody](#ContractDeleteTransactionBody) |  | |
 | | Freeze | [*](#*) |  | |
 | |  | [](#) |  | |
 | | freeze | [FreezeTransactionBody](#FreezeTransactionBody) |  | |
@@ -8624,15 +12382,6 @@
 | | Dissociate | [*](#*) |  | |
 | |  | [](#) |  | |
 | | tokenDissociate | [TokenDissociateTransactionBody](#TokenDissociateTransactionBody) |  | |
-| | Updates | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_fee_schedule_update | [TokenFeeScheduleUpdateTransactionBody](#TokenFeeScheduleUpdateTransactionBody) |  | |
-| | Pauses | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_pause | [TokenPauseTransactionBody](#TokenPauseTransactionBody) |  | |
-| | Unpauses | [*](#*) |  | |
-| |  | [](#) |  | |
-| | token_unpause | [TokenUnpauseTransactionBody](#TokenUnpauseTransactionBody) |  | |
 | | Creates | [*](#*) |  | |
 | |  | [](#) |  | |
 | | scheduleCreate | [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody) |  | |
@@ -8644,6 +12393,24 @@
 | | scheduleSign | [ScheduleSignTransactionBody](#ScheduleSignTransactionBody) |  | |
 | | Updates | [*](#*) |  | |
 | |  | [](#) |  | |
+| | token_fee_schedule_update | [TokenFeeScheduleUpdateTransactionBody](#TokenFeeScheduleUpdateTransactionBody) |  | |
+| | Pauses | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_pause | [TokenPauseTransactionBody](#TokenPauseTransactionBody) |  | |
+| | Unpauses | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_unpause | [TokenUnpauseTransactionBody](#TokenUnpauseTransactionBody) |  | |
+| | Adds | [*](#*) |  | |
+| |  | [](#) |  | |
+| | cryptoApproveAllowance | [CryptoApproveAllowanceTransactionBody](#CryptoApproveAllowanceTransactionBody) |  | |
+| | Deletes | [*](#*) |  | |
+| |  | [](#) |  | |
+| | cryptoDeleteAllowance | [CryptoDeleteAllowanceTransactionBody](#CryptoDeleteAllowanceTransactionBody) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | ethereumTransaction | [EthereumTransactionBody](#EthereumTransactionBody) |  | |
+| | Updates | [*](#*) |  | |
+| |  | [](#) |  | |
 | | node_stake_update | [NodeStakeUpdateTransactionBody](#NodeStakeUpdateTransactionBody) |  | |
 | | Generates | [*](#*) |  | |
 | |  | [](#) |  | |
@@ -8651,6 +12418,56 @@
 | | Update | [*](#*) |  | |
 | |  | [](#) |  | |
 | | token_update_nfts | [TokenUpdateNftsTransactionBody](#TokenUpdateNftsTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | that | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeCreate | [com.hedera.hapi.node.addressbook.NodeCreateTransactionBody](#com.hedera.hapi.node.addressbook.NodeCreateTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeUpdate | [com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody](#com.hedera.hapi.node.addressbook.NodeUpdateTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | the | [*](#*) |  | |
+| |  | [](#) |  | |
+| | nodeDelete | [com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody](#com.hedera.hapi.node.addressbook.NodeDeleteTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | balances | [*](#*) |  | |
+| | for | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | Each | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | <li>A | [*](#*) |  | |
+| | <li>The | [*](#*) |  | |
+| | token | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | When | [*](#*) |  | |
+| | rejected | [*](#*) |  | |
+| | Custom | [*](#*) |  | |
+| | SHALL | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenReject | [TokenRejectTransactionBody](#TokenRejectTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenAirdrop | [TokenAirdropTransactionBody](#TokenAirdropTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenCancelAirdrop | [TokenCancelAirdropTransactionBody](#TokenCancelAirdropTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tokenClaimAirdrop | [TokenClaimAirdropTransactionBody](#TokenClaimAirdropTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tssMessage | [com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tssVote | [com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody) |  | |
 
 
 <a name="transaction_contents.proto"></a>
@@ -8852,6 +12669,50 @@
 | transaction_list | [Transaction](#Transaction) |  | |
 
 
+<a name="transaction_output.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## transaction_output.proto
+
+<BR>Output from a transaction.<BR>The values in transaction outputs SHALL be data that is neither present<BR>in the original transaction nor present in state changes.<BR>> Note<BR>>> Only a few transactions produce output that is not in the transaction<BR>>> and also not reflected in state changes. All other transaction types<BR>>> are _currently_ not included here. We have, however, allocated names<BR>>> and indexes for those transaction types to preserve consistency if we<BR>>> add them later.<BR><!--<BR>Reserved definitions:<BR>import "stream/output/consensus_service.proto";<BR>SubmitMessageOutput submit_message;<BR>import "stream/smart_contract_service.proto";<BR>UpdateContractOutput contract_update;<BR>DeleteContractOutput contract_delete;<BR>SystemDeleteContractOutput<BR>SystemUnDeleteContractOutput<BR>CreateTopicOutput create_topic;<BR>UpdateTopicOutput update_topic;<BR>import "stream/file_service.proto";<BR>CreateFileOutput file_create;<BR>AppendFileOutput file_append;<BR>UpdateFileOutput file_update;<BR>DeleteFileOutput file_delete;<BR>SystemDeleteOutput system_delete;<BR>SystemUndeleteOutput system_undelete;<BR>import "stream/crypto_service.proto";<BR>UpdateNodeStakeOutput update_node_stake;<BR>ApproveAllowanceOutput approve_allowance;<BR>DeleteAllowanceOutput delete_allowance;<BR>CreateAccountOutput create_account;<BR>UpdateAccountOutput update_account;<BR>DeleteAccountOutput delete_account;<BR>import "stream/token_service.proto";<BR>CreateTokenOutput create_token;<BR>DeleteTokenOutput delete_token;<BR>FreezeTokenAccountOutput freeze_token_account;<BR>UnfreezeTokenAccountOutput unfreeze_token_account;<BR>GrantTokenKycOutput grant_token_account_kyc;<BR>RevokeTokenKycOutput revoke_token_account_kyc;<BR>UpdateTokenOutput update_token;<BR>UpdateTokenNftsOutput update_token_nfts;<BR>MintTokenOutput mint_token;<BR>BurnTokenOutput burn_token;<BR>WipeTokenAccountOutput wipe_token_account;<BR>AssociateTokenOutput associate_token;<BR>DissociateTokenOutput dissociate_token;<BR>UpdateTokenFeeScheduleOutput update_token_fee_schedule;<BR>PauseTokenOutput pause_token;<BR>UnpauseTokenOutput unpause_token;<BR>import "stream/consensus_service.proto";<BR>DeleteTopicOutput delete_topic;<BR>import "stream/schedule_service.proto";<BR>DeleteScheduleOutput delete_schedule;<BR>import "stream/network_service.proto";<BR>FreezeOutput freeze_network;<BR>-->
+
+<a name="TransactionOutput"></a>
+
+### TransactionOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| transaction | oneof |  | |
+| | Output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | crypto_transfer | [CryptoTransferOutput](#CryptoTransferOutput) |  | |
+| | Output | [*](#*) |  | |
+| | deterministic | [*](#*) |  | |
+| |  | [](#) |  | |
+| | util_prng | [UtilPrngOutput](#UtilPrngOutput) |  | |
+| | Output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | contract_call | [CallContractOutput](#CallContractOutput) |  | |
+| | Output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | ethereum_call | [EthereumOutput](#EthereumOutput) |  | |
+| | Output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | contract_create | [CreateContractOutput](#CreateContractOutput) |  | |
+| | Output | [*](#*) |  | |
+| | immediately | [*](#*) |  | |
+| |  | [](#) |  | |
+| | create_schedule | [CreateScheduleOutput](#CreateScheduleOutput) |  | |
+| | Output | [*](#*) |  | |
+| | executing | [*](#*) |  | |
+| |  | [](#) |  | |
+| | sign_schedule | [SignScheduleOutput](#SignScheduleOutput) |  | |
+| | Output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | token_airdrop | [TokenAirdropOutput](#TokenAirdropOutput) |  | |
+
+
 <a name="transaction_receipt.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -8890,58 +12751,64 @@
 |  | [](#) |  | |
 | topicSequenceNumber |  |  | |
 | In | [*](#*) |  | |
-| the | [*](#*) |  | |
-| data | [*](#*) |  | |
-| uint64 | [*](#*) |  | |
-|  | [](#) |  | |
-| IF | [*](#*) |  | |
+| received | [*](#*) |  | |
+| This | [*](#*) |  | |
+| value | [*](#*) |  | |
+| All | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
 | in | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 6. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 7. | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-|  | [](#) |  | |
-| IF | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 |  | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
-| 6. | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 7. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-| 9. | [*](#*) |  | |
-| consensusSubmitMessage | [*](#*) |  | |
-|  | [](#) |  | |
-| Otherwise, | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| (48 | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| If | [*](#*) |  | |
 | are, | [*](#*) |  | |
 |  | [*](#*) |  | |
-| 1. | [*](#*) |  | |
-| 2. | [*](#*) |  | |
-| 3. | [*](#*) |  | |
-| 4. | [*](#*) |  | |
-| 5. | [*](#*) |  | |
-| 6. | [*](#*) |  | |
-| 7. | [*](#*) |  | |
-| 8. | [*](#*) |  | |
-| 9. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 10. | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
 | consensus | [*](#*) |  | |
-| 11. | [*](#*) |  | |
-| 12. | [*](#*) |  | |
-| consensusSubmitMessage | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| (48 | [*](#*) |  | |
+|  | [*](#*) |  | |
 |  | [](#) |  | |
 | topicRunningHash |  |  | |
 | In | [*](#*) |  | |
@@ -8968,6 +12835,14 @@
 | the | [*](#*) |  | |
 |  | [](#) |  | |
 | serialNumbers |  |  | |
+| In | [*](#*) |  | |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
 
 
 <a name="transaction_record.proto"></a>
@@ -8976,6 +12851,26 @@
 ## transaction_record.proto
 
 <BR>Response when the client sends the node TransactionGetRecordResponse
+
+<a name="PendingAirdropRecord"></a>
+
+### PendingAirdropRecord
+<BR>A record of a new pending airdrop.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_airdrop_id | [PendingAirdropId](#PendingAirdropId) |  | |
+| A | [*](#*) |  | |
+| If | [*](#*) |  | |
+| and | [*](#*) |  | |
+| If | [*](#*) |  | |
+| be | [*](#*) |  | |
+|  | [](#) |  | |
+| pending_airdrop_value | [PendingAirdropValue](#PendingAirdropValue) |  | |
+
 
 <a name="TransactionRecord"></a>
 
@@ -9058,6 +12953,17 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | evm_address |  |  | |
+| A | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| sending | [*](#*) |  | |
+| issued | [*](#*) |  | |
+| recipient | [*](#*) |  | |
+| A | [*](#*) |  | |
+| An | [*](#*) |  | |
+| available | [*](#*) |  | |
+| has | [*](#*) |  | |
+|  | [](#) |  | |
+| new_pending_airdrops | [PendingAirdropRecord](#PendingAirdropRecord) |  | |
 
 
 <a name="transaction_response.proto"></a>
@@ -9081,6 +12987,263 @@
 | required | [*](#*) |  | |
 |  | [](#) |  | |
 | cost |  |  | |
+
+
+<a name="transaction_result.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## transaction_result.proto
+
+<BR>While we have the state changes as part of the block stream,<BR>we may not have the full data set needed. To surface information<BR>such as staking rewards, fees, etc. we need to include some of the<BR>data from the original TransactionRecord.<BR>> REVIEW NOTE<BR>>> Should we have custom fees here, and remove that from the<BR>>> CryptoTransfer output message? That would make more sense, as I believe<BR>>> TokenTransfer output would also need custom fees, and we may wish<BR>>> to add custom fees to other transactions in the future.
+
+<a name="TransactionResult"></a>
+
+### TransactionResult
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| status | [proto.ResponseCodeEnum](#proto.ResponseCodeEnum) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| reached | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| consensus_timestamp | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| transaction, | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| part | [*](#*) |  | |
+|  | [](#) |  | |
+| parent_consensus_timestamp | [proto.Timestamp](#proto.Timestamp) |  | |
+| A | [*](#*) |  | |
+| was | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| schedule_ref | [proto.ScheduleID](#proto.ScheduleID) |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| transactionFee | [*](#*) |  | |
+|  | [](#) |  | |
+| transaction_fee_charged |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| of | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>Each | [*](#*) |  | |
+| <li>All | [*](#*) |  | |
+| <li>All | [*](#*) |  | |
+| this | [*](#*) |  | |
+| <li>Any | [*](#*) |  | |
+| with | [*](#*) |  | |
+| <li>Any | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| by | [*](#*) |  | |
+| are | [*](#*) |  | |
+|  | [](#) |  | |
+| transfer_list | [proto.TransferList](#proto.TransferList) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| result | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| <li>Each | [*](#*) |  | |
+| <li>All | [*](#*) |  | |
+| <li>Any | [*](#*) |  | |
+| with | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| token_transfer_lists | [proto.TokenTransferList](#proto.TokenTransferList) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| while | [*](#*) |  | |
+|  | [](#) |  | |
+| automatic_token_associations | [proto.TokenAssociation](#proto.TokenAssociation) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| of | [*](#*) |  | |
+| Each | [*](#*) |  | |
+|  | [](#) |  | |
+| paid_staking_rewards | [proto.AccountAmount](#proto.AccountAmount) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| fees | [*](#*) |  | |
+|  | [](#) |  | |
+| congestion_pricing_multiplier |  |  | |
+
+
+<a name="tss_message.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_message.proto
+
+ A transaction body to to send a Threshold Signature Scheme (TSS)<BR>Message.<br/><BR>This is a wrapper around several different TSS message types that a node<BR>might communicate with other nodes in the network.<BR>- A `TssMessageTransactionBody` MUST identify the hash of the roster<BR>containing the node generating this TssMessage<BR>- A `TssMessageTransactionBody` MUST identify the hash of the roster that<BR>the TSS messages is for<BR>- A `TssMessageTransactionBody` SHALL contain the specificc TssMessage data<BR>that has been generated by the node for the share_index.
+
+<a name="TssMessageTransactionBody"></a>
+
+### TssMessageTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| an | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| source_roster_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| target_roster_hash |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| A | [*](#*) |  | |
+| shares | [*](#*) |  | |
+| A | [*](#*) |  | |
+| returned | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| share_index |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| for | [*](#*) |  | |
+|  | [](#) |  | |
+| tss_message |  |  | |
+
+
+<a name="tss_message_map_key.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_message_map_key.proto
+
+<BR>A key for use in the Threshold Signature Scheme (TSS) TssMessageMaps.<BR>This key SHALL be used to uniquely identify entries in the Message Maps.
+
+<a name="TssMessageMapKey"></a>
+
+### TssMessageMapKey
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| in | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_hash |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| <p>This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| sequence_number |  |  | |
+
+
+<a name="tss_vote.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_vote.proto
+
+<BR>A transaction body to vote on the validity of Threshold Signature Scheme<BR>(TSS) Messages for a candidate roster.<BR>- A `TssVoteTransactionBody` MUST identify the hash of the roster containing<BR>the node generating this TssVote<BR>- A `TssVoteTransactionBody` MUST identify the hash of the roster that the<BR>TSS messages is for<BR>- If the candidate roster has received enough yes votes, the candidate<BR>roster SHALL be adopted.<BR>- Switching to the candidate roster MUST not happen until enough nodes have<BR>voted that they have verified a threshold number of TSS messages from the<BR>active roster.<BR>- A vote consists of a bit vector of message statuses where each bit<BR>corresponds to the order of TssMessages as they have come through<BR>consensus.<BR>- The threshold for votes to adopt a candidate roster SHALL be at least 1/3<BR>of the consensus weight of the active roster to ensure that at least 1<BR>honest node has validated the TSS key material.
+
+<a name="TssVoteTransactionBody"></a>
+
+### TssVoteTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| source_roster_hash |  |  | |
+| A | [*](#*) |  | |
+|  | [](#) |  | |
+| target_roster_hash |  |  | |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| ledger_id |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_signature |  |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| #### | [*](#*) |  | |
+| <ul><li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+| <li>The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| A | [*](#*) |  | |
+| with | [*](#*) |  | |
+| received, | [*](#*) |  | |
+| A | [*](#*) |  | |
+| received | [*](#*) |  | |
+|  | [](#) |  | |
+| tss_vote |  |  | |
+
+
+<a name="tss_vote_map_key.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_vote_map_key.proto
+
+<BR>A key for use in the Threshold Signature Scheme (TSS) TssVoteMaps.<BR>This key SHALL be used to uniquely identify entries in the Vote Maps.
+
+<a name="TssVoteMapKey"></a>
+
+### TssVoteMapKey
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_hash |  |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| node_id |  |  | |
 
 
 <a name="unchecked_submit.proto"></a>
@@ -9137,4 +13300,36 @@
 | RPC | Request | Response | Comments |
 | --- | ------- | -------- | -------- |
 | prng  | Transaction | TransactionResponse | <BR>Generates a pseudorandom number. |
+
+
+<a name="util_service.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## util_service.proto
+
+<BR>Block data produced by `prng` transactions submitted to the `Util` service.<BR>The `entropy` reported in this block stream message is deterministically<BR>produced, but has high dispersion and is very difficult to predict.<BR>This message SHALL NOT duplicate information already contained in<BR>the original transaction.
+
+<a name="UtilPrngOutput"></a>
+
+### UtilPrngOutput
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| entropy | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | `UtilService` | [*](#*) |  | |
+| |  | [](#) |  | |
+| | prng_bytes |  |  | |
+| | A | [*](#*) |  | |
+| | specified | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | `prng` | [*](#*) |  | |
+| | Note | [*](#*) |  | |
+| | output | [*](#*) |  | |
+| |  | [](#) |  | |
+| | prng_number |  |  | |
 
