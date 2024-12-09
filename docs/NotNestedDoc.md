@@ -464,7 +464,10 @@
 
 - [schedule.proto](#schedule.proto)
   - [Schedule](#Schedule)
+  - [ScheduleIdList](#ScheduleIdList)
   - [ScheduleList](#ScheduleList)
+  - [ScheduledCounts](#ScheduledCounts)
+  - [ScheduledOrder](#ScheduledOrder)
 
 - [schedule_create.proto](#schedule_create.proto)
   - [ScheduleCreateTransactionBody](#ScheduleCreateTransactionBody)
@@ -682,11 +685,22 @@
 - [transaction_result.proto](#transaction_result.proto)
   - [TransactionResult](#TransactionResult)
 
+- [tss_encryption_key.proto](#tss_encryption_key.proto)
+  - [TssEncryptionKeyTransactionBody](#TssEncryptionKeyTransactionBody)
+
 - [tss_message.proto](#tss_message.proto)
   - [TssMessageTransactionBody](#TssMessageTransactionBody)
 
 - [tss_message_map_key.proto](#tss_message_map_key.proto)
   - [TssMessageMapKey](#TssMessageMapKey)
+
+- [tss_share_signature.proto](#tss_share_signature.proto)
+  - [TssShareSignatureTransactionBody](#TssShareSignatureTransactionBody)
+
+- [tss_status.proto](#tss_status.proto)
+  - [RosterToKey](#RosterToKey) (Enum)
+  - [TssKeyingStatus](#TssKeyingStatus) (Enum)
+  - [TssStatus](#TssStatus)
 
 - [tss_vote.proto](#tss_vote.proto)
   - [TssVoteTransactionBody](#TssVoteTransactionBody)
@@ -1520,6 +1534,15 @@
 | * |  |
 |  |  |
 | TssVote |  |
+| * |  |
+|  |  |
+| TssShareSignature |  |
+| * |  |
+|  |  |
+| TssEncryptionKey |  |
+| * |  |
+|  |  |
+| StateSignatureTransaction |  |
 
 
 <a name="Key"></a>
@@ -2446,14 +2469,6 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | hash_algorithm | [proto.BlockHashAlgorithm](#proto.BlockHashAlgorithm) |  | |
-| A | [*](#*) |  | |
-| The | [*](#*) |  | |
-| key(s) | [*](#*) |  | |
-|  | [*](#*) |  | |
-| This | [*](#*) |  | |
-|  | [*](#*) |  | |
-|  | [](#) |  | |
-| address_book_version | [proto.SemanticVersion](#proto.SemanticVersion) |  | |
 
 
 <a name="block_info.proto"></a>
@@ -3055,6 +3070,14 @@
 | * |  |
 |  |  |
 | STREAM_ITEMS_BEHIND |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_INTERNAL_ERROR |  |
+| * |  |
+| * |  |
+|  |  |
+| STREAM_ITEMS_NOT_AVAILABLE |  |
 
 
 <a name="ServerStatusRequest {}.BlockNodeVersions"></a>
@@ -3441,6 +3464,10 @@
 | * |  |
 |  |  |
 | READ_STREAM_INVALID_END_BLOCK_NUMBER |  |
+| * |  |
+| * |  |
+|  |  |
+| READ_STREAM_NOT_AVAILABLE |  |
 
 
 <a name="block_stream_info.proto"></a>
@@ -3535,6 +3562,12 @@
 | at | [*](#*) |  | |
 |  | [](#) |  | |
 | last_interval_process_time | [proto.Timestamp](#proto.Timestamp) |  | |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| at | [*](#*) |  | |
+|  | [](#) |  | |
+| last_handle_time | [proto.Timestamp](#proto.Timestamp) |  | |
 
 
 <a name="bytecode.proto"></a>
@@ -6668,8 +6701,19 @@
 | This | [*](#*) |  | |
 | This | [*](#*) |  | |
 | This | [*](#*) |  | |
+| Deprecated | [*](#*) |  | |
+| This | [*](#*) |  | |
 |  | [](#) |  | |
 | event_transaction | [EventTransaction](#EventTransaction) |  | |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| Each | [*](#*) |  | |
+| it | [*](#*) |  | |
+| This | [*](#*) |  | |
+| included | [*](#*) |  | |
+|  | [](#) |  | |
+| transactions |  |  | |
 
 
 <a name="hash_object.proto"></a>
@@ -7205,7 +7249,7 @@
 
 ## node_delete.proto
 
-<BR>A transaction body to delete a node from the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>- A `NodeDeleteTransactionBody` MUST be signed by the governing council.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Record Stream Effects<BR>Upon completion the "deleted" `node_id` SHALL be in the transaction<BR>receipt.
+<BR>A transaction body to delete a node from the network address book.<BR>- A `NodeDeleteTransactionBody` MUST be signed by one of those keys:<BR>adminKey, treasure account (2) key, systemAdmin(50) key, or<BR>addressBookAdmin(55) key.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Block Stream Effects<BR>None.
 
 <a name="NodeDeleteTransactionBody"></a>
 
@@ -7336,7 +7380,7 @@
 
 ## node_update.proto
 
-<BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the `node_id` for the updated entry SHALL be in the<BR>transaction receipt.
+<BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Block Stream Effects<BR>None.
 
 <a name="NodeUpdateTransactionBody"></a>
 
@@ -7384,8 +7428,6 @@
 |  | [*](#*) |  | |
 | Hedera | [*](#*) |  | |
 | permit | [*](#*) |  | |
-| Mainnet | [*](#*) |  | |
-| address | [*](#*) |  | |
 |  | [*](#*) |  | |
 |  | [*](#*) |  | |
 | Solo, | [*](#*) |  | |
@@ -7891,7 +7933,7 @@
 
 ## record_file_item.proto
 
-<BR>A Block Item for record files.<BR>A `RecordFileItem` contains data produced before the innovation of the<BR>Block Stream, when data was stored in files and validated by individual<BR>signature files rather than a block proof.<br/><BR>This item enables a single format, the Block Stream, to carry both<BR>historical and current data; eliminating the need to search two sources for<BR>block and block chain data.<br/><BR>Any block containing this item requires special handling.<BR>- The block SHALL NOT have a `BlockHeader`.<BR>- The block SHALL NOT have a `BlockProof`.<BR>- The block SHALL contain _exactly one_ `RecordFileItem`.<BR>- The block SHALL NOT contain any item other than a `RecordFileItem`.<BR>- The content of the `RecordFileItem` MUST be validated using the<BR>signature data and content provided herein according to the<BR>process used for Record Files prior to the creation of Block Stream.<BR>- This block item only replaces the requirement to read several<BR>individual files from cloud storage services.
+<BR>A Block Item for record files.<BR>A `RecordFileItem` contains data produced before the innovation of the<BR>Block Stream, when data was stored in files and validated by individual<BR>signature files rather than a block proof.<br/><BR>This item enables a single format, the Block Stream, to carry both<BR>historical and current data; eliminating the need to search two sources for<BR>block and block chain data.<br/><BR>Any block containing this item requires special handling.<BR>- The block SHALL have a `BlockHeader`.<BR>- Some fields in the `BlockHeader` may be interpreted differently, and<BR>may depend on when the original record file was created.<BR>- The block SHALL NOT have a `BlockProof`.<BR>- The block SHALL end with an `AddressBookProof`, which is only used for<BR>`RecordFileItem` blocks.<BR>- The block SHALL contain _exactly one_ `RecordFileItem`.<BR>- The block SHALL NOT contain any content item other than a `RecordFileItem`.<BR>- The content of the `RecordFileItem` MUST be validated using the<BR>signature data and content provided herein according to the<BR>process used for Record Files prior to the creation of Block Stream.<BR>- This block item only replaces the requirement to read several<BR>individual files from cloud storage services.<BR>- The address book relevant to a particular record file SHALL be available<BR>separately as an `AddressBookProof` item.
 
 <a name="RecordFileItem"></a>
 
@@ -7900,14 +7942,6 @@
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
-| The | [*](#*) |  | |
-|  | [*](#*) |  | |
-| This | [*](#*) |  | |
-| Client | [*](#*) |  | |
-| reverse | [*](#*) |  | |
-| encountered | [*](#*) |  | |
-|  | [](#) |  | |
-| number |  |  | |
 | The | [*](#*) |  | |
 | This | [*](#*) |  | |
 |  | [](#) |  | |
@@ -7921,12 +7955,6 @@
 | Each | [*](#*) |  | |
 |  | [](#) |  | |
 | sidecar_file_contents |  |  | |
-| A | [*](#*) |  | |
-| This | [*](#*) |  | |
-|  | [*](#*) |  | |
-| This | [*](#*) |  | |
-|  | [](#) |  | |
-| hash_algorithm | [proto.BlockHashAlgorithm](#proto.BlockHashAlgorithm) |  | |
 | A | [*](#*) |  | |
 | These | [*](#*) |  | |
 |  | [](#) |  | |
@@ -9175,6 +9203,28 @@
 | * |  |
 |  |  |
 | INVALID_TOKEN_IN_PENDING_AIRDROP |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| SCHEDULE_EXPIRY_MUST_BE_FUTURE |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| SCHEDULE_EXPIRY_TOO_LONG |  |
+| * |  |
+| * |  |
+| * |  |
+|  |  |
+| SCHEDULE_EXPIRY_IS_BUSY |  |
+| * |  |
+|  |  |
+| INVALID_GRPC_CERTIFICATE_HASH |  |
+| * |  |
+| * |  |
+|  |  |
+| MISSING_EXPIRY_TIME |  |
 
 
 <a name="response_header.proto"></a>
@@ -9233,10 +9283,11 @@
 <a name="RosterEntry"></a>
 
 ### RosterEntry
-<BR>A single roster entry in the network state.<BR>Each roster entry SHALL encapsulate the elements required<BR>to manage node participation in the Threshold Signature Scheme (TSS).<br/><BR>All fields except tss_encryption_key are REQUIRED.
+<BR>A single roster entry in the network state.<BR>Each roster entry SHALL encapsulate the elements required<BR>to manage node participation in the Threshold Signature Scheme (TSS).<br/><BR>All fields are REQUIRED.
 
 | Field | Type | Description |   |
 | ----- | ---- | ----------- | - |
+|  | [reserved](#reserved) |  The tssEncryptionKey field has been reserved because it is no longer<BR>required to be stored in the Roster. The public portion of this key will<BR>continue to be stored in TssBaseService, but will, however, just be<BR>stored as raw bytes. | |
 | A | [*](#*) |  | |
 |  | [*](#*) |  | |
 | Node | [*](#*) |  | |
@@ -9258,19 +9309,6 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | gossip_ca_certificate |  |  | |
-| An | [*](#*) |  | |
-| This | [*](#*) |  | |
-| type | [*](#*) |  | |
-| if | [*](#*) |  | |
-| we | [*](#*) |  | |
-|  | [*](#*) |  | |
-| This | [*](#*) |  | |
-| See | [*](#*) | eips.ethereum.org/EIPS/eip-196#encoding'>EIP-196</a> and | |
-| <a | [*](#*) | eips.ethereum.org/EIPS/eip-197#encoding'>EIP-197</a><br/> | |
-| This | [*](#*) |  | |
-| but | [*](#*) |  | |
-|  | [](#) |  | |
-| tss_encryption_key |  |  | |
 | A | [*](#*) |  | |
 |  | [*](#*) |  | |
 | These | [*](#*) |  | |
@@ -9642,6 +9680,20 @@
 | signatories | [Key](#Key) |  | |
 
 
+<a name="ScheduleIdList"></a>
+
+### ScheduleIdList
+<BR>A message for storing a list of schedule identifiers in state.<br/><BR>This is used to store lists of `ScheduleID` values.<BR>One example is all schedules that expire at a particular time.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+|  | [*](#*) |  | |
+| While | [*](#*) |  | |
+|  | [](#) |  | |
+| schedule_ids | [ScheduleID](#ScheduleID) |  | |
+
+
 <a name="ScheduleList"></a>
 
 ### ScheduleList
@@ -9652,6 +9704,36 @@
 | a | [*](#*) |  | |
 |  | [](#) |  | |
 | schedules | [Schedule](#Schedule) |  | |
+
+
+<a name="ScheduledCounts"></a>
+
+### ScheduledCounts
+<BR>The value of a map summarizing the counts of scheduled and processed transactions<BR>within a particular consensus second.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| number_scheduled |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| number_processed |  |  | |
+
+
+<a name="ScheduledOrder"></a>
+
+### ScheduledOrder
+<BR>A key mapping to a particular ScheduleID that will execute at a given order number<BR>within a given consensus second.
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| expiry_second |  |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| order_number |  |  | |
 
 
 <a name="schedule_create.proto"></a>
@@ -10104,6 +10186,19 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | ethereum_hash |  |  | |
+| eth_result | oneof |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | call | [*](#*) |  | |
+| |  | [](#) |  | |
+| | ethereum_call_result | [proto.ContractFunctionResult](#proto.ContractFunctionResult) |  | |
+| | A | [*](#*) |  | |
+| |  | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | create | [*](#*) |  | |
+| |  | [](#) |  | |
+| | ethereum_create_result | [proto.ContractFunctionResult](#proto.ContractFunctionResult) |  | |
 
 
 <a name="smart_contract_service.proto"></a>
@@ -10261,6 +10356,23 @@
 | | A | [*](#*) |  | |
 | |  | [](#) |  | |
 | | pending_airdrop_id_key | [proto.PendingAirdropId](#proto.PendingAirdropId) |  | |
+| | An | [*](#*) |  | |
+| |  | [](#) |  | |
+| | timestamp_seconds_key | [proto.TimestampSeconds](#proto.TimestampSeconds) |  | |
+| | An | [*](#*) |  | |
+| | This | [*](#*) |  | |
+| | that | [*](#*) |  | |
+| | be | [*](#*) |  | |
+| | to | [*](#*) |  | |
+| | that | [*](#*) |  | |
+| |  | [](#) |  | |
+| | scheduled_order_key | [proto.ScheduledOrder](#proto.ScheduledOrder) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_message_map_key | [com.hedera.hapi.node.state.tss.TssMessageMapKey](#com.hedera.hapi.node.state.tss.TssMessageMapKey) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_vote_map_key | [com.hedera.hapi.node.state.tss.TssVoteMapKey](#com.hedera.hapi.node.state.tss.TssVoteMapKey) |  | |
 
 
 <a name="MapChangeValue"></a>
@@ -10335,6 +10447,25 @@
 | | A | [*](#*) |  | |
 | |  | [](#) |  | |
 | | roster_value | [com.hedera.hapi.node.state.roster.Roster](#com.hedera.hapi.node.state.roster.Roster) |  | |
+| | The | [*](#*) |  | |
+| | within | [*](#*) |  | |
+| |  | [](#) |  | |
+| | scheduled_counts_value | [proto.ScheduledCounts](#proto.ScheduledCounts) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | schedule_id_value | [proto.ScheduleID](#proto.ScheduleID) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | throttle_usage_snapshots_value | [proto.ThrottleUsageSnapshots](#proto.ThrottleUsageSnapshots) |  | |
+| | The | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_encryption_key_value | [com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody) |  | |
+| | The | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_message_value | [com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody) |  | |
+| | The | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_vote_value | [com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody) |  | |
 
 
 <a name="MapDeleteChange"></a>
@@ -10533,6 +10664,9 @@
 | | A | [*](#*) |  | |
 | |  | [](#) |  | |
 | | roster_state_value | [com.hedera.hapi.node.state.roster.RosterState](#com.hedera.hapi.node.state.roster.RosterState) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tss_status_state_value | [com.hedera.hapi.node.state.tss.TssStatus](#com.hedera.hapi.node.state.tss.TssStatus) |  | |
 
 
 <a name="StateChange"></a>
@@ -10700,6 +10834,31 @@
 | * |  |
 |  |  |
 | STATE_ID_ROSTERS |  |
+| * |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULED_COUNTS |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULE_ID_BY_EQUALITY |  |
+| * |  |
+|  |  |
+| STATE_ID_TSS_MESSAGES |  |
+| * |  |
+|  |  |
+| STATE_ID_TSS_VOTES |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULED_ORDERS |  |
+| * |  |
+|  |  |
+| STATE_ID_SCHEDULED_USAGES |  |
+| * |  |
+|  |  |
+| STATE_ID_TSS_ENCRYPTION_KEYS |  |
+| * |  |
+|  |  |
+| STATE_ID_TSS_STATUS |  |
 | * |  |
 |  |  |
 | STATE_ID_TRANSACTION_RECEIPTS_QUEUE |  |
@@ -11620,6 +11779,30 @@
 | (token | [*](#*) |  | |
 |  | [](#) |  | |
 | metadata_key | [Key](#Key) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [*](#*) |  | |
+| The | [*](#*) |  | |
+| or | [*](#*) |  | |
+| on | [*](#*) |  | |
+|  | [](#) |  | |
+| lock_key | [Key](#Key) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| held | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| of | [*](#*) |  | |
+|  | [](#) |  | |
+| partition_key | [Key](#Key) |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+|  | [](#) |  | |
+| partition_move_key | [Key](#Key) |  | |
 
 
 <a name="token_get_nft_info.proto"></a>
@@ -12468,6 +12651,15 @@
 | | A | [*](#*) |  | |
 | |  | [](#) |  | |
 | | tssVote | [com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tssShareSignature | [com.hedera.hapi.services.auxiliary.tss.TssShareSignatureTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssShareSignatureTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | tssEncryptionKey | [com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody](#com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody) |  | |
+| | A | [*](#*) |  | |
+| |  | [](#) |  | |
+| | state_signature_transaction | [com.hedera.hapi.platform.event.StateSignatureTransaction](#com.hedera.hapi.platform.event.StateSignatureTransaction) |  | |
 
 
 <a name="transaction_contents.proto"></a>
@@ -12835,10 +13027,9 @@
 | the | [*](#*) |  | |
 |  | [](#) |  | |
 | serialNumbers |  |  | |
-| In | [*](#*) |  | |
 | An | [*](#*) |  | |
-| This | [*](#*) |  | |
-| This | [*](#*) |  | |
+| In | [*](#*) |  | |
+|  | [*](#*) |  | |
 | This | [*](#*) |  | |
 | This | [*](#*) |  | |
 |  | [](#) |  | |
@@ -13092,6 +13283,28 @@
 | congestion_pricing_multiplier |  |  | |
 
 
+<a name="tss_encryption_key.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_encryption_key.proto
+
+<BR>A transaction body for sending the public TSS encryption key.
+
+<a name="TssEncryptionKeyTransactionBody"></a>
+
+### TssEncryptionKeyTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| The | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| publicTssEncryptionKey |  |  | |
+
+
 <a name="tss_message.proto"></a>
 <p align="right"><a href="#top">Top</a></p>
 
@@ -13167,6 +13380,130 @@
 | This | [*](#*) |  | |
 |  | [](#) |  | |
 | sequence_number |  |  | |
+
+
+<a name="tss_share_signature.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_share_signature.proto
+
+<BR>A TSS Share Signature transaction Body.<br/><BR>This transaction body communicates a node's signature of a block hash<BR>using its private share within the TSS process.<BR>This transaction MUST be prioritized for low latency gossip transmission.<BR>### Block Stream Effects<BR>This transaction body will be present in the block stream. This will not have<BR>any state changes or transaction output or transaction result.
+
+<a name="TssShareSignatureTransactionBody"></a>
+
+### TssShareSignatureTransactionBody
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+| share | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+| share | [*](#*) |  | |
+| This | [*](#*) |  | |
+| the | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_hash |  |  | |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| share_index |  |  | |
+| A | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| The | [*](#*) |  | |
+|  | [](#) |  | |
+| message_hash |  |  | |
+| The | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| share_signature |  |  | |
+
+
+<a name="tss_status.proto"></a>
+<p align="right"><a href="#top">Top</a></p>
+
+## tss_status.proto
+
+<BR>A Singleton state object that represents the status of the TSS keying process.<BR>This key SHALL be used to determine the stage of the TSS keying process.
+
+<a name="RosterToKey"></a>
+
+### RosterToKey
+<BR>An enum representing the key either active roster or candidate roster.<BR>This value will be to key active roster if it is genesis stage.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+|  |  |
+| ACTIVE_ROSTER |  |
+| * |  |
+|  |  |
+| CANDIDATE_ROSTER |  |
+| * |  |
+|  |  |
+| NONE |  |
+
+
+<a name="TssKeyingStatus"></a>
+
+### TssKeyingStatus
+<BR>An enum representing the status of the TSS keying process.<BR>This status SHALL be used to determine the state of the TSS keying process.
+
+| Enum Name | Description |
+| --------- | ----------- |
+| * |  |
+| * |  |
+|  |  |
+| WAITING_FOR_ENCRYPTION_KEYS |  |
+| * |  |
+|  |  |
+| WAITING_FOR_THRESHOLD_TSS_MESSAGES |  |
+| * |  |
+|  |  |
+| WAITING_FOR_THRESHOLD_TSS_VOTES |  |
+| * |  |
+|  |  |
+| KEYING_COMPLETE |  |
+
+
+<a name="TssStatus"></a>
+
+### TssStatus
+
+
+| Field | Type | Description |   |
+| ----- | ---- | ----------- | - |
+| An | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| tss_keying_status | [TssKeyingStatus](#TssKeyingStatus) |  | |
+| An | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| roster_to_key | [RosterToKey](#RosterToKey) |  | |
+| A | [*](#*) |  | |
+| If | [*](#*) |  | |
+|  | [*](#*) |  | |
+| This | [*](#*) |  | |
+| This | [*](#*) |  | |
+|  | [](#) |  | |
+| ledger_id |  |  | |
 
 
 <a name="tss_vote.proto"></a>

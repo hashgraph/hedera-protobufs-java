@@ -820,7 +820,13 @@
 <li>
 <a href="#Schedule"><span class="badge">M</span>Schedule</a></li>
 <li>
+<a href="#ScheduleIdList"><span class="badge">M</span>ScheduleIdList</a></li>
+<li>
 <a href="#ScheduleList"><span class="badge">M</span>ScheduleList</a></li>
+<li>
+<a href="#ScheduledCounts"><span class="badge">M</span>ScheduledCounts</a></li>
+<li>
+<a href="#ScheduledOrder"><span class="badge">M</span>ScheduledOrder</a></li>
 </ul>
 <a href=#schedule_create.proto>schedule_create.proto</a>
 <ul>
@@ -1194,6 +1200,11 @@
 <li>
 <a href="#TransactionResult"><span class="badge">M</span>TransactionResult</a></li>
 </ul>
+<a href=#tss_encryption_key.proto>tss_encryption_key.proto</a>
+<ul>
+<li>
+<a href="#TssEncryptionKeyTransactionBody"><span class="badge">M</span>TssEncryptionKeyTransactionBody</a></li>
+</ul>
 <a href=#tss_message.proto>tss_message.proto</a>
 <ul>
 <li>
@@ -1203,6 +1214,20 @@
 <ul>
 <li>
 <a href="#TssMessageMapKey"><span class="badge">M</span>TssMessageMapKey</a></li>
+</ul>
+<a href=#tss_share_signature.proto>tss_share_signature.proto</a>
+<ul>
+<li>
+<a href="#TssShareSignatureTransactionBody"><span class="badge">M</span>TssShareSignatureTransactionBody</a></li>
+</ul>
+<a href=#tss_status.proto>tss_status.proto</a>
+<ul>
+<li>
+<a href="#RosterToKey"><span class="badge">E</span>RosterToKey</a></li>
+<li>
+<a href="#TssKeyingStatus"><span class="badge">E</span>TssKeyingStatus</a></li>
+<li>
+<a href="#TssStatus"><span class="badge">M</span>TssStatus</a></li>
 </ul>
 <a href=#tss_vote.proto>tss_vote.proto</a>
 <ul>
@@ -4920,6 +4945,51 @@
 
 <TR>
 <TD>TssVote</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TssShareSignature</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>TssEncryptionKey</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>StateSignatureTransaction</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -8758,54 +8828,6 @@
 <TD><P></P></TD>
 </TR>
 
-<TR>
-<TD>A</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>key(s)</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>address_book_version</TD>
-<TD><a href="#proto.SemanticVersion">proto.SemanticVersion</a></TD>
-<TD><P></P></TD>
-</TR>
-
 <tbody>
 </TABLE>
 
@@ -11560,6 +11582,46 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STREAM_ITEMS_INTERNAL_ERROR</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STREAM_ITEMS_NOT_AVAILABLE</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -13317,6 +13379,26 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>READ_STREAM_NOT_AVAILABLE</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -13800,6 +13882,42 @@
 
 <TR>
 <TD>last_interval_process_time</TD>
+<TD><a href="#proto.Timestamp">proto.Timestamp</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>at</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>last_handle_time</TD>
 <TD><a href="#proto.Timestamp">proto.Timestamp</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -26048,6 +26166,18 @@
 </TR>
 
 <TR>
+<TD>Deprecated</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
 <TD></TD>
 <TD><a href="#"></a></TD>
 <TD><P></P></TD>
@@ -26056,6 +26186,60 @@
 <TR>
 <TD>event_transaction</TD>
 <TD><a href="#EventTransaction">EventTransaction</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>Each</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>it</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>included</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>transactions</TD>
+<TD>bytes (repeated)</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -28176,7 +28360,7 @@
 <H2 id="node_delete.proto">node_delete.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>A transaction body to delete a node from the network address book.<BR>This transaction body SHALL be considered a "privileged transaction".<BR>- A `NodeDeleteTransactionBody` MUST be signed by the governing council.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Record Stream Effects<BR>Upon completion the "deleted" `node_id` SHALL be in the transaction<BR>receipt.</P>
+<P><BR>A transaction body to delete a node from the network address book.<BR>- A `NodeDeleteTransactionBody` MUST be signed by one of those keys:<BR>adminKey, treasure account (2) key, systemAdmin(50) key, or<BR>addressBookAdmin(55) key.<BR>- Upon success, the address book entry SHALL enter a "pending delete"<BR>state.<BR>- All address book entries pending deletion SHALL be removed from the<BR>active network configuration during the next `freeze` transaction with<BR>the field `freeze_type` set to `PREPARE_UPGRADE`.<br/><BR>- A deleted address book node SHALL be removed entirely from network state.<BR>- A deleted address book node identifier SHALL NOT be reused.<BR>### Block Stream Effects<BR>None.</P>
 <H3 id="NodeDeleteTransactionBody"><span class="BigBadge">Message</span>NodeDeleteTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -28768,7 +28952,7 @@
 <H2 id="node_update.proto">node_update.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Record Stream Effects<BR>Upon completion the `node_id` for the updated entry SHALL be in the<BR>transaction receipt.</P>
+<P><BR>Transaction body to modify address book node attributes.<BR>- This transaction SHALL enable the node operator, as identified by the<BR>`admin_key`, to modify operational attributes of the node.<BR>- This transaction MUST be signed by the active `admin_key` for the node.<BR>- If this transaction sets a new value for the `admin_key`, then both the<BR>current `admin_key`, and the new `admin_key` MUST sign this transaction.<BR>- This transaction SHALL NOT change any field that is not set (is null) in<BR>this transaction body.<BR>- This SHALL create a pending update to the node, but the change SHALL NOT<BR>be immediately applied to the active configuration.<BR>- All pending node updates SHALL be applied to the active network<BR>configuration during the next `freeze` transaction with the field<BR>`freeze_type` set to `PREPARE_UPGRADE`.<BR>### Block Stream Effects<BR>None.</P>
 <H3 id="NodeUpdateTransactionBody"><span class="BigBadge">Message</span>NodeUpdateTransactionBody</H3>
 <P></P>
 <table class="field-table">
@@ -29010,18 +29194,6 @@
 
 <TR>
 <TD>permit</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Mainnet</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>address</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -31314,7 +31486,7 @@
 <H2 id="record_file_item.proto">record_file_item.proto</H2>
 <a href="#title">Top</a>
 </div>
-<P><BR>A Block Item for record files.<BR>A `RecordFileItem` contains data produced before the innovation of the<BR>Block Stream, when data was stored in files and validated by individual<BR>signature files rather than a block proof.<br/><BR>This item enables a single format, the Block Stream, to carry both<BR>historical and current data; eliminating the need to search two sources for<BR>block and block chain data.<br/><BR>Any block containing this item requires special handling.<BR>- The block SHALL NOT have a `BlockHeader`.<BR>- The block SHALL NOT have a `BlockProof`.<BR>- The block SHALL contain _exactly one_ `RecordFileItem`.<BR>- The block SHALL NOT contain any item other than a `RecordFileItem`.<BR>- The content of the `RecordFileItem` MUST be validated using the<BR>signature data and content provided herein according to the<BR>process used for Record Files prior to the creation of Block Stream.<BR>- This block item only replaces the requirement to read several<BR>individual files from cloud storage services.</P>
+<P><BR>A Block Item for record files.<BR>A `RecordFileItem` contains data produced before the innovation of the<BR>Block Stream, when data was stored in files and validated by individual<BR>signature files rather than a block proof.<br/><BR>This item enables a single format, the Block Stream, to carry both<BR>historical and current data; eliminating the need to search two sources for<BR>block and block chain data.<br/><BR>Any block containing this item requires special handling.<BR>- The block SHALL have a `BlockHeader`.<BR>- Some fields in the `BlockHeader` may be interpreted differently, and<BR>may depend on when the original record file was created.<BR>- The block SHALL NOT have a `BlockProof`.<BR>- The block SHALL end with an `AddressBookProof`, which is only used for<BR>`RecordFileItem` blocks.<BR>- The block SHALL contain _exactly one_ `RecordFileItem`.<BR>- The block SHALL NOT contain any content item other than a `RecordFileItem`.<BR>- The content of the `RecordFileItem` MUST be validated using the<BR>signature data and content provided herein according to the<BR>process used for Record Files prior to the creation of Block Stream.<BR>- This block item only replaces the requirement to read several<BR>individual files from cloud storage services.<BR>- The address book relevant to a particular record file SHALL be available<BR>separately as an `AddressBookProof` item.</P>
 <H3 id="RecordFileItem"><span class="BigBadge">Message</span>RecordFileItem</H3>
 <P></P>
 <table class="field-table">
@@ -31326,54 +31498,6 @@
 </TR>
 </thead>
 <tbody>
-<TR>
-<TD>The</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>Client</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>reverse</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>encountered</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>number</TD>
-<TD>uint64</TD>
-<TD><P></P></TD>
-</TR>
-
 <TR>
 <TD>The</TD>
 <TD><a href="#*">*</a></TD>
@@ -31449,42 +31573,6 @@
 <TR>
 <TD>sidecar_file_contents</TD>
 <TD>bytes (repeated)</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>A</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>hash_algorithm</TD>
-<TD><a href="#proto.BlockHashAlgorithm">proto.BlockHashAlgorithm</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -37486,6 +37574,116 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SCHEDULE_EXPIRY_MUST_BE_FUTURE</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SCHEDULE_EXPIRY_TOO_LONG</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>SCHEDULE_EXPIRY_IS_BUSY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>INVALID_GRPC_CERTIFICATE_HASH</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>MISSING_EXPIRY_TIME</TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -37654,7 +37852,7 @@
 </TABLE>
 
 <H3 id="RosterEntry"><span class="BigBadge">Message</span>RosterEntry</H3>
-<P><BR>A single roster entry in the network state.<BR>Each roster entry SHALL encapsulate the elements required<BR>to manage node participation in the Threshold Signature Scheme (TSS).<br/><BR>All fields except tss_encryption_key are REQUIRED.</P>
+<P><BR>A single roster entry in the network state.<BR>Each roster entry SHALL encapsulate the elements required<BR>to manage node participation in the Threshold Signature Scheme (TSS).<br/><BR>All fields are REQUIRED.</P>
 <table class="field-table">
 <thead>
 <TR>
@@ -37664,6 +37862,12 @@
 </TR>
 </thead>
 <tbody>
+<TR>
+<TD></TD>
+<TD><a href="#reserved">reserved</a></TD>
+<TD><P> The tssEncryptionKey field has been reserved because it is no longer<BR>required to be stored in the Roster. The public portion of this key will<BR>continue to be stored in TssBaseService, but will, however, just be<BR>stored as raw bytes.</P></TD>
+</TR>
+
 <TR>
 <TD>A</TD>
 <TD><a href="#*">*</a></TD>
@@ -37786,84 +37990,6 @@
 
 <TR>
 <TD>gossip_ca_certificate</TD>
-<TD>bytes</TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>An</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>type</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>if</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>we</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>See</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P>eips.ethereum.org/EIPS/eip-196#encoding'>EIP-196</a> and</P></TD>
-</TR>
-
-<TR>
-<TD><a</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P>eips.ethereum.org/EIPS/eip-197#encoding'>EIP-197</a><br/></P></TD>
-</TR>
-
-<TR>
-<TD>This</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>but</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD></TD>
-<TD><a href="#"></a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
-<TD>tss_encryption_key</TD>
 <TD>bytes</TD>
 <TD><P></P></TD>
 </TR>
@@ -39674,6 +39800,50 @@
 <tbody>
 </TABLE>
 
+<H3 id="ScheduleIdList"><span class="BigBadge">Message</span>ScheduleIdList</H3>
+<P><BR>A message for storing a list of schedule identifiers in state.<br/><BR>This is used to store lists of `ScheduleID` values.<BR>One example is all schedules that expire at a particular time.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>While</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedule_ids</TD>
+<TD><a href="#ScheduleID">ScheduleID</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
 <H3 id="ScheduleList"><span class="BigBadge">Message</span>ScheduleList</H3>
 <P><BR>A message for storing a list of schedules in state.<BR>This is used to store lists of schedules that expire at a particular time or that have the same<BR>simplified hash code.</P>
 <table class="field-table">
@@ -39700,6 +39870,106 @@
 <TR>
 <TD>schedules</TD>
 <TD><a href="#Schedule">Schedule</a> (repeated)</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ScheduledCounts"><span class="BigBadge">Message</span>ScheduledCounts</H3>
+<P><BR>The value of a map summarizing the counts of scheduled and processed transactions<BR>within a particular consensus second.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>number_scheduled</TD>
+<TD>uint32</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>number_processed</TD>
+<TD>uint32</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="ScheduledOrder"><span class="BigBadge">Message</span>ScheduledOrder</H3>
+<P><BR>A key mapping to a particular ScheduleID that will execute at a given order number<BR>within a given consensus second.</P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>expiry_second</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>order_number</TD>
+<TD>uint32</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -41420,6 +41690,98 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>eth_result</TD>
+<TD>oneof</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>&nbsp;</TD>
+<TD colspan=2>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>call</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ethereum_call_result</TD>
+<TD><a href="#proto.ContractFunctionResult">proto.ContractFunctionResult</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>create</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ethereum_create_result</TD>
+<TD><a href="#proto.ContractFunctionResult">proto.ContractFunctionResult</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
 <tbody>
 </TABLE>
 
@@ -42126,6 +42488,108 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>timestamp_seconds_key</TD>
+<TD><a href="#proto.TimestampSeconds">proto.TimestampSeconds</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>that</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>be</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>to</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>that</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>scheduled_order_key</TD>
+<TD><a href="#proto.ScheduledOrder">proto.ScheduledOrder</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_message_map_key</TD>
+<TD><a href="#com.hedera.hapi.node.state.tss.TssMessageMapKey">com.hedera.hapi.node.state.tss.TssMessageMapKey</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_vote_map_key</TD>
+<TD><a href="#com.hedera.hapi.node.state.tss.TssVoteMapKey">com.hedera.hapi.node.state.tss.TssVoteMapKey</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -42541,6 +43005,120 @@
 <TR>
 <TD>roster_value</TD>
 <TD><a href="#com.hedera.hapi.node.state.roster.Roster">com.hedera.hapi.node.state.roster.Roster</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>within</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>scheduled_counts_value</TD>
+<TD><a href="#proto.ScheduledCounts">proto.ScheduledCounts</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>schedule_id_value</TD>
+<TD><a href="#proto.ScheduleID">proto.ScheduleID</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>throttle_usage_snapshots_value</TD>
+<TD><a href="#proto.ThrottleUsageSnapshots">proto.ThrottleUsageSnapshots</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_encryption_key_value</TD>
+<TD><a href="#com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody">com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_message_value</TD>
+<TD><a href="#com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody">com.hedera.hapi.services.auxiliary.tss.TssMessageTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_vote_value</TD>
+<TD><a href="#com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody">com.hedera.hapi.services.auxiliary.tss.TssVoteTransactionBody</a></TD>
 <TD><P></P></TD>
 </TR>
 
@@ -43436,6 +44014,24 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_status_state_value</TD>
+<TD><a href="#com.hedera.hapi.node.state.tss.TssStatus">com.hedera.hapi.node.state.tss.TssStatus</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -44243,6 +44839,131 @@
 
 <TR>
 <TD>STATE_ID_ROSTERS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_SCHEDULED_COUNTS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_SCHEDULE_ID_BY_EQUALITY</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_TSS_MESSAGES</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_TSS_VOTES</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_SCHEDULED_ORDERS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_SCHEDULED_USAGES</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_TSS_ENCRYPTION_KEYS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>STATE_ID_TSS_STATUS</TD>
 <TD><P></P></TD>
 </TR>
 
@@ -47901,6 +48622,150 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>or</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>on</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>lock_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>held</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>of</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>partition_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>partition_move_key</TD>
+<TD><a href="#Key">Key</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 
@@ -51438,6 +52303,60 @@
 <TD><P></P></TD>
 </TR>
 
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tssShareSignature</TD>
+<TD><a href="#com.hedera.hapi.services.auxiliary.tss.TssShareSignatureTransactionBody">com.hedera.hapi.services.auxiliary.tss.TssShareSignatureTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tssEncryptionKey</TD>
+<TD><a href="#com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody">com.hedera.hapi.services.auxiliary.tss.TssEncryptionKeyTransactionBody</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>state_signature_transaction</TD>
+<TD><a href="#com.hedera.hapi.platform.event.StateSignatureTransaction">com.hedera.hapi.platform.event.StateSignatureTransaction</a></TD>
+<TD><P></P></TD>
+</TR>
+
 <tbody>
 </TABLE>
 <tbody>
@@ -52998,25 +53917,19 @@
 </TR>
 
 <TR>
-<TD>In</TD>
-<TD><a href="#*">*</a></TD>
-<TD><P></P></TD>
-</TR>
-
-<TR>
 <TD>An</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>This</TD>
+<TD>In</TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
 
 <TR>
-<TD>This</TD>
+<TD></TD>
 <TD><a href="#*">*</a></TD>
 <TD><P></P></TD>
 </TR>
@@ -54288,6 +55201,61 @@
 </TABLE>
 
 <div class="file-heading">
+<H2 id="tss_encryption_key.proto">tss_encryption_key.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A transaction body for sending the public TSS encryption key.</P>
+<H3 id="TssEncryptionKeyTransactionBody"><span class="BigBadge">Message</span>TssEncryptionKeyTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>publicTssEncryptionKey</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
 <H2 id="tss_message.proto">tss_message.proto</H2>
 <a href="#title">Top</a>
 </div>
@@ -54589,6 +55557,492 @@
 <TR>
 <TD>sequence_number</TD>
 <TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="tss_share_signature.proto">tss_share_signature.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A TSS Share Signature transaction Body.<br/><BR>This transaction body communicates a node's signature of a block hash<BR>using its private share within the TSS process.<BR>This transaction MUST be prioritized for low latency gossip transmission.<BR>### Block Stream Effects<BR>This transaction body will be present in the block stream. This will not have<BR>any state changes or transaction output or transaction result.</P>
+<H3 id="TssShareSignatureTransactionBody"><span class="BigBadge">Message</span>TssShareSignatureTransactionBody</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>share</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>share</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>the</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>roster_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>share_index</TD>
+<TD>uint64</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>message_hash</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>The</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>share_signature</TD>
+<TD>bytes</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<div class="file-heading">
+<H2 id="tss_status.proto">tss_status.proto</H2>
+<a href="#title">Top</a>
+</div>
+<P><BR>A Singleton state object that represents the status of the TSS keying process.<BR>This key SHALL be used to determine the stage of the TSS keying process.</P>
+<H3 id="RosterToKey"><span class="BigBadge">Enum</span>RosterToKey</H3>
+<P><BR>An enum representing the key either active roster or candidate roster.<BR>This value will be to key active roster if it is genesis stage.</P>
+<table class="enum-table">
+<thead>
+<TR>
+<TD>Enum Name</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ACTIVE_ROSTER</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>CANDIDATE_ROSTER</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>NONE</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TssKeyingStatus"><span class="BigBadge">Enum</span>TssKeyingStatus</H3>
+<P><BR>An enum representing the status of the TSS keying process.<BR>This status SHALL be used to determine the state of the TSS keying process.</P>
+<table class="enum-table">
+<thead>
+<TR>
+<TD>Enum Name</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>WAITING_FOR_ENCRYPTION_KEYS</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>WAITING_FOR_THRESHOLD_TSS_MESSAGES</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>WAITING_FOR_THRESHOLD_TSS_VOTES</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>*</TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>KEYING_COMPLETE</TD>
+<TD><P></P></TD>
+</TR>
+
+<tbody>
+</TABLE>
+
+<H3 id="TssStatus"><span class="BigBadge">Message</span>TssStatus</H3>
+<P></P>
+<table class="field-table">
+<thead>
+<TR>
+<TD>Field</TD>
+<TD>Type</TD>
+<TD>Description</TD>
+</TR>
+</thead>
+<tbody>
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>tss_keying_status</TD>
+<TD><a href="#TssKeyingStatus">TssKeyingStatus</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>An</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>roster_to_key</TD>
+<TD><a href="#RosterToKey">RosterToKey</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>A</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>If</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>This</TD>
+<TD><a href="#*">*</a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD></TD>
+<TD><a href="#"></a></TD>
+<TD><P></P></TD>
+</TR>
+
+<TR>
+<TD>ledger_id</TD>
+<TD>bytes</TD>
 <TD><P></P></TD>
 </TR>
 
