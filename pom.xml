@@ -5,7 +5,7 @@
   <groupId>com.hedera.hashgraph</groupId>
   <artifactId>hedera-protobuf-java-api</artifactId>
   <packaging>jar</packaging>
-  <version>0.59.1-SNAPSHOT</version>
+  <version>0.59.2-SNAPSHOT</version>
 
   <name>hedera-protobuf-java-api</name>
   <description>Hedera Protobuf Java API</description>
@@ -31,7 +31,7 @@
     <developerConnection>scm:git:git@github.com:hashgraph/hedera-protobuf.git</developerConnection>
     <url>https://github.com/hashgraph/hedera-protobuf</url>
     <!-- Note: This is not the tag we are pulling from hedera-protobufs, but is the target tag we are creating in this repo -->
-    <tag>v0.59.0</tag>
+    <tag>v0.59.1</tag>
   </scm>
 
   <distributionManagement>
